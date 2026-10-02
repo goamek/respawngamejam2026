@@ -1,6 +1,6 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://bqpv7xylf0wpo"]
 
-[ext_resource type="Script" path="res://src/flashlight/scripts/flashlight.gd" id="1_flashlight"]
+[ext_resource type="Script" uid="uid://yn7x3tyj0yf1" path="res://src/flashlight/scripts/flashlight.gd" id="1_flashlight"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_body"]
 albedo_color = Color(0.08, 0.08, 0.08, 1)
@@ -15,17 +15,18 @@ height = 0.16
 radial_segments = 16
 rings = 1
 
-[node name="Flashlight" type="Node3D"]
+[node name="Flashlight" type="Node3D" unique_id=1924096397]
 script = ExtResource("1_flashlight")
 
-[node name="Body" type="MeshInstance3D" parent="."]
+[node name="Body" type="MeshInstance3D" parent="." unique_id=869445394]
 transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0)
 cast_shadow = 0
 mesh = SubResource("CylinderMesh_body")
 
-[node name="SpotLight3D" type="SpotLight3D" parent="."]
+[node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=218242314]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.09)
-light_energy = 6.0
+light_energy = 14.0
 shadow_enabled = true
-spot_range = 12.0
-spot_angle = 24.0
+spot_range = 10.0
+spot_attenuation = 1.0
+spot_angle = 18.0
