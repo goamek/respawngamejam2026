@@ -34,26 +34,33 @@ const MAX_PITCH: float = 89.0
 
 ## Whether the player is crouched, by choice or because something is overhead.
 var is_crouching: bool = false
+## Flashlight in the player's hand, or null while the hand is empty.
+var flashlight: Flashlight
 
 var _height: float
 
 ## Pivot at eye level that tilts up and down; the camera and anything held follow it.
 @onready var head: Node3D = $Head
+## Point in front of the camera where a held item sits.
+@onready var hand: Marker3D = $Head/Hand
 @onready var _collision_shape: CollisionShape3D = $CollisionShape3D
 @onready var _ceiling_check: ShapeCast3D = $CeilingCheck
 @onready var _body_shape: CapsuleShape3D = _collision_shape.shape as CapsuleShape3D
 
 
-## Captures the mouse and sizes the body and ceiling check from the exported heights.
+## Captures the mouse, sizes the body from the exported heights, and takes any flashlight already in hand.
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	_height = stand_height
 	_ceiling_check.position.y = crouch_height - _body_shape.radius
 	_ceiling_check.target_position = Vector3(0.0, stand_height - crouch_height, 0.0)
 	_apply_height()
+	for child: Node in hand.get_children():
+		if child is Flashlight:
+			flashlight = child
 
 
-## Turns mouse movement into look, and lets pause free or recapture the mouse.
+## Routes mouse look, the pause action, and flashlight actions.
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		var motion: InputEventMouseMotion = event
@@ -61,6 +68,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event.is_action_pressed("pause"):
 		# STUB: frees the mouse until a real pause menu exists
 		_toggle_mouse_capture()
+	elif flashlight != null:
+		_handle_flashlight_input(event)
 
 
 ## Applies stick look, crouch, and movement once per physics frame.
@@ -70,6 +79,16 @@ func _physics_process(delta: float) -> void:
 	_update_crouch(delta)
 	_update_velocity(delta)
 	move_and_slide()
+
+
+## Places [param item] in the player's hand and makes it the flashlight the player controls.
+func equip_flashlight(item: Flashlight) -> void:
+	if item.get_parent() == null:
+		hand.add_child(item)
+	else:
+		item.reparent(hand, false)
+	item.transform = Transform3D.IDENTITY
+	flashlight = item
 
 
 ## Turns the body and tilts the head by [param degrees], x for left and right, y for up and down.
@@ -112,6 +131,16 @@ func _current_speed() -> float:
 	if Input.is_action_pressed("sprint"):
 		return sprint_speed
 	return walk_speed
+
+
+## Toggles the held flashlight or changes its hue when [param event] is one of its actions.
+func _handle_flashlight_input(event: InputEvent) -> void:
+	if event.is_action_pressed("flashlight"):
+		flashlight.toggle()
+	elif event.is_action_pressed("color_next"):
+		flashlight.cycle_hue(1)
+	elif event.is_action_pressed("color_prev"):
+		flashlight.cycle_hue(-1)
 
 
 ## Switches the mouse between captured for play and visible for the desktop.

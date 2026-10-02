@@ -127,3 +127,26 @@ color_prev={
 [rendering]
 
 rendering_device/driver.windows="d3d12"
+
+[shader_globals]
+
+flashlight_position={
+"type": "vec3",
+"value": Vector3(0, 0, 0)
+}
+flashlight_direction={
+"type": "vec3",
+"value": Vector3(0, 0, -1)
+}
+flashlight_cone_cos={
+"type": "float",
+"value": 1.0
+}
+flashlight_range={
+"type": "float",
+"value": 0.0
+}
+flashlight_hue={
+"type": "int",
+"value": -1
+}
