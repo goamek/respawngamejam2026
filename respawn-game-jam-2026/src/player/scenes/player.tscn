@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" path="res://src/player/scripts/player.gd" id="1_player"]
 [ext_resource type="PackedScene" path="res://src/flashlight/scenes/flashlight.tscn" id="2_flashlight"]
+[ext_resource type="Script" path="res://src/interaction/scripts/interactor.gd" id="3_interactor"]
+[ext_resource type="PackedScene" path="res://src/ui/scenes/interaction_prompt.tscn" id="4_prompt"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_body"]
 radius = 0.3
@@ -25,11 +27,26 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
 current = true
 
 [node name="Hand" type="Marker3D" parent="Head"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.22, -0.2, -0.35)
+transform = Transform3D(0.9943, -0.0102, -0.1057, 0, 0.9954, -0.0961, 0.1062, 0.0956, 0.9898, -0.22, -0.2, -0.35)
 
 [node name="Flashlight" parent="Head/Hand" instance=ExtResource("2_flashlight")]
+
+[node name="HoldPoint" type="Marker3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, -1.4)
+
+[node name="Interactor" type="RayCast3D" parent="Head" node_paths=PackedStringArray("hold_point")]
+target_position = Vector3(0, 0, -2.5)
+collision_mask = 5
+collide_with_areas = true
+script = ExtResource("3_interactor")
+hold_point = NodePath("../HoldPoint")
 
 [node name="CeilingCheck" type="ShapeCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
 shape = SubResource("SphereShape3D_ceiling")
 target_position = Vector3(0, 0.8, 0)
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="InteractionPrompt" parent="HUD" node_paths=PackedStringArray("interactor") instance=ExtResource("4_prompt")]
+interactor = NodePath("../../Head/Interactor")

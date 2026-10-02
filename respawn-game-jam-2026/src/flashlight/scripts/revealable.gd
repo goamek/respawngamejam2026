@@ -19,7 +19,12 @@ func _ready() -> void:
 
 ## Whether [param flashlight] is shining a revealing hue on this node's position.
 func is_revealed_by(flashlight: Flashlight) -> bool:
-	return Spectrum.reveals(flashlight.current_hue, hue) and flashlight.is_lighting(global_position)
+	return is_revealed_at(flashlight, global_position)
+
+
+## Whether [param flashlight] is shining a revealing hue on [param point], in global space.
+func is_revealed_at(flashlight: Flashlight, point: Vector3) -> bool:
+	return Spectrum.reveals(flashlight.current_hue, hue) and flashlight.is_lighting(point)
 
 
 ## Returns the parent and all of its descendants that draw geometry.

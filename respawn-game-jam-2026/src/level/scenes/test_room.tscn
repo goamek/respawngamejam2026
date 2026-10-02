@@ -3,12 +3,14 @@
 [ext_resource type="PackedScene" path="res://src/player/scenes/player.tscn" id="1_player"]
 [ext_resource type="Script" uid="uid://c44bwrr66s5p1" path="res://src/flashlight/scripts/revealable.gd" id="2_revealable"]
 [ext_resource type="Material" path="res://src/flashlight/resources/reveal_material.tres" id="3_reveal"]
+[ext_resource type="Script" uid="uid://38ycruyw5ad8" path="res://src/level/scripts/test_room.gd" id="4_test_room"]
+[ext_resource type="Script" uid="uid://fciruc2lxj0a" path="res://src/interaction/scripts/interactable.gd" id="5_interactable"]
+[ext_resource type="Script" uid="uid://dsk4habmnymmc" path="res://src/interaction/scripts/carryable.gd" id="6_carryable"]
 
 [sub_resource type="Environment" id="Environment_test"]
 background_mode = 1
 ambient_light_source = 2
 ambient_light_color = Color(1, 1, 1, 1)
-ambient_light_energy = 0.6
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_floor"]
 albedo_color = Color(0.02, 0.02, 0.02, 1)
@@ -23,7 +25,22 @@ albedo_color = Color(0.02, 0.02, 0.02, 1)
 material = ExtResource("3_reveal")
 size = Vector3(0.6, 0.6, 0.6)
 
+[sub_resource type="BoxMesh" id="BoxMesh_carry"]
+material = ExtResource("3_reveal")
+size = Vector3(0.4, 0.4, 0.4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_carry"]
+size = Vector3(0.4, 0.4, 0.4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_button"]
+material = ExtResource("3_reveal")
+size = Vector3(0.3, 0.3, 0.3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_button"]
+size = Vector3(0.3, 0.3, 0.3)
+
 [node name="TestRoom" type="Node3D" unique_id=1005058197]
+script = ExtResource("4_test_room")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1763354716]
 environment = SubResource("Environment_test")
@@ -151,9 +168,54 @@ mesh = SubResource("BoxMesh_target")
 script = ExtResource("2_revealable")
 hue = 7
 
+[node name="CarryBox" type="RigidBody3D" parent="." unique_id=293469830]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.25, -1.5)
+collision_layer = 5
+collision_mask = 7
+mass = 2.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CarryBox" unique_id=1413918703]
+mesh = SubResource("BoxMesh_carry")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CarryBox" unique_id=2020286308]
+shape = SubResource("BoxShape3D_carry")
+
+[node name="Revealable" type="Node3D" parent="CarryBox" unique_id=1155279280]
+script = ExtResource("2_revealable")
+hue = 1
+
+[node name="Carryable" type="Node" parent="CarryBox" unique_id=1516780069 node_paths=PackedStringArray("required_reveal")]
+script = ExtResource("6_carryable")
+prompt = "Pick up"
+required_reveal = NodePath("../Revealable")
+
+[node name="TestButton" type="StaticBody3D" parent="." unique_id=1903347323]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.85, 1.3, 0)
+collision_layer = 5
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TestButton" unique_id=509475610]
+mesh = SubResource("BoxMesh_button")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TestButton" unique_id=414060331]
+shape = SubResource("BoxShape3D_button")
+
+[node name="Revealable" type="Node3D" parent="TestButton" unique_id=932293023]
+script = ExtResource("2_revealable")
+hue = 4
+
+[node name="Interactable" type="Node" parent="TestButton" unique_id=1603541352 node_paths=PackedStringArray("required_reveal")]
+script = ExtResource("5_interactable")
+prompt = "Press"
+required_reveal = NodePath("../Revealable")
+
 [node name="Player" parent="." unique_id=1249024126 instance=ExtResource("1_player")]
 
 [node name="Flashlight" parent="Player/Head/Hand" index="0"]
 unlocked_hues = Array[int]([0, 1, 2, 3, 4, 5, 6, 7])
+
+[node name="InteractionPrompt" parent="Player/HUD" index="0"]
+layout_mode = 3
+
+[connection signal="interacted" from="TestButton/Interactable" to="." method="_on_test_button_interacted"]
 
 [editable path="Player"]

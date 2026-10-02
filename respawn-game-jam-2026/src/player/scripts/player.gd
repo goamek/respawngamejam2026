@@ -43,6 +43,8 @@ var _height: float
 @onready var head: Node3D = $Head
 ## Point in front of the camera where a held item sits.
 @onready var hand: Marker3D = $Head/Hand
+## Finds and uses whatever the player is aiming at, and carries objects.
+@onready var interactor: Interactor = $Head/Interactor
 @onready var _collision_shape: CollisionShape3D = $CollisionShape3D
 @onready var _ceiling_check: ShapeCast3D = $CeilingCheck
 @onready var _body_shape: CapsuleShape3D = _collision_shape.shape as CapsuleShape3D
@@ -60,7 +62,7 @@ func _ready() -> void:
 			flashlight = child
 
 
-## Routes mouse look, the pause action, and flashlight actions.
+## Routes mouse look and the pause, interact, and flashlight actions.
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		var motion: InputEventMouseMotion = event
@@ -68,6 +70,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event.is_action_pressed("pause"):
 		# STUB: frees the mouse until a real pause menu exists
 		_toggle_mouse_capture()
+	elif event.is_action_pressed("interact"):
+		interactor.try_interact()
 	elif flashlight != null:
 		_handle_flashlight_input(event)
 
