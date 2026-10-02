@@ -13,7 +13,7 @@ height = 1.8
 [sub_resource type="SphereShape3D" id="SphereShape3D_ceiling"]
 radius = 0.28
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" groups=["player"]]
 collision_layer = 2
 script = ExtResource("1_player")
 

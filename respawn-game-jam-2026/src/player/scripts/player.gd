@@ -10,6 +10,8 @@ signal flashlight_equipped(flashlight: Flashlight)
 const EYE_OFFSET: float = 0.2
 ## How far the head can tilt up or down, in degrees.
 const MAX_PITCH: float = 89.0
+## Speed above which the player counts as moving to anything watching, in meters per second.
+const MOVING_SPEED: float = 0.5
 
 @export_group("Movement")
 ## Walking speed, in meters per second.
@@ -86,6 +88,11 @@ func _physics_process(delta: float) -> void:
 	_update_crouch(delta)
 	_update_velocity(delta)
 	move_and_slide()
+
+
+## Whether the player is moving fast enough to be noticed.
+func is_moving() -> bool:
+	return Vector2(velocity.x, velocity.z).length() > MOVING_SPEED
 
 
 ## Places [param item] in the player's hand and makes it the flashlight the player controls.

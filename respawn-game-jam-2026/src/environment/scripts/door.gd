@@ -1,7 +1,7 @@
 class_name Door
 extends Node3D
 ## Hinged door that swings open and closed when used.
-## It only responds while the flashlight is shining its hue on the spot the player aims at.
+## The player can only use it under its hue; the entity opens it regardless.
 
 ## Emitted when the door starts to open.
 signal opened
@@ -30,6 +30,15 @@ var _swing: Tween
 @onready var _interactable: Interactable = $Hinge/Panel/Interactable
 
 
+## Returns the Door that [param node] is part of, such as its panel, or null if it is not part of one.
+static func find_owner(node: Node) -> Door:
+	while node != null:
+		if node is Door:
+			return node
+		node = node.get_parent()
+	return null
+
+
 ## Passes the hue to the panel and listens for the player using the door.
 func _ready() -> void:
 	_revealable.hue = hue
@@ -45,6 +54,11 @@ func open(direction: float = 1.0) -> void:
 	_interactable.prompt = CLOSE_PROMPT
 	_swing_to(deg_to_rad(open_angle) * signf(direction))
 	opened.emit()
+
+
+## Swings the door open on the side away from [param body], so it does not swing into them.
+func open_away_from(body: Node3D) -> void:
+	open(_direction_away_from(body))
 
 
 ## Swings the door shut.
@@ -76,4 +90,4 @@ func _on_interacted(player: Player) -> void:
 	if is_open:
 		close()
 	else:
-		open(_direction_away_from(player))
+		open_away_from(player)
