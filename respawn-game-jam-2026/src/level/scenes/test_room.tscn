@@ -1,157 +1,157 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://cv547uygs8cdh"]
 
 [ext_resource type="PackedScene" path="res://src/player/scenes/player.tscn" id="1_player"]
-[ext_resource type="Script" path="res://src/flashlight/scripts/revealable.gd" id="2_revealable"]
+[ext_resource type="Script" uid="uid://c44bwrr66s5p1" path="res://src/flashlight/scripts/revealable.gd" id="2_revealable"]
 [ext_resource type="Material" path="res://src/flashlight/resources/reveal_material.tres" id="3_reveal"]
 
 [sub_resource type="Environment" id="Environment_test"]
 background_mode = 1
-background_color = Color(0.02, 0.02, 0.02, 1)
 ambient_light_source = 2
 ambient_light_color = Color(1, 1, 1, 1)
-ambient_light_energy = 0.2
+ambient_light_energy = 0.6
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_floor"]
-albedo_color = Color(0.22, 0.22, 0.22, 1)
+albedo_color = Color(0.02, 0.02, 0.02, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wall"]
-albedo_color = Color(0.12, 0.12, 0.12, 1)
+albedo_color = Color(0.02, 0.02, 0.02, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_desk"]
-albedo_color = Color(0.4, 0.4, 0.4, 1)
+albedo_color = Color(0.02, 0.02, 0.02, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_target"]
 material = ExtResource("3_reveal")
 size = Vector3(0.6, 0.6, 0.6)
 
-[node name="TestRoom" type="Node3D"]
+[node name="TestRoom" type="Node3D" unique_id=1005058197]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1763354716]
 environment = SubResource("Environment_test")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="."]
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=969305108]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.7, 0)
+visible = false
 light_energy = 0.6
 omni_range = 12.0
 
-[node name="Floor" type="CSGBox3D" parent="."]
+[node name="Floor" type="CSGBox3D" parent="." unique_id=648950320]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
 use_collision = true
 size = Vector3(12, 0.2, 12)
 material = SubResource("StandardMaterial3D_floor")
 
-[node name="WallNorth" type="CSGBox3D" parent="."]
+[node name="WallNorth" type="CSGBox3D" parent="." unique_id=1889135925]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -6.1)
 use_collision = true
 size = Vector3(12.4, 3, 0.2)
 material = SubResource("StandardMaterial3D_wall")
 
-[node name="WallSouth" type="CSGBox3D" parent="."]
+[node name="WallSouth" type="CSGBox3D" parent="." unique_id=780102122]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 6.1)
 use_collision = true
 size = Vector3(12.4, 3, 0.2)
 material = SubResource("StandardMaterial3D_wall")
 
-[node name="WallEast" type="CSGBox3D" parent="."]
+[node name="WallEast" type="CSGBox3D" parent="." unique_id=1155988964]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.1, 1.5, 0)
 use_collision = true
 size = Vector3(0.2, 3, 12)
 material = SubResource("StandardMaterial3D_wall")
 
-[node name="WallWest" type="CSGBox3D" parent="."]
+[node name="WallWest" type="CSGBox3D" parent="." unique_id=519436065]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.1, 1.5, 0)
 use_collision = true
 size = Vector3(0.2, 3, 12)
 material = SubResource("StandardMaterial3D_wall")
 
-[node name="Desk" type="Node3D" parent="."]
+[node name="Desk" type="Node3D" parent="." unique_id=1470830698]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
 
-[node name="Top" type="CSGBox3D" parent="Desk"]
+[node name="Top" type="CSGBox3D" parent="Desk" unique_id=901232573]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
 use_collision = true
 size = Vector3(2, 0.1, 1.2)
 material = SubResource("StandardMaterial3D_desk")
 
-[node name="SideLeft" type="CSGBox3D" parent="Desk"]
+[node name="SideLeft" type="CSGBox3D" parent="Desk" unique_id=977237217]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.95, 0.6, 0)
 use_collision = true
 size = Vector3(0.1, 1.2, 1.2)
 material = SubResource("StandardMaterial3D_desk")
 
-[node name="SideRight" type="CSGBox3D" parent="Desk"]
+[node name="SideRight" type="CSGBox3D" parent="Desk" unique_id=1434280016]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.95, 0.6, 0)
 use_collision = true
 size = Vector3(0.1, 1.2, 1.2)
 material = SubResource("StandardMaterial3D_desk")
 
-[node name="RevealTargets" type="Node3D" parent="."]
+[node name="RevealTargets" type="Node3D" parent="." unique_id=1142858851]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0.5, 0)
 
-[node name="RedCube" type="MeshInstance3D" parent="RevealTargets"]
+[node name="RedCube" type="MeshInstance3D" parent="RevealTargets" unique_id=1584371757]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.5)
 mesh = SubResource("BoxMesh_target")
 
-[node name="Revealable" type="Node3D" parent="RevealTargets/RedCube"]
+[node name="Revealable" type="Node3D" parent="RevealTargets/RedCube" unique_id=1812269208]
 script = ExtResource("2_revealable")
 
-[node name="OrangeCube" type="MeshInstance3D" parent="RevealTargets"]
+[node name="OrangeCube" type="MeshInstance3D" parent="RevealTargets" unique_id=565661625]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.5)
 mesh = SubResource("BoxMesh_target")
 
-[node name="Revealable" type="Node3D" parent="RevealTargets/OrangeCube"]
+[node name="Revealable" type="Node3D" parent="RevealTargets/OrangeCube" unique_id=1306042817]
 script = ExtResource("2_revealable")
 hue = 1
 
-[node name="YellowCube" type="MeshInstance3D" parent="RevealTargets"]
+[node name="YellowCube" type="MeshInstance3D" parent="RevealTargets" unique_id=1493227655]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)
 mesh = SubResource("BoxMesh_target")
 
-[node name="Revealable" type="Node3D" parent="RevealTargets/YellowCube"]
+[node name="Revealable" type="Node3D" parent="RevealTargets/YellowCube" unique_id=2141775018]
 script = ExtResource("2_revealable")
 hue = 2
 
-[node name="GreenCube" type="MeshInstance3D" parent="RevealTargets"]
+[node name="GreenCube" type="MeshInstance3D" parent="RevealTargets" unique_id=1704086067]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
 mesh = SubResource("BoxMesh_target")
 
-[node name="Revealable" type="Node3D" parent="RevealTargets/GreenCube"]
+[node name="Revealable" type="Node3D" parent="RevealTargets/GreenCube" unique_id=273276823]
 script = ExtResource("2_revealable")
 hue = 3
 
-[node name="BlueCube" type="MeshInstance3D" parent="RevealTargets"]
+[node name="BlueCube" type="MeshInstance3D" parent="RevealTargets" unique_id=762933546]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
 mesh = SubResource("BoxMesh_target")
 
-[node name="Revealable" type="Node3D" parent="RevealTargets/BlueCube"]
+[node name="Revealable" type="Node3D" parent="RevealTargets/BlueCube" unique_id=1226426734]
 script = ExtResource("2_revealable")
 hue = 4
 
-[node name="IndigoCube" type="MeshInstance3D" parent="RevealTargets"]
+[node name="IndigoCube" type="MeshInstance3D" parent="RevealTargets" unique_id=1206310541]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.5)
 mesh = SubResource("BoxMesh_target")
 
-[node name="Revealable" type="Node3D" parent="RevealTargets/IndigoCube"]
+[node name="Revealable" type="Node3D" parent="RevealTargets/IndigoCube" unique_id=1807716323]
 script = ExtResource("2_revealable")
 hue = 5
 
-[node name="VioletCube" type="MeshInstance3D" parent="RevealTargets"]
+[node name="VioletCube" type="MeshInstance3D" parent="RevealTargets" unique_id=2107860590]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.5)
 mesh = SubResource("BoxMesh_target")
 
-[node name="Revealable" type="Node3D" parent="RevealTargets/VioletCube"]
+[node name="Revealable" type="Node3D" parent="RevealTargets/VioletCube" unique_id=1183060558]
 script = ExtResource("2_revealable")
 hue = 6
 
-[node name="WhiteCube" type="MeshInstance3D" parent="RevealTargets"]
+[node name="WhiteCube" type="MeshInstance3D" parent="RevealTargets" unique_id=1190513807]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.5)
 mesh = SubResource("BoxMesh_target")
 
-[node name="Revealable" type="Node3D" parent="RevealTargets/WhiteCube"]
+[node name="Revealable" type="Node3D" parent="RevealTargets/WhiteCube" unique_id=42464891]
 script = ExtResource("2_revealable")
 hue = 7
 
-[node name="Player" parent="." instance=ExtResource("1_player")]
+[node name="Player" parent="." unique_id=1249024126 instance=ExtResource("1_player")]
 
 [node name="Flashlight" parent="Player/Head/Hand" index="0"]
 unlocked_hues = Array[int]([0, 1, 2, 3, 4, 5, 6, 7])

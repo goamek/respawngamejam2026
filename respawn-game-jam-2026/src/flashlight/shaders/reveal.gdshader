@@ -17,7 +17,7 @@ instance uniform int hue = 0;
 instance uniform vec4 reveal_color : source_color = vec4(1.0, 0.0, 0.0, 1.0);
 
 // Color of the object while it is not revealed.
-uniform vec3 hidden_color : source_color = vec3(0.05, 0.05, 0.05);
+uniform vec3 hidden_color : source_color = vec3(0.02, 0.02, 0.02);
 // How strongly the revealed color glows on top of the beam's own lighting.
 uniform float glow_strength : hint_range(0.0, 2.0) = 0.5;
 // Width of the fade at the edge of the cone, as a difference in cosine.
