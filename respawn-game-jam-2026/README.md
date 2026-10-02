@@ -18,5 +18,8 @@ The game supports keyboard and mouse, and any connected controller.
 | `look_right` | Mouse | Right stick right |
 | `interact` | E | A / Cross |
 | `sprint` | Shift | Left stick click |
+| `crouch` | Ctrl (hold) | B / Circle (hold) |
 | `flashlight` | F | Y / Triangle |
+| `color_next` | R or mouse wheel down | RB / R1 |
+| `color_prev` | Q or mouse wheel up | LB / L1 |
 | `pause` | Escape | Start |
