@@ -1,0 +1,43 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/pickup/scripts/crayon.gd" id="1_crayon"]
+[ext_resource type="Script" path="res://src/interaction/scripts/interactable.gd" id="2_interactable"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_body"]
+top_radius = 0.035
+bottom_radius = 0.035
+height = 0.22
+radial_segments = 16
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_tip"]
+top_radius = 0.004
+bottom_radius = 0.035
+height = 0.07
+radial_segments = 16
+rings = 1
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_pickup"]
+height = 0.32
+radius = 0.08
+
+[node name="Crayon" type="StaticBody3D"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_crayon")
+
+[node name="Body" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.11, 0)
+mesh = SubResource("CylinderMesh_body")
+
+[node name="Tip" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.255, 0)
+mesh = SubResource("CylinderMesh_tip")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.16, 0)
+shape = SubResource("CylinderShape3D_pickup")
+
+[node name="Interactable" type="Node" parent="."]
+script = ExtResource("2_interactable")
+prompt = "Take crayon"

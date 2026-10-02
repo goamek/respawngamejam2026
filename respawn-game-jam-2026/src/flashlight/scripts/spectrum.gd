@@ -21,6 +21,14 @@ static func color_of(hue: Hue) -> Color:
 	return COLORS[hue]
 
 
+## Whether [param hues] contains all seven spectrum colors; white does not count.
+static func has_all_colors(hues: Array[Hue]) -> bool:
+	for hue: Hue in Hue.values():
+		if hue != Hue.WHITE and not hues.has(hue):
+			return false
+	return true
+
+
 ## Whether a beam of [param beam_hue] reveals an object of [param object_hue]. White reveals every hue.
 static func reveals(beam_hue: Hue, object_hue: Hue) -> bool:
 	return beam_hue == object_hue or beam_hue == Hue.WHITE

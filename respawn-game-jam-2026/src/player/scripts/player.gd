@@ -3,6 +3,9 @@ extends CharacterBody3D
 ## First-person player body: walks, sprints, crouches, and looks around.
 ## Mouse movement and the right stick both turn the body and tilt the head.
 
+## Emitted when the player takes hold of [param flashlight].
+signal flashlight_equipped(flashlight: Flashlight)
+
 ## Distance from the top of the body down to the eyes, in meters.
 const EYE_OFFSET: float = 0.2
 ## How far the head can tilt up or down, in degrees.
@@ -59,7 +62,7 @@ func _ready() -> void:
 	_apply_height()
 	for child: Node in hand.get_children():
 		if child is Flashlight:
-			flashlight = child
+			_hold_flashlight(child)
 
 
 ## Routes mouse look and the pause, interact, and flashlight actions.
@@ -92,7 +95,13 @@ func equip_flashlight(item: Flashlight) -> void:
 	else:
 		item.reparent(hand, false)
 	item.transform = Transform3D.IDENTITY
+	_hold_flashlight(item)
+
+
+## Makes [param item] the flashlight the player controls and announces it.
+func _hold_flashlight(item: Flashlight) -> void:
 	flashlight = item
+	flashlight_equipped.emit(item)
 
 
 ## Turns the body and tilts the head by [param degrees], x for left and right, y for up and down.

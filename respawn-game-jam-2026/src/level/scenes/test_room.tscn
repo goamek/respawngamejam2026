@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://38ycruyw5ad8" path="res://src/level/scripts/test_room.gd" id="4_test_room"]
 [ext_resource type="Script" uid="uid://fciruc2lxj0a" path="res://src/interaction/scripts/interactable.gd" id="5_interactable"]
 [ext_resource type="Script" uid="uid://dsk4habmnymmc" path="res://src/interaction/scripts/carryable.gd" id="6_carryable"]
+[ext_resource type="PackedScene" path="res://src/pickup/scenes/crayon.tscn" id="7_crayon"]
 
 [sub_resource type="Environment" id="Environment_test"]
 background_mode = 1
@@ -208,10 +209,33 @@ script = ExtResource("5_interactable")
 prompt = "Press"
 required_reveal = NodePath("../Revealable")
 
-[node name="Player" parent="." unique_id=1249024126 instance=ExtResource("1_player")]
+[node name="Crayons" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.5)
 
-[node name="Flashlight" parent="Player/Head/Hand" index="0"]
-unlocked_hues = Array[int]([0, 1, 2, 3, 4, 5, 6, 7])
+[node name="OrangeCrayon" parent="Crayons" instance=ExtResource("7_crayon")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 0)
+
+[node name="YellowCrayon" parent="Crayons" instance=ExtResource("7_crayon")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 0)
+hue = 2
+
+[node name="GreenCrayon" parent="Crayons" instance=ExtResource("7_crayon")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0)
+hue = 3
+
+[node name="BlueCrayon" parent="Crayons" instance=ExtResource("7_crayon")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)
+hue = 4
+
+[node name="IndigoCrayon" parent="Crayons" instance=ExtResource("7_crayon")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0)
+hue = 5
+
+[node name="VioletCrayon" parent="Crayons" instance=ExtResource("7_crayon")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, 0)
+hue = 6
+
+[node name="Player" parent="." unique_id=1249024126 instance=ExtResource("1_player")]
 
 [node name="InteractionPrompt" parent="Player/HUD" index="0"]
 layout_mode = 3

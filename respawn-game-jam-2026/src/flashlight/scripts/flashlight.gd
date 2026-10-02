@@ -7,6 +7,8 @@ extends Node3D
 signal toggled(is_on: bool)
 ## Emitted when the beam changes to a different hue.
 signal hue_changed(hue: Spectrum.Hue)
+## Emitted when a hue becomes available to cycle to.
+signal hue_unlocked(hue: Spectrum.Hue)
 
 ## Value published as the beam hue while the light is off, matching no object.
 const NO_HUE: int = -1
@@ -64,14 +66,15 @@ func cycle_hue(step: int) -> void:
 	hue_changed.emit(current_hue)
 
 
-## Adds [param hue] to the hues the player can cycle through, keeping the current hue selected.
+## Unlocks [param hue] and switches the beam to it; the seventh spectrum hue also unlocks white.
 func unlock_hue(hue: Spectrum.Hue) -> void:
 	if unlocked_hues.has(hue):
 		return
-	var selected: Spectrum.Hue = current_hue
-	unlocked_hues.append(hue)
-	unlocked_hues.sort()
-	_hue_index = unlocked_hues.find(selected)
+	_add_hue(hue)
+	if Spectrum.has_all_colors(unlocked_hues) and not unlocked_hues.has(Spectrum.Hue.WHITE):
+		_add_hue(Spectrum.Hue.WHITE)
+	_refresh_light()
+	hue_changed.emit(current_hue)
 
 
 ## Whether [param point], in global space, is inside the beam's cone and range while the light is on.
@@ -82,6 +85,14 @@ func is_lighting(point: Vector3) -> bool:
 	if to_point.length() > _light.spot_range:
 		return false
 	return to_point.normalized().dot(_beam_direction()) >= _cone_cos()
+
+
+## Adds [param hue] in spectrum order, selects it, and announces it.
+func _add_hue(hue: Spectrum.Hue) -> void:
+	unlocked_hues.append(hue)
+	unlocked_hues.sort()
+	_hue_index = unlocked_hues.find(hue)
+	hue_unlocked.emit(hue)
 
 
 ## Returns the direction the beam points, in global space.
