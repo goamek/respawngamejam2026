@@ -7,14 +7,16 @@ const _PARAM_HUE: StringName = &"hue"
 const _PARAM_COLOR: StringName = &"reveal_color"
 
 ## Hue the flashlight must shine for the parent to show its color.
-@export var hue: Spectrum.Hue = Spectrum.Hue.RED
+@export var hue: Spectrum.Hue = Spectrum.Hue.RED:
+	set(value):
+		hue = value
+		if is_node_ready():
+			_apply_hue()
 
 
-## Applies the hue to every mesh of the parent.
+## Applies the starting hue.
 func _ready() -> void:
-	for mesh: GeometryInstance3D in _find_meshes():
-		mesh.set_instance_shader_parameter(_PARAM_HUE, hue)
-		mesh.set_instance_shader_parameter(_PARAM_COLOR, Spectrum.color_of(hue))
+	_apply_hue()
 
 
 ## Whether [param flashlight] is shining a revealing hue on this node's position.
@@ -25,6 +27,13 @@ func is_revealed_by(flashlight: Flashlight) -> bool:
 ## Whether [param flashlight] is shining a revealing hue on [param point], in global space.
 func is_revealed_at(flashlight: Flashlight, point: Vector3) -> bool:
 	return Spectrum.reveals(flashlight.current_hue, hue) and flashlight.is_lighting(point)
+
+
+## Writes the hue and its color onto every mesh of the parent.
+func _apply_hue() -> void:
+	for mesh: GeometryInstance3D in _find_meshes():
+		mesh.set_instance_shader_parameter(_PARAM_HUE, hue)
+		mesh.set_instance_shader_parameter(_PARAM_COLOR, Spectrum.color_of(hue))
 
 
 ## Returns the parent and all of its descendants that draw geometry.

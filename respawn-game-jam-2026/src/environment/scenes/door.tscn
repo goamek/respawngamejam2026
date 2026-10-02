@@ -1,0 +1,39 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/environment/scripts/door.gd" id="1_door"]
+[ext_resource type="Script" path="res://src/flashlight/scripts/revealable.gd" id="2_revealable"]
+[ext_resource type="Script" path="res://src/interaction/scripts/interactable.gd" id="3_interactable"]
+[ext_resource type="Material" path="res://src/flashlight/resources/reveal_material.tres" id="4_reveal"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_panel"]
+material = ExtResource("4_reveal")
+size = Vector3(1, 2.1, 0.08)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_panel"]
+size = Vector3(1, 2.1, 0.08)
+
+[node name="Door" type="Node3D"]
+script = ExtResource("1_door")
+
+[node name="Hinge" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0)
+
+[node name="Panel" type="AnimatableBody3D" parent="Hinge"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1.05, 0)
+collision_layer = 5
+collision_mask = 0
+sync_to_physics = false
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Hinge/Panel"]
+mesh = SubResource("BoxMesh_panel")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hinge/Panel"]
+shape = SubResource("BoxShape3D_panel")
+
+[node name="Revealable" type="Node3D" parent="Hinge/Panel"]
+script = ExtResource("2_revealable")
+
+[node name="Interactable" type="Node" parent="Hinge/Panel" node_paths=PackedStringArray("required_reveal")]
+script = ExtResource("3_interactable")
+prompt = "Open"
+required_reveal = NodePath("../Revealable")
