@@ -9,7 +9,7 @@ signal run_ended
 ## Message shown while the screen is black; filled in with the lives left.
 const CAUGHT_MESSAGE: String = "Caught. %d %s left"
 ## Message shown when the last life is lost.
-const GAME_OVER_MESSAGE: String = "Caught. No lives left"
+const GAME_OVER_MESSAGE: String = "Game Over"
 
 ## Where the player comes back after being caught.
 @export var spawn_point: Node3D

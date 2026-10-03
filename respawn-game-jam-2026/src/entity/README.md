@@ -79,7 +79,7 @@ On a catch it switches to `CATCHING`, stands still facing the player, and emits 
 
 1. The player's controls turn off, the camera shakes, and their view snaps to the entity's eyes in 0.15 s. They stare at it for 0.45 s while the shake fades.
 2. A life is lost (`GameSession`, an autoload).
-3. The screen fades to black with "Caught. 2 lives left", then "1 life left", then "No lives left".
+3. The screen fades to black with "Caught. 2 lives left", then "Caught. 1 life left", then "Game Over".
 4. With lives left: the player respawns at the handler's spawn point, every entity goes back to where it started, and the screen fades back in.
 5. With no lives left: the handler emits `run_ended`. If its **Main Menu Scene** is set, a new run starts with 3 lives and the menu loads. Until a main menu exists the setting is empty, so the game quits instead. When playing from the editor, that just stops the running game.
 
