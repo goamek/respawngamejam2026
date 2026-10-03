@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://dsk4habmnymmc" path="res://src/interaction/scripts/carryable.gd" id="6_carryable"]
 [ext_resource type="PackedScene" path="res://src/pickup/scenes/crayon.tscn" id="7_crayon"]
 [ext_resource type="PackedScene" path="res://src/environment/scenes/door.tscn" id="8_door"]
+[ext_resource type="NavigationMesh" path="res://src/level/resources/test_room_navigation_mesh.tres" id="9_navigation_mesh"]
 
 [sub_resource type="Environment" id="Environment_test"]
 background_mode = 1
@@ -53,31 +54,31 @@ visible = false
 light_energy = 0.6
 omni_range = 12.0
 
-[node name="Floor" type="CSGBox3D" parent="." unique_id=648950320]
+[node name="Floor" type="CSGBox3D" parent="." unique_id=648950320 groups=["navigation_mesh_source_group"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
 use_collision = true
 size = Vector3(12, 0.2, 12)
 material = SubResource("StandardMaterial3D_floor")
 
-[node name="WallNorth" type="CSGBox3D" parent="." unique_id=1889135925]
+[node name="WallNorth" type="CSGBox3D" parent="." unique_id=1889135925 groups=["navigation_mesh_source_group"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -6.1)
 use_collision = true
 size = Vector3(12.4, 3, 0.2)
 material = SubResource("StandardMaterial3D_wall")
 
-[node name="WallSouth" type="CSGBox3D" parent="." unique_id=780102122]
+[node name="WallSouth" type="CSGBox3D" parent="." unique_id=780102122 groups=["navigation_mesh_source_group"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 6.1)
 use_collision = true
 size = Vector3(12.4, 3, 0.2)
 material = SubResource("StandardMaterial3D_wall")
 
-[node name="WallEast" type="CSGBox3D" parent="." unique_id=1155988964]
+[node name="WallEast" type="CSGBox3D" parent="." unique_id=1155988964 groups=["navigation_mesh_source_group"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.1, 1.5, 0)
 use_collision = true
 size = Vector3(0.2, 3, 12)
 material = SubResource("StandardMaterial3D_wall")
 
-[node name="WallWest" type="CSGBox3D" parent="." unique_id=519436065]
+[node name="WallWest" type="CSGBox3D" parent="." unique_id=519436065 groups=["navigation_mesh_source_group"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.1, 1.5, 0)
 use_collision = true
 size = Vector3(0.2, 3, 12)
@@ -86,19 +87,19 @@ material = SubResource("StandardMaterial3D_wall")
 [node name="Desk" type="Node3D" parent="." unique_id=1470830698]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
 
-[node name="Top" type="CSGBox3D" parent="Desk" unique_id=901232573]
+[node name="Top" type="CSGBox3D" parent="Desk" unique_id=901232573 groups=["navigation_mesh_source_group"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
 use_collision = true
 size = Vector3(2, 0.1, 1.2)
 material = SubResource("StandardMaterial3D_desk")
 
-[node name="SideLeft" type="CSGBox3D" parent="Desk" unique_id=977237217]
+[node name="SideLeft" type="CSGBox3D" parent="Desk" unique_id=977237217 groups=["navigation_mesh_source_group"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.95, 0.6, 0)
 use_collision = true
 size = Vector3(0.1, 1.2, 1.2)
 material = SubResource("StandardMaterial3D_desk")
 
-[node name="SideRight" type="CSGBox3D" parent="Desk" unique_id=1434280016]
+[node name="SideRight" type="CSGBox3D" parent="Desk" unique_id=1434280016 groups=["navigation_mesh_source_group"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.95, 0.6, 0)
 use_collision = true
 size = Vector3(0.1, 1.2, 1.2)
@@ -210,57 +211,75 @@ script = ExtResource("5_interactable")
 prompt = "Press"
 required_reveal = NodePath("../Revealable")
 
-[node name="Crayons" type="Node3D" parent="."]
+[node name="Crayons" type="Node3D" parent="." unique_id=1607145485]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.5)
 
-[node name="OrangeCrayon" parent="Crayons" instance=ExtResource("7_crayon")]
+[node name="OrangeCrayon" parent="Crayons" unique_id=1593636966 instance=ExtResource("7_crayon")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 0)
 
-[node name="YellowCrayon" parent="Crayons" instance=ExtResource("7_crayon")]
+[node name="YellowCrayon" parent="Crayons" unique_id=924673598 instance=ExtResource("7_crayon")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 0)
 hue = 2
 
-[node name="GreenCrayon" parent="Crayons" instance=ExtResource("7_crayon")]
+[node name="GreenCrayon" parent="Crayons" unique_id=528654007 instance=ExtResource("7_crayon")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0)
 hue = 3
 
-[node name="BlueCrayon" parent="Crayons" instance=ExtResource("7_crayon")]
+[node name="BlueCrayon" parent="Crayons" unique_id=842441784 instance=ExtResource("7_crayon")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)
 hue = 4
 
-[node name="IndigoCrayon" parent="Crayons" instance=ExtResource("7_crayon")]
+[node name="IndigoCrayon" parent="Crayons" unique_id=1904172089 instance=ExtResource("7_crayon")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0)
 hue = 5
 
-[node name="VioletCrayon" parent="Crayons" instance=ExtResource("7_crayon")]
+[node name="VioletCrayon" parent="Crayons" unique_id=1300764730 instance=ExtResource("7_crayon")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, 0)
 hue = 6
 
-[node name="Doorway" type="Node3D" parent="."]
+[node name="Doorway" type="Node3D" parent="." unique_id=287989729]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 3)
 
-[node name="WallLeft" type="CSGBox3D" parent="Doorway"]
+[node name="WallLeft" type="CSGBox3D" parent="Doorway" unique_id=1962951357 groups=["navigation_mesh_source_group"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.75, 1.5, 0)
 use_collision = true
 size = Vector3(2.5, 3, 0.2)
 material = SubResource("StandardMaterial3D_wall")
 
-[node name="WallRight" type="CSGBox3D" parent="Doorway"]
+[node name="WallRight" type="CSGBox3D" parent="Doorway" unique_id=868099788 groups=["navigation_mesh_source_group"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 1.5, 0)
 use_collision = true
 size = Vector3(2, 3, 0.2)
 material = SubResource("StandardMaterial3D_wall")
 
-[node name="Lintel" type="CSGBox3D" parent="Doorway"]
+[node name="Lintel" type="CSGBox3D" parent="Doorway" unique_id=1599579308 groups=["navigation_mesh_source_group"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.55, 0)
 use_collision = true
 size = Vector3(1, 0.9, 0.2)
 material = SubResource("StandardMaterial3D_wall")
 
-[node name="GreenDoor" parent="Doorway" instance=ExtResource("8_door")]
+[node name="GreenDoor" parent="Doorway" unique_id=1997854484 instance=ExtResource("8_door")]
 hue = 3
 
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=2069706402]
+navigation_mesh = ExtResource("9_navigation_mesh")
+
+[node name="PatrolPoints" type="Node3D" parent="." unique_id=908374478]
+
+[node name="NorthEast" type="Marker3D" parent="PatrolPoints" unique_id=1778810049]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -4.5)
+
+[node name="SouthEast" type="Marker3D" parent="PatrolPoints" unique_id=319228726]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 0, 4.5)
+
+[node name="West" type="Marker3D" parent="PatrolPoints" unique_id=1833817937]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 1.5)
+
+[node name="NorthWest" type="Marker3D" parent="PatrolPoints" unique_id=899670141]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -4.5)
+
 [node name="Player" parent="." unique_id=1249024126 instance=ExtResource("1_player")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
 
 [node name="InteractionPrompt" parent="Player/HUD" index="0"]
 layout_mode = 3

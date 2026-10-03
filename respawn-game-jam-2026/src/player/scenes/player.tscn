@@ -5,6 +5,8 @@
 [ext_resource type="Script" path="res://src/interaction/scripts/interactor.gd" id="3_interactor"]
 [ext_resource type="PackedScene" path="res://src/ui/scenes/interaction_prompt.tscn" id="4_prompt"]
 [ext_resource type="PackedScene" path="res://src/ui/scenes/hue_indicator.tscn" id="5_indicator"]
+[ext_resource type="PackedScene" path="res://src/ui/scenes/lives_display.tscn" id="6_lives"]
+[ext_resource type="PackedScene" path="res://src/post_processing/scenes/crayon_effect.tscn" id="7_crayon_effect"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_body"]
 radius = 0.3
@@ -13,7 +15,7 @@ height = 1.8
 [sub_resource type="SphereShape3D" id="SphereShape3D_ceiling"]
 radius = 0.28
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" groups=["player"]]
 collision_layer = 2
 script = ExtResource("1_player")
 
@@ -26,6 +28,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Head"]
 current = true
+
+[node name="CrayonEffect" parent="Head/Camera3D" instance=ExtResource("7_crayon_effect")]
 
 [node name="Hand" type="Marker3D" parent="Head"]
 transform = Transform3D(0.9943, -0.0102, -0.1057, 0, 0.9954, -0.0961, 0.1062, 0.0956, 0.9898, -0.22, -0.2, -0.35)
@@ -54,3 +58,5 @@ interactor = NodePath("../../Head/Interactor")
 
 [node name="HueIndicator" parent="HUD" node_paths=PackedStringArray("player") instance=ExtResource("5_indicator")]
 player = NodePath("../..")
+
+[node name="LivesDisplay" parent="HUD" instance=ExtResource("6_lives")]

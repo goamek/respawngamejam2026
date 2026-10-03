@@ -1,0 +1,13 @@
+[gd_scene format=3]
+
+[ext_resource type="Material" path="res://src/post_processing/resources/crayon_material.tres" id="1_material"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_screen"]
+size = Vector2(2, 2)
+
+[node name="CrayonEffect" type="MeshInstance3D"]
+cast_shadow = 0
+extra_cull_margin = 16384.0
+gi_mode = 0
+mesh = SubResource("QuadMesh_screen")
+surface_material_override/0 = ExtResource("1_material")
