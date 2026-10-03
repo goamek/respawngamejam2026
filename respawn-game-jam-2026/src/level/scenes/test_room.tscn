@@ -9,7 +9,6 @@
 [ext_resource type="PackedScene" path="res://src/pickup/scenes/crayon.tscn" id="7_crayon"]
 [ext_resource type="PackedScene" path="res://src/environment/scenes/door.tscn" id="8_door"]
 [ext_resource type="NavigationMesh" path="res://src/level/resources/test_room_navigation_mesh.tres" id="9_navigation_mesh"]
-[ext_resource type="PackedScene" path="res://src/entity/scenes/entity.tscn" id="10_entity"]
 
 [sub_resource type="Environment" id="Environment_test"]
 background_mode = 1
@@ -278,10 +277,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 1.5)
 
 [node name="NorthWest" type="Marker3D" parent="PatrolPoints" unique_id=899670141]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -4.5)
-
-[node name="Entity" parent="." unique_id=1656887500 node_paths=PackedStringArray("patrol_points") instance=ExtResource("10_entity")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 0, 4.5)
-patrol_points = [NodePath("../PatrolPoints/NorthEast"), NodePath("../PatrolPoints/SouthEast"), NodePath("../PatrolPoints/West"), NodePath("../PatrolPoints/NorthWest")]
 
 [node name="Player" parent="." unique_id=1249024126 instance=ExtResource("1_player")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)

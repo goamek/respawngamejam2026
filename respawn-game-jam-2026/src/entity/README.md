@@ -159,7 +159,7 @@ The lit spot comes from `Flashlight.find_lit_spot()`, which returns where the ce
 
 The desks there come from `src/environment/scenes/desk.tscn`. A desk has a back panel, so a player crouched under it is hidden from behind but visible from the open front if they move or have the light on.
 
-The old test room (`test_room.tscn`) has no catch handler, so the entity there stops when it catches the player and nothing else happens.
+The original test room (`test_room.tscn`) has no entity. Its navigation mesh and patrol markers are still there, unused.
 
 ## Open questions
 
