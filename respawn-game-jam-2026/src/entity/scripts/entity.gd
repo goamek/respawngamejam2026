@@ -1,14 +1,16 @@
 class_name Entity
 extends CharacterBody3D
-## Creature that roams between patrol points, and goes to check wherever it last noticed the player.
-## It notices a player in view who is moving or has the light on, or the spot their light lands on.
+## Creature that roams between patrol points and checks wherever it last noticed the player.
+## It catches the player when it reaches them while it can still see them.
 
 ## Emitted when the entity switches to a different state.
 signal state_changed(state: State)
 ## Emitted when the entity notices the player after not seeing them.
 signal player_spotted
+## Emitted when the entity catches the player.
+signal player_caught
 
-enum State { PAUSING, ROAMING, INVESTIGATING, SEARCHING }
+enum State { PAUSING, ROAMING, INVESTIGATING, SEARCHING, CATCHING }
 
 ## Fraction of its intended speed below which the entity counts as blocked.
 const BLOCKED_SPEED_RATIO: float = 0.25
@@ -30,6 +32,8 @@ const DOOR_CHECK_HEIGHT: float = 1.0
 const DOOR_CLOSE_DISTANCE: float = 1.3
 ## Distance from a door within which the player keeps the entity from closing it, in meters.
 const DOOR_PLAYER_CLEARANCE: float = 1.5
+## Distance at which the player is caught whichever way the entity faces; the two bodies pass through each other, in meters.
+const OVERLAP_DISTANCE: float = 0.3
 
 @export_group("Roaming")
 ## Points the entity wanders between, in no fixed order.
@@ -53,6 +57,14 @@ const DOOR_PLAYER_CLEARANCE: float = 1.5
 ## How fast it turns while looking around, in degrees per second.
 @export var search_turn_speed: float = 90.0
 
+@export_group("Catching")
+## How close the player must be to be caught, in meters.
+@export var catch_reach: float = 1.2
+## How far off straight ahead the player may be and still be caught, in degrees.
+@export var catch_angle: float = 45.0
+## Time after being reset during which the entity cannot catch, in seconds.
+@export var catch_cooldown: float = 3.0
+
 @export_group("Movement")
 ## How fast the body turns to face where it is going, in degrees per second.
 @export var turn_speed: float = 240.0
@@ -72,20 +84,24 @@ var _player: Player
 var _sees_player: bool = false
 var _door_to_close: Door
 var _door_start_side: float = 0.0
+var _catch_cooldown_left: float = 0.0
+var _start_transform: Transform3D
 
 @onready var _agent: NavigationAgent3D = $NavigationAgent3D
 @onready var _eyes: Marker3D = $Eyes
 
 
-## Finds the player and starts with a pause, which also gives the navigation map time to load.
+## Finds the player, remembers where it started, and begins with a pause while the navigation map loads.
 func _ready() -> void:
 	_player = get_tree().get_first_node_in_group("player") as Player
+	_start_transform = global_transform
 	_pause_left = pause_time
 
 
-## Checks for the player, runs the current state, then applies gravity and moves the body.
+## Checks for the player, tries to catch them, runs the current state, then moves the body.
 func _physics_process(delta: float) -> void:
 	_update_sight()
+	_try_catch(delta)
 	match state:
 		State.PAUSING:
 			_process_pausing(delta)
@@ -95,6 +111,8 @@ func _physics_process(delta: float) -> void:
 			_process_investigating(delta)
 		State.SEARCHING:
 			_process_searching(delta)
+		State.CATCHING:
+			_process_catching(delta)
 	_close_door_behind()
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -116,14 +134,52 @@ func sees_player() -> bool:
 	return _sees_player
 
 
+## Returns the position of the entity's eyes, in global space.
+func eye_position() -> Vector3:
+	return _eyes.global_position
+
+
+## Puts the entity back where it started, roaming afresh and briefly unable to catch.
+func reset_to_start() -> void:
+	global_transform = _start_transform
+	velocity = Vector3.ZERO
+	_sees_player = false
+	_door_to_close = null
+	_catch_cooldown_left = catch_cooldown
+	_start_pausing()
+
+
 ## Looks for the player, and heads for where they are whenever they can be seen.
 func _update_sight() -> void:
 	var can_see: bool = _can_see_player()
-	if can_see:
+	if can_see and state != State.CATCHING:
 		if not _sees_player:
 			player_spotted.emit()
 		investigate(_player.global_position)
 	_sees_player = can_see
+
+
+## Catches the player when it can see them, they are within reach, and it is facing them.
+func _try_catch(delta: float) -> void:
+	_catch_cooldown_left = maxf(_catch_cooldown_left - delta, 0.0)
+	if state == State.CATCHING or _catch_cooldown_left > 0.0 or not _sees_player:
+		return
+	if _is_within_reach(_player.global_position):
+		_set_state(State.CATCHING)
+		player_caught.emit()
+
+
+## Whether [param point] is within catching reach and within the catch angle of straight ahead.
+## Points closer than [constant OVERLAP_DISTANCE] count whatever the angle, since bodies can overlap.
+func _is_within_reach(point: Vector3) -> bool:
+	var to_point: Vector3 = point - global_position
+	to_point.y = 0.0
+	var distance: float = to_point.length()
+	if distance > catch_reach:
+		return false
+	if distance < OVERLAP_DISTANCE:
+		return true
+	return to_point.normalized().dot(-global_basis.z) >= cos(deg_to_rad(catch_angle))
 
 
 ## Stands still until the pause runs out, then heads for a patrol point.
@@ -140,9 +196,14 @@ func _process_roaming(delta: float) -> void:
 		_start_pausing()
 
 
-## Hurries to the spot being checked, then looks around on arrival.
+## Hurries to the spot being checked; on arrival, turns to the player if still in sight, otherwise looks around.
 func _process_investigating(delta: float) -> void:
-	if _follow_path(investigate_speed, delta):
+	if not _follow_path(investigate_speed, delta):
+		return
+	if _sees_player:
+		_stop()
+		_face_point(last_known_position, delta)
+	else:
 		_start_searching()
 
 
@@ -153,6 +214,12 @@ func _process_searching(delta: float) -> void:
 	_search_left -= delta
 	if _search_left <= 0.0:
 		_start_pausing()
+
+
+## Holds still facing the player until something resets the entity.
+func _process_catching(delta: float) -> void:
+	_stop()
+	_face_point(_player.global_position, delta)
 
 
 ## Stops and waits before choosing the next patrol point.
@@ -314,6 +381,13 @@ func _face(direction: Vector3, delta: float) -> void:
 		return
 	var target_yaw: float = atan2(-direction.x, -direction.z)
 	rotation.y = rotate_toward(rotation.y, target_yaw, deg_to_rad(turn_speed) * delta)
+
+
+## Turns the body toward [param point], in global space, at the turn speed.
+func _face_point(point: Vector3, delta: float) -> void:
+	var to_point: Vector3 = point - global_position
+	to_point.y = 0.0
+	_face(to_point.normalized(), delta)
 
 
 ## Returns 1 when the body faces [param direction], falling to 0 when it faces sideways or away.

@@ -1,6 +1,6 @@
 # Entity
 
-The creature that hunts the player. It roams the level, notices the player when they give themselves away, and goes to check the last place it noticed them.
+The creature that hunts the player. It roams the level, notices the player when they give themselves away, goes to check the last place it noticed them, and catches them if it reaches them.
 
 - Scene: `scenes/entity.tscn`
 - Script: `scripts/entity.gd` (`class_name Entity`)
@@ -13,10 +13,11 @@ The current body is a placeholder: a black capsule with two white eyes, 1.8 m ta
 |---|---|
 | Walking around walls (navigation) | Built |
 | Roaming between patrol points | Built |
+| Opening and closing doors | Built |
 | Seeing the player | Built |
-| Investigating the last place it noticed the player | Built |
 | Noticing the flashlight's lit spot when the player is out of view | Built |
-| Catching the player | Not built. It currently walks through the player. |
+| Investigating the last place it noticed the player | Built |
+| Catching the player | Built |
 
 ## States
 
@@ -26,10 +27,11 @@ The entity is always in exactly one state.
 |---|---|---|
 | `PAUSING` | Stands still for `pause_time`. Also the starting state. | `ROAMING` when the pause ends |
 | `ROAMING` | Walks to a randomly chosen patrol point at `roam_speed`. | `PAUSING` on arrival or when blocked |
-| `INVESTIGATING` | Hurries to `last_known_position` at `investigate_speed`. | `SEARCHING` on arrival or when blocked |
+| `INVESTIGATING` | Hurries to `last_known_position` at `investigate_speed`. On arrival, turns to face the player if it can still see them. | `SEARCHING` on arrival or when blocked, once the player is out of sight |
 | `SEARCHING` | Turns on the spot for `search_time`, looking around. | `PAUSING` when the time runs out |
+| `CATCHING` | Stands still facing the caught player. | `PAUSING` when reset with `reset_to_start()` |
 
-From any state, noticing the player switches it to `INVESTIGATING`.
+From any state except `CATCHING`, noticing the player switches it to `INVESTIGATING`.
 
 ```
             pause ends
@@ -38,8 +40,9 @@ From any state, noticing the player switches it to `INVESTIGATING`.
     |    arrived / blocked   |
     |                        |  notices player (from any state)
     |                        v
- SEARCHING <------------ INVESTIGATING
-   (time up -> PAUSING)    arrived / blocked
+ SEARCHING <------------ INVESTIGATING ----> CATCHING
+   (time up -> PAUSING)    arrived, player    player in reach
+                           out of sight       (reset -> PAUSING)
 ```
 
 ## Noticing the player
@@ -63,6 +66,25 @@ A player standing still with the flashlight off is never noticed, even in plain 
 
 While the player stays noticed, `last_known_position` follows them every frame, so the entity effectively chases. Once they stop being noticed, it goes to the last place it saw them, not to where they are now, then searches.
 
+## Catching the player
+
+The entity catches the player when all of these are true:
+
+1. **It is noticing the player right now**, by the rules above. A hidden player is safe even if it walks right into them.
+2. **The player is within `catch_reach`.**
+3. **The player is within `catch_angle` of straight ahead.** Closer than 0.3 m counts whatever the angle, because the two bodies pass through each other.
+4. **The catch cooldown has run out.** It starts after every reset, so the player cannot be caught again the moment they respawn.
+
+On a catch it switches to `CATCHING`, stands still facing the player, and emits `player_caught`. What happens next belongs to the level's `CatchHandler` (`src/level/scenes/catch_handler.tscn`):
+
+1. The player's controls turn off, the camera shakes, and their view snaps to the entity's eyes in 0.15 s. They stare at it for 0.45 s while the shake fades.
+2. A life is lost (`GameSession`, an autoload).
+3. The screen fades to black with "Caught. 2 lives left", then "1 life left", then "No lives left".
+4. With lives left: the player respawns at the handler's spawn point, every entity goes back to where it started, and the screen fades back in.
+5. With no lives left: the handler emits `run_ended`. If its **Main Menu Scene** is set, a new run starts with 3 lives and the menu loads. Until a main menu exists the setting is empty, so the game quits instead. When playing from the editor, that just stops the running game.
+
+A level with no `CatchHandler` leaves a caught entity standing in `CATCHING` and the player untouched.
+
 ## Settings
 
 All are shown in the Inspector on the entity.
@@ -77,6 +99,9 @@ All are shown in the Inspector on the entity.
 | Investigating | `investigate_speed` | 3.8 m/s | Speed while heading to the spot it is checking. |
 | Investigating | `search_time` | 3 s | Time spent looking around after arriving. |
 | Investigating | `search_turn_speed` | 90 degrees/s | Turning speed while looking around. |
+| Catching | `catch_reach` | 1.2 m | How close the player must be to be caught. |
+| Catching | `catch_angle` | 45 degrees | How far off straight ahead the player may be and still be caught. |
+| Catching | `catch_cooldown` | 3 s | Time after a reset during which it cannot catch. |
 | Movement | `turn_speed` | 240 degrees/s | How fast it turns to face where it is walking. |
 | Movement | `stuck_time` | 1.5 s | How long it may be blocked before giving up on a destination. |
 
@@ -98,8 +123,10 @@ For comparison, the player walks at 3.0 m/s and sprints at 5.5 m/s, so sprinting
 3. Select the `NavigationRegion3D` and click **Bake NavigationMesh** in the toolbar above the 3D view. Re-bake whenever walls or furniture move.
 4. Add `Marker3D` nodes where the entity should wander.
 5. Drag `scenes/entity.tscn` into the level and add those markers to **Patrol Points**.
+6. Add a `Marker3D` where the player should respawn (the hub), facing the way the player should face.
+7. Drag `src/level/scenes/catch_handler.tscn` into the level and set its **Spawn Point** to that marker. Set **Main Menu Scene** once a main menu exists.
 
-The player scene must be in the level. The entity finds it through the `player` group, so no wiring is needed.
+The player scene must be in the level. The entity and the catch handler find the player through the `player` group, and the handler finds every entity through the `entity` group, so no other wiring is needed.
 
 An agent radius of 0.25 is what keeps 1 m doorways walkable. A larger radius closes them off.
 
@@ -118,17 +145,22 @@ An agent radius of 0.25 is what keeps 1 m doorways walkable. A larger radius clo
 | `last_known_position` | variable | The last place it noticed the player or was told to check. |
 | `investigate(spot)` | function | Sends it to check `spot`, for example after a noise. |
 | `sees_player()` | function | Whether it can see the player right now. |
+| `eye_position()` | function | Where its eyes are. The catch handler turns the player's view toward this. |
+| `reset_to_start()` | function | Puts it back where it started, pausing, unable to catch for `catch_cooldown`. |
 | `state_changed(state)` | signal | Fires on every state change. Intended for animations. |
 | `player_spotted` | signal | Fires at the moment it first notices the player. Intended for a sound sting. |
+| `player_caught` | signal | Fires when it catches the player. The catch handler listens for it. |
 
 The lit spot comes from `Flashlight.find_lit_spot()`, which returns where the center of the beam lands. Only the center is checked, so a spot where just the edge of the beam is in view does not count.
 
 ## Test level
 
-`src/level/scenes/test_entity.tscn` is a brightly lit level for trying the entity: a hallway with four rooms, nine desks to hide under, crates that block its view, and a red and a blue door. The player starts at the west end of the hallway with every color unlocked. Open the scene and press F6 to run it.
+`src/level/scenes/test_entity.tscn` is a brightly lit level for trying the entity: a hallway with four rooms, nine desks to hide under, crates that block its view, and a red and a blue door. The player starts at the west end of the hallway with every color unlocked, which is also where they respawn after a catch. Open the scene and press F6 to run it.
 
 The desks there come from `src/environment/scenes/desk.tscn`. A desk has a back panel, so a player crouched under it is hidden from behind but visible from the open front if they move or have the light on.
 
+The old test room (`test_room.tscn`) has no catch handler, so the entity there stops when it catches the player and nothing else happens.
+
 ## Open questions
 
-- What happens when it reaches the player (catching, lives, respawn)?
+None right now.

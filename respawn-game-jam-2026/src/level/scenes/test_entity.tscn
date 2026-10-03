@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" path="res://src/environment/scenes/desk.tscn" id="3_desk"]
 [ext_resource type="PackedScene" path="res://src/environment/scenes/door.tscn" id="4_door"]
 [ext_resource type="NavigationMesh" path="res://src/level/resources/test_entity_navigation_mesh.tres" id="5_navigation_mesh"]
+[ext_resource type="PackedScene" path="res://src/level/scenes/catch_handler.tscn" id="6_catch_handler"]
 
 [sub_resource type="Environment" id="Environment_bright"]
 background_mode = 1
@@ -258,6 +259,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 6.5)
 [node name="Entity" parent="." node_paths=PackedStringArray("patrol_points") instance=ExtResource("2_entity")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -6)
 patrol_points = [NodePath("../PatrolPoints/HallWest"), NodePath("../PatrolPoints/HallEast"), NodePath("../PatrolPoints/NorthWestRoom"), NodePath("../PatrolPoints/NorthEastRoom"), NodePath("../PatrolPoints/SouthWestRoom"), NodePath("../PatrolPoints/SouthEastRoom")]
+
+[node name="PlayerSpawn" type="Marker3D" parent="."]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -10.5, 0, 0)
+
+[node name="CatchHandler" parent="." node_paths=PackedStringArray("spawn_point") instance=ExtResource("6_catch_handler")]
+spawn_point = NodePath("../PlayerSpawn")
 
 [node name="Player" parent="." instance=ExtResource("1_player")]
 transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -10.5, 0, 0)

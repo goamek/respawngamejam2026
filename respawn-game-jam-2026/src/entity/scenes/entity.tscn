@@ -27,7 +27,7 @@ height = 0.07
 radial_segments = 12
 rings = 6
 
-[node name="Entity" type="CharacterBody3D"]
+[node name="Entity" type="CharacterBody3D" groups=["entity"]]
 collision_layer = 8
 script = ExtResource("1_entity")
 
