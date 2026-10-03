@@ -1,0 +1,8 @@
+[gd_scene format=3]
+
+[ext_resource type="Shape3D" path="res://src/environment/resources/step_ramp_shape.tres" id="1_shape"]
+
+[node name="StepRamp" type="StaticBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = ExtResource("1_shape")
