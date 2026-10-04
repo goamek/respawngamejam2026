@@ -81,7 +81,7 @@ On a catch it switches to `CATCHING`, stands still facing the player, and emits 
 2. A life is lost (`GameSession`, an autoload).
 3. The screen fades to black with "Caught. 2 lives left", then "Caught. 1 life left", then "Game Over".
 4. With lives left: the player respawns at the handler's spawn point, every entity goes back to where it started, and the screen fades back in.
-5. With no lives left: the handler emits `run_ended`. If its **Main Menu Scene** is set, a new run starts with 3 lives and the menu loads. Until a main menu exists the setting is empty, so the game quits instead. When playing from the editor, that just stops the running game.
+5. With no lives left: the handler emits `run_ended`. If its **Main Menu Scene** is set, a new run starts with 3 lives and the menu loads. The school level points it at `src/ui/scenes/main_menu.tscn`. The test levels leave it empty, so there the game quits instead; when playing from the editor, that just stops the running game.
 
 A level with no `CatchHandler` leaves a caught entity standing in `CATCHING` and the player untouched.
 
@@ -127,7 +127,7 @@ For comparison, the player walks at 3.0 m/s and sprints at 5.5 m/s, so sprinting
 4. Add `Marker3D` nodes where the entity should wander.
 5. Drag `scenes/entity.tscn` into the level and add those markers to **Patrol Points**.
 6. Add a `Marker3D` where the player should respawn (the hub), facing the way the player should face.
-7. Drag `src/level/scenes/catch_handler.tscn` into the level and set its **Spawn Point** to that marker. Set **Main Menu Scene** once a main menu exists.
+7. Drag `src/level/scenes/catch_handler.tscn` into the level and set its **Spawn Point** to that marker. Set **Main Menu Scene** to `src/ui/scenes/main_menu.tscn`, or leave it empty in a test level.
 
 The player scene must be in the level. The entity and the catch handler find the player through the `player` group, and the handler finds every entity through the `entity` group, so no other wiring is needed.
 

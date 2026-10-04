@@ -73,7 +73,7 @@ func _ready() -> void:
 			_hold_flashlight(child)
 
 
-## Routes the pause action, and while controls are enabled, mouse look and the interact and flashlight actions.
+## Routes the pause action, and while controls are enabled, mouse look, the interact action, and hue changes.
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("pause"):
 		# STUB: frees the mouse until a real pause menu exists
@@ -86,7 +86,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event.is_action_pressed("interact"):
 		interactor.try_interact()
 	elif flashlight != null:
-		_handle_flashlight_input(event)
+		_handle_hue_input(event)
 
 
 ## Jitters the camera while a shake is running, easing off to nothing as it ends.
@@ -99,11 +99,15 @@ func _process(delta: float) -> void:
 	_camera.v_offset = randf_range(-amount, amount)
 
 
-## Applies stick look, crouch, and movement once per physics frame.
+## Applies stick look, the flashlight switch, crouch, and movement once per physics frame.
 func _physics_process(delta: float) -> void:
 	if controls_enabled:
 		var stick: Vector2 = Input.get_vector("look_left", "look_right", "look_up", "look_down")
 		_look(stick * stick_sensitivity * delta)
+		# Polled, not read from events: a trigger sends an event for every bit of travel,
+		# and each one past the deadzone would count as another press.
+		if flashlight != null and Input.is_action_just_pressed("flashlight"):
+			flashlight.toggle()
 	_update_crouch(delta)
 	_update_velocity(delta)
 	move_and_slide()
@@ -205,11 +209,9 @@ func _current_speed() -> float:
 	return walk_speed
 
 
-## Toggles the held flashlight or changes its hue when [param event] is one of its actions.
-func _handle_flashlight_input(event: InputEvent) -> void:
-	if event.is_action_pressed("flashlight"):
-		flashlight.toggle()
-	elif event.is_action_pressed("color_next"):
+## Changes the held flashlight's hue when [param event] is one of the color actions.
+func _handle_hue_input(event: InputEvent) -> void:
+	if event.is_action_pressed("color_next"):
 		flashlight.cycle_hue(1)
 	elif event.is_action_pressed("color_prev"):
 		flashlight.cycle_hue(-1)

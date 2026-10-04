@@ -59,6 +59,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.2, 0, 27.5)
 
 [node name="CatchHandler" parent="." unique_id=153618860 node_paths=PackedStringArray("spawn_point") instance=ExtResource("4_catch_handler")]
 spawn_point = NodePath("../PlayerSpawn")
+main_menu_scene = "res://src/ui/scenes/main_menu.tscn"
 
 [node name="Player" parent="." unique_id=652413314 instance=ExtResource("2_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.2, 0, 27.5)
