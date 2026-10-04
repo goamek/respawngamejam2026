@@ -52,7 +52,7 @@ theme_override_constants/separation = 24
 [node name="StartButton" type="Button" parent="Buttons"]
 layout_mode = 2
 focus_neighbor_top = NodePath("../QuitButton")
-focus_neighbor_bottom = NodePath("../CreditsButton")
+focus_neighbor_bottom = NodePath("../ControlsButton")
 theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
 theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
@@ -62,9 +62,22 @@ theme_override_font_sizes/font_size = 48
 text = "Start Game"
 flat = true
 
-[node name="CreditsButton" type="Button" parent="Buttons"]
+[node name="ControlsButton" type="Button" parent="Buttons"]
 layout_mode = 2
 focus_neighbor_top = NodePath("../StartButton")
+focus_neighbor_bottom = NodePath("../CreditsButton")
+theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 48
+text = "Controls"
+flat = true
+
+[node name="CreditsButton" type="Button" parent="Buttons"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../ControlsButton")
 focus_neighbor_bottom = NodePath("../QuitButton")
 theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
 theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
