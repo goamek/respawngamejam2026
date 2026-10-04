@@ -99,6 +99,7 @@ func _ready() -> void:
 
 
 ## Checks for the player, tries to catch them, runs the current state, then moves the body.
+## Open doors it bumps into stop being solid to it, so a door left open never traps it.
 func _physics_process(delta: float) -> void:
 	_update_sight()
 	_try_catch(delta)
@@ -117,6 +118,7 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	move_and_slide()
+	_pass_open_doors()
 
 
 ## Sends the entity to check [param spot], such as where it last noticed the player.
@@ -291,6 +293,18 @@ func _close_door_behind() -> void:
 		return
 	_door_to_close.close()
 	_door_to_close = null
+
+
+## Stops colliding with each fully open door the entity has just walked into, until that door closes.
+func _pass_open_doors() -> void:
+	for index: int in get_slide_collision_count():
+		var panel := get_slide_collision(index).get_collider() as PhysicsBody3D
+		var door: Door = Door.find_owner(panel)
+		if door == null or not door.is_open or door.is_swinging():
+			continue
+		# The walkable area is baked without doors, so a path can run straight through an open panel.
+		add_collision_exception_with(panel)
+		door.closed.connect(remove_collision_exception_with.bind(panel), CONNECT_ONE_SHOT)
 
 
 ## Cancels any sideways movement.

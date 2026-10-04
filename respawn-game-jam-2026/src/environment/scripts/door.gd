@@ -71,6 +71,11 @@ func close() -> void:
 	closed.emit()
 
 
+## Whether the door is part way through a swing.
+func is_swinging() -> bool:
+	return _swing != null and _swing.is_running()
+
+
 ## Turns the hinge to [param angle], in radians, replacing any swing already under way.
 func _swing_to(angle: float) -> void:
 	if _swing != null:

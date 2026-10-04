@@ -114,6 +114,7 @@ For comparison, the player walks at 3.0 m/s and sprints at 5.5 m/s, so sprinting
 - While roaming, it closes the door behind itself once it is through and at least 1.3 m past it, clear of the swinging panel. If it stops closer than that, the door closes when it walks on.
 - While investigating (chasing), it leaves doors open.
 - It never closes a door while the player is within 1.5 m of it.
+- It walks through the panel of any door that is fully open, whoever opened it. A panel left sticking out from the wall would otherwise block routes that the walkable area, which is baked without doors, says are clear. A door that is closed or still swinging is solid to it.
 - If it barely moves for `stuck_time` while trying to walk, it gives up on that destination and picks another.
 
 ## Setting up a level
