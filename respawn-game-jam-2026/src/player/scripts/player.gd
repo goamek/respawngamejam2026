@@ -120,7 +120,11 @@ func is_moving() -> bool:
 
 ## Turns the body and head over [param duration] seconds to look at [param point]; returns the running tween.
 func face_toward(point: Vector3, duration: float) -> Tween:
-	var to_point: Vector3 = point - head.global_position
+	# Aimed from where the eyes will settle, not where they are: a crouching player
+	# who has lost control stands up during the turn, which would leave the view too high.
+	var settled_height: float = crouch_height if _should_crouch() else stand_height
+	var eyes: Vector3 = global_position + Vector3.UP * (settled_height - EYE_OFFSET)
+	var to_point: Vector3 = point - eyes
 	var target_yaw: float = atan2(-to_point.x, -to_point.z)
 	var flat_distance: float = Vector2(to_point.x, to_point.z).length()
 	var max_pitch: float = deg_to_rad(MAX_PITCH)
@@ -173,12 +177,17 @@ func _look(degrees: Vector2) -> void:
 
 ## Crouches while the action is held, and stays crouched while something blocks standing up.
 func _update_crouch(delta: float) -> void:
-	var is_blocked: bool = is_crouching and _ceiling_check.is_colliding()
-	var wants_crouch: bool = controls_enabled and Input.is_action_pressed("crouch")
-	is_crouching = wants_crouch or is_blocked
+	is_crouching = _should_crouch()
 	var target_height: float = crouch_height if is_crouching else stand_height
 	_height = move_toward(_height, target_height, crouch_transition_speed * delta)
 	_apply_height()
+
+
+## Whether the player should be crouched: the action is held, or something blocks standing up.
+func _should_crouch() -> bool:
+	var is_blocked: bool = is_crouching and _ceiling_check.is_colliding()
+	var wants_crouch: bool = controls_enabled and Input.is_action_pressed("crouch")
+	return wants_crouch or is_blocked
 
 
 ## Resizes the collision shape to the current height and keeps the head near its top.
