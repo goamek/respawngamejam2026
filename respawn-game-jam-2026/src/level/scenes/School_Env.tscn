@@ -12,7 +12,6 @@
 [ext_resource type="PackedScene" uid="uid://chqit4xva8pnd" path="res://src/environment/Meshes/SM_Window_Frame_01.fbx" id="10_lp6yg"]
 [ext_resource type="PackedScene" uid="uid://lenp28q5li6e" path="res://src/environment/Meshes/SM_Floor_01.fbx" id="11_hh76d"]
 [ext_resource type="PackedScene" path="res://src/environment/scenes/step_ramp.tscn" id="12_step_ramp"]
-[ext_resource type="PackedScene" path="res://src/player/scenes/player.tscn" id="13_player"]
 [ext_resource type="NavigationMesh" path="res://src/level/resources/school_env_navigation_mesh.tres" id="14_navigation_mesh"]
 
 [node name="SchoolEnv" type="Node3D" unique_id=1725289359]
@@ -1712,9 +1711,6 @@ transform = Transform3D(3.1, 0, 0, 0, 0.79, 0, 0, 0, 2.2, 74.4, -0.01, -6.75)
 
 [node name="RampLinkHallNorth" parent="StepRamps" instance=ExtResource("12_step_ramp")]
 transform = Transform3D(-3.1, 0, 0, 0, 0.8, 0, 0, 0, -2.2, 74.5, -0.02, -25.75)
-
-[node name="Player" parent="." instance=ExtResource("13_player")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.2, 0.02, 27.5)
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = ExtResource("14_navigation_mesh")

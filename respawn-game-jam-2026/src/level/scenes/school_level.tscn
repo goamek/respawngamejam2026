@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://gl80pk8ptq8v"]
+
+[ext_resource type="PackedScene" uid="uid://5fgpdp16h7yu" path="res://src/level/scenes/School_Env.tscn" id="1_school_env"]
+[ext_resource type="PackedScene" path="res://src/player/scenes/player.tscn" id="2_player"]
+[ext_resource type="PackedScene" path="res://src/entity/scenes/entity.tscn" id="3_entity"]
+[ext_resource type="PackedScene" path="res://src/level/scenes/catch_handler.tscn" id="4_catch_handler"]
+
+[sub_resource type="Environment" id="Environment_dark"]
+background_mode = 1
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.1
+
+[node name="SchoolLevel" type="Node3D" unique_id=102402281]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=619872373]
+environment = SubResource("Environment_dark")
+
+[node name="SchoolEnv" parent="." unique_id=88071991 instance=ExtResource("1_school_env")]
+
+[node name="PatrolPoints" type="Node3D" parent="." unique_id=1984700109]
+
+[node name="MainCorridorWest" type="Marker3D" parent="PatrolPoints" unique_id=953874844]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.4, 0, -2.5)
+
+[node name="MainCorridorCenter" type="Marker3D" parent="PatrolPoints" unique_id=1987059922]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.1, 0, -1.5)
+
+[node name="NorthCourtyardHall" type="Marker3D" parent="PatrolPoints" unique_id=1572523816]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42.2, 0, -31)
+
+[node name="ClassroomWing" type="Marker3D" parent="PatrolPoints" unique_id=885847084]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.7, 0, -18.2)
+
+[node name="ScienceWing" type="Marker3D" parent="PatrolPoints" unique_id=1443073544]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60.8, 0, -46.8)
+
+[node name="LinkHall" type="Marker3D" parent="PatrolPoints" unique_id=362792871]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74.5, 0.77, -16)
+
+[node name="PeCorridor" type="Marker3D" parent="PatrolPoints" unique_id=1595847027]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 96.1, 0, -4.6)
+
+[node name="Cafeteria" type="Marker3D" parent="PatrolPoints" unique_id=231191181]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74, 0, 6.8)
+
+[node name="Gymnasium" type="Marker3D" parent="PatrolPoints" unique_id=2019614234]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 96, 0, -24.6)
+
+[node name="Library" type="Marker3D" parent="PatrolPoints" unique_id=2135481764]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.6, 0, 6.8)
+
+[node name="Entity" parent="." unique_id=1803776842 node_paths=PackedStringArray("patrol_points") instance=ExtResource("3_entity")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.2, 0, 8.037567)
+patrol_points = [NodePath("../PatrolPoints/MainCorridorWest"), NodePath("../PatrolPoints/MainCorridorCenter"), NodePath("../PatrolPoints/NorthCourtyardHall"), NodePath("../PatrolPoints/ClassroomWing"), NodePath("../PatrolPoints/ScienceWing"), NodePath("../PatrolPoints/LinkHall"), NodePath("../PatrolPoints/PeCorridor"), NodePath("../PatrolPoints/Cafeteria"), NodePath("../PatrolPoints/Gymnasium"), NodePath("../PatrolPoints/Library")]
+
+[node name="PlayerSpawn" type="Marker3D" parent="." unique_id=958146031]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.2, 0, 27.5)
+
+[node name="CatchHandler" parent="." unique_id=153618860 node_paths=PackedStringArray("spawn_point") instance=ExtResource("4_catch_handler")]
+spawn_point = NodePath("../PlayerSpawn")
+
+[node name="Player" parent="." unique_id=652413314 instance=ExtResource("2_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.2, 0, 27.5)

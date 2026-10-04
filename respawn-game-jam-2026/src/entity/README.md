@@ -109,6 +109,8 @@ For comparison, the player walks at 3.0 m/s and sprints at 5.5 m/s, so sprinting
 
 ## Movement notes
 
+- It steps onto lips up to 0.3 m high, such as the side of a ramp or the foot of a door frame. The walkable area counts anything up to 0.25 m as passable, so the body has to manage the same.
+- It slides along a wall it meets at any angle, so a path that brushes a corner does not stop it.
 - It turns to face its direction before walking. Its speed is scaled by how closely it faces the way it wants to go, so it never slides sideways.
 - It opens any closed door in its way, whatever the door's color, swinging it away from itself. It checks 0.8 m ahead at waist height while walking.
 - While roaming, it closes the door behind itself once it is through and at least 1.3 m past it, clear of the swinging panel. If it stops closer than that, the door closes when it walks on.
