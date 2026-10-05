@@ -73,7 +73,7 @@ func _ready() -> void:
 			_hold_flashlight(child)
 
 
-## Routes the pause action, and while controls are enabled, mouse look and the interact and flashlight actions.
+## Routes the pause action, and while controls are enabled, mouse look, the interact action, and hue changes.
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("pause"):
 		# STUB: frees the mouse until a real pause menu exists
@@ -86,7 +86,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event.is_action_pressed("interact"):
 		interactor.try_interact()
 	elif flashlight != null:
-		_handle_flashlight_input(event)
+		_handle_hue_input(event)
 
 
 ## Jitters the camera while a shake is running, easing off to nothing as it ends.
@@ -99,11 +99,15 @@ func _process(delta: float) -> void:
 	_camera.v_offset = randf_range(-amount, amount)
 
 
-## Applies stick look, crouch, and movement once per physics frame.
+## Applies stick look, the flashlight switch, crouch, and movement once per physics frame.
 func _physics_process(delta: float) -> void:
 	if controls_enabled:
 		var stick: Vector2 = Input.get_vector("look_left", "look_right", "look_up", "look_down")
 		_look(stick * stick_sensitivity * delta)
+		# Polled, not read from events: a trigger sends an event for every bit of travel,
+		# and each one past the deadzone would count as another press.
+		if flashlight != null and Input.is_action_just_pressed("flashlight"):
+			flashlight.toggle()
 	_update_crouch(delta)
 	_update_velocity(delta)
 	move_and_slide()
@@ -116,7 +120,11 @@ func is_moving() -> bool:
 
 ## Turns the body and head over [param duration] seconds to look at [param point]; returns the running tween.
 func face_toward(point: Vector3, duration: float) -> Tween:
-	var to_point: Vector3 = point - head.global_position
+	# Aimed from where the eyes will settle, not where they are: a crouching player
+	# who has lost control stands up during the turn, which would leave the view too high.
+	var settled_height: float = crouch_height if _should_crouch() else stand_height
+	var eyes: Vector3 = global_position + Vector3.UP * (settled_height - EYE_OFFSET)
+	var to_point: Vector3 = point - eyes
 	var target_yaw: float = atan2(-to_point.x, -to_point.z)
 	var flat_distance: float = Vector2(to_point.x, to_point.z).length()
 	var max_pitch: float = deg_to_rad(MAX_PITCH)
@@ -169,12 +177,17 @@ func _look(degrees: Vector2) -> void:
 
 ## Crouches while the action is held, and stays crouched while something blocks standing up.
 func _update_crouch(delta: float) -> void:
-	var is_blocked: bool = is_crouching and _ceiling_check.is_colliding()
-	var wants_crouch: bool = controls_enabled and Input.is_action_pressed("crouch")
-	is_crouching = wants_crouch or is_blocked
+	is_crouching = _should_crouch()
 	var target_height: float = crouch_height if is_crouching else stand_height
 	_height = move_toward(_height, target_height, crouch_transition_speed * delta)
 	_apply_height()
+
+
+## Whether the player should be crouched: the action is held, or something blocks standing up.
+func _should_crouch() -> bool:
+	var is_blocked: bool = is_crouching and _ceiling_check.is_colliding()
+	var wants_crouch: bool = controls_enabled and Input.is_action_pressed("crouch")
+	return wants_crouch or is_blocked
 
 
 ## Resizes the collision shape to the current height and keeps the head near its top.
@@ -205,11 +218,9 @@ func _current_speed() -> float:
 	return walk_speed
 
 
-## Toggles the held flashlight or changes its hue when [param event] is one of its actions.
-func _handle_flashlight_input(event: InputEvent) -> void:
-	if event.is_action_pressed("flashlight"):
-		flashlight.toggle()
-	elif event.is_action_pressed("color_next"):
+## Changes the held flashlight's hue when [param event] is one of the color actions.
+func _handle_hue_input(event: InputEvent) -> void:
+	if event.is_action_pressed("color_next"):
 		flashlight.cycle_hue(1)
 	elif event.is_action_pressed("color_prev"):
 		flashlight.cycle_hue(-1)

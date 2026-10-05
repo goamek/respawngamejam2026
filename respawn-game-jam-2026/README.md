@@ -19,7 +19,16 @@ The game supports keyboard and mouse, and any connected controller.
 | `interact` | E or left click | A / Cross |
 | `sprint` | Shift | Left stick click |
 | `crouch` | Ctrl (hold) | B / Circle (hold) |
-| `flashlight` | F | Y / Triangle |
+| `flashlight` | F or right click | RT / R2 |
 | `color_next` | R or mouse wheel down | RB / R1 |
 | `color_prev` | Q or mouse wheel up | LB / L1 |
 | `pause` | Escape | Start |
+
+### Menus
+
+| Action | Keyboard / mouse | Controller (Xbox / PlayStation) |
+|---|---|---|
+| Move between buttons | Arrow keys, or hover with the mouse | D-pad or left stick |
+| Press the highlighted button | Enter, Space, or left click | A / Cross |
+
+Moving between buttons uses Godot's built-in `ui_up` and `ui_down` actions. `ui_accept` is overridden in the project settings to add the controller button, which Godot does not include by default.

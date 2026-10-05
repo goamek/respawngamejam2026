@@ -34,6 +34,10 @@ const DOOR_CLOSE_DISTANCE: float = 1.3
 const DOOR_PLAYER_CLEARANCE: float = 1.5
 ## Distance at which the player is caught whichever way the entity faces; the two bodies pass through each other, in meters.
 const OVERLAP_DISTANCE: float = 0.3
+## Tallest lip the entity can step onto, just above the 0.25 m the walkable area allows, in meters.
+const STEP_HEIGHT: float = 0.3
+## How far forward a step up carries the body, enough to land its middle on the lip, in meters.
+const STEP_REACH: float = 0.35
 
 @export_group("Roaming")
 ## Points the entity wanders between, in no fixed order.
@@ -99,6 +103,7 @@ func _ready() -> void:
 
 
 ## Checks for the player, tries to catch them, runs the current state, then moves the body.
+## Open doors it bumps into stop being solid to it, so a door left open never traps it.
 func _physics_process(delta: float) -> void:
 	_update_sight()
 	_try_catch(delta)
@@ -116,7 +121,10 @@ func _physics_process(delta: float) -> void:
 	_close_door_behind()
 	if not is_on_floor():
 		velocity += get_gravity() * delta
+	var wanted := Vector3(velocity.x, 0.0, velocity.z)
 	move_and_slide()
+	_pass_open_doors()
+	_step_up(wanted)
 
 
 ## Sends the entity to check [param spot], such as where it last noticed the player.
@@ -291,6 +299,33 @@ func _close_door_behind() -> void:
 		return
 	_door_to_close.close()
 	_door_to_close = null
+
+
+## Stops colliding with each fully open door the entity has just walked into, until that door closes.
+func _pass_open_doors() -> void:
+	for index: int in get_slide_collision_count():
+		var panel := get_slide_collision(index).get_collider() as PhysicsBody3D
+		var door: Door = Door.find_owner(panel)
+		if door == null or not door.is_open or door.is_swinging():
+			continue
+		# The walkable area is baked without doors, so a path can run straight through an open panel.
+		add_collision_exception_with(panel)
+		door.closed.connect(remove_collision_exception_with.bind(panel), CONNECT_ONE_SHOT)
+
+
+## Lifts the body onto a low lip that blocked its move toward [param wanted], its intended sideways velocity.
+func _step_up(wanted: Vector3) -> void:
+	if wanted.is_zero_approx() or not is_on_floor() or not is_on_wall():
+		return
+	var rise: Vector3 = Vector3.UP * STEP_HEIGHT
+	var reach: Vector3 = wanted.normalized() * STEP_REACH
+	if test_move(global_transform, rise) or test_move(global_transform.translated(rise), reach):
+		return
+	# The same move is clear one step higher, so the obstacle is a lip and not a wall.
+	global_position += rise + reach
+	var landing := KinematicCollision3D.new()
+	if test_move(global_transform, -rise, landing):
+		global_position += landing.get_travel()
 
 
 ## Cancels any sideways movement.

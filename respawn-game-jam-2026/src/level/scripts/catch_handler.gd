@@ -87,7 +87,7 @@ func _fade_to(alpha: float) -> void:
 func _end_run() -> void:
 	run_ended.emit()
 	if main_menu_scene.is_empty():
-		# STUB: quits the game until a main menu exists
+		# Test levels leave the menu unset, so they close the game instead.
 		get_tree().quit()
 		return
 	GameSession.start_new_game()
