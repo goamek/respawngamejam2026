@@ -15,11 +15,11 @@
 [ext_resource type="PackedScene" uid="uid://chqit4xva8pnd" path="res://src/environment/Meshes/FBX/SM_Window_Frame_01.fbx" id="10_lp6yg"]
 [ext_resource type="PackedScene" path="res://src/environment/scenes/step_ramp.tscn" id="12_step_ramp"]
 [ext_resource type="PackedScene" uid="uid://dp7vnhi1mh3d2" path="res://src/environment/Meshes/sm_double_door_center.tscn" id="14_5unt0"]
+[ext_resource type="NavigationMesh" uid="uid://bbaxwyrscl1e8" path="res://src/level/resources/school_env_navigation_mesh.tres" id="14_navigation_mesh"]
 [ext_resource type="PackedScene" uid="uid://scniej352mmb" path="res://src/environment/Meshes/sm_wall_01.tscn" id="15_vawj4"]
 [ext_resource type="PackedScene" uid="uid://ckxdt8o3j6eb2" path="res://src/environment/Meshes/sm_wall_02.tscn" id="16_lur82"]
 [ext_resource type="PackedScene" uid="uid://bs4ina2701gea" path="res://src/environment/materials/Ceiling/sm_ceiling_01.tscn" id="17_lur82"]
 [ext_resource type="PackedScene" uid="uid://bv31m6akcmwoh" path="res://src/environment/materials/Floor_Tile/sm_floor_01.tscn" id="18_q6dn5"]
-[ext_resource type="NavigationMesh" path="res://src/level/resources/school_env_navigation_mesh.tres" id="14_navigation_mesh"]
 
 [node name="SchoolEnv" type="Node3D" unique_id=1725289359]
 
@@ -1554,9 +1554,6 @@ transform = Transform3D(1, 0, 0, 0, -9.791351e-08, 1, 0, -2.24, -4.371139e-08, 0
 [node name="SM_Floor_144" parent="." unique_id=1747892651 instance=ExtResource("17_lur82")]
 transform = Transform3D(1, 0, 0, 0, -1.03286865e-07, 1, 0, -2.3629282, -4.371139e-08, 11.884, 3.9993849, -2.753999)
 
-[node name="SM_Floor_145" parent="." unique_id=1250386566 instance=ExtResource("17_lur82")]
-transform = Transform3D(1, 0, 0, 0, -1.03286865e-07, 1, 0, -2.3629282, -4.371139e-08, 34.97576, 3.999385, 27.565311)
-
 [node name="SM_Floor_146" parent="." unique_id=262296018 instance=ExtResource("17_lur82")]
 transform = Transform3D(1, 0, 0, 0, -1.03286865e-07, 1, 0, -2.3629282, -4.371139e-08, 34.975803, 3.999693, 18.16799)
 
@@ -1701,10 +1698,16 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 27.3
 transform = Transform3D(1.3113416e-07, -1.1, -4.371139e-08, 0, -4.8082526e-08, 1, -1, -1.4424758e-07, -5.7320566e-15, 35.189568, 4.027934, 30.541033)
 
 [node name="SM_Ceiling_04" parent="." unique_id=1884151681 instance=ExtResource("17_lur82")]
-transform = Transform3D(1.3113416e-07, -1.1, -4.371139e-08, 0, -4.8082526e-08, 1, -1, -1.4424758e-07, -5.7320566e-15, 34.96528, 4.013174, 21.541033)
+transform = Transform3D(1.3113416e-07, -1.1, -4.371139e-08, 0, -4.8082526e-08, 1, -1, -1.4424758e-07, -5.7320566e-15, 35.18957, 4.027934, 21.541033)
 
 [node name="SM_Ceiling_03" parent="." unique_id=1738103941 instance=ExtResource("17_lur82")]
 transform = Transform3D(1.3113416e-07, -1, -4.371139e-08, 0, -4.371139e-08, 1, -1, -1.3113416e-07, -5.7320566e-15, 30.965279, 4.013174, 30.541033)
+
+[node name="SM_Ceiling_06" parent="." unique_id=1885322568 instance=ExtResource("17_lur82")]
+transform = Transform3D(1.3113416e-07, -1.1, -4.371139e-08, 0, -4.8082526e-08, 1, -1, -1.4424758e-07, -5.7320566e-15, 44.070576, 3.8399577, 27.087978)
+
+[node name="SM_Ceiling_07" parent="." unique_id=1663562075 instance=ExtResource("17_lur82")]
+transform = Transform3D(1.3113416e-07, -1, -4.371139e-08, 0, -4.371139e-08, 1, -1, -1.3113416e-07, -5.7320566e-15, 39.96528, 5.013174, 27.541033)
 
 [node name="SM_Ceiling_05" parent="." unique_id=454564126 instance=ExtResource("17_lur82")]
 transform = Transform3D(1.3113416e-07, -1, -4.371139e-08, 0, -4.371139e-08, 1, -1, -1.3113416e-07, -5.7320566e-15, 30.96528, 4.013174, 21.54103)
@@ -1721,5 +1724,6 @@ transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 27.3
 [node name="SM_Floor_149" parent="." unique_id=232945252 instance=ExtResource("18_q6dn5")]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 27.300388, -0.015994167, 26.700768)
 
-[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1335645335]
+visible = false
 navigation_mesh = ExtResource("14_navigation_mesh")
