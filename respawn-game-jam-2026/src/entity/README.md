@@ -131,7 +131,7 @@ For comparison, the player walks at 3.0 m/s and sprints at 5.5 m/s, so sprinting
 
 The player scene must be in the level. The entity and the catch handler find the player through the `player` group, and the handler finds every entity through the `entity` group, so no other wiring is needed.
 
-An agent radius of 0.25 is what keeps 1 m doorways walkable. A larger radius closes them off.
+An agent radius of 0.25 is what keeps 1 m doorways walkable. A larger radius closes them off. The entity counts a path corner as reached from 0.35 m away (`path_desired_distance`); a larger value lets it turn while still inside a doorway and catch on the frame.
 
 ## Physics layers
 
