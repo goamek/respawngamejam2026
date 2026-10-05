@@ -40,6 +40,13 @@ materials/extract=0
 materials/extract_format=0
 materials/extract_path=""
 _subresources={
+"materials": {
+"MI_Ind_Con_Supplies_Beam_Metal_Rusty_02_D1": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://src/environment/materials/Metal_Door/Metal_Door.tres",
+"use_external/path": "uid://bb3aocohi3qpn"
+}
+},
 "nodes": {
 "PATH:SM_Single_Door_Jam": {
 "generate/physics": true,
