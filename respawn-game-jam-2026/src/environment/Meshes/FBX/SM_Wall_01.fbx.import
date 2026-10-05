@@ -40,6 +40,18 @@ materials/extract=0
 materials/extract_format=0
 materials/extract_path=""
 _subresources={
+"materials": {
+"MI_Walls_03_2": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://src/environment/materials/Bricks/Brick_Material.tres",
+"use_external/path": "uid://dksuwcydgwxuc"
+},
+"MI_Walls_04": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://src/environment/materials/Bricks/Brick_Material.tres",
+"use_external/path": "uid://dksuwcydgwxuc"
+}
+},
 "nodes": {
 "PATH:SM_Wall_01": {
 "generate/physics": true,

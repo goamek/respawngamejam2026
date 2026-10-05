@@ -40,6 +40,13 @@ materials/extract=0
 materials/extract_format=0
 materials/extract_path=""
 _subresources={
+"materials": {
+"MI_Walls_06": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://src/environment/materials/Bricks/Brick_Material.tres",
+"use_external/path": "uid://dksuwcydgwxuc"
+}
+},
 "nodes": {
 "PATH:SM_Window_Wall": {
 "generate/physics": true,
