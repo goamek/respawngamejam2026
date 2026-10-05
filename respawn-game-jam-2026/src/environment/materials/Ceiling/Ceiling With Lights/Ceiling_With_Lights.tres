@@ -1,0 +1,28 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://mmtuoy2w76f2"]
+
+[ext_resource type="Texture2D" uid="uid://c08cg6mlqprk3" path="res://src/environment/materials/Ceiling/Ceiling With Lights/OfficeCeiling002_1K-JPG_Color.jpg" id="1_0smrc"]
+[ext_resource type="Texture2D" uid="uid://cvk4b7nglx5c2" path="res://src/environment/materials/Ceiling/Ceiling With Lights/OfficeCeiling002_1K-JPG_AmbientOcclusion.jpg" id="2_aj1or"]
+[ext_resource type="Texture2D" uid="uid://c7osn65on4h7v" path="res://src/environment/materials/Ceiling/Ceiling With Lights/OfficeCeiling002_1K-JPG_Emission.jpg" id="3_r4gsx"]
+[ext_resource type="Texture2D" uid="uid://dtqvivbul2o1m" path="res://src/environment/materials/Ceiling/Ceiling With Lights/OfficeCeiling002_1K-JPG_Displacement.jpg" id="4_icqv1"]
+[ext_resource type="Texture2D" uid="uid://bat86mtntd61a" path="res://src/environment/materials/Ceiling/Ceiling With Lights/OfficeCeiling002_1K-JPG_Metalness.jpg" id="5_7k2kb"]
+[ext_resource type="Texture2D" uid="uid://cqgxk2xer1vd1" path="res://src/environment/materials/Ceiling/Ceiling With Lights/OfficeCeiling002_1K-JPG_NormalDX.jpg" id="6_3vlfo"]
+[ext_resource type="Texture2D" uid="uid://j08kja8xomwa" path="res://src/environment/materials/Ceiling/Ceiling With Lights/OfficeCeiling002_1K-JPG_Roughness.jpg" id="7_em5lb"]
+
+[resource]
+albedo_texture = ExtResource("1_0smrc")
+metallic = 1.0
+metallic_texture = ExtResource("5_7k2kb")
+roughness_texture = ExtResource("7_em5lb")
+emission_enabled = true
+emission_energy_multiplier = 0.8
+emission_texture = ExtResource("3_r4gsx")
+normal_enabled = true
+normal_texture = ExtResource("6_3vlfo")
+ao_enabled = true
+ao_texture = ExtResource("2_aj1or")
+heightmap_enabled = true
+heightmap_texture = ExtResource("4_icqv1")
+uv1_scale = Vector3(0.115, 0.115, 0.115)
+uv1_offset = Vector3(0.57, 0, 0.125)
+uv1_triplanar = true
+uv1_world_triplanar = true

@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://dp7vnhi1mh3d2"]
+
+[ext_resource type="PackedScene" uid="uid://v84bbdlrwo6u" path="res://src/environment/Meshes/FBX/SM_DoubleDoor_Center.fbx" id="1_cwo25"]
+[ext_resource type="Material" uid="uid://dksuwcydgwxuc" path="res://src/environment/materials/Bricks/Brick_Material.tres" id="2_twnq8"]
+
+[node name="SM_DoubleDoor_Center" unique_id=1710977456 instance=ExtResource("1_cwo25")]
+
+[node name="SM_DoubleDoor_Center" parent="." index="0" unique_id=1498685018]
+material_override = ExtResource("2_twnq8")

@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cyf3k3dmpaq0h"
-path="res://.godot/imported/SM_Door.fbx-4b41cabe51f0e2dd772f0925c6346437.scn"
+uid="uid://v84bbdlrwo6u"
+path="res://.godot/imported/SM_DoubleDoor_Center.fbx-6ca22730ffcd6cb9d6c2745791bcebd8.scn"
 
 [deps]
 
-source_file="res://src/environment/Meshes/SM_Door.fbx"
-dest_files=["res://.godot/imported/SM_Door.fbx-4b41cabe51f0e2dd772f0925c6346437.scn"]
+source_file="res://src/environment/Meshes/FBX/SM_DoubleDoor_Center.fbx"
+dest_files=["res://.godot/imported/SM_DoubleDoor_Center.fbx-6ca22730ffcd6cb9d6c2745791bcebd8.scn"]
 
 [params]
 
@@ -36,10 +36,24 @@ animation/trimming=true
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
-materials/extract=0
+materials/extract=1
 materials/extract_format=0
 materials/extract_path=""
-_subresources={}
+_subresources={
+"materials": {
+"MI_Walls_03": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://src/environment/materials/Bricks/Brick_Material.tres",
+"use_external/path": "uid://dksuwcydgwxuc"
+}
+},
+"nodes": {
+"PATH:SM_DoubleDoor_Center": {
+"generate/physics": true,
+"physics/shape_type": 2
+}
+}
+}
 fbx/importer=0
 fbx/allow_geometry_helper_nodes=false
 fbx/embedded_image_handling=1

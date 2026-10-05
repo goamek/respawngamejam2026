@@ -1,0 +1,20 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://b15f023nyw0nn"]
+
+[ext_resource type="Texture2D" uid="uid://chil8jmvsv88j" path="res://src/environment/materials/Floor_Tile/Tiles044_1K-JPG_Color.jpg" id="1_dp1t2"]
+[ext_resource type="Texture2D" uid="uid://21vif5h17ukc" path="res://src/environment/materials/Floor_Tile/Tiles044_1K-JPG_Displacement.jpg" id="2_tmshd"]
+[ext_resource type="Texture2D" uid="uid://byyd5op0lo6nj" path="res://src/environment/materials/Floor_Tile/Tiles044_1K-JPG_NormalDX.jpg" id="3_dp1t2"]
+[ext_resource type="Texture2D" uid="uid://c8sseeqnwshn" path="res://src/environment/materials/Floor_Tile/Tiles044_1K-JPG_Roughness.jpg" id="4_t1wrd"]
+
+[resource]
+albedo_color = Color(0.537984, 0.5407264, 0.5072895, 1)
+albedo_texture = ExtResource("1_dp1t2")
+roughness = 0.27
+roughness_texture = ExtResource("4_t1wrd")
+normal_enabled = true
+normal_scale = 2.39
+normal_texture = ExtResource("3_dp1t2")
+heightmap_enabled = true
+heightmap_texture = ExtResource("2_tmshd")
+uv1_scale = Vector3(0.22, 0.22, 0.22)
+uv1_triplanar = true
+uv1_world_triplanar = true

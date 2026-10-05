@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cyf3k3dmpaq0h"
-path="res://.godot/imported/SM_Door.fbx-4b41cabe51f0e2dd772f0925c6346437.scn"
+uid="uid://cjeuap7a03chg"
+path="res://.godot/imported/SM_blueprint.fbx-37732b023e334ff95e23a7f0382c30fd.scn"
 
 [deps]
 
-source_file="res://src/environment/Meshes/SM_Door.fbx"
-dest_files=["res://.godot/imported/SM_Door.fbx-4b41cabe51f0e2dd772f0925c6346437.scn"]
+source_file="res://src/environment/Meshes/FBX/SM_blueprint.fbx"
+dest_files=["res://.godot/imported/SM_blueprint.fbx-37732b023e334ff95e23a7f0382c30fd.scn"]
 
 [params]
 
