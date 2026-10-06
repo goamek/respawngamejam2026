@@ -125,7 +125,7 @@ How it is put together:
 
 - **One skeleton, five animation files.** The character file holds the mesh. Each animation file was downloaded "without skin", so it holds movement only, and is imported as an animation library (Import dock, **Import As: Animation Library**). The entity scene's `AnimationPlayer` lists the five libraries by name.
 - **The state picks the animation.** `STATE_ANIMATIONS` in `entity.gd` maps each state to a library. Whenever the state changes, the new animation fades in over `animation_blend_time` (0.25 s).
-- **Looping** is set in each file's import settings: every animation loops except the catch, which plays once.
+- **Looping** is set in each file's import settings: every animation loops except the catch, which plays once. The catch plays at twice normal speed (`catch_animation_speed`), so the 2.8 s scream takes 1.4 s; it then holds its last pose until the screen is black at 1.8 s.
 - **In place.** The walk and run were downloaded with Mixamo's "In Place" box ticked. The script moves the body; an animation that also moved it would make it slide and snap back.
 - **Solid black.** The mesh has a black material set over its own textures in the entity scene (`Model/Skeleton3D/Ch14`, Material Override). The original colored textures are still in the file, for the ending where the black comes off.
 - **Eyes.** Two white spheres sit under a `BoneAttachment3D` on the head bone, so they follow the head through every animation.

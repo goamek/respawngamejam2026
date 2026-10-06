@@ -92,6 +92,8 @@ const CLIP_NAME: StringName = &"mixamo_com"
 @export_group("Animation")
 ## How long one animation takes to fade into the next, in seconds.
 @export var animation_blend_time: float = 0.25
+## How many times faster than normal the catch animation plays.
+@export var catch_animation_speed: float = 2.0
 
 @export_group("Movement")
 ## How fast the body turns to face where it is going, in degrees per second.
@@ -510,4 +512,5 @@ func _land() -> void:
 
 ## Fades into the animation that belongs to the current state.
 func _play_state_animation() -> void:
-	_animation.play("%s/%s" % [STATE_ANIMATIONS[state], CLIP_NAME], animation_blend_time)
+	var speed: float = catch_animation_speed if state == State.CATCHING else 1.0
+	_animation.play("%s/%s" % [STATE_ANIMATIONS[state], CLIP_NAME], animation_blend_time, speed)
