@@ -12,6 +12,8 @@ signal hue_unlocked(hue: Spectrum.Hue)
 
 ## Value published as the beam hue while the light is off, matching no object.
 const NO_HUE: int = -1
+## Physics layers the beam's lit spot can land on: world (1).
+const LIT_SURFACE_MASK: int = 0b1
 const _PARAM_POSITION: StringName = &"flashlight_position"
 const _PARAM_DIRECTION: StringName = &"flashlight_direction"
 const _PARAM_CONE_COS: StringName = &"flashlight_cone_cos"
@@ -85,6 +87,15 @@ func is_lighting(point: Vector3) -> bool:
 	if to_point.length() > _light.spot_range:
 		return false
 	return to_point.normalized().dot(_beam_direction()) >= _cone_cos()
+
+
+## Returns where the center of the beam lands, as a ray hit with position and normal, or empty when off or nothing is hit.
+func find_lit_spot() -> Dictionary:
+	if not is_on:
+		return {}
+	var beam_end: Vector3 = _light.global_position + _beam_direction() * _light.spot_range
+	var query := PhysicsRayQueryParameters3D.create(_light.global_position, beam_end, LIT_SURFACE_MASK)
+	return get_world_3d().direct_space_state.intersect_ray(query)
 
 
 ## Adds [param hue] in spectrum order, selects it, and announces it.

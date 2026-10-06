@@ -1,0 +1,17 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bb3aocohi3qpn"]
+
+[ext_resource type="Texture2D" uid="uid://qg2tkqt2m1qe" path="res://src/environment/materials/Metal_Door/Metal054A_1K-JPG_Color.jpg" id="1_hpy6g"]
+[ext_resource type="Texture2D" uid="uid://cu7xg1vcn8yrk" path="res://src/environment/materials/Metal_Door/Metal054A_1K-JPG_Displacement.jpg" id="2_8epuv"]
+[ext_resource type="Texture2D" uid="uid://beq2f8aq8n6hr" path="res://src/environment/materials/Metal_Door/Metal054A_1K-JPG_Metalness.jpg" id="3_kxrsy"]
+[ext_resource type="Texture2D" uid="uid://ckmnwdvgob0e" path="res://src/environment/materials/Metal_Door/Metal054A_1K-JPG_NormalGL.jpg" id="4_okojp"]
+[ext_resource type="Texture2D" uid="uid://fickmm01c1al" path="res://src/environment/materials/Metal_Door/Metal054A_1K-JPG_Roughness.jpg" id="5_yy3e3"]
+
+[resource]
+albedo_texture = ExtResource("1_hpy6g")
+metallic = 1.0
+metallic_texture = ExtResource("3_kxrsy")
+roughness_texture = ExtResource("5_yy3e3")
+normal_enabled = true
+normal_texture = ExtResource("4_okojp")
+heightmap_enabled = true
+heightmap_texture = ExtResource("2_8epuv")

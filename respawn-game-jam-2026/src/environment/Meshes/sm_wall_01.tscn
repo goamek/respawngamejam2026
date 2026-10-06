@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://scniej352mmb"]
+
+[ext_resource type="PackedScene" uid="uid://ct2iuvedfpfgr" path="res://src/environment/Meshes/FBX/SM_Wall_01.fbx" id="1_rfwax"]
+[ext_resource type="Material" uid="uid://dksuwcydgwxuc" path="res://src/environment/materials/Bricks/Brick_Material.tres" id="2_ldecd"]
+
+[node name="SM_Wall_01" unique_id=1819091788 instance=ExtResource("1_rfwax")]
+
+[node name="SM_Wall_01" parent="." index="0" unique_id=2125938691]
+material_override = ExtResource("2_ldecd")

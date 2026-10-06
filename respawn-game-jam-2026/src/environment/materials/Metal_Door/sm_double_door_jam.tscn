@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://beusebburerng"]
+
+[ext_resource type="PackedScene" uid="uid://cs08ta6bgvtsn" path="res://src/environment/Meshes/FBX/SM_DoubleDoor_Jam.fbx" id="1_ggur3"]
+[ext_resource type="Material" uid="uid://bb3aocohi3qpn" path="res://src/environment/materials/Metal_Door/Metal_Door.tres" id="2_xa56w"]
+
+[node name="SM_DoubleDoor_Jam" unique_id=464407710 instance=ExtResource("1_ggur3")]
+
+[node name="SM_DoubleDoor_Jam" parent="." index="0" unique_id=2095156383]
+material_override = ExtResource("2_xa56w")

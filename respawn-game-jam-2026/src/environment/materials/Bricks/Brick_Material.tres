@@ -1,0 +1,20 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://dksuwcydgwxuc"]
+
+[ext_resource type="Texture2D" uid="uid://xxyyx2n1o36c" path="res://src/environment/materials/Bricks/PaintedBricks001_1K-JPG_AmbientOcclusion.jpg" id="1_wbbxn"]
+[ext_resource type="Texture2D" uid="uid://d13bffsujy51f" path="res://src/environment/materials/Bricks/PaintedBricks001_1K-JPG_Displacement.jpg" id="2_mssri"]
+[ext_resource type="Texture2D" uid="uid://brghbb5qtrxri" path="res://src/environment/materials/Bricks/PaintedBricks001_1K-JPG_NormalGL.jpg" id="3_cj820"]
+[ext_resource type="Texture2D" uid="uid://bnkmx54b5ocwe" path="res://src/environment/materials/Bricks/PaintedBricks001_1K-JPG_Roughness.jpg" id="4_nb48v"]
+
+[resource]
+roughness_texture = ExtResource("4_nb48v")
+normal_enabled = true
+normal_scale = 0.19
+normal_texture = ExtResource("3_cj820")
+ao_enabled = true
+ao_texture = ExtResource("1_wbbxn")
+heightmap_enabled = true
+heightmap_texture = ExtResource("2_mssri")
+uv1_scale = Vector3(0.25, 0.25, 0.25)
+uv1_triplanar = true
+uv1_world_triplanar = true
+uv2_triplanar = true

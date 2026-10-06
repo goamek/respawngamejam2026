@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://11teb71d6bqv"]
+
+[ext_resource type="PackedScene" uid="uid://bkq60x1wb8paq" path="res://src/environment/Meshes/SM_Door_Window_Jam.fbx" id="1_ihumo"]
+[ext_resource type="Material" uid="uid://bb3aocohi3qpn" path="res://src/environment/materials/Metal_Door/Metal_Door.tres" id="2_nbofj"]
+
+[node name="SM_Door_Window_Jam" unique_id=580509500 instance=ExtResource("1_ihumo")]
+
+[node name="SM_Door_Window_Jam" parent="." index="0" unique_id=263734102]
+material_override = ExtResource("2_nbofj")
