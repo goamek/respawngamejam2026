@@ -1,0 +1,14 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://crch78anshdmp"]
+
+[ext_resource type="Texture2D" uid="uid://bui2jchdibend" path="res://src/environment/materials/Flower/SM_Flower_standardSurface1_BaseColor.png" id="1_68dix"]
+[ext_resource type="Texture2D" uid="uid://cu22jvuq2sqf0" path="res://src/environment/materials/Flower/SM_Flower_standardSurface1_Height.png" id="2_sxj70"]
+[ext_resource type="Texture2D" uid="uid://bu7rkjmy06c1e" path="res://src/environment/materials/Flower/SM_Flower_standardSurface1_Normal.png" id="3_15how"]
+[ext_resource type="Texture2D" uid="uid://bpb0w4uerw7j5" path="res://src/environment/materials/Flower/SM_Flower_standardSurface1_Roughness.png" id="4_tojvw"]
+
+[resource]
+albedo_texture = ExtResource("1_68dix")
+roughness_texture = ExtResource("4_tojvw")
+normal_enabled = true
+normal_texture = ExtResource("3_15how")
+heightmap_enabled = true
+heightmap_texture = ExtResource("2_sxj70")

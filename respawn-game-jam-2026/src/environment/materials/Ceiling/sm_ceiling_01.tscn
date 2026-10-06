@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://bs4ina2701gea"]
 
 [ext_resource type="PackedScene" uid="uid://lenp28q5li6e" path="res://src/environment/Meshes/FBX/SM_Floor_01.fbx" id="1_q4cu8"]
-[ext_resource type="Material" uid="uid://mmtuoy2w76f2" path="res://src/environment/materials/Ceiling/Ceiling With Lights/Ceiling_With_Lights.tres" id="2_q4cu8"]
+[ext_resource type="Material" uid="uid://dpf5yhpttvrfx" path="res://src/environment/materials/Ceiling/Ceiling.tres" id="2_frl72"]
 
 [node name="SM_Ceiling_01" unique_id=1317485416 instance=ExtResource("1_q4cu8")]
 
 [node name="SM_Wall_01" parent="." index="0" unique_id=1135780797]
-material_override = ExtResource("2_q4cu8")
+material_override = ExtResource("2_frl72")

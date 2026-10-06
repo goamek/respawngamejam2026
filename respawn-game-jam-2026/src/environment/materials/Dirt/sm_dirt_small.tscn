@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://dq48bt03lj3m0"]
+
+[ext_resource type="PackedScene" uid="uid://d11ena6n5tu0v" path="res://src/environment/Meshes/SM_Dirt_small.fbx" id="1_t2rio"]
+[ext_resource type="Material" uid="uid://d17n2avvknlsq" path="res://src/environment/materials/Dirt/Dirt.tres" id="2_fva3j"]
+
+[node name="SM_Dirt_small" unique_id=1516793808 instance=ExtResource("1_t2rio")]
+
+[node name="SM_Dirt" parent="." index="0" unique_id=1378632448]
+material_override = ExtResource("2_fva3j")

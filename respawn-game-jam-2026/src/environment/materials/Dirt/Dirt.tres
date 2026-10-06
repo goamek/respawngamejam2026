@@ -1,0 +1,17 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://d17n2avvknlsq"]
+
+[ext_resource type="Texture2D" uid="uid://ciugbutrt8xmc" path="res://src/environment/materials/Dirt/Ground049A_1K-JPG_Color.jpg" id="1_4shtp"]
+[ext_resource type="Texture2D" uid="uid://c7mpv6ujikvm3" path="res://src/environment/materials/Dirt/Ground049A_1K-JPG_AmbientOcclusion.jpg" id="2_jlw2n"]
+[ext_resource type="Texture2D" uid="uid://dnr8xshkf3wdm" path="res://src/environment/materials/Dirt/Ground049A_1K-JPG_Displacement.jpg" id="3_fq3gi"]
+[ext_resource type="Texture2D" uid="uid://4b1j3a32sh1y" path="res://src/environment/materials/Dirt/Ground049A_1K-JPG_NormalGL.jpg" id="4_rumup"]
+[ext_resource type="Texture2D" uid="uid://6jk44usxf2yj" path="res://src/environment/materials/Dirt/Ground049A_1K-JPG_Roughness.jpg" id="5_heegn"]
+
+[resource]
+albedo_texture = ExtResource("1_4shtp")
+roughness_texture = ExtResource("5_heegn")
+normal_enabled = true
+normal_texture = ExtResource("4_rumup")
+ao_enabled = true
+ao_texture = ExtResource("2_jlw2n")
+heightmap_enabled = true
+heightmap_texture = ExtResource("3_fq3gi")

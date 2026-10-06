@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://c4mbv0baerlf7"]
+
+[ext_resource type="PackedScene" uid="uid://cajhw314cij4i" path="res://src/environment/Meshes/SM_flower_02.fbx" id="1_dct3y"]
+[ext_resource type="Material" uid="uid://cecxrbokuks2u" path="res://src/environment/materials/Flower/Flower_Petals_01.tres" id="2_o2us2"]
+
+[node name="SM_flower_02" unique_id=731256936 instance=ExtResource("1_dct3y")]
+
+[node name="SM_flower_02" parent="." index="0" unique_id=1942291196]
+material_override = ExtResource("2_o2us2")
