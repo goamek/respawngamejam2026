@@ -10,7 +10,7 @@ Draft of 2026-10-05. Items marked **Open** are not decided.
 
 The school is black and grey. The crayon drawings, labels, and scribbles the player made here as a child are all over it, each in one color, and each invisible until the flashlight shines that color on it. Some drawings are only clues. Some are real: a drawn door opens, a drawn handle turns.
 
-A crayon is never a key. Picking one up gives the flashlight a new color, and each color opens the next part of the school in a different way (grow something, find something hidden, trip a sensor, read a trail). No two colors gate progress the same way.
+Picking up a crayon gives the flashlight a new color. Each room's door only opens under the color earned in the room before it, so the crayons set the order of the game. The creative use of each color is inside the rooms, in the puzzles, not at the doors.
 
 ## Story
 
@@ -36,16 +36,16 @@ The flashlight starts with no color. Order of rooms follows the building: start 
 |---|---|---|---|---|
 | 0 | Entry lobby | Start here | none (flashlight) | Tutorial: move, look, pick up |
 | 1 | Library | Open | Yellow | Solve a puzzle with no color, to learn the basics |
-| 2 | Bio lab and greenhouse | Yellow grows the dead vines off the door | Indigo | Yellow is sunlight |
-| 3 | Music room | Indigo shows a door drawn on the corridor wall | Green | Two colors, one message |
-| 4 | Gym and locker room | Green on the door sensor ("green means go") | Blue | One object reads differently under each color |
-| 5 | Cafeteria | Blue shows the code written on the kitchen order pad | Red | Find it by what stays dark |
-| 6 | Darkroom and art studio | Red is the darkroom safelight; it develops the photo that shows the way in | Orange | Light tells identical things apart |
-| 7 | Chemistry lab | Orange shows the hazard-marked shutter lever | Violet | Flame test |
-| 8 | Main entry (false exit) | Violet | none | The first exit fails |
-| 9 | Central courtyard | White shows the door drawn in white crayon | Ending | Everything in color at once |
+| 2 | Bio lab and greenhouse | Yellow door | Indigo | Yellow is sunlight |
+| 3 | Music room | Indigo door | Green | Two colors, one message |
+| 4 | Gym and locker room | Green door | Blue | One object reads differently under each color |
+| 5 | Cafeteria | Blue door | Red | Find it by what stays dark |
+| 6 | Art studio | Red door | Orange | Light tells identical things apart |
+| 7 | Chemistry lab | Orange door | Violet | Flame test |
+| 8 | Main entry (false exit) | Violet door | none | The first exit fails |
+| 9 | Central courtyard | White door | Ending | Everything in color at once |
 
-Each crayon is used three times: to get into the next area, inside that area's puzzle, and again in later puzzles alongside newer colors.
+Each crayon is used three times: to open the next room's door, inside that room's puzzle, and again in later puzzles alongside newer colors. A door is black like everything else until its color shines on it, and it only opens while lit.
 
 ## Beat by beat
 
@@ -71,7 +71,7 @@ Each crayon is used three times: to get into the next area, inside that area's p
 
 ### 2. Bio lab and greenhouse (earn Indigo)
 
-**Access:** the bio lab door is choked with dead grey vines. Holding the yellow beam on them for a few seconds makes them green up and pull back. **Colors needed:** yellow.
+**Access:** yellow door. **Colors needed:** yellow.
 
 1. Shelves of seed packets, all grey. Their labels only show under yellow. One is marked with their own childhood drawing of a flower.
 2. Carry that packet to the empty pot on the potting bench.
@@ -82,7 +82,7 @@ Each crayon is used three times: to get into the next area, inside that area's p
 
 ### 3. Music room (earn Green)
 
-**Access:** the corridor wall by the music room looks blank. Under indigo, a door drawn in crayon appears, and it opens. **Colors needed:** yellow, indigo.
+**Access:** indigo door. **Colors needed:** yellow, indigo.
 
 1. A sheet of music on the stand shows empty staves.
 2. Under yellow, some notes appear. Under indigo, the rest appear. Neither half is a tune alone.
@@ -93,7 +93,7 @@ Each crayon is used three times: to get into the next area, inside that area's p
 
 ### 4. Gym and locker room (earn Blue)
 
-**Access:** the gym doors have a small sensor panel. Shining green on it unlocks them. **Colors needed:** yellow, indigo, green.
+**Access:** green door. **Colors needed:** yellow, indigo, green.
 
 1. A locker in the locker room has a three-digit lock, with three crayon dots above it: for example green, yellow, indigo. That is the order.
 2. The gym scoreboard shows one large digit made of segments. Each segment is drawn in one color, so the digit reads differently under yellow, under indigo, and under green.
@@ -104,7 +104,7 @@ Each crayon is used three times: to get into the next area, inside that area's p
 
 ### 5. Cafeteria and kitchen (earn Red)
 
-**Access:** the kitchen door has a keypad. An order pad on the serving counter has a number written in blue pen. **Colors needed:** yellow, indigo, green, blue.
+**Access:** blue door. **Colors needed:** yellow, indigo, green, blue.
 
 1. A crate of fruit, all grey. A note in their childhood handwriting: "3 apples for teacher."
 2. Under yellow the bananas show. Under green, the pears. Under blue, the blueberries. Under indigo, the plums.
@@ -114,9 +114,9 @@ Each crayon is used three times: to get into the next area, inside that area's p
 
 **Entity:** stands at the hallway intersection outside when the player leaves, as in the team's outline.
 
-### 6. Darkroom and art studio (earn Orange)
+### 6. Art studio (earn Orange)
 
-**Access:** the art studio door is jammed. The photo darkroom next to it has blank sheets hanging on a line. Red is a darkroom's safelight: under red, one photo develops and shows the supply closet with its back panel open. The player goes through the closet into the studio. **Colors needed:** red, yellow.
+**Access:** red door. **Colors needed:** red, yellow.
 
 1. The studio walls are covered in the drawings of the entity the player made as a child, each signed "ME". Each color shows a different drawing in the same spot, and in each one the entity is closer.
 2. A row of identical grey paint jars. Only light shows which is which.
@@ -125,7 +125,7 @@ Each crayon is used three times: to get into the next area, inside that area's p
 
 ### 7. Chemistry lab (earn Violet)
 
-**Access:** an emergency shutter is down over the lab door. Under orange, hazard stripes appear along a pipe, leading to the release lever. **Colors needed:** red, blue, orange.
+**Access:** orange door. **Colors needed:** red, blue, orange.
 
 1. The periodic table poster is grey. Under red, one element lights up. Under blue, another.
 2. The same two symbols are on bottles in the chem store.
@@ -177,13 +177,13 @@ Five new pieces cover every puzzle and gate above. Everything else (color reveal
 
 | Piece | Used by |
 |---|---|
-| **Hold the light on it:** something happens after the right color has shone on an object for a set time | Vines, plant, green sensor, uncovering the entity |
+| **Hold the light on it:** something happens after the right color has shone on an object for a set time | Plant, uncovering the entity |
 | **Place an item:** a spot that accepts a carried object | Seed and can, apples, paint jars, element bottles |
-| **Press in order:** a set of things that must be used in the right sequence | Xylophone, locker, kitchen keypad |
+| **Press in order:** a set of things that must be used in the right sequence | Xylophone, locker |
 | **Safe room:** a zone the entity will not enter until told it may | Every puzzle room |
 | **Ending trigger:** ends the run and shows an ending screen | White door, entity uncovered, caught |
 
-Already possible with what exists: the hidden doors (indigo wall door, closet panel), the hidden lever, the violet trail, the seed labels, the fruit, the paint jars, the periodic table.
+Already possible with what exists: every color-locked door, the violet trail, the seed labels, the fruit, the paint jars, the periodic table.
 
 ### Build order
 
@@ -192,9 +192,9 @@ Everything in this script is planned to be finished. Nothing is marked as option
 | Step | Build | Which then allows |
 |---|---|---|
 | 1 | Flashlight starts with no color | The lobby and library tutorial |
-| 2 | **Hold the light on it** | Vines, plant, green sensor, and later the secret ending |
+| 2 | **Hold the light on it** | The plant, and later the secret ending |
 | 3 | **Place an item** | Seed and can, apples, paint jars, element bottles |
-| 4 | **Press in order** | Xylophone, locker, kitchen keypad |
+| 4 | **Press in order** | Xylophone, locker |
 | 5 | **Safe room** and the entity getting faster per crayon | The entity behaving correctly around every puzzle |
 | 6 | **Ending trigger** and the three ending screens | White door, entity uncovered, caught |
 | 7 | The two scripted entity moments | First sighting, chemistry break-in |
@@ -203,10 +203,11 @@ Everything in this script is planned to be finished. Nothing is marked as option
 
 Steps 2 to 4 are the mechanics every puzzle is assembled from. Once they exist, the seven rooms can be built in parallel by whoever owns the levels, in route order (library first, chemistry last), while steps 5 to 9 continue.
 
-Each room is done when: its gate opens the intended way, its puzzle can be solved using only colors the player has by then, its crayon is collected, and the entity can enter only afterwards.
+Each room is done when: its door is set to the right color, its puzzle can be solved using only colors the player has by then, its crayon is collected, and the entity can enter only afterwards.
 
 ## Open
 
+- Cut for time on 2026-10-05: a different way into each room per color (sunlight on vines, a door drawn on a wall, a color sensor, a code in blue pen, a darkroom photo, a hazard lever). Rooms now use color-locked doors. These can come back as polish if time allows.
 - Whether the central courtyard is the final room. It is the middle of the school and every hall circles it.
 - Whether the ceiling lights can flicker as hints. They are currently a texture on the ceiling material, not real lights.
 - Doorway 13 (the raised link hall) is still blocked for the player, so the route above avoids it.
