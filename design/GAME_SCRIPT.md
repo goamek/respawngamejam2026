@@ -15,7 +15,7 @@ A crayon is never a key. Picking one up gives the flashlight a new color, and ea
 ## Story in three lines
 
 - A child was left behind at this school, and filled a coloring book with drawings of it. The crayons are scattered through the building.
-- The entity is one of those drawings: black outline, white eyes, never colored in.
+- The entity is one of those drawings. The child drew it in every color, got scared of it, and scribbled over it in black crayon until only the eyes were left as bare paper. That is why it is solid black with white eyes.
 - The player collects the seven crayons. With all seven the flashlight turns white, shows the school as the child saw it, and reveals the way out.
 
 ## Route at a glance
@@ -140,8 +140,8 @@ Each crayon is used three times: to get into the next area, inside that area's p
 | Ending | How | What happens |
 |---|---|---|
 | Escape | Go through the white door | The player leaves. The school goes grey behind them. |
-| Colored in (secret) | Hold the white beam on the entity for a few seconds while it comes at the player | The entity fills with color and stops. It walks the player to the door. |
-| Caught | Lose every life | A new drawing appears on the art studio wall: the player, in black outline. |
+| Uncovered (secret) | Hold the white beam on the entity for a few seconds while it comes at the player | The black scribble flakes away and the colors underneath show through. The entity stops, and walks the player to the door. |
+| Caught | Lose every life | A new drawing appears on the art studio wall: the player, scribbled over in black. |
 
 ## The entity through the run
 
@@ -167,11 +167,11 @@ Five new pieces cover every puzzle and gate above. Everything else (color reveal
 
 | Piece | Used by |
 |---|---|
-| **Hold the light on it:** something happens after the right color has shone on an object for a set time | Vines, plant, green sensor, coloring in the entity |
+| **Hold the light on it:** something happens after the right color has shone on an object for a set time | Vines, plant, green sensor, uncovering the entity |
 | **Place an item:** a spot that accepts a carried object | Seed and can, apples, paint jars, element bottles |
 | **Press in order:** a set of things that must be used in the right sequence | Xylophone, locker, kitchen keypad |
 | **Safe room:** a zone the entity will not enter until told it may | Every puzzle room |
-| **Ending trigger:** ends the run and shows an ending screen | White door, entity colored in, caught |
+| **Ending trigger:** ends the run and shows an ending screen | White door, entity uncovered, caught |
 
 Already possible with what exists: the hidden doors (indigo wall door, closet panel), the hidden lever, the violet trail, the seed labels, the fruit, the paint jars, the periodic table.
 
@@ -186,7 +186,7 @@ Everything in this script is planned to be finished. Nothing is marked as option
 | 3 | **Place an item** | Seed and can, apples, paint jars, element bottles |
 | 4 | **Press in order** | Xylophone, locker, kitchen keypad |
 | 5 | **Safe room** and the entity getting faster per crayon | The entity behaving correctly around every puzzle |
-| 6 | **Ending trigger** and the three ending screens | White door, entity colored in, caught |
+| 6 | **Ending trigger** and the three ending screens | White door, entity uncovered, caught |
 | 7 | The two scripted entity moments | First sighting, chemistry break-in |
 | 8 | Easy and hard mode, shuffled answers | Replay value |
 | 9 | Flickering light hints, mascot easter egg | Polish |
