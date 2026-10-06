@@ -194,6 +194,133 @@ The school is about 120 by 91 m and the route only uses part of it. Every room t
 
 **Checked on 2026-10-05:** with every door open, every room this script uses can be walked to from the lobby: library, bio lab, greenhouse, music room, gym, locker rooms, cafeteria, kitchen, art studio, chemistry lab and the courtyard. Six rooms have no doorway: the soil store, the tech workshop, the PE equipment and office block, the chem store with its prep room, the shared class prep room between classrooms 101 and 102, and the security office. Four of them are rooms the floor plan marks as closed; the two prep rooms are drawn with doors on the plan but have none in the level. Doorway 13 (link hall into the music room) is the only door the player cannot pass, because the hall floor is 0.79 m higher than the room; the music room's other door works.
 
+## Objects to make
+
+Every different object the puzzles and story beats need, room by room. "Shows under" is the flashlight color that makes it visible; "always" means it is a normal grey object, lit by any beam.
+
+Types:
+
+- **Model:** a 3D object. "Carried" means the player picks it up and moves it.
+- **Image:** a flat picture placed on a surface (a wall, a floor, a sheet of paper).
+- **Image with text:** the same, but the player has to read it, so it needs to be sharp up close.
+- **Furniture:** set dressing the puzzle objects sit on. It can be simple.
+
+There are 61 different objects in total. The two marked optional belong to the easter egg.
+
+### Entry lobby
+
+| Object | Type | Shows under | Notes |
+|---|---|---|---|
+| Flashlight | Model | always | Picked up off the counter. A placeholder exists. |
+| Reception counter | Furniture | always | The flashlight sits on it. |
+
+### Library (yellow)
+
+| Object | Type | Shows under | Notes |
+|---|---|---|---|
+| Check-out slip | Image with text | always | A list of book titles and dates. Must be readable up close. |
+| Wall calendar | Image with text | always | One date circled. |
+| Bookshelves with books | Furniture | always | Spines need readable titles on at least one shelf. |
+| The pullable book | Model | always | One book that tips out when used. |
+| Swinging shelf section | Model | always | A piece of shelf that opens like a door onto the nook. |
+| Coloring book | Model | always | "ME" and a drawing of a child with a flashlight on the cover. |
+| Floor arrows | Image | yellow | Crayon arrows on the floor leading out. |
+
+### Bio lab and greenhouse (indigo)
+
+| Object | Type | Shows under | Notes |
+|---|---|---|---|
+| Seed packet | Model, carried | label under yellow | Several on a shelf. One has a drawing of a flower; that is the right one. |
+| Seed shelf | Furniture | always |  |
+| Plant pot | Model | always | Empty, on the potting bench. The seed and the water go here. |
+| Potting bench | Furniture | always |  |
+| Watering can | Model, carried | always |  |
+| Sink | Furniture | always | Where the watering can starts. |
+| Plant | Model, 3 stages | always | Sprout, stem, open flower. Swapped as it grows. |
+
+### Music room (green)
+
+| Object | Type | Shows under | Notes |
+|---|---|---|---|
+| Music stand | Furniture | always |  |
+| Sheet music, blank | Image | always | Empty staves. |
+| Sheet music, first half of the notes | Image | yellow | Laid over the blank sheet. |
+| Sheet music, second half of the notes | Image | indigo | Laid over the blank sheet. |
+| Xylophone frame | Model | always |  |
+| Xylophone bar | Model, 7 of them | always | Each bar is used separately, so each is its own object. |
+| Music box | Model, closed and open | always | Opens when the tune is right. |
+| Piano | Furniture | always | The music box sits on it. |
+
+### Gym and locker room (blue)
+
+| Object | Type | Shows under | Notes |
+|---|---|---|---|
+| Scoreboard frame | Model | always |  |
+| Scoreboard segment | Image, 7 of them | yellow, indigo or green each | The seven bars of one large digit. Each is one color, so the digit changes with the light. |
+| Locker with a door that opens | Model | always | The crayon is inside. |
+| Three-digit lock | Model | always | Three dials or buttons the player sets. |
+| Order dots | Image | always | Three crayon dots above the lock, in the three colors. |
+| Rows of plain lockers | Furniture | always | Set dressing around the real one. |
+
+### Cafeteria and kitchen (red)
+
+| Object | Type | Shows under | Notes |
+|---|---|---|---|
+| Fruit crate | Model | always |  |
+| Banana | Model, carried | yellow | Decoy. |
+| Pear | Model, carried | green | Decoy. |
+| Blueberries | Model, carried | blue | Decoy. A small punnet, so it can be carried. |
+| Plum | Model, carried | indigo | Decoy. |
+| Apple | Model, carried, 3 of them | red | The answer. Dark until the player has red. |
+| Note | Image with text | always | "3 apples for teacher." |
+| Basket | Model | always | Accepts the fruit. |
+| Teacher's table | Furniture | always |  |
+| Wall hatch | Model | always | Opens when the basket is right. |
+
+### Art studio (orange)
+
+| Object | Type | Shows under | Notes |
+|---|---|---|---|
+| Paint jar | Model, carried, about 6 | one color each | All look the same unlit. One red, one yellow, the rest decoys in other colors. |
+| Easel | Furniture | always |  |
+| Unfinished painting | Image with text | always | Two numbered patches and the note "1 and 2 make the sun going down." |
+| Palette | Model | always | Accepts the two jars. |
+| Mixed orange paint | Model | always | Appears on the palette when both jars are placed. |
+| Drawings of the entity | Image, 6 of them | one color each | Same spot on the wall, one per color, the entity closer in each. Signed "ME". |
+
+### Chemistry lab (violet)
+
+| Object | Type | Shows under | Notes |
+|---|---|---|---|
+| Periodic table poster | Image with text | always | Grey. |
+| Highlighted element, first | Image | red | One cell of the poster. |
+| Highlighted element, second | Image | blue | Another cell of the poster. |
+| Element bottle | Model, carried, about 6 | always | Each labeled with a symbol. Two are the answer. |
+| Bottle shelf | Furniture | always |  |
+| Bunsen burner | Model | always | Accepts the two bottles. |
+| Flame | Effect, 2 colors | always | Plain, then violet. |
+| Dish | Model | always | The crayon is left in it. |
+| Beaker of water | Model, carried | always | Optional, for the easter egg. |
+| Mascot in steam | Image or effect | always | Optional, for the easter egg. |
+
+### False exit and ending
+
+| Object | Type | Shows under | Notes |
+|---|---|---|---|
+| Handprints and footprints | Image, several | violet | A trail along walls and floor to the front door. |
+| Bricked-up wall | Model | always | Behind the front door. |
+| "NOT THIS WAY" | Image with text | violet | Written across the bricks. |
+| White crayon door | Image on a working door | white | Drawn on the courtyard wall. |
+| Children's drawings for the halls | Image, a handful | one color each | What white light shows everywhere at the end. Can be reused around the school. |
+
+### Already made, or not a puzzle object
+
+- **Crayons:** one scene, `src/pickup/scenes/crayon.tscn`, set to any color. It is a placeholder shape; it needs a real crayon model once.
+- **Doors:** `src/environment/scenes/school_door.tscn`, set to any color.
+- **Desk to hide under:** `src/environment/scenes/desk.tscn`.
+- **The entity:** still a placeholder capsule. It needs its model, and a colored version for the secret ending.
+- **Ending screens:** three pictures (escape, uncovered, caught) plus the game over screen. These are menus, not objects in the level.
+
 ## What needs building
 
 Five new pieces cover every puzzle and gate above. Everything else (color reveal, color-gated interaction, carrying, doors, crayons, the entity, lives) exists.
