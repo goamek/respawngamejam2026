@@ -8,15 +8,25 @@ Draft of 2026-10-05. Items marked **Open** are not decided.
 
 **What is drawn in a color only exists in that color's light.**
 
-The school is black and grey. A child's crayon drawings, labels, and scribbles are all over it, each in one color, and each invisible until the flashlight shines that color on it. Some drawings are only clues. Some are real: a drawn door opens, a drawn handle turns.
+The school is black and grey. The crayon drawings, labels, and scribbles the player made here as a child are all over it, each in one color, and each invisible until the flashlight shines that color on it. Some drawings are only clues. Some are real: a drawn door opens, a drawn handle turns.
 
 A crayon is never a key. Picking one up gives the flashlight a new color, and each color opens the next part of the school in a different way (grow something, find something hidden, trip a sensor, read a trail). No two colors gate progress the same way.
 
-## Story in three lines
+## Story
 
-- A child was left behind at this school, and filled a coloring book with drawings of it. The crayons are scattered through the building.
-- The entity is one of those drawings. The child drew it in every color, got scared of it, and scribbled over it in black crayon until only the eyes were left as bare paper. That is why it is solid black with white eyes.
-- The player collects the seven crayons. With all seven the flashlight turns white, shows the school as the child saw it, and reveals the way out.
+**The player is the child, grown up.** There is one person in this story, at two ages.
+
+- As a child, the player went to this school and filled a coloring book with drawings of it. The book and its seven crayons were left behind.
+- The entity is one of those drawings. The player drew it in every color, got scared of it, and scribbled over it in black crayon until only the eyes were left as bare paper. That is why it is solid black with white eyes.
+- Years later the player comes back. The school is grey because they have forgotten it. Each crayon they find brings back one color of how they saw it then.
+- With all seven the flashlight turns white, the school shows as they remembered it, and the way out appears.
+
+How the player learns this, with no dialogue:
+
+- **Library:** the coloring book in the nook has a drawing on its cover of a child holding a flashlight, labeled "ME".
+- **Every room:** the notes and drawings are in the same handwriting, and they are always exactly where the player needs them. They are following their own trail.
+- **Art studio:** the drawings of the entity are signed "ME" as well. This is where it becomes clear who made it.
+- **Endings:** each one says it outright (see below).
 
 ## Route at a glance
 
@@ -52,7 +62,7 @@ Each crayon is used three times: to get into the next area, inside that area's p
 1. A check-out slip on the librarian's desk lists books and dates. One book was never returned.
 2. A wall calendar has one date circled. That date matches one line on the slip, which gives the book's title.
 3. The player finds that title on the shelves and pulls it. The shelf swings open onto a small nook.
-4. In the nook: the yellow crayon and the child's coloring book. Picking up the crayon turns the beam yellow.
+4. In the nook: the yellow crayon and the player's old coloring book ("ME" on the cover). Picking up the crayon turns the beam yellow.
 5. Yellow crayon arrows now show on the floor, leading out through the archive and office.
 
 **Teaches:** reading a clue, interacting, and that a crayon changes what the player can see.
@@ -63,7 +73,7 @@ Each crayon is used three times: to get into the next area, inside that area's p
 
 **Access:** the bio lab door is choked with dead grey vines. Holding the yellow beam on them for a few seconds makes them green up and pull back. **Colors needed:** yellow.
 
-1. Shelves of seed packets, all grey. Their labels only show under yellow. One is marked with the child's drawing of a flower.
+1. Shelves of seed packets, all grey. Their labels only show under yellow. One is marked with their own childhood drawing of a flower.
 2. Carry that packet to the empty pot on the potting bench.
 3. Carry the watering can from the sink to the pot.
 4. Hold the yellow beam on the pot. The plant grows and opens. The indigo crayon is inside the flower.
@@ -96,7 +106,7 @@ Each crayon is used three times: to get into the next area, inside that area's p
 
 **Access:** the kitchen door has a keypad. An order pad on the serving counter has a number written in blue pen. **Colors needed:** yellow, indigo, green, blue.
 
-1. A crate of fruit, all grey. A note in the child's writing: "3 apples for teacher."
+1. A crate of fruit, all grey. A note in their childhood handwriting: "3 apples for teacher."
 2. Under yellow the bananas show. Under green, the pears. Under blue, the blueberries. Under indigo, the plums.
 3. Three pieces never light up under any color the player owns. Those are the apples, because the player has no red.
 4. Carry the three dark fruit to the basket on the teacher's table. A wall hatch opens. The red crayon is inside.
@@ -108,7 +118,7 @@ Each crayon is used three times: to get into the next area, inside that area's p
 
 **Access:** the art studio door is jammed. The photo darkroom next to it has blank sheets hanging on a line. Red is a darkroom's safelight: under red, one photo develops and shows the supply closet with its back panel open. The player goes through the closet into the studio. **Colors needed:** red, yellow.
 
-1. The studio walls are covered in the child's drawings of the entity. Each color shows a different drawing in the same spot, and in each one the entity is closer.
+1. The studio walls are covered in the drawings of the entity the player made as a child, each signed "ME". Each color shows a different drawing in the same spot, and in each one the entity is closer.
 2. A row of identical grey paint jars. Only light shows which is which.
 3. An unfinished painting on the easel has two numbered patches and a note: "1 and 2 make the sun going down."
 4. Carry the red jar and the yellow jar to the palette. They mix. The orange crayon sits in the paint.
@@ -139,9 +149,9 @@ Each crayon is used three times: to get into the next area, inside that area's p
 
 | Ending | How | What happens |
 |---|---|---|
-| Escape | Go through the white door | The player leaves. The school goes grey behind them. |
-| Uncovered (secret) | Hold the white beam on the entity for a few seconds while it comes at the player | The black scribble flakes away and the colors underneath show through. The entity stops, and walks the player to the door. |
-| Caught | Lose every life | A new drawing appears on the art studio wall: the player, scribbled over in black. |
+| Escape | Go through the white door | The player leaves with the coloring book. The school goes grey behind them, and the entity is still inside: they got out, but never faced it. |
+| Uncovered (secret) | Hold the white beam on the entity for a few seconds while it comes at the player | The black scribble flakes away and the colors the player first drew show through. It was never a monster, only a drawing they were scared of. It stops, and walks them to the door. This is the true ending. |
+| Caught | Lose every life | A new drawing appears on the art studio wall: the child labeled "ME", scribbled over in black. The player has done to themselves what they did to their drawing. |
 
 ## The entity through the run
 
