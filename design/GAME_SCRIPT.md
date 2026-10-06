@@ -132,7 +132,7 @@ Each crayon is used three times: to open the next room's door, inside that room'
 3. Carry both bottles to the burner. The flame turns violet, and the violet crayon is left in the dish.
 4. Easter egg: carrying water to the burner makes the Respawn mascot appear in the steam.
 
-**Entity:** when the flame turns violet, it breaks into the lab. The player escapes through the door they came in by, or through the shared prep room into the physics lab. This is the one scripted chase.
+**Entity:** when the flame turns violet, it breaks into the lab. The player has to get past it and out through the lab's one door. This is the one scripted chase. The floor plan shows a shared prep room linking this lab to the physics lab as a second way out, but that room has no doors in the level; adding two would give the player the escape route in the team's outline.
 
 ### 8. The false exit
 
@@ -161,15 +161,38 @@ Each crayon is used three times: to open the next room's door, inside that room'
 - **Gets faster:** a small speed increase with each crayon collected.
 - **Scripted moments:** only two (first sighting, chemistry break-in). The other moments in the team's outline, such as the entity waiting at a corner, come from roaming.
 
-## Replay value
+## Replay value (strictly optional)
+
+**Nothing in this section is required for the game to be finished.** The game is complete with the route, the seven puzzles, all three endings and the game over screen. Everything below is extra, and is only started once every room is built, tested and playable.
 
 In order of cost:
 
 1. **Easy and hard mode.** Entity speed and sight range, 3 lives or 1, flickering light hints on or off.
-2. **Three endings.**
-3. **Shuffled answers on a fixed route.** Each run picks from a few presets: which book, which tune, which locker digits, which pair of elements, where the apples sit. The order of rooms never changes, so every run can be finished.
+2. **Shuffled answers on a fixed route.** Each run picks from a few presets: which book, which tune, which locker digits, which pair of elements, where the apples sit. The order of rooms never changes, so every run can be finished. The three endings are not part of this list; they are part of the base game. This is the most expensive item, since it multiplies the authoring for every puzzle, so it is last.
 
-Not planned: shuffling the route or the crayon locations between rooms. It would need every access gate to work in any order.
+Not planned: shuffling the route or the crayon locations between rooms. It would need every door to work in any order.
+
+## Unused rooms are locked
+
+The school is about 120 by 91 m and the route only uses part of it. Every room the route does not use is shut off, so the playable area is smaller, the entity finds the player faster, and nobody has to build, light or test rooms nobody will visit.
+
+**Rooms in use** (everything else is locked):
+
+- The entry lobby and the vestibule
+- The library, with its archive and office
+- The bio lab, potting room and greenhouse
+- The music room
+- The gym and the locker room (the other locker room only if the puzzle needs it)
+- The cafeteria and kitchen
+- The art studio
+- The chemistry lab (and the physics lab, if the prep room between them is given doors for the chase)
+- The hallways between them, and the central courtyard
+
+**Locked:** the classrooms, the seminar rooms, the computer lab, the tech workshop, the PE rooms, the fitness room, and the other storerooms and offices.
+
+**How:** a locked room's doorway is closed with a plain wall piece, not a door. A door marked "locked" would not be enough, because the entity opens any door and would walk in. A solid wall also removes the room from the entity's walkable area once the navigation mesh is re-baked, so it never tries to patrol there. Six rooms are already sealed this way (see below).
+
+**Checked on 2026-10-05:** with every door open, every room this script uses can be walked to from the lobby: library, bio lab, greenhouse, music room, gym, locker rooms, cafeteria, kitchen, art studio, chemistry lab and the courtyard. Six rooms have no doorway: the soil store, the tech workshop, the PE equipment and office block, the chem store with its prep room, the shared class prep room between classrooms 101 and 102, and the security office. Four of them are rooms the floor plan marks as closed; the two prep rooms are drawn with doors on the plan but have none in the level. Doorway 13 (link hall into the music room) is the only door the player cannot pass, because the hall floor is 0.79 m higher than the room; the music room's other door works.
 
 ## What needs building
 
@@ -187,7 +210,7 @@ Already possible with what exists: every color-locked door, the violet trail, th
 
 ### Build order
 
-Everything in this script is planned to be finished. Nothing is marked as optional. The order below is set by what depends on what, so that each step can be played and tested as soon as it is done.
+Steps 1 to 7 are the base game and are all required. Steps 8 and 9 are strictly optional and only start once every room is built and tested. The order is set by what depends on what, so that each step can be played and tested as soon as it is done.
 
 | Step | Build | Which then allows |
 |---|---|---|
@@ -197,17 +220,18 @@ Everything in this script is planned to be finished. Nothing is marked as option
 | 4 | **Press in order** | Xylophone, locker |
 | 5 | **Safe room** and the entity getting faster per crayon | The entity behaving correctly around every puzzle |
 | 6 | **Ending trigger** and the three ending screens | White door, entity uncovered, caught |
-| 7 | The two scripted entity moments | First sighting, chemistry break-in |
-| 8 | Easy and hard mode, shuffled answers | Replay value |
-| 9 | Flickering light hints, mascot easter egg | Polish |
+| 7 | The two scripted entity moments, and locking the unused rooms (see below) | First sighting, chemistry break-in, a smaller school |
+| 8 | **Optional:** easy and hard mode, shuffled answers | Replay value |
+| 9 | **Optional:** flickering light hints, mascot easter egg | Polish |
 
-Steps 2 to 4 are the mechanics every puzzle is assembled from. Once they exist, the seven rooms can be built in parallel by whoever owns the levels, in route order (library first, chemistry last), while steps 5 to 9 continue.
+Steps 2 to 4 are the mechanics every puzzle is assembled from. Once they exist, the seven rooms can be built in parallel by whoever owns the levels, in route order (library first, chemistry last), while steps 5 to 7 continue.
 
 Each room is done when: its door is set to the right color, its puzzle can be solved using only colors the player has by then, its crayon is collected, and the entity can enter only afterwards.
 
 ## Open
 
 - Cut for time on 2026-10-05: a different way into each room per color (sunlight on vines, a door drawn on a wall, a color sensor, a code in blue pen, a darkroom photo, a hazard lever). Rooms now use color-locked doors. These can come back as polish if time allows.
+- The exact list of rooms to lock. The reachability check is done; what is left is choosing which of the reachable, unused rooms get walled off.
 - Whether the central courtyard is the final room. It is the middle of the school and every hall circles it.
 - Whether the ceiling lights can flicker as hints. They are currently a texture on the ceiling material, not real lights.
 - Doorway 13 (the raised link hall) is still blocked for the player, so the route above avoids it.
