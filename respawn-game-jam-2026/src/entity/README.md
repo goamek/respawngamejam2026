@@ -104,6 +104,7 @@ All are shown in the Inspector on the entity.
 | Catching | `catch_angle` | 45 degrees | How far off straight ahead the player may be and still be caught. |
 | Catching | `catch_cooldown` | 3 s | Time after a reset during which it cannot catch. |
 | Movement | `turn_speed` | 240 degrees/s | How fast it turns to face where it is walking. |
+| Movement | `speed_gain_per_hue` | 0.05 | How much faster it gets for each crayon the player has, as a fraction of its speeds. With all seven it moves 1.35 times as fast, which is still slower than the player's sprint. |
 | Movement | `stuck_time` | 1.5 s | How long it may be blocked before giving up on a destination. |
 
 For comparison, the player walks at 3.0 m/s and sprints at 5.5 m/s, so sprinting outruns an investigating entity.
@@ -127,11 +128,21 @@ How it is put together:
 - **The state picks the animation.** `STATE_ANIMATIONS` in `entity.gd` maps each state to a library. Whenever the state changes, the new animation fades in over `animation_blend_time` (0.25 s).
 - **Looping** is set in each file's import settings: every animation loops except the catch, which plays once. The catch plays at twice normal speed (`catch_animation_speed`), so the 2.8 s scream takes 1.4 s; it then holds its last pose until the screen is black at 1.8 s.
 - **In place.** The walk and run were downloaded with Mixamo's "In Place" box ticked. The script moves the body; an animation that also moved it would make it slide and snap back.
-- **Solid black.** The mesh has a black material set over its own textures in the entity scene (`Model/Skeleton3D/Ch14`, Material Override). The original colored textures are still in the file, for the ending where the black comes off.
+- **Solid black.** The mesh has a black material set over its own textures in the entity scene (`Model/Skeleton3D/Ch14`, Material Override). The material is pure black with a soft sheen (specular 0.3, roughness 0.6), so it is a flat silhouette in the dark but picks up a dull glow in the beam's color where the flashlight hits it, like wax crayon. Without the sheen the beam seemed to pass straight through it. The original colored textures are still in the file, for the ending where the black comes off.
 - **Eyes.** Two white spheres sit under a `BoneAttachment3D` on the head bone, so they follow the head through every animation.
 - **Size and facing.** The character is 1.33 m tall as downloaded and faces the opposite way to Godot's forward, so the `Model` node is scaled by 1.35 and turned half a circle.
 
 To swap an animation: download the new one from Mixamo with the same settings (FBX Binary, Without Skin, 30 fps, In Place where offered), save it over the old file with the same name, and let Godot re-import it. To swap the character, the new one must use the standard Mixamo skeleton, and the eye positions under `Head` will need moving.
+
+## Safe rooms
+
+A room with a `SafeRoom` area over it (`src/level/scripts/safe_room.gd`) is closed to the entity until something calls the room's `open_to_entity()`, normally the room's puzzle being solved. While it is closed the entity:
+
+- stops at the edge of the room instead of walking in, even when it has seen the player inside,
+- never picks a patrol point inside it,
+- cannot catch a player who is standing inside it, even from within reach across the doorway.
+
+It will still come to the doorway and look in. How to set one up is in `src/interaction/README.md`.
 
 ## Movement notes
 

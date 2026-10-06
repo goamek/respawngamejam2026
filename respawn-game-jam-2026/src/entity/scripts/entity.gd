@@ -96,6 +96,8 @@ const CLIP_NAME: StringName = &"mixamo_com"
 @export var catch_animation_speed: float = 2.0
 
 @export_group("Movement")
+## How much faster the entity gets for each spectrum hue the player has unlocked, as a fraction of its speeds.
+@export var speed_gain_per_hue: float = 0.05
 ## How fast the body turns to face where it is going, in degrees per second.
 @export var turn_speed: float = 240.0
 ## Time the entity may be blocked before it gives up on a destination, in seconds.
@@ -209,6 +211,8 @@ func _try_catch(delta: float) -> void:
 	_catch_cooldown_left = maxf(_catch_cooldown_left - delta, 0.0)
 	if state == State.CATCHING or _catch_cooldown_left > 0.0 or not _sees_player:
 		return
+	if _is_off_limits(_player.global_position):
+		return
 	if _is_within_reach(_player.global_position):
 		_set_state(State.CATCHING)
 		_leap_at_player()
@@ -238,13 +242,13 @@ func _process_pausing(delta: float) -> void:
 
 ## Walks to the patrol point, pausing on arrival.
 func _process_roaming(delta: float) -> void:
-	if _follow_path(roam_speed, delta):
+	if _follow_path(roam_speed * _speed_scale(), delta):
 		_start_pausing()
 
 
 ## Hurries to the spot being checked; on arrival, turns to the player if still in sight, otherwise looks around.
 func _process_investigating(delta: float) -> void:
-	if not _follow_path(investigate_speed, delta):
+	if not _follow_path(investigate_speed * _speed_scale(), delta):
 		return
 	if _sees_player:
 		_stop()
@@ -292,11 +296,16 @@ func _start_searching() -> void:
 	_set_state(State.SEARCHING)
 
 
-## Moves one step along the current path at [param speed]; returns true on arrival or when stuck.
+## Moves one step along the current path at [param speed]; returns true on arrival, when stuck,
+## or when the next step would take it into a room it is still kept out of.
 func _follow_path(speed: float, delta: float) -> bool:
 	if _agent.is_navigation_finished() or _is_stuck(speed, delta):
 		return true
-	var to_next: Vector3 = _agent.get_next_path_position() - global_position
+	var next_position: Vector3 = _agent.get_next_path_position()
+	if _is_off_limits(next_position):
+		_stop()
+		return true
+	var to_next: Vector3 = next_position - global_position
 	to_next.y = 0.0
 	var direction: Vector3 = to_next.normalized()
 	_open_door_ahead(direction)
@@ -373,11 +382,27 @@ func _stop() -> void:
 	velocity.z = 0.0
 
 
-## Returns a random patrol point other than the current one, or null when none are set.
+## Whether [param point], in global space, is inside a safe room the entity is still kept out of.
+func _is_off_limits(point: Vector3) -> bool:
+	return SafeRoom.is_sheltered(get_tree(), point)
+
+
+## Returns how many times its base speeds the entity moves at, which grows with each spectrum hue the player unlocks.
+func _speed_scale() -> float:
+	if _player == null or _player.flashlight == null:
+		return 1.0
+	var hue_count: int = 0
+	for hue: Spectrum.Hue in _player.flashlight.unlocked_hues:
+		if hue != Spectrum.Hue.WHITE:
+			hue_count += 1
+	return 1.0 + speed_gain_per_hue * hue_count
+
+
+## Returns a random patrol point other than the current one and outside any room it is kept out of, or null when none are set.
 func _pick_patrol_point() -> Node3D:
 	var candidates: Array[Node3D] = []
 	for point: Node3D in patrol_points:
-		if point != null and point != _patrol_point:
+		if point != null and point != _patrol_point and not _is_off_limits(point.global_position):
 			candidates.append(point)
 	if candidates.is_empty():
 		return _patrol_point

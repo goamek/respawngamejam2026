@@ -13,6 +13,9 @@ const MAX_PITCH: float = 89.0
 ## Speed above which the player counts as moving to anything watching, in meters per second.
 const MOVING_SPEED: float = 0.5
 
+## Whether the flashlight in the player's hand is kept at the start; turn off for a level where it is found.
+@export var starts_with_flashlight: bool = true
+
 @export_group("Movement")
 ## Walking speed, in meters per second.
 @export var walk_speed: float = 3.0
@@ -61,7 +64,7 @@ var _shake_left: float = 0.0
 @onready var _body_shape: CapsuleShape3D = _collision_shape.shape as CapsuleShape3D
 
 
-## Captures the mouse, sizes the body from the exported heights, and takes any flashlight already in hand.
+## Captures the mouse, sizes the body from the exported heights, and takes or discards the flashlight in hand.
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	_height = stand_height
@@ -69,8 +72,13 @@ func _ready() -> void:
 	_ceiling_check.target_position = Vector3(0.0, stand_height - crouch_height, 0.0)
 	_apply_height()
 	for child: Node in hand.get_children():
-		if child is Flashlight:
+		if not child is Flashlight:
+			continue
+		if starts_with_flashlight:
 			_hold_flashlight(child)
+		else:
+			hand.remove_child(child)
+			child.queue_free()
 
 
 ## Routes the pause action, and while controls are enabled, mouse look, the interact action, and hue changes.

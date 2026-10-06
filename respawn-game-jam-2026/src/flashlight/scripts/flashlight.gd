@@ -20,14 +20,16 @@ const _PARAM_CONE_COS: StringName = &"flashlight_cone_cos"
 const _PARAM_RANGE: StringName = &"flashlight_range"
 const _PARAM_HUE: StringName = &"flashlight_hue"
 
-## Hues the player can cycle through, kept in spectrum order.
+## Hues the player can cycle through, kept in spectrum order. Leave empty for a colorless beam that reveals nothing.
 @export var unlocked_hues: Array[Spectrum.Hue] = [Spectrum.Hue.RED]
 ## Whether the light is shining.
 @export var is_on: bool = true
 
-## Hue the beam shines while the light is on.
+## Hue the beam shines while the light is on; colorless until the first hue is unlocked.
 var current_hue: Spectrum.Hue:
 	get:
+		if unlocked_hues.is_empty():
+			return Spectrum.Hue.NONE
 		return unlocked_hues[_hue_index]
 
 var _hue_index: int = 0
@@ -37,7 +39,6 @@ var _hue_index: int = 0
 
 ## Sorts the starting hues and shows the starting state.
 func _ready() -> void:
-	assert(not unlocked_hues.is_empty(), "Flashlight needs at least one unlocked hue.")
 	unlocked_hues.sort()
 	_refresh_light()
 

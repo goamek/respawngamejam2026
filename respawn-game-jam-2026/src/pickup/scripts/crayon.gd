@@ -9,14 +9,28 @@ signal collected(hue: Spectrum.Hue)
 @export var hue: Spectrum.Hue = Spectrum.Hue.ORANGE
 ## Brightness of the crayon's own glow, so it can be found in the dark.
 @export var glow: float = 0.6
+## Whether the crayon is absent until appear() is called, as the reward for a puzzle.
+@export var starts_hidden: bool = false
+
+var _collision_layer: int
 
 @onready var _interactable: Interactable = $Interactable
 
 
-## Colors the crayon and listens for the player picking it up.
+## Colors the crayon, hides it if it is a reward, and listens for the player picking it up.
 func _ready() -> void:
 	_apply_color()
 	_interactable.interacted.connect(_on_interacted)
+	_collision_layer = collision_layer
+	if starts_hidden:
+		visible = false
+		collision_layer = 0
+
+
+## Makes a crayon that started hidden show up and become collectable.
+func appear() -> void:
+	visible = true
+	collision_layer = _collision_layer
 
 
 ## Gives every mesh of the crayon a glowing material in its hue's color.
