@@ -118,13 +118,17 @@ func is_moving() -> bool:
 	return Vector2(velocity.x, velocity.z).length() > MOVING_SPEED
 
 
+## Returns where the player's eyes will be once any crouching or standing up has finished, in global space.
+func settled_eye_position() -> Vector3:
+	var settled_height: float = crouch_height if _should_crouch() else stand_height
+	return global_position + Vector3.UP * (settled_height - EYE_OFFSET)
+
+
 ## Turns the body and head over [param duration] seconds to look at [param point]; returns the running tween.
 func face_toward(point: Vector3, duration: float) -> Tween:
 	# Aimed from where the eyes will settle, not where they are: a crouching player
 	# who has lost control stands up during the turn, which would leave the view too high.
-	var settled_height: float = crouch_height if _should_crouch() else stand_height
-	var eyes: Vector3 = global_position + Vector3.UP * (settled_height - EYE_OFFSET)
-	var to_point: Vector3 = point - eyes
+	var to_point: Vector3 = point - settled_eye_position()
 	var target_yaw: float = atan2(-to_point.x, -to_point.z)
 	var flat_distance: float = Vector2(to_point.x, to_point.z).length()
 	var max_pitch: float = deg_to_rad(MAX_PITCH)
@@ -133,6 +137,16 @@ func face_toward(point: Vector3, duration: float) -> Tween:
 	tween.tween_property(self, "rotation:y", rotation.y + angle_difference(rotation.y, target_yaw), duration)
 	tween.tween_property(head, "rotation:x", target_pitch, duration)
 	return tween
+
+
+## Turns the body and head part of the way toward [param point]; a [param weight] of 1 looks straight at it.
+func look_toward(point: Vector3, weight: float) -> void:
+	var to_point: Vector3 = point - head.global_position
+	var flat_distance: float = Vector2(to_point.x, to_point.z).length()
+	var max_pitch: float = deg_to_rad(MAX_PITCH)
+	var target_pitch: float = clampf(atan2(to_point.y, flat_distance), -max_pitch, max_pitch)
+	rotation.y = lerp_angle(rotation.y, atan2(-to_point.x, -to_point.z), weight)
+	head.rotation.x = lerpf(head.rotation.x, target_pitch, weight)
 
 
 ## Shakes the camera for [param duration] seconds, jolting up to [param strength] meters and fading out.

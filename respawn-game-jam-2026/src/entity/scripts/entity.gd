@@ -38,6 +38,18 @@ const OVERLAP_DISTANCE: float = 0.3
 const STEP_HEIGHT: float = 0.3
 ## How far forward a step up carries the body, enough to land its middle on the lip, in meters.
 const STEP_REACH: float = 0.35
+## Animation library played in each state; each is one Mixamo file imported as a library.
+const STATE_ANIMATIONS: Dictionary[State, StringName] = {
+	State.PAUSING: &"idle",
+	State.ROAMING: &"walk",
+	State.INVESTIGATING: &"run",
+	State.SEARCHING: &"search",
+	State.CATCHING: &"catch",
+}
+## Closest the face comes to the player's eyes in a lunge, so it never passes through the camera, in meters.
+const MIN_FACE_DISTANCE: float = 0.45
+## Name Mixamo gives the single clip inside every library.
+const CLIP_NAME: StringName = &"mixamo_com"
 
 @export_group("Roaming")
 ## Points the entity wanders between, in no fixed order.
@@ -68,6 +80,18 @@ const STEP_REACH: float = 0.35
 @export var catch_angle: float = 45.0
 ## Time after being reset during which the entity cannot catch, in seconds.
 @export var catch_cooldown: float = 3.0
+## Time the leap up to the player's eye level takes when catching, in seconds.
+@export var catch_leap_time: float = 0.15
+## Highest the body can leap off the floor when catching, in meters.
+@export var catch_leap_limit: float = 1.0
+## How far above the player's eye level the face ends up in the leap, in meters.
+@export var catch_leap_above_eyes: float = 0.15
+## How far the body lunges toward the player in the leap, in meters.
+@export var catch_lunge_distance: float = 0.3
+
+@export_group("Animation")
+## How long one animation takes to fade into the next, in seconds.
+@export var animation_blend_time: float = 0.25
 
 @export_group("Movement")
 ## How fast the body turns to face where it is going, in degrees per second.
@@ -89,10 +113,15 @@ var _sees_player: bool = false
 var _door_to_close: Door
 var _door_start_side: float = 0.0
 var _catch_cooldown_left: float = 0.0
+var _leap_face_height: float = 0.0
+var _leap_face_gap: float = 0.0
 var _start_transform: Transform3D
 
 @onready var _agent: NavigationAgent3D = $NavigationAgent3D
 @onready var _eyes: Marker3D = $Eyes
+@onready var _model: Node3D = $Model
+@onready var _face_marker: Marker3D = $Model/Skeleton3D/Head/Face
+@onready var _animation: AnimationPlayer = $Model/AnimationPlayer
 
 
 ## Finds the player, remembers where it started, and begins with a pause while the navigation map loads.
@@ -100,6 +129,7 @@ func _ready() -> void:
 	_player = get_tree().get_first_node_in_group("player") as Player
 	_start_transform = global_transform
 	_pause_left = pause_time
+	_play_state_animation()
 
 
 ## Checks for the player, tries to catch them, runs the current state, then moves the body.
@@ -142,9 +172,14 @@ func sees_player() -> bool:
 	return _sees_player
 
 
-## Returns the position of the entity's eyes, in global space.
+## Returns the fixed point the entity sees from, in global space.
 func eye_position() -> Vector3:
 	return _eyes.global_position
+
+
+## Returns where the entity's face is right now, following its animation, in global space.
+func face_position() -> Vector3:
+	return _face_marker.global_position
 
 
 ## Puts the entity back where it started, roaming afresh and briefly unable to catch.
@@ -174,6 +209,7 @@ func _try_catch(delta: float) -> void:
 		return
 	if _is_within_reach(_player.global_position):
 		_set_state(State.CATCHING)
+		_leap_at_player()
 		player_caught.emit()
 
 
@@ -228,6 +264,7 @@ func _process_searching(delta: float) -> void:
 func _process_catching(delta: float) -> void:
 	_stop()
 	_face_point(_player.global_position, delta)
+	_hold_face_in_place(delta)
 
 
 ## Stops and waits before choosing the next patrol point.
@@ -435,4 +472,42 @@ func _set_state(new_state: State) -> void:
 	if new_state == state:
 		return
 	state = new_state
+	if state != State.CATCHING:
+		_land()
+	_play_state_animation()
 	state_changed.emit(state)
+
+
+## Starts the leap: picks where the face is held, just above the player's eyes and a lunge closer to them.
+## It is shorter than the player and hunches as it screams. Only the model moves; the body that collides stays put.
+func _leap_at_player() -> void:
+	var eyes: Vector3 = _player.settled_eye_position()
+	var face: Vector3 = face_position()
+	var gap: float = Vector2(face.x - eyes.x, face.z - eyes.z).length()
+	_leap_face_height = eyes.y + catch_leap_above_eyes
+	_leap_face_gap = gap - clampf(gap - MIN_FACE_DISTANCE, 0.0, catch_lunge_distance)
+
+
+## Moves the model so its face reaches the leap spot in about the leap time, and then stays there.
+## The catch animation hunches down and leans in; left alone, the face would drift and drag the player's view with it.
+func _hold_face_in_place(delta: float) -> void:
+	var eyes: Vector3 = _player.settled_eye_position()
+	var face: Vector3 = face_position()
+	var gap: float = Vector2(face.x - eyes.x, face.z - eyes.z).length()
+	# The entity faces the player while catching, so its forward (-Z) closes the gap.
+	var wanted := Vector3(
+		0.0,
+		clampf(_model.position.y + _leap_face_height - face.y, 0.0, catch_leap_limit),
+		clampf(_model.position.z - (gap - _leap_face_gap), -catch_lunge_distance, catch_lunge_distance),
+	)
+	_model.position = _model.position.lerp(wanted, 1.0 - exp(-3.0 * delta / catch_leap_time))
+
+
+## Puts the model back in place on the floor after a leap.
+func _land() -> void:
+	_model.position = Vector3.ZERO
+
+
+## Fades into the animation that belongs to the current state.
+func _play_state_animation() -> void:
+	_animation.play("%s/%s" % [STATE_ANIMATIONS[state], CLIP_NAME], animation_blend_time)

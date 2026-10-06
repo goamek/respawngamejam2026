@@ -5,7 +5,7 @@ The creature that hunts the player. It roams the level, notices the player when 
 - Scene: `scenes/entity.tscn`
 - Script: `scripts/entity.gd` (`class_name Entity`)
 
-The current body is a placeholder: a black capsule with two white eyes, 1.8 m tall. A real model and animations will replace it.
+The body is a rigged character from Mixamo, shown solid black with two white eyes, 1.8 m tall. See **Model and animations** below.
 
 ## Status
 
@@ -18,6 +18,7 @@ The current body is a placeholder: a black capsule with two white eyes, 1.8 m ta
 | Noticing the flashlight's lit spot when the player is out of view | Built |
 | Investigating the last place it noticed the player | Built |
 | Catching the player | Built |
+| Model and animations | Built |
 
 ## States
 
@@ -77,10 +78,10 @@ The entity catches the player when all of these are true:
 
 On a catch it switches to `CATCHING`, stands still facing the player, and emits `player_caught`. What happens next belongs to the level's `CatchHandler` (`src/level/scenes/catch_handler.tscn`):
 
-1. The player's controls turn off, the camera shakes, and their view snaps to the entity's eyes in 0.15 s. They stare at it for 0.45 s while the shake fades.
+1. The player's controls turn off, the camera shakes, and their view snaps to the entity's face in 0.15 s. At the same moment the entity leaps up and lunges in, so its face ends up just above the player's eyes and about 0.3 m closer (`catch_leap_time`, `catch_leap_above_eyes`, `catch_lunge_distance`); it is shorter than the player, and from standing height they would otherwise only see the top of its head. Its face is then held at that spot for the rest of the catch, even as the animation hunches down and leans in, so the player's view stays steady instead of drifting. The lunge never brings it closer than 0.45 m, so it cannot pass through the camera. They stare at it for 1.45 s while the shake fades. The view keeps following the face until the screen is black (`follow_speed` on the catch handler sets how tightly).
 2. A life is lost (`GameSession`, an autoload).
-3. The screen fades to black with "Caught. 2 lives left", then "Caught. 1 life left", then "Game Over".
-4. With lives left: the player respawns at the handler's spawn point, every entity goes back to where it started, and the screen fades back in.
+3. The screen cuts to black in 0.2 s (`fade_out_time`) with "Caught. 2 lives left", then "Caught. 1 life left", then "Game Over".
+4. With lives left: the player respawns at the handler's spawn point, every entity goes back to where it started, and the screen fades back in over 0.6 s (`fade_in_time`).
 5. With no lives left: the handler emits `run_ended`. If its **Main Menu Scene** is set, a new run starts with 3 lives and the menu loads. The school level points it at `src/ui/scenes/main_menu.tscn`. The test levels leave it empty, so there the game quits instead; when playing from the editor, that just stops the running game.
 
 A level with no `CatchHandler` leaves a caught entity standing in `CATCHING` and the player untouched.
@@ -106,6 +107,31 @@ All are shown in the Inspector on the entity.
 | Movement | `stuck_time` | 1.5 s | How long it may be blocked before giving up on a destination. |
 
 For comparison, the player walks at 3.0 m/s and sprints at 5.5 m/s, so sprinting outruns an investigating entity.
+
+## Model and animations
+
+The files are in `src/entity/models/`, all downloaded from Mixamo as FBX.
+
+| File | What it is | Plays while |
+|---|---|---|
+| `entity.fbx` | The character mesh and skeleton | |
+| `idle.fbx` | Thriller Idle | Pausing |
+| `walk.fbx` | Walking | Roaming |
+| `run.fbx` | Running | Investigating (chasing) |
+| `search.fbx` | Nervously Look Around | Searching |
+| `catch.fbx` | Zombie Scream | Catching |
+
+How it is put together:
+
+- **One skeleton, five animation files.** The character file holds the mesh. Each animation file was downloaded "without skin", so it holds movement only, and is imported as an animation library (Import dock, **Import As: Animation Library**). The entity scene's `AnimationPlayer` lists the five libraries by name.
+- **The state picks the animation.** `STATE_ANIMATIONS` in `entity.gd` maps each state to a library. Whenever the state changes, the new animation fades in over `animation_blend_time` (0.25 s).
+- **Looping** is set in each file's import settings: every animation loops except the catch, which plays once.
+- **In place.** The walk and run were downloaded with Mixamo's "In Place" box ticked. The script moves the body; an animation that also moved it would make it slide and snap back.
+- **Solid black.** The mesh has a black material set over its own textures in the entity scene (`Model/Skeleton3D/Ch14`, Material Override). The original colored textures are still in the file, for the ending where the black comes off.
+- **Eyes.** Two white spheres sit under a `BoneAttachment3D` on the head bone, so they follow the head through every animation.
+- **Size and facing.** The character is 1.33 m tall as downloaded and faces the opposite way to Godot's forward, so the `Model` node is scaled by 1.35 and turned half a circle.
+
+To swap an animation: download the new one from Mixamo with the same settings (FBX Binary, Without Skin, 30 fps, In Place where offered), save it over the old file with the same name, and let Godot re-import it. To swap the character, the new one must use the standard Mixamo skeleton, and the eye positions under `Head` will need moving.
 
 ## Movement notes
 
