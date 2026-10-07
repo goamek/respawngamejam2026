@@ -92,14 +92,11 @@ func _ready() -> void:
 			child.queue_free()
 
 
-## Routes the pause action, and while controls are enabled, mouse look, the interact action, and hue changes.
+## While controls are enabled, routes mouse look, the interact action, and hue changes.
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("pause"):
-		# STUB: frees the mouse until a real pause menu exists
-		_toggle_mouse_capture()
-	elif not is_input_enabled:
+	if not is_input_enabled:
 		return
-	elif event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		var motion: InputEventMouseMotion = event
 		_look(motion.relative * mouse_sensitivity)
 	elif event.is_action_pressed("interact"):
@@ -286,11 +283,3 @@ func _handle_hue_input(event: InputEvent) -> void:
 		flashlight.cycle_hue(1)
 	elif event.is_action_pressed("color_prev"):
 		flashlight.cycle_hue(-1)
-
-
-## Switches the mouse between captured for play and visible for the desktop.
-func _toggle_mouse_capture() -> void:
-	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	else:
-		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED

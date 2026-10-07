@@ -32,6 +32,8 @@ The game supports keyboard and mouse, and any connected controller.
 
 The ending screen is a menu too: its one button, **Main Menu**, is highlighted when the screen appears.
 
+The pause menu opens and closes with the `pause` action (Escape, or Start / Options on a controller) and freezes the game while it is open. It has a master volume slider, moved with left and right, and a **Quit to title** button below it. The slider is highlighted when the menu opens.
+
 Moving between buttons uses Godot's built-in `ui_up` and `ui_down` actions. `ui_accept` is overridden in the project settings to add the controller button, which Godot does not include by default.
 ## Audio
 
