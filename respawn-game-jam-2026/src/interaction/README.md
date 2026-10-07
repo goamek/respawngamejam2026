@@ -108,7 +108,38 @@ Select the node that sends the signal, open the **Node** dock, double-click the 
 | The light has been held long enough | sensor `charged` | any `Node3D`'s `show()` |
 | The puzzle is finished | socket `solved` or sensor `charged` | safe room `open_to_entity()` |
 
-Example, the greenhouse: the pot is a socket with one slot, taking the four seed packets, with the flower packet as its solution. Its `solved` goes to the sensor's `enable()`. The sensor sits on the pot, yellow, 3 seconds. Its `charged` goes to the flower's `show()`, both crayons' `appear()`, and the safe room's `open_to_entity()`.
+The greenhouse uses this chain, packed into one ready-made object; see **The greenhouse puzzle** below.
+
+## Writing that shows under one color (hidden text)
+
+Drag in `environment/scenes/hidden_text.tscn`. It is a small dark tag with writing on it that only shows under a beam of its **Hue**, or a white beam. Set **Text**, **Hue**, **Text Height** and **Tag Size** (both in meters).
+
+The tag is there on purpose. Hidden things are drawn near black, so hidden writing straight on pale paper would be readable as black letters. On a tag of the same black it cannot be made out until the right light is on it.
+
+Used for the names on the seed sacks and the missing word on the greenhouse note. The same piece will do for locker numbers and jar labels.
+
+## The greenhouse puzzle
+
+Three ready-made pieces, all in `environment/scenes/`:
+
+| Piece | What it is | Settings |
+|---|---|---|
+| `seed_sack.tscn` | A sack the player carries, with its name on a hidden-text tag (yellow). The hint is "Pick up" for every sack, so only the light tells them apart. | **Plant Name**, in lowercase: `flower`, `carrot`, `tree` or `weed`. It is both the name on the tag and the id the pot checks. |
+| `plant_pot.tscn` | The pot, with a socket, a light sensor, and the flower inside it. | **Alarm Spot**, **Alarm Range**, and three sound names. |
+| `bench.tscn` | A plain grey placeholder bench, 2.2 m long and 0.9 m high. | None. |
+
+How the pot plays:
+
+1. It takes any of the four sacks. A wrong one sits in it for a moment and is sent back to where it was picked up, with a thud and a noise the entity can hear.
+2. The `flower` sack is planted: it disappears into the pot, and from then on yellow light counts.
+3. While yellow light is on the pot the flower grows, reaching full size after 3 seconds. Move the beam away and it shrinks back at the same rate.
+4. At full size the pot emits `bloomed`. Connect that to each reward crayon's `appear()`.
+
+**Alarm Spot** is where the noise of a wrong sack seems to come from. The entity ignores noise from inside a safe room it is kept out of, and the pot is inside one, so give it a `Marker3D` placed just outside the room's door. The entity runs there, looks around, and leaves.
+
+In the school: the bench, the four sacks and the note are in the potting room; the pot is on the greenhouse floor; the alarm marker is in the hall outside the bio lab's yellow door. The green and indigo crayons sit in the flower, hidden until `bloomed`. Taking both opens the wing to the entity, through the safe room.
+
+After moving the bench or the pot, re-bake the navigation mesh, since the entity walks round them once the wing is open.
 
 ## A crayon that is a reward
 
@@ -219,6 +250,10 @@ Call `show_hint("text")` on the player to put a line of guidance in the lower pa
 
 Aiming at it shows "Pick up". Using it puts the flashlight in the player's hand, still off, and shows a hint on how to switch it. The hint stays until the player first switches the light, and its wording is the pickup's **Hint** setting; clear that for no hint.
 
-## The flashlight with no color
+## The flashlight's grey beam
 
-A flashlight whose **Unlocked Hues** list is empty shines a dim grey beam. It lights the way and reveals nothing. The first crayon gives it its first color.
+Every flashlight has a dim grey beam that lights the way and reveals nothing. It is always there, first in the row of colors, and is never replaced: each crayon adds a color after it, and the player can cycle back to grey at any time.
+
+A flashlight whose **Unlocked Hues** list is empty has grey and nothing else, which is how the one in the lobby starts. A flashlight given colors there still gets grey, and starts on its first color.
+
+Grey does not count as a crayon: it does not speed the entity up, and it is not one of the seven that unlock white.

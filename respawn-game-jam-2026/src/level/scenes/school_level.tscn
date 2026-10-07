@@ -21,6 +21,10 @@
 [ext_resource type="Script" path="res://src/level/scripts/level_music.gd" id="19_level_music"]
 [ext_resource type="Script" path="res://src/level/scripts/hiding_spot.gd" id="20_hiding_spot"]
 [ext_resource type="Script" path="res://src/level/scripts/heartbeat.gd" id="21_heartbeat"]
+[ext_resource type="PackedScene" path="res://src/environment/scenes/bench.tscn" id="22_bench"]
+[ext_resource type="PackedScene" path="res://src/environment/scenes/seed_sack.tscn" id="23_seed_sack"]
+[ext_resource type="PackedScene" path="res://src/environment/scenes/plant_pot.tscn" id="24_plant_pot"]
+[ext_resource type="PackedScene" path="res://src/environment/scenes/hidden_text.tscn" id="25_hidden_text"]
 
 [sub_resource type="Environment" id="Environment_dark"]
 background_mode = 1
@@ -250,12 +254,54 @@ shape = SubResource("BoxShape3D_hiding_spot")
 [node name="Greenhouse" type="Node3D" parent="."]
 
 [node name="GreenCrayon" parent="Greenhouse" instance=ExtResource("6_crayon")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 80.5, 0, -50.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 81.5, 0.45, -50.28)
 hue = 3
+is_hidden_at_start = true
 
 [node name="IndigoCrayon" parent="Greenhouse" instance=ExtResource("6_crayon")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 81.5, 0, -50.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 81.5, 0.85, -50.58)
 hue = 5
+is_hidden_at_start = true
+
+[node name="Bench" parent="Greenhouse" instance=ExtResource("22_bench")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 67.61, 0, -53.3)
+
+[node name="CarrotSack" parent="Greenhouse" instance=ExtResource("23_seed_sack")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 67.61, 0.91, -54.05)
+plant_name = "carrot"
+
+[node name="WeedSack" parent="Greenhouse" instance=ExtResource("23_seed_sack")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 67.61, 0.91, -53.55)
+plant_name = "weed"
+
+[node name="FlowerSack" parent="Greenhouse" instance=ExtResource("23_seed_sack")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 67.61, 0.91, -53.05)
+plant_name = "flower"
+
+[node name="TreeSack" parent="Greenhouse" instance=ExtResource("23_seed_sack")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 67.61, 0.91, -52.55)
+plant_name = "tree"
+
+[node name="BenchNote" parent="Greenhouse" instance=ExtResource("9_note")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 67.275, 1.68, -53.3)
+text = "Flowers need
+a seed and
+"
+paper_size = Vector2(0.6, 0.42)
+text_height = 0.055
+
+[node name="BenchNoteSun" parent="Greenhouse" instance=ExtResource("25_hidden_text")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 67.283, 1.56, -53.3)
+text = "SUN"
+text_height = 0.07
+tag_size = Vector2(0.26, 0.1)
+
+[node name="AlarmSpot" type="Marker3D" parent="Greenhouse"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60.2, 0, -46.24)
+
+[node name="PlantPot" parent="Greenhouse" node_paths=PackedStringArray("alarm_spot") instance=ExtResource("24_plant_pot")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 81.5, 0, -50.5)
+alarm_spot = NodePath("../AlarmSpot")
 
 [node name="LockerRoom" type="Node3D" parent="."]
 
@@ -362,5 +408,7 @@ shape = SubResource("BoxShape3D_safe_ArtStudio")
 [connection signal="taken" from="Library/Bookshelf/MyColors" to="Library/Bookshelf/ColoringBook" method="show"]
 [connection signal="taken" from="Library/Bookshelf/MyColors" to="Library/YellowCrayon" method="appear"]
 [connection signal="ended" from="FirstSighting" to="Library/EntryLock" method="unlock_door"]
+[connection signal="bloomed" from="Greenhouse/PlantPot" to="Greenhouse/GreenCrayon" method="appear"]
+[connection signal="bloomed" from="Greenhouse/PlantPot" to="Greenhouse/IndigoCrayon" method="appear"]
 [connection signal="uncovered" from="Entity" to="EndingDirector" method="play_uncovered"]
 [connection signal="used" from="Courtyard/ExitDoor" to="EndingDirector" method="play_escape"]

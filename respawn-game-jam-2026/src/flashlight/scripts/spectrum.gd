@@ -23,6 +23,12 @@ static func color_of(hue: Hue) -> Color:
 	return COLORS[hue]
 
 
+## Returns where [param hue] comes when cycling through hues: the colorless beam first, then the spectrum, then white.
+static func cycle_position(hue: Hue) -> int:
+	# The colorless beam has the highest number in the enum, for the sake of saved scenes, but is the beam the player starts with.
+	return -1 if hue == Hue.NONE else hue
+
+
 ## Whether [param hues] contains all seven spectrum colors; white and the colorless beam do not count.
 static func has_all_colors(hues: Array[Hue]) -> bool:
 	for hue: Hue in Hue.values():

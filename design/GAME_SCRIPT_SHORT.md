@@ -49,7 +49,7 @@ How the player learns this, with no dialogue:
 
 ## Route at a glance
 
-The flashlight starts with no color. The route is one loop of the school that ends beside where it began.
+The flashlight starts with no color, only a grey beam that reveals nothing. It keeps that grey beam for the whole game, alongside the colors it gains. The route is one loop of the school that ends beside where it began.
 
 | # | Room | Door | Crayons earned | The idea |
 |---|---|---|---|---|

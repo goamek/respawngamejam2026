@@ -570,7 +570,7 @@ func _speed_scale() -> float:
 		return 1.0
 	var hue_count: int = 0
 	for hue: Spectrum.Hue in _player.flashlight.unlocked_hues:
-		if hue != Spectrum.Hue.WHITE:
+		if hue != Spectrum.Hue.WHITE and hue != Spectrum.Hue.NONE:
 			hue_count += 1
 	var gain: float = 1.0 + speed_gain_per_hue * hue_count
 	return gain * uncover_slowdown if _is_lit_by_white else gain

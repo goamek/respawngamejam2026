@@ -1,0 +1,34 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/environment/scripts/hidden_text.gd" id="1_hidden_text"]
+[ext_resource type="Script" path="res://src/flashlight/scripts/revealable.gd" id="2_revealable"]
+[ext_resource type="Material" path="res://src/flashlight/resources/reveal_material.tres" id="3_reveal"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tag"]
+shading_mode = 0
+albedo_color = Color(0.02, 0.02, 0.02, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_tag"]
+material = SubResource("StandardMaterial3D_tag")
+
+[sub_resource type="TextMesh" id="TextMesh_writing"]
+resource_local_to_scene = true
+font_size = 64
+depth = 0.002
+
+[node name="HiddenText" type="Node3D"]
+script = ExtResource("1_hidden_text")
+
+[node name="Tag" type="MeshInstance3D" parent="."]
+cast_shadow = 0
+mesh = SubResource("QuadMesh_tag")
+
+[node name="Writing" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.003)
+cast_shadow = 0
+material_override = ExtResource("3_reveal")
+mesh = SubResource("TextMesh_writing")
+
+[node name="Revealable" type="Node3D" parent="Writing"]
+script = ExtResource("2_revealable")
+hue = 2

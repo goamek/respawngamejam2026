@@ -1,6 +1,6 @@
 class_name Flashlight
 extends Node3D
-## Handheld flashlight that shines one spectrum hue at a time.
+## Handheld flashlight that shines one hue at a time: its own colorless grey, or any spectrum hue it has unlocked.
 ## Publishes its beam to the reveal shader so objects of the matching hue show their color.
 
 ## Emitted when the light turns on or off.
@@ -20,14 +20,14 @@ const _PARAM_CONE_COS: StringName = &"flashlight_cone_cos"
 const _PARAM_RANGE: StringName = &"flashlight_range"
 const _PARAM_HUE: StringName = &"flashlight_hue"
 
-## Hues the player can cycle through, kept in spectrum order. Leave empty for a colorless beam that reveals nothing.
+## Hues the player can cycle through, kept in spectrum order. The colorless grey beam, which reveals nothing, is always added in front of them.
 @export var unlocked_hues: Array[Spectrum.Hue] = [Spectrum.Hue.RED]
 ## Whether the light is shining.
 @export var is_on: bool = true
 ## Name in the sound library of the click played when the light is switched on or off; leave empty for none.
 @export var switch_sound: StringName = &"flashlight_switch"
 
-## Hue the beam shines while the light is on; colorless until the first hue is unlocked.
+## Hue the beam shines while the light is on.
 var current_hue: Spectrum.Hue:
 	get:
 		if unlocked_hues.is_empty():
@@ -39,9 +39,12 @@ var _hue_index: int = 0
 @onready var _light: SpotLight3D = $SpotLight3D
 
 
-## Sorts the starting hues and shows the starting state.
+## Adds the grey beam, sorts the starting hues, and shows the starting state on the first spectrum hue if there is one.
 func _ready() -> void:
-	unlocked_hues.sort()
+	if not unlocked_hues.has(Spectrum.Hue.NONE):
+		unlocked_hues.append(Spectrum.Hue.NONE)
+	_sort_hues()
+	_hue_index = mini(1, unlocked_hues.size() - 1)
 	_refresh_light()
 
 
@@ -105,9 +108,14 @@ func find_lit_spot() -> Dictionary:
 ## Adds [param hue] in spectrum order, selects it, and announces it.
 func _add_hue(hue: Spectrum.Hue) -> void:
 	unlocked_hues.append(hue)
-	unlocked_hues.sort()
+	_sort_hues()
 	_hue_index = unlocked_hues.find(hue)
 	hue_unlocked.emit(hue)
+
+
+## Puts the unlocked hues in the order they cycle: grey first, then the spectrum, then white.
+func _sort_hues() -> void:
+	unlocked_hues.sort_custom(func(a: Spectrum.Hue, b: Spectrum.Hue) -> bool: return Spectrum.cycle_position(a) < Spectrum.cycle_position(b))
 
 
 ## Returns the direction the beam points, in global space.
