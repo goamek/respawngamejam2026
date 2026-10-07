@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" path="res://src/entity/scenes/entity.tscn" id="3_entity"]
 [ext_resource type="PackedScene" path="res://src/level/scenes/catch_handler.tscn" id="4_catch_handler"]
 [ext_resource type="PackedScene" path="res://src/pickup/scenes/flashlight_pickup.tscn" id="5_flashlight_pickup"]
+[ext_resource type="PackedScene" path="res://src/pickup/scenes/crayon.tscn" id="6_crayon"]
 
 [sub_resource type="Environment" id="Environment_dark"]
 background_mode = 1
@@ -90,3 +91,9 @@ shape = SubResource("BoxShape3D_counter")
 
 [node name="FlashlightPickup" parent="Lobby" instance=ExtResource("5_flashlight_pickup")]
 transform = Transform3D(0.921, 0, -0.389, 0, 1, 0, 0.389, 0, 0.921, 28.05, 1.04, 24.5)
+
+[node name="Library" type="Node3D" parent="."]
+
+[node name="YellowCrayon" parent="Library" instance=ExtResource("6_crayon")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 0, 4.5)
+hue = 2

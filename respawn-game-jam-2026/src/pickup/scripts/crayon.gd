@@ -5,6 +5,9 @@ extends StaticBody3D
 ## Emitted when a player collects this crayon.
 signal collected(hue: Spectrum.Hue)
 
+## Hint shown while the player has no flashlight to give the hue to.
+const NEEDS_LIGHT_PROMPT: String = "You need a light"
+
 ## Hue the flashlight gains when this crayon is collected.
 @export var hue: Spectrum.Hue = Spectrum.Hue.ORANGE
 ## Brightness of the crayon's own glow, so it can be found in the dark.
@@ -13,6 +16,7 @@ signal collected(hue: Spectrum.Hue)
 @export var starts_hidden: bool = false
 
 var _collision_layer: int
+var _take_prompt: String
 
 @onready var _interactable: Interactable = $Interactable
 
@@ -25,6 +29,7 @@ func _ready() -> void:
 	if starts_hidden:
 		visible = false
 		collision_layer = 0
+	_watch_for_flashlight()
 
 
 ## Makes a crayon that started hidden show up and become collectable.
@@ -42,6 +47,21 @@ func _apply_color() -> void:
 	material.emission_energy_multiplier = glow
 	for mesh: Node in find_children("*", "MeshInstance3D", true, false):
 		(mesh as MeshInstance3D).material_override = material
+
+
+## Swaps the hint for a pointer to the flashlight until the player in the level is holding one.
+func _watch_for_flashlight() -> void:
+	var player := get_tree().get_first_node_in_group("player") as Player
+	if player == null or player.flashlight != null:
+		return
+	_take_prompt = _interactable.prompt
+	_interactable.prompt = NEEDS_LIGHT_PROMPT
+	player.flashlight_equipped.connect(_on_flashlight_equipped, CONNECT_ONE_SHOT)
+
+
+## Puts the usual hint back once the player has a flashlight.
+func _on_flashlight_equipped(_flashlight: Flashlight) -> void:
+	_interactable.prompt = _take_prompt
 
 
 ## Unlocks this crayon's hue on [param player]'s flashlight, then removes the crayon.

@@ -1,7 +1,6 @@
 [gd_resource type="StandardMaterial3D" format=3 uid="uid://5q2ycg8pqjkx"]
 
 [ext_resource type="Texture2D" uid="uid://c1e7ycjdj5qhd" path="res://src/environment/materials/Wood_Door/Wood026_1K-JPG_Color.jpg" id="1_b08kb"]
-[ext_resource type="Texture2D" uid="uid://djotrvimwe6yq" path="res://src/environment/materials/Wood_Door/Wood026_1K-JPG_Displacement.jpg" id="2_b8d4t"]
 [ext_resource type="Texture2D" uid="uid://b7cqucencw4yl" path="res://src/environment/materials/Wood_Door/Wood026_1K-JPG_NormalGL.jpg" id="3_ssa5i"]
 [ext_resource type="Texture2D" uid="uid://qymfu3kctqq3" path="res://src/environment/materials/Wood_Door/Wood026_1K-JPG_Roughness.jpg" id="4_6o0g4"]
 
@@ -10,7 +9,5 @@ albedo_texture = ExtResource("1_b08kb")
 roughness_texture = ExtResource("4_6o0g4")
 normal_enabled = true
 normal_texture = ExtResource("3_ssa5i")
-heightmap_enabled = true
-heightmap_texture = ExtResource("2_b8d4t")
 uv1_triplanar = true
 uv1_world_triplanar = true
