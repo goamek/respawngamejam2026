@@ -1,0 +1,210 @@
+[gd_resource type="Resource" script_class="SoundLibrary" format=3]
+
+[ext_resource type="Script" path="res://src/audio/scripts/sound_cue.gd" id="1_xwbq8"]
+[ext_resource type="AudioStream" path="res://assets/sounds/interaction/door_close.wav" id="2_56wwy"]
+[ext_resource type="AudioStream" path="res://assets/sounds/interaction/door_creak.wav" id="3_jwcle"]
+[ext_resource type="AudioStream" path="res://assets/sounds/interaction/door_unlock.wav" id="4_ool5d"]
+[ext_resource type="AudioStream" path="res://assets/sounds/interaction/drawer_open.wav" id="5_x88ou"]
+[ext_resource type="AudioStream" path="res://assets/sounds/interaction/flashlight_switch.wav" id="6_x5rtg"]
+[ext_resource type="AudioStream" path="res://assets/sounds/interaction/keys_ringing.wav" id="7_wnl14"]
+[ext_resource type="AudioStream" path="res://assets/sounds/interaction/pickup_01.wav" id="8_hebby"]
+[ext_resource type="AudioStream" path="res://assets/sounds/interaction/pickup_mechanical_01.wav" id="9_rdjre"]
+[ext_resource type="AudioStream" path="res://assets/sounds/interaction/place_plastic_01.wav" id="10_jne6g"]
+[ext_resource type="AudioStream" path="res://assets/sounds/interaction/player_crouch_01.wav" id="11_f3sqr"]
+[ext_resource type="AudioStream" path="res://assets/sounds/interaction/player_steps_01.wav" id="12_k2y7l"]
+[ext_resource type="AudioStream" path="res://assets/sounds/entity/entity_attack.wav" id="13_ba583"]
+[ext_resource type="AudioStream" path="res://assets/sounds/entity/entity_voice.wav" id="14_nw8jp"]
+[ext_resource type="AudioStream" path="res://assets/sounds/entity/entity_step_01.wav" id="15_j7tbw"]
+[ext_resource type="AudioStream" path="res://assets/sounds/entity/entity_drag_01.wav" id="16_p2lb3"]
+[ext_resource type="AudioStream" path="res://assets/sounds/entity/entity_drag_02.wav" id="17_oooxk"]
+[ext_resource type="AudioStream" path="res://assets/sounds/entity/entity_scrape_01.wav" id="18_h3eak"]
+[ext_resource type="AudioStream" path="res://assets/sounds/entity/entity_scrape_02.wav" id="19_0uiql"]
+[ext_resource type="AudioStream" path="res://assets/sounds/entity/entity_scrape_03.wav" id="20_qoxrk"]
+[ext_resource type="AudioStream" path="res://assets/sounds/entity/heartbeat_pair.wav" id="21_b8mgd"]
+[ext_resource type="AudioStream" path="res://assets/sounds/puzzles/library_book_slide.wav" id="22_7a3h8"]
+[ext_resource type="AudioStream" path="res://assets/sounds/puzzles/library_paper_pickup.wav" id="23_41wvs"]
+[ext_resource type="AudioStream" path="res://assets/sounds/puzzles/gym_basketball_bounce.wav" id="24_cquoq"]
+[ext_resource type="AudioStream" path="res://assets/sounds/puzzles/gym_locker_open_right.wav" id="25_gm4nl"]
+[ext_resource type="AudioStream" path="res://assets/sounds/puzzles/gym_locker_open_wrong.wav" id="26_dwljv"]
+[ext_resource type="AudioStream" path="res://assets/sounds/puzzles/greenhouse_plant_growing.wav" id="27_r6pbj"]
+[ext_resource type="AudioStream" path="res://assets/sounds/puzzles/greenhouse_water_pouring.wav" id="28_isg7p"]
+[ext_resource type="AudioStream" path="res://assets/sounds/puzzles/greenhouse_seeds_planting.mp3" id="29_5csfj"]
+[ext_resource type="AudioStream" path="res://assets/sounds/puzzles/greenhouse_flower_watering.mp3" id="30_s8the"]
+[ext_resource type="AudioStream" path="res://assets/sounds/puzzles/art_wet_painting.wav" id="31_nch8e"]
+[ext_resource type="Script" path="res://src/audio/scripts/sound_library.gd" id="32_qbuxb"]
+[ext_resource type="AudioStream" path="res://assets/music/background_music_v1.mp3" id="33_hmk0e"]
+[ext_resource type="AudioStream" path="res://assets/music/background_music_loop.wav" id="34_pty7j"]
+[ext_resource type="AudioStream" path="res://assets/music/background_music_loop_quiet.wav" id="35_hjn7l"]
+[ext_resource type="AudioStream" path="res://assets/music/ending_win.mp3" id="36_cfo16"]
+[ext_resource type="AudioStream" path="res://assets/music/ending_lose.mp3" id="37_jn8wo"]
+[ext_resource type="AudioStream" path="res://assets/sounds/ambience/empty_school_loop.wav" id="38_lrsqq"]
+[ext_resource type="AudioStream" path="res://assets/sounds/ambience/empty_school_fountain.wav" id="39_6pcod"]
+
+[sub_resource type="Resource" id="Resource_c6g7g"]
+script = ExtResource("1_xwbq8")
+stream = ExtResource("2_56wwy")
+
+[sub_resource type="Resource" id="Resource_te5xe"]
+script = ExtResource("1_xwbq8")
+stream = ExtResource("3_jwcle")
+
+[sub_resource type="Resource" id="Resource_twktn"]
+script = ExtResource("1_xwbq8")
+stream = ExtResource("4_ool5d")
+
+[sub_resource type="Resource" id="Resource_lx0ha"]
+script = ExtResource("1_xwbq8")
+stream = ExtResource("5_x88ou")
+
+[sub_resource type="Resource" id="Resource_pplmu"]
+script = ExtResource("1_xwbq8")
+stream = ExtResource("6_x5rtg")
+
+[sub_resource type="Resource" id="Resource_onhtk"]
+script = ExtResource("1_xwbq8")
+stream = ExtResource("7_wnl14")
+
+[sub_resource type="Resource" id="Resource_5gee8"]
+script = ExtResource("1_xwbq8")
+stream = ExtResource("8_hebby")
+
+[sub_resource type="Resource" id="Resource_8vfcq"]
+script = ExtResource("1_xwbq8")
+stream = ExtResource("9_rdjre")
+
+[sub_resource type="Resource" id="Resource_g5h82"]
+script = ExtResource("1_xwbq8")
+stream = ExtResource("10_jne6g")
+
+[sub_resource type="Resource" id="Resource_lwgqh"]
+script = ExtResource("1_xwbq8")
+stream = ExtResource("11_f3sqr")
+
+[sub_resource type="Resource" id="Resource_lhe6o"]
+script = ExtResource("1_xwbq8")
+stream = ExtResource("12_k2y7l")
+
+[sub_resource type="Resource" id="Resource_6nd37"]
+script = ExtResource("1_xwbq8")
+stream = ExtResource("13_ba583")
+
+[sub_resource type="Resource" id="Resource_rqt6l"]
+script = ExtResource("1_xwbq8")
+stream = ExtResource("14_nw8jp")
+
+[sub_resource type="Resource" id="Resource_b4i4h"]
+script = ExtResource("1_xwbq8")
+stream = ExtResource("15_j7tbw")
+volume_db = 12.0
+pitch_variation = 0.08
+
+[sub_resource type="Resource" id="Resource_plstp"]
+script = ExtResource("1_xwbq8")
+stream = ExtResource("15_j7tbw")
+volume_db = -12.0
+pitch_variation = 0.08
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_g36qs"]
+streams_count = 2
+stream_0/stream = ExtResource("16_p2lb3")
+stream_1/stream = ExtResource("17_oooxk")
+
+[sub_resource type="Resource" id="Resource_lnd64"]
+script = ExtResource("1_xwbq8")
+stream = SubResource("AudioStreamRandomizer_g36qs")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_misu1"]
+streams_count = 3
+stream_0/stream = ExtResource("18_h3eak")
+stream_1/stream = ExtResource("19_0uiql")
+stream_2/stream = ExtResource("20_qoxrk")
+
+[sub_resource type="Resource" id="Resource_mi8i3"]
+script = ExtResource("1_xwbq8")
+stream = SubResource("AudioStreamRandomizer_misu1")
+
+[sub_resource type="Resource" id="Resource_65q4d"]
+script = ExtResource("1_xwbq8")
+stream = ExtResource("21_b8mgd")
+
+[sub_resource type="Resource" id="Resource_7e76t"]
+script = ExtResource("1_xwbq8")
+stream = ExtResource("22_7a3h8")
+
+[sub_resource type="Resource" id="Resource_qrjxt"]
+script = ExtResource("1_xwbq8")
+stream = ExtResource("23_41wvs")
+
+[sub_resource type="Resource" id="Resource_v2d8c"]
+script = ExtResource("1_xwbq8")
+stream = ExtResource("24_cquoq")
+
+[sub_resource type="Resource" id="Resource_urika"]
+script = ExtResource("1_xwbq8")
+stream = ExtResource("25_gm4nl")
+
+[sub_resource type="Resource" id="Resource_47bfa"]
+script = ExtResource("1_xwbq8")
+stream = ExtResource("26_dwljv")
+
+[sub_resource type="Resource" id="Resource_odnm0"]
+script = ExtResource("1_xwbq8")
+stream = ExtResource("27_r6pbj")
+
+[sub_resource type="Resource" id="Resource_36kfr"]
+script = ExtResource("1_xwbq8")
+stream = ExtResource("28_isg7p")
+
+[sub_resource type="Resource" id="Resource_ym2ye"]
+script = ExtResource("1_xwbq8")
+stream = ExtResource("29_5csfj")
+
+[sub_resource type="Resource" id="Resource_xpchj"]
+script = ExtResource("1_xwbq8")
+stream = ExtResource("30_s8the")
+
+[sub_resource type="Resource" id="Resource_uyj0a"]
+script = ExtResource("1_xwbq8")
+stream = ExtResource("31_nch8e")
+
+[resource]
+script = ExtResource("32_qbuxb")
+cues = Dictionary[StringName, ExtResource("1_xwbq8")]({
+&"art_wet_painting": SubResource("Resource_uyj0a"),
+&"door_close": SubResource("Resource_c6g7g"),
+&"door_creak": SubResource("Resource_te5xe"),
+&"door_unlock": SubResource("Resource_twktn"),
+&"drawer_open": SubResource("Resource_lx0ha"),
+&"entity_attack": SubResource("Resource_6nd37"),
+&"entity_drag": SubResource("Resource_lnd64"),
+&"entity_scrape": SubResource("Resource_mi8i3"),
+&"entity_step": SubResource("Resource_b4i4h"),
+&"entity_voice": SubResource("Resource_rqt6l"),
+&"flashlight_switch": SubResource("Resource_pplmu"),
+&"greenhouse_flower_watering": SubResource("Resource_xpchj"),
+&"greenhouse_plant_growing": SubResource("Resource_odnm0"),
+&"greenhouse_seeds_planting": SubResource("Resource_ym2ye"),
+&"greenhouse_water_pouring": SubResource("Resource_36kfr"),
+&"gym_basketball_bounce": SubResource("Resource_v2d8c"),
+&"gym_locker_open_right": SubResource("Resource_urika"),
+&"gym_locker_open_wrong": SubResource("Resource_47bfa"),
+&"heartbeat_pair": SubResource("Resource_65q4d"),
+&"keys_ringing": SubResource("Resource_onhtk"),
+&"library_book_slide": SubResource("Resource_7e76t"),
+&"library_paper_pickup": SubResource("Resource_qrjxt"),
+&"pickup": SubResource("Resource_5gee8"),
+&"pickup_mechanical": SubResource("Resource_8vfcq"),
+&"place_plastic": SubResource("Resource_g5h82"),
+&"player_crouch": SubResource("Resource_lwgqh"),
+&"player_step": SubResource("Resource_plstp"),
+&"player_steps": SubResource("Resource_lhe6o")
+})
+tracks = Dictionary[StringName, AudioStream]({
+&"background_music_loop": ExtResource("34_pty7j"),
+&"background_music_loop_quiet": ExtResource("35_hjn7l"),
+&"background_music_v1": ExtResource("33_hmk0e"),
+&"empty_school_fountain": ExtResource("39_6pcod"),
+&"empty_school_loop": ExtResource("38_lrsqq"),
+&"ending_lose": ExtResource("37_jn8wo"),
+&"ending_win": ExtResource("36_cfo16")
+})

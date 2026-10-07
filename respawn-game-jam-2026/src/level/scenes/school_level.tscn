@@ -18,6 +18,8 @@
 [ext_resource type="Script" path="res://src/level/scripts/first_sighting.gd" id="16_first_sighting"]
 [ext_resource type="PackedScene" path="res://src/level/scenes/ending_director.tscn" id="17_ending_director"]
 [ext_resource type="PackedScene" path="res://src/environment/scenes/exit_door.tscn" id="18_exit_door"]
+[ext_resource type="Script" path="res://src/level/scripts/level_music.gd" id="19_level_music"]
+[ext_resource type="Script" path="res://src/level/scripts/hiding_spot.gd" id="20_hiding_spot"]
 
 [sub_resource type="Environment" id="Environment_dark"]
 background_mode = 1
@@ -226,6 +228,7 @@ transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 22.8, 0, 3.6)
 [node name="HidingSpot" type="Area3D" parent="FirstSighting/OfficeDesk"]
 collision_layer = 0
 collision_mask = 2
+script = ExtResource("20_hiding_spot")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="FirstSighting/OfficeDesk/HidingSpot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0.25)
@@ -237,6 +240,7 @@ transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 22.49, 0, 8.2)
 [node name="HidingSpot" type="Area3D" parent="FirstSighting/ArchiveDesk"]
 collision_layer = 0
 collision_mask = 2
+script = ExtResource("20_hiding_spot")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="FirstSighting/ArchiveDesk/HidingSpot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0.25)
@@ -280,6 +284,10 @@ hue = 6
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.8, 0, -14.5)
 
 [node name="EndingDirector" parent="." instance=ExtResource("17_ending_director")]
+
+[node name="LevelMusic" type="Node" parent="."]
+script = ExtResource("19_level_music")
+music_track = &"background_music_loop_quiet"
 
 [node name="SafeRooms" type="Node3D" parent="."]
 

@@ -75,6 +75,10 @@ const UNCOVER_GLOW: float = 0.6
 @export var sight_range: float = 12.0
 ## Half the width of the entity's view, in degrees from straight ahead.
 @export var sight_angle: float = 60.0
+## Distance within which it senses the player in any direction, even behind it, in meters.
+@export var awareness_radius: float = 1.5
+## Time it keeps knowing where the player is after losing sight of them, in seconds.
+@export var sight_memory: float = 1.0
 
 @export_group("Investigating")
 ## Speed while heading to the spot it is checking, in meters per second.
@@ -87,6 +91,8 @@ const UNCOVER_GLOW: float = 0.6
 @export_group("Catching")
 ## How close the player must be to be caught, in meters.
 @export var catch_reach: float = 1.2
+## How close it must get to drag out a player it watched get into a hiding spot, whichever way it faces and whatever is in between, in meters.
+@export var hiding_catch_reach: float = 2.2
 ## How far off straight ahead the player may be and still be caught, in degrees.
 @export var catch_angle: float = 45.0
 ## Time after being reset during which the entity cannot catch, in seconds.
@@ -120,6 +126,12 @@ const UNCOVER_GLOW: float = 0.6
 ## Time the entity may be blocked before it gives up on a destination, in seconds.
 @export var stuck_time: float = 1.5
 
+@export_group("Sound")
+## Name in the sound library of the sound played for each footstep; leave empty for none.
+@export var step_sound: StringName = &"entity_step"
+## Distance the body covers between one footstep and the next, in meters.
+@export var stride_length: float = 0.9
+
 ## What the entity is doing right now.
 var state: State = State.PAUSING
 ## Last place the entity noticed the player, or was told to check.
@@ -131,6 +143,9 @@ var _blocked_for: float = 0.0
 var _patrol_point: Node3D
 var _player: Player
 var _is_player_in_sight: bool = false
+var _is_tracking: bool = false
+var _memory_left: float = 0.0
+var _has_seen_player_hide: bool = false
 var _door_to_close: Door
 var _door_start_side: float = 0.0
 var _catch_cooldown_left: float = 0.0
@@ -142,6 +157,7 @@ var _head_tilt: float = 0.0
 var _uncover_held: float = 0.0
 var _is_lit_by_white: bool = false
 var _body_material: StandardMaterial3D
+var _stride_travelled: float = 0.0
 
 @onready var _agent: NavigationAgent3D = $NavigationAgent3D
 @onready var _eyes: Marker3D = $Eyes
@@ -168,9 +184,9 @@ func _ready() -> void:
 ## Checks for the player, tries to catch them, runs the current state, then moves the body.
 func _physics_process(delta: float) -> void:
 	if _is_scripted():
-		_is_player_in_sight = false
+		_forget_player()
 	else:
-		_update_sight()
+		_update_sight(delta)
 		_try_catch(delta)
 		_update_uncovering(delta)
 	match state:
@@ -198,6 +214,7 @@ func _physics_process(delta: float) -> void:
 	# An open door it bumps into stops being solid to it, so a door left open never traps it.
 	_pass_open_doors()
 	_step_up(wanted)
+	_update_footsteps(delta)
 
 
 ## Sends the entity to check [param spot], such as where it last noticed the player.
@@ -225,6 +242,16 @@ func leave_to(spot: Vector3) -> void:
 	_set_state(State.LEAVING)
 
 
+## Sends the entity to check [param spot] when a noise there, which carries [param noise_range] meters, reaches it and it is free to react.
+func hear(spot: Vector3, noise_range: float) -> void:
+	# An entity that is asleep, playing out a scripted moment, catching, or already after the player has no use for a noise.
+	if not can_process() or _is_scripted() or state == State.CATCHING or _is_tracking:
+		return
+	if global_position.distance_to(spot) > noise_range or _is_off_limits(spot):
+		return
+	investigate(spot)
+
+
 ## Whether the entity can currently see the player.
 func is_player_in_sight() -> bool:
 	return _is_player_in_sight
@@ -244,7 +271,7 @@ func face_position() -> Vector3:
 func reset_to_start() -> void:
 	global_transform = _start_transform
 	velocity = Vector3.ZERO
-	_is_player_in_sight = false
+	_forget_player()
 	_door_to_close = null
 	_catch_cooldown_left = catch_cooldown
 	_uncover_held = 0.0
@@ -253,27 +280,58 @@ func reset_to_start() -> void:
 	_start_pausing()
 
 
-## Looks for the player, and heads for where they are whenever they can be seen.
-func _update_sight() -> void:
-	var can_see: bool = _can_see_player()
-	if can_see and state != State.CATCHING:
-		if not _is_player_in_sight:
-			player_spotted.emit()
-		investigate(_player.global_position)
+## Looks for the player, and heads for where they are while they can be seen and for a short while after.
+func _update_sight(delta: float) -> void:
+	_update_hiding_knowledge()
+	# Furniture cannot hide a player it watched get under it, even where the furniture blocks its view.
+	var can_see: bool = _has_seen_player_hide or _can_see_player()
+	var was_tracking: bool = _is_tracking
+	_memory_left = sight_memory if can_see else maxf(_memory_left - delta, 0.0)
+	# Tracking outlasts sight by the memory time, which carries the entity round the corner the player just took.
+	_is_tracking = can_see or _memory_left > 0.0
 	_is_player_in_sight = can_see
+	if not _is_tracking or state == State.CATCHING:
+		return
+	if not was_tracking:
+		player_spotted.emit()
+	investigate(_player.global_position)
 
 
-## Catches the player when it can see them, they are within reach, and it is facing them.
+## Notes when the player gets into a hiding spot while being tracked, and forgets it once they come out.
+func _update_hiding_knowledge() -> void:
+	if _player == null or not HidingSpot.is_player_hidden(get_tree(), _player):
+		_has_seen_player_hide = false
+	elif _is_tracking:
+		_has_seen_player_hide = true
+
+
+## Drops all knowledge of where the player is.
+func _forget_player() -> void:
+	_is_player_in_sight = false
+	_is_tracking = false
+	_memory_left = 0.0
+	_has_seen_player_hide = false
+
+
+## Catches the player when it can see them and they are within reach in front of it, or it watched them hide and is close enough to drag them out.
 func _try_catch(delta: float) -> void:
 	_catch_cooldown_left = maxf(_catch_cooldown_left - delta, 0.0)
 	if state == State.CATCHING or _catch_cooldown_left > 0.0 or not _is_player_in_sight:
 		return
 	if _is_off_limits(_player.global_position):
 		return
-	if _is_within_reach(_player.global_position):
+	if _is_within_reach(_player.global_position) or _can_drag_from_hiding():
 		_set_state(State.CATCHING)
 		_leap_at_player()
 		player_caught.emit()
+
+
+## Whether the player is in a hiding spot it watched them get into, and near enough to be dragged out past the furniture.
+func _can_drag_from_hiding() -> bool:
+	if not _has_seen_player_hide:
+		return false
+	var to_player: Vector3 = _player.global_position - global_position
+	return Vector2(to_player.x, to_player.z).length() <= hiding_catch_reach
 
 
 ## Whether [param point] is within catching reach and the catch angle, or close enough to overlap the entity.
@@ -484,6 +542,17 @@ func _step_up(wanted: Vector3) -> void:
 		global_position += landing.get_travel()
 
 
+## Plays a footstep at the entity's feet each time it has covered another stride along the floor.
+func _update_footsteps(delta: float) -> void:
+	if not is_on_floor():
+		return
+	var moved: Vector3 = get_real_velocity()
+	_stride_travelled += Vector2(moved.x, moved.z).length() * delta
+	if _stride_travelled >= stride_length:
+		_stride_travelled = 0.0
+		AudioController.play_sound_at(step_sound, global_position)
+
+
 ## Cancels any sideways movement.
 func _stop() -> void:
 	velocity.x = 0.0
@@ -525,9 +594,9 @@ func _can_see_player() -> bool:
 	return _can_see_player_body() or _can_see_flashlight_spot()
 
 
-## Whether the player is noticeable, and their head or body is in view with nothing in between.
+## Whether the player's head or body is in view with nothing in between; a player in a hiding spot is only seen if already tracked.
 func _can_see_player_body() -> bool:
-	if not _is_noticeable(_player):
+	if not _is_tracking and HidingSpot.is_player_hidden(get_tree(), _player):
 		return false
 	var body_point: Vector3 = _player.global_position + Vector3.UP * PLAYER_BODY_HEIGHT
 	for point: Vector3 in [_player.head.global_position, body_point]:
@@ -547,25 +616,24 @@ func _can_see_flashlight_spot() -> bool:
 	return _is_in_view(spot) and _has_clear_view_to(spot)
 
 
-## Whether [param player] gives themselves away, by moving or by having the flashlight on.
-func _is_noticeable(player: Player) -> bool:
-	var light_on: bool = player.flashlight != null and player.flashlight.is_on
-	return player.is_moving() or light_on
-
-
-## Whether [param point], in global space, is within the entity's sight range and view angle.
+## Whether [param point], in global space, is within sight range and either inside the view angle, close enough to sense, or being tracked.
 func _is_in_view(point: Vector3) -> bool:
 	var to_point: Vector3 = point - _eyes.global_position
-	if to_point.length() > sight_range:
+	var distance: float = to_point.length()
+	if distance > sight_range:
 		return false
+	# Facing only matters for first noticing something at a distance.
+	if _is_tracking or distance <= awareness_radius:
+		return true
 	return to_point.normalized().dot(-global_basis.z) >= cos(deg_to_rad(sight_angle))
 
 
-## Whether a straight line from the eyes to [param point] reaches the player before any wall or door.
+## Whether a straight line from the eyes to [param point] on the player reaches them before any wall or door.
 func _has_line_of_sight(point: Vector3) -> bool:
 	var query := PhysicsRayQueryParameters3D.create(_eyes.global_position, point, SIGHT_MASK, [get_rid()])
 	var hit: Dictionary = get_world_3d().direct_space_state.intersect_ray(query)
-	return not hit.is_empty() and hit.collider == _player
+	# A ray that starts inside a body does not hit it, so no hit at all means the eyes are already inside the player.
+	return hit.is_empty() or hit.collider == _player
 
 
 ## Whether a straight line from the eyes to [param point] meets nothing on the way.

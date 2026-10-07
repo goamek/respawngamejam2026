@@ -27,8 +27,8 @@ signal ended
 @export var watch_spot: Marker3D
 ## Where the entity walks to once the player has hidden.
 @export var leave_spot: Node3D
-## Regions under furniture; crouching inside any of them counts as hiding. Each must detect the player layer.
-@export var hiding_spots: Array[Area3D] = []
+## Hiding spots that count for this meeting; crouching inside any of them makes the entity leave.
+@export var hiding_spots: Array[HidingSpot] = []
 ## Door the entity watches through; the player opening it sets the entity off. Leave empty if there is none.
 @export var watch_door_path: NodePath
 
@@ -94,10 +94,8 @@ func _place_entity() -> void:
 
 ## Whether the player is crouched inside one of the hiding spots.
 func _is_player_hidden() -> bool:
-	if not _player.is_crouching:
-		return false
-	for spot: Area3D in hiding_spots:
-		if spot.overlaps_body(_player):
+	for spot: HidingSpot in hiding_spots:
+		if spot.is_hiding(_player):
 			return true
 	return false
 

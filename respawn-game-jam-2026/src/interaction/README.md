@@ -161,7 +161,7 @@ One `FirstSighting` node per level. It hides the entity and switches it off when
 | **Stare Trigger** | Only for a level with no such door: a `PlayerTrigger` that starts the stare instead. Otherwise leave it empty. |
 | **Watch Spot** | A `Marker3D` where the entity stands. |
 | **Leave Spot** | Where it walks to after the player hides; a patrol point works. |
-| **Hiding Spots** | One `Area3D` under each desk, with **Collision Mask** set to layer 2 (player) and a box that covers the back half of the space underneath. |
+| **Hiding Spots** | The hiding spots that count for this meeting, normally the one under each nearby desk. See the next section for how to make one. |
 | **Watch Door Path** | The door it watches through, typed by hand as above. Optional. |
 
 What the player does decides how it ends:
@@ -172,6 +172,17 @@ What the player does decides how it ends:
 **Watch Rise** lifts the entity so its face lines up with a door window. **Head Tilt** tips its head sideways while it stares; positive leans the top of its head to the player's left, and 70 reads as about 10:30 on a clock because the idle pose already leans the other way. **Hint** is the line shown on screen during the stare. Signals `started`, `player_hid` and `entity_attacked` are there for sounds and music, and `ended` fires when the meeting is over either way.
 
 To test puzzles with no entity at all, untick **Is Enabled**: it then stays asleep for the whole game.
+
+## A place to hide (hiding spot)
+
+A hiding spot is an invisible region, usually under a desk. A player crouched inside it cannot be spotted by the entity, unless the entity was already chasing them when they got in.
+
+1. Add an `Area3D` as a child of the piece of furniture and attach `src/level/scripts/hiding_spot.gd`.
+2. Give it a `CollisionShape3D` with a box that covers the space underneath. Keep the box inside the furniture, so that standing next to it does not count.
+
+That is all: it sets its own collision layers and the entity finds it by itself. The player has to be crouching, so make sure there is room to crouch in. The full rules are in `src/entity/README.md`.
+
+The two desks used by the first sighting, in the office and the archive, are hiding spots.
 
 ## Ending the game
 

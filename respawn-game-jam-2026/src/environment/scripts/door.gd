@@ -38,6 +38,14 @@ const LOCKED_PROMPT: String = "Locked"
 ## How long the door takes to slam shut, in seconds.
 @export var slam_time: float = 0.12
 
+@export_group("Sound")
+## Name in the sound library of the sound played as the door starts to open; leave empty for none.
+@export var open_sound: StringName = &"door_creak"
+## Name in the sound library of the sound played as the door starts to swing shut; leave empty for none.
+@export var close_sound: StringName = &"door_close"
+## Distance from which the entity hears the player open or close the door, in meters.
+@export var noise_range: float = 6.0
+
 ## Whether the door is open or swinging open.
 var is_open: bool = false
 
@@ -78,6 +86,7 @@ func open(direction: float = 1.0) -> void:
 	_swing_to(deg_to_rad(open_angle) * signf(direction), swing_time)
 	# A swing that is cut short is discarded without finishing, so this only fires for a door that got all the way open.
 	_swing.finished.connect(fully_opened.emit)
+	AudioController.play_sound_at(open_sound, _panel.global_position)
 	opened.emit()
 
 
@@ -93,6 +102,7 @@ func close() -> void:
 	is_open = false
 	_interactable.prompt = OPEN_PROMPT
 	_swing_to(0.0, swing_time)
+	AudioController.play_sound_at(close_sound, _panel.global_position)
 	closed.emit()
 
 
@@ -182,8 +192,11 @@ func _direction_away_from(body: Node3D) -> float:
 	return 1.0 if to_local(body.global_position).z > 0.0 else -1.0
 
 
-## Closes the door if it is open, otherwise opens it away from [param player].
+## Closes the door if it is open, otherwise opens it away from [param player]; either way the entity may hear it.
 func _on_interactable_interacted(player: Player) -> void:
+	if is_locked:
+		return
+	EntityHearing.make_noise(get_tree(), global_position, noise_range)
 	if is_open:
 		close()
 	else:
