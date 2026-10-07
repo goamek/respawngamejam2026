@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" path="res://src/level/scenes/catch_handler.tscn" id="4_catch_handler"]
 [ext_resource type="PackedScene" path="res://src/pickup/scenes/flashlight_pickup.tscn" id="5_flashlight_pickup"]
 [ext_resource type="PackedScene" path="res://src/pickup/scenes/crayon.tscn" id="6_crayon"]
+[ext_resource type="Script" path="res://src/level/scripts/safe_room.gd" id="7_safe_room"]
 
 [sub_resource type="Environment" id="Environment_dark"]
 background_mode = 1
@@ -23,6 +24,30 @@ albedo_color = Color(0.35, 0.35, 0.38, 1)
 material = SubResource("StandardMaterial3D_placeholder")
 size = Vector3(0.9, 1, 2.2)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_safe_Library"]
+size = Vector3(17.4, 4, 16.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_safe_Greenhouse"]
+size = Vector3(16.9, 4, 10.9)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_safe_BioLab"]
+size = Vector3(11.1, 4, 8.7)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_safe_PottingRoom"]
+size = Vector3(5.4, 4, 5.7)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_safe_Gym"]
+size = Vector3(20.6, 4, 34.4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_safe_LockerRoom"]
+size = Vector3(11.4, 4, 11.4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_safe_Cafeteria"]
+size = Vector3(22.7, 4, 16.4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_safe_ArtStudio"]
+size = Vector3(9.9, 4, 11.7)
+
 [node name="SchoolLevel" type="Node3D" unique_id=102402281]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=619872373]
@@ -32,40 +57,52 @@ environment = SubResource("Environment_dark")
 
 [node name="PatrolPoints" type="Node3D" parent="." unique_id=1984700109]
 
-[node name="MainCorridorWest" type="Marker3D" parent="PatrolPoints" unique_id=953874844]
+[node name="Lobby" type="Marker3D" parent="PatrolPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.2, 0, 14)
+
+[node name="MainCorridorWest" type="Marker3D" parent="PatrolPoints"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.4, 0, -2.5)
 
-[node name="MainCorridorCenter" type="Marker3D" parent="PatrolPoints" unique_id=1987059922]
+[node name="MainCorridorCenter" type="Marker3D" parent="PatrolPoints"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.1, 0, -1.5)
 
-[node name="NorthCourtyardHall" type="Marker3D" parent="PatrolPoints" unique_id=1572523816]
+[node name="NorthCourtyardHall" type="Marker3D" parent="PatrolPoints"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42.2, 0, -27.7)
 
-[node name="ClassroomWing" type="Marker3D" parent="PatrolPoints" unique_id=885847084]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.7, 0, -18.2)
+[node name="ScienceWing" type="Marker3D" parent="PatrolPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 0, -46.8)
 
-[node name="ScienceWing" type="Marker3D" parent="PatrolPoints" unique_id=1443073544]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60.8, 0, -46.8)
+[node name="LinkHall" type="Marker3D" parent="PatrolPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74.5, 0, -16)
 
-[node name="LinkHall" type="Marker3D" parent="PatrolPoints" unique_id=362792871]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74.5, 0.77, -16)
+[node name="PeCorridor" type="Marker3D" parent="PatrolPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 96.1, 0, -3)
 
-[node name="PeCorridor" type="Marker3D" parent="PatrolPoints" unique_id=1595847027]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 96.1, 0, -4.6)
+[node name="EastCorridor" type="Marker3D" parent="PatrolPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 121, 0, -15)
 
-[node name="Cafeteria" type="Marker3D" parent="PatrolPoints" unique_id=231191181]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74, 0, 6.8)
+[node name="Library" type="Marker3D" parent="PatrolPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.6, 0, 6.8)
 
-[node name="Gymnasium" type="Marker3D" parent="PatrolPoints" unique_id=2019614234]
+[node name="Greenhouse" type="Marker3D" parent="PatrolPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 83, 0, -52)
+
+[node name="Gymnasium" type="Marker3D" parent="PatrolPoints"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 96, 0, -24.6)
 
-[node name="Library" type="Marker3D" parent="PatrolPoints" unique_id=2135481764]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.6, 0, 6.8)
+[node name="LockerRoom" type="Marker3D" parent="PatrolPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 109, 0, -9.5)
+
+[node name="Cafeteria" type="Marker3D" parent="PatrolPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74, 0, 6.8)
+
+[node name="ArtStudio" type="Marker3D" parent="PatrolPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.4, 0, 8.5)
 
 [node name="Entity" parent="." unique_id=1803776842 node_paths=PackedStringArray("patrol_points") instance=ExtResource("3_entity")]
 process_mode = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.2, 0, 8.037567)
-patrol_points = [NodePath("../PatrolPoints/MainCorridorWest"), NodePath("../PatrolPoints/MainCorridorCenter"), NodePath("../PatrolPoints/NorthCourtyardHall"), NodePath("../PatrolPoints/ClassroomWing"), NodePath("../PatrolPoints/ScienceWing"), NodePath("../PatrolPoints/LinkHall"), NodePath("../PatrolPoints/PeCorridor"), NodePath("../PatrolPoints/Cafeteria"), NodePath("../PatrolPoints/Gymnasium"), NodePath("../PatrolPoints/Library")]
+patrol_points = [NodePath("../PatrolPoints/Lobby"), NodePath("../PatrolPoints/MainCorridorWest"), NodePath("../PatrolPoints/MainCorridorCenter"), NodePath("../PatrolPoints/NorthCourtyardHall"), NodePath("../PatrolPoints/ScienceWing"), NodePath("../PatrolPoints/LinkHall"), NodePath("../PatrolPoints/PeCorridor"), NodePath("../PatrolPoints/EastCorridor"), NodePath("../PatrolPoints/Library"), NodePath("../PatrolPoints/Greenhouse"), NodePath("../PatrolPoints/Gymnasium"), NodePath("../PatrolPoints/LockerRoom"), NodePath("../PatrolPoints/Cafeteria"), NodePath("../PatrolPoints/ArtStudio")]
 
 [node name="PlayerSpawn" type="Marker3D" parent="." unique_id=958146031]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.2, 0, 27.5)
@@ -129,3 +166,67 @@ hue = 1
 [node name="VioletCrayon" parent="ArtStudio" instance=ExtResource("6_crayon")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.9, 0, 5.5)
 hue = 6
+
+[node name="SafeRooms" type="Node3D" parent="."]
+
+[node name="LibrarySafeRoom" type="Area3D" parent="SafeRooms" node_paths=PackedStringArray("crayons")]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("7_safe_room")
+crayons = [NodePath("../../Library/YellowCrayon")]
+
+[node name="Library" type="CollisionShape3D" parent="SafeRooms/LibrarySafeRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.9, 1.5, 8.5)
+shape = SubResource("BoxShape3D_safe_Library")
+
+[node name="GreenhouseSafeRoom" type="Area3D" parent="SafeRooms" node_paths=PackedStringArray("crayons")]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("7_safe_room")
+crayons = [NodePath("../../Greenhouse/GreenCrayon"), NodePath("../../Greenhouse/IndigoCrayon")]
+
+[node name="Greenhouse" type="CollisionShape3D" parent="SafeRooms/GreenhouseSafeRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 81.65, 1.5, -50.65)
+shape = SubResource("BoxShape3D_safe_Greenhouse")
+
+[node name="BioLab" type="CollisionShape3D" parent="SafeRooms/GreenhouseSafeRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 67.25, 1.5, -45.75)
+shape = SubResource("BoxShape3D_safe_BioLab")
+
+[node name="PottingRoom" type="CollisionShape3D" parent="SafeRooms/GreenhouseSafeRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 70.1, 1.5, -53.25)
+shape = SubResource("BoxShape3D_safe_PottingRoom")
+
+[node name="GymSafeRoom" type="Area3D" parent="SafeRooms" node_paths=PackedStringArray("crayons")]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("7_safe_room")
+crayons = [NodePath("../../LockerRoom/BlueCrayon")]
+
+[node name="Gym" type="CollisionShape3D" parent="SafeRooms/GymSafeRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 94.5, 1.5, -22.4)
+shape = SubResource("BoxShape3D_safe_Gym")
+
+[node name="LockerRoom" type="CollisionShape3D" parent="SafeRooms/GymSafeRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 111.1, 1.5, -10.9)
+shape = SubResource("BoxShape3D_safe_LockerRoom")
+
+[node name="CafeteriaSafeRoom" type="Area3D" parent="SafeRooms" node_paths=PackedStringArray("crayons")]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("7_safe_room")
+crayons = [NodePath("../../CafeteriaRoom/RedCrayon")]
+
+[node name="Cafeteria" type="CollisionShape3D" parent="SafeRooms/CafeteriaSafeRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 73.25, 1.5, 8.6)
+shape = SubResource("BoxShape3D_safe_Cafeteria")
+
+[node name="ArtStudioSafeRoom" type="Area3D" parent="SafeRooms" node_paths=PackedStringArray("crayons")]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("7_safe_room")
+crayons = [NodePath("../../ArtStudio/OrangeCrayon"), NodePath("../../ArtStudio/VioletCrayon")]
+
+[node name="ArtStudio" type="CollisionShape3D" parent="SafeRooms/ArtStudioSafeRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.35, 1.5, 6.25)
+shape = SubResource("BoxShape3D_safe_ArtStudio")

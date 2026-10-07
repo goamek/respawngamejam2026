@@ -82,7 +82,7 @@ Drag in `pickup/scenes/crayon.tscn`, set its **Hue**, and tick **Starts Hidden**
 
 1. Add an `Area3D` with the `SafeRoom` script.
 2. Give it one or more `CollisionShape3D` children with **box** shapes that together cover the room, wall to wall and floor to ceiling. Stop the boxes at the doorway, on the room's side.
-3. Connect the puzzle's last signal to the room's `open_to_entity()`.
+3. In the Inspector, add the room's reward crayon or crayons to **Crayons**. The room opens to the entity the moment the player has taken all of them. (With no crayons listed, connect the puzzle's last signal to the room's `open_to_entity()` instead.)
 
 While the room is safe, the entity will not step into it, will not pick patrol points inside it, and cannot catch a player who is inside it. It will still come to the doorway and stare in. Only box shapes are read.
 
