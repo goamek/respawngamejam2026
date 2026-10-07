@@ -49,11 +49,8 @@ func _on_socket_item_placed(item: Carryable) -> void:
 
 ## Buries the seeds, and lets the light start to count.
 func _on_socket_solved() -> void:
-	var sack := _placed_item.get_parent() as CollisionObject3D
-	sack.hide()
-	# It stays in the pot unseen, so it must not block the player or anything aimed at the pot.
-	sack.collision_layer = 0
-	sack.collision_mask = 0
+	# It stays in the pot unseen; a placed item is already out of the way of the player and their aim.
+	(_placed_item.get_parent() as Node3D).hide()
 	_sensor.enable()
 	AudioController.play_sound_at(plant_sound, global_position)
 

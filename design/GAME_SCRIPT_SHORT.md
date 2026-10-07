@@ -118,10 +118,10 @@ Opening a wrong locker makes a loud clang, which brings the entity to the door.
 
 **Door:** blue. **Colors needed:** yellow, green, indigo, blue.
 
-1. A pile of fruit on a table, all grey. Beside an empty basket is a note in childhood handwriting: "3 apples for teacher."
+1. A pile of fruit on a table, all dark: three each of bananas, pears, blueberries, plums and apples, in different places every run. Beside an empty basket is a note in childhood handwriting: "3 apples for teacher."
 2. Under yellow the bananas show. Under green, the pears. Under blue, the blueberries. Under indigo, the plums.
 3. Three pieces never light up under any color the player owns. Those are the apples, because the player has no red.
-4. Carry the three dark fruit to the basket. The red crayon appears among them.
+4. Carry the three dark fruit to the basket. The red crayon appears among them. A wrong three go back to the pile with a noise that brings the entity to the door.
 5. With red, the apples show in color, confirming the answer.
 
 ### 5. Art studio (earn Orange and Violet)

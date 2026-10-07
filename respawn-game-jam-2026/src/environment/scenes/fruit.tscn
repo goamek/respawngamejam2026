@@ -1,0 +1,142 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/environment/scripts/fruit.gd" id="1_fruit"]
+[ext_resource type="Material" path="res://src/flashlight/resources/reveal_material.tres" id="2_reveal"]
+[ext_resource type="Script" path="res://src/flashlight/scripts/revealable.gd" id="3_revealable"]
+[ext_resource type="Script" path="res://src/interaction/scripts/carryable.gd" id="4_carryable"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fruit"]
+size = Vector3(0.13, 0.11, 0.13)
+
+[sub_resource type="SphereMesh" id="SphereMesh_apple"]
+radius = 0.06
+height = 0.12
+radial_segments = 16
+rings = 8
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_stem"]
+top_radius = 0.006
+bottom_radius = 0.006
+height = 0.04
+radial_segments = 6
+rings = 1
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_banana"]
+radius = 0.02
+height = 0.1
+radial_segments = 10
+rings = 4
+
+[sub_resource type="SphereMesh" id="SphereMesh_pear_base"]
+radius = 0.055
+height = 0.11
+radial_segments = 16
+rings = 8
+
+[sub_resource type="SphereMesh" id="SphereMesh_pear_top"]
+radius = 0.035
+height = 0.07
+radial_segments = 12
+rings = 6
+
+[sub_resource type="SphereMesh" id="SphereMesh_berry"]
+radius = 0.028
+height = 0.056
+radial_segments = 10
+rings = 5
+
+[sub_resource type="SphereMesh" id="SphereMesh_plum"]
+radius = 0.052
+height = 0.104
+radial_segments = 16
+rings = 8
+
+[node name="Fruit" type="RigidBody3D"]
+collision_layer = 5
+collision_mask = 7
+script = ExtResource("1_fruit")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_fruit")
+
+[node name="Shapes" type="Node3D" parent="."]
+
+[node name="Apple" type="Node3D" parent="Shapes"]
+
+[node name="Body" type="MeshInstance3D" parent="Shapes/Apple"]
+material_override = ExtResource("2_reveal")
+mesh = SubResource("SphereMesh_apple")
+
+[node name="Stem" type="MeshInstance3D" parent="Shapes/Apple"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.072, 0)
+material_override = ExtResource("2_reveal")
+mesh = SubResource("CylinderMesh_stem")
+
+[node name="Banana" type="Node3D" parent="Shapes"]
+
+[node name="Middle" type="MeshInstance3D" parent="Shapes/Banana"]
+transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, 0, -0.025, 0)
+material_override = ExtResource("2_reveal")
+mesh = SubResource("CapsuleMesh_banana")
+
+[node name="EndLeft" type="MeshInstance3D" parent="Shapes/Banana"]
+transform = Transform3D(0.574, -0.819, 0, 0.819, 0.574, 0, 0, 0, 1, -0.075, 0.005, 0)
+material_override = ExtResource("2_reveal")
+mesh = SubResource("CapsuleMesh_banana")
+
+[node name="EndRight" type="MeshInstance3D" parent="Shapes/Banana"]
+transform = Transform3D(0.574, 0.819, 0, -0.819, 0.574, 0, 0, 0, 1, 0.075, 0.005, 0)
+material_override = ExtResource("2_reveal")
+mesh = SubResource("CapsuleMesh_banana")
+
+[node name="Pear" type="Node3D" parent="Shapes"]
+
+[node name="Base" type="MeshInstance3D" parent="Shapes/Pear"]
+material_override = ExtResource("2_reveal")
+mesh = SubResource("SphereMesh_pear_base")
+
+[node name="Top" type="MeshInstance3D" parent="Shapes/Pear"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.065, 0)
+material_override = ExtResource("2_reveal")
+mesh = SubResource("SphereMesh_pear_top")
+
+[node name="Blueberries" type="Node3D" parent="Shapes"]
+
+[node name="BerryA" type="MeshInstance3D" parent="Shapes/Blueberries"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03, -0.025, -0.03)
+material_override = ExtResource("2_reveal")
+mesh = SubResource("SphereMesh_berry")
+
+[node name="BerryB" type="MeshInstance3D" parent="Shapes/Blueberries"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.03, -0.025, -0.03)
+material_override = ExtResource("2_reveal")
+mesh = SubResource("SphereMesh_berry")
+
+[node name="BerryC" type="MeshInstance3D" parent="Shapes/Blueberries"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03, -0.025, 0.03)
+material_override = ExtResource("2_reveal")
+mesh = SubResource("SphereMesh_berry")
+
+[node name="BerryD" type="MeshInstance3D" parent="Shapes/Blueberries"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.03, -0.025, 0.03)
+material_override = ExtResource("2_reveal")
+mesh = SubResource("SphereMesh_berry")
+
+[node name="BerryE" type="MeshInstance3D" parent="Shapes/Blueberries"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+material_override = ExtResource("2_reveal")
+mesh = SubResource("SphereMesh_berry")
+
+[node name="Plum" type="Node3D" parent="Shapes"]
+
+[node name="Body" type="MeshInstance3D" parent="Shapes/Plum"]
+transform = Transform3D(1, 0, 0, 0, 1.2, 0, 0, 0, 1, 0, 0, 0)
+material_override = ExtResource("2_reveal")
+mesh = SubResource("SphereMesh_plum")
+
+[node name="Revealable" type="Node3D" parent="."]
+script = ExtResource("3_revealable")
+
+[node name="Carryable" type="Node" parent="."]
+script = ExtResource("4_carryable")
+prompt = "Pick up"

@@ -36,19 +36,21 @@ Anything the player aims at must be on layers **1 and 3** (world and interactabl
 
 To make it show only under a color, give its mesh the reveal material and add a `Revealable` child, as for any colored object.
 
+A carried item is held a fixed reach in front of the player's head, but never through a floor or wall: if something solid is in the way it is held just short of it, by **Hold Clearance** (0.12 m, about half the item's size; raise it for a bigger item). As a last resort, an item that ends up more than 10 m below where it was first picked up is put back there, so a puzzle piece can never be lost for good.
+
 ## A spot that takes items (item socket)
 
 Used for the plant pot, the fruit basket and the paint palettes.
 
 1. Make the object the items go on or in: a `StaticBody3D` on layers 1 and 3 with a collision shape.
-2. Add one `Marker3D` child for each item it holds, placed where that item should sit. Keep them clear of the object's own collision shape.
+2. Add one `Marker3D` child for each item it holds, placed where that item should sit. They may be inside the object's collision shape.
 3. Add a child `Node` with the `ItemSocket` script.
 4. In the Inspector:
    - **Slots:** add the markers, in the order they should fill.
    - **Accepted Ids:** every item id the player is allowed to set down here, right or wrong. Leave empty to take anything.
    - **Solution Ids:** the ids that count as correct, one per slot, in any order. Leave empty if anything accepted is correct.
 
-How it plays: while carrying an accepted item and aiming at the object, the hint reads "Place". Each item jumps to the next free slot and cannot be taken back. When the last slot fills:
+How it plays: while carrying an accepted item, the hint reads "Place" when the player aims at the object, aims within 0.75 m of one of its slots, or simply holds the item within 0.75 m of a slot. The last two are there because players line the item up with the object, which leaves the crosshair pointing past it. Anywhere else the hint reads "Drop". Each item jumps to the next free slot and cannot be taken back. A placed item is for show only: it stops being solid, so it never blocks the player's aim at the object. That means the object's own collision shape should cover everything the player might aim at, including the space the items sit in. When the last slot fills:
 
 - **Right items:** the `solved` signal fires and they stay for good.
 - **Wrong items:** the `rejected` signal fires, and after a moment they all return to where the player first picked them up.
@@ -171,6 +173,23 @@ The answer is dealt by `level/scripts/gym_puzzle.gd`, a node in the level given 
 So do not set the scoreboard's digits, the dot order, or the lockers' numbers by hand in the level; the node overwrites them. To test with a known answer, type three different digits into its **Fixed Answer**, such as `247`. The dots are then yellow, green, indigo and the first locker in the list is the right one. Clear it again before shipping.
 
 In the school: the scoreboard and its note are on the gym's west wall, the six lockers along the locker room's north wall, and the alarm in the east corridor outside the locker room door. The two rooms do not connect, so the player reads the board in the gym and walks round to the locker room.
+
+## The cafeteria puzzle
+
+Pieces, in `environment/scenes/`:
+
+| Piece | What it is | Settings |
+|---|---|---|
+| `fruit.tscn` | A piece of fruit the player carries, dark until its own color of light is on it. Placeholder shapes built from balls and capsules. | **Kind**: apple (red), banana (yellow), pear (green), blueberries (blue) or plum (indigo). It sets the shape, the color and the id the basket checks. |
+| `fruit_basket.tscn` | A basket with an item socket: three slots, takes any fruit, and is solved by three apples. | Two sound names. |
+
+How the basket plays: fruit set in it stays until the third piece is in, then all three are judged at once. Three apples stay for good and the basket emits `filled_right`; connect that to the reward crayon's `appear()`. Anything else is sent back to where each piece was picked up, and the basket emits `filled_wrong`; connect that to a noise alarm's `ring()`.
+
+The pile is dealt by `level/scripts/fruit_pile.gd`, a node in the level given every piece of fruit. Each time the level loads it shuffles the kinds across the pieces, so the apples are in different places every run. It keeps whatever kinds the scene has, so the scene decides how many of each there are and the shuffle only decides which piece is which. Untick **Is Shuffled** to keep the scene's layout while testing.
+
+In the school: fifteen pieces, three of each kind, on four placeholder benches pushed together in the middle of the cafeteria; the basket and the note on a bench against the south wall; the red crayon hidden in the basket; the noise alarm in the main corridor outside the cafeteria's north-west door.
+
+The apple and the plum are close in shape on purpose. The other fruit can be told apart by outline, so the light is what confirms an apple.
 
 ## A crayon that is a reward
 
