@@ -68,7 +68,7 @@ Every puzzle can be solved with only the colors the player has when they reach i
 ### 0. Entry lobby (tutorial, no entity)
 
 - The front door shuts behind the player. The lobby is nearly black.
-- A flashlight lies on the reception counter. Picking it up teaches interact. It gives a weak grey beam.
+- A flashlight lies on the reception counter, switched off. Picking it up teaches interact, and a hint then teaches the on and off switch. It gives a weak grey beam.
 
 ### 1. Library (earn Yellow)
 

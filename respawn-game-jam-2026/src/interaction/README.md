@@ -215,9 +215,9 @@ Call `show_hint("text")` on the player to put a line of guidance in the lower pa
 ## A level where the flashlight is found
 
 1. Select the `Player` in the level and untick **Has Flashlight At Start**. The player begins with an empty hand.
-2. Drag in `pickup/scenes/flashlight_pickup.tscn` and place it where the flashlight should lie. It is switched on, so its beam helps the player spot it.
+2. Drag in `pickup/scenes/flashlight_pickup.tscn` and place it where the flashlight should lie. It is switched off, so it needs to lie somewhere the player can see without it.
 
-Aiming at it shows "Pick up". Using it puts the flashlight in the player's hand.
+Aiming at it shows "Pick up". Using it puts the flashlight in the player's hand, still off, and shows a hint on how to switch it. The hint stays until the player first switches the light, and its wording is the pickup's **Hint** setting; clear that for no hint.
 
 ## The flashlight with no color
 
