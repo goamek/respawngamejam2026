@@ -1,6 +1,6 @@
 class_name Player
 extends CharacterBody3D
-## First-person player body: walks, sprints, crouches, and looks around.
+## First-person player body: walks, crouches, and looks around.
 ## Mouse movement and the right stick both turn the body and tilt the head.
 
 ## Emitted when the player takes hold of [param flashlight].
@@ -20,9 +20,7 @@ const MOVING_SPEED: float = 0.5
 
 @export_group("Movement")
 ## Walking speed, in meters per second.
-@export var walk_speed: float = 3.0
-## Sprinting speed, in meters per second.
-@export var sprint_speed: float = 5.5
+@export var walk_speed: float = 4.5
 ## Crouched speed, in meters per second.
 @export var crouch_speed: float = 1.5
 ## How fast the player speeds up and stops, in meters per second squared.
@@ -46,11 +44,11 @@ const MOVING_SPEED: float = 0.5
 ## Name in the sound library of the sound played for each footstep; leave empty for none.
 @export var step_sound: StringName = &"player_step"
 ## Distance the player covers between one footstep and the next, in meters.
-@export var stride_length: float = 1.3
+@export var stride_length: float = 2.0
 ## Name in the sound library of the sound played as the player crouches down; leave empty for none.
 @export var crouch_sound: StringName = &"player_crouch"
-## Distance from which the entity hears each sprinting footstep, in meters.
-@export var sprint_noise_range: float = 9.0
+## Distance from which the entity hears each footstep taken standing up, in meters; crouched footsteps are silent to it.
+@export var step_noise_range: float = 4.0
 
 ## Whether the player is crouched, by choice or because something is overhead.
 var is_crouching: bool = false
@@ -138,11 +136,6 @@ func _physics_process(delta: float) -> void:
 ## Whether the player is moving fast enough to be noticed.
 func is_moving() -> bool:
 	return Vector2(velocity.x, velocity.z).length() > MOVING_SPEED
-
-
-## Whether the player is running: moving upright with the sprint action held.
-func is_sprinting() -> bool:
-	return is_input_enabled and not is_crouching and is_moving() and Input.is_action_pressed("sprint")
 
 
 ## Returns where the player's eyes will be once any crouching or standing up has finished, in global space.
@@ -257,8 +250,8 @@ func _update_footsteps(delta: float) -> void:
 	if _stride_travelled >= stride_length:
 		_stride_travelled = 0.0
 		AudioController.play_sound(step_sound)
-		if is_sprinting():
-			EntityHearing.make_noise(get_tree(), global_position, sprint_noise_range)
+		if not is_crouching:
+			EntityHearing.make_noise(get_tree(), global_position, step_noise_range)
 
 
 ## Resizes the collision shape to the current height and keeps the head near its top.
@@ -280,12 +273,10 @@ func _update_velocity(delta: float) -> void:
 	velocity.z = move_toward(velocity.z, target.z, acceleration * delta)
 
 
-## Returns the top speed for the current state: crouched, sprinting, or walking.
+## Returns the top speed for the current state: crouched or walking.
 func _current_speed() -> float:
 	if is_crouching:
 		return crouch_speed
-	if Input.is_action_pressed("sprint"):
-		return sprint_speed
 	return walk_speed
 
 

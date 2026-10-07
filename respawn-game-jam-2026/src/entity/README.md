@@ -17,7 +17,7 @@ The body is a rigged character from Mixamo, shown solid black with two white eye
 | Seeing the player | Built |
 | Noticing the flashlight's lit spot when the player is out of view | Built |
 | Investigating the last place it noticed the player | Built |
-| Hearing sprinting and doors | Built |
+| Hearing footsteps and doors | Built |
 | Hiding spots | Built |
 | Catching the player | Built |
 | Model and animations | Built |
@@ -106,10 +106,10 @@ Two things make a noise the entity can hear:
 
 | Noise | Carries | Setting |
 |---|---|---|
-| Each footstep while the player sprints | 9 m | `sprint_noise_range` on the player |
+| Each footstep the player takes standing up | 4 m | `step_noise_range` on the player |
 | The player opening or closing a door | 6 m | `noise_range` on the door |
 
-Walking and crouching are silent, and so are doors the entity opens itself.
+Crouched footsteps are silent, and so are doors the entity opens itself. Sneaking past it closer than 4 m means crouching.
 
 A noise carries its distance in a straight line, through walls. An entity within that distance runs to where the noise came from and searches there. It learns the spot, not where the player is, so making a noise and leaving sends it the wrong way.
 
@@ -170,10 +170,10 @@ All are shown in the Inspector on the entity.
 | Catching | `hiding_catch_reach` | 2.2 m | How close it must get to drag out a player it watched get into a hiding spot. Sized to reach anywhere under a desk from any side. |
 | Catching | `catch_cooldown` | 3 s | Time after a reset during which it cannot catch. |
 | Movement | `turn_speed` | 240 degrees/s | How fast it turns to face where it is walking. |
-| Movement | `speed_gain_per_hue` | 0.05 | How much faster it gets for each crayon the player has, as a fraction of its speeds. With all seven it moves 1.35 times as fast, which is still slower than the player's sprint. |
+| Movement | `speed_gain_per_hue` | 0.05 | How much faster it gets for each crayon the player has, as a fraction of its speeds. With all seven it moves 1.35 times as fast, which is faster than the player. |
 | Movement | `stuck_time` | 1.5 s | How long it may be blocked before giving up on a destination. |
 
-For comparison, the player walks at 3.0 m/s and sprints at 5.5 m/s, so sprinting outruns an investigating entity.
+For comparison, the player moves at 4.5 m/s standing and 1.5 m/s crouched, and cannot sprint. An investigating entity moves at 3.8 m/s with no crayons collected, 4.37 with three, and 4.56 with four, so the player can outrun it early on and not from the fourth crayon.
 
 ## Model and animations
 
