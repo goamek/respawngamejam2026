@@ -9,6 +9,12 @@
 [ext_resource type="PackedScene" path="res://src/post_processing/scenes/crayon_effect.tscn" id="7_crayon_effect"]
 [ext_resource type="PackedScene" path="res://src/ui/scenes/hint_display.tscn" id="8_hint"]
 [ext_resource type="PackedScene" path="res://src/ui/scenes/pause_menu.tscn" id="9_pause"]
+[ext_resource type="Script" path="res://src/player/scripts/player_body.gd" id="10_player_body"]
+[ext_resource type="PackedScene" path="res://src/player/models/player.fbx" id="11_player_model"]
+[ext_resource type="AnimationLibrary" path="res://src/player/models/idle.fbx" id="12_idle"]
+[ext_resource type="AnimationLibrary" path="res://src/player/models/walk.fbx" id="13_walk"]
+[ext_resource type="AnimationLibrary" path="res://src/player/models/crouch_idle.fbx" id="14_crouch_idle"]
+[ext_resource type="AnimationLibrary" path="res://src/player/models/crouch_walk.fbx" id="15_crouch_walk"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_body"]
 radius = 0.3
@@ -38,6 +44,12 @@ transform = Transform3D(0.9943, -0.0102, -0.1057, 0, 0.9954, -0.0961, 0.1062, 0.
 
 [node name="Flashlight" parent="Head/Hand" instance=ExtResource("2_flashlight")]
 
+[node name="Grip" type="Marker3D" parent="Head/Hand"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.045, 0.06)
+
+[node name="ElbowHint" type="Marker3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, -0.65, 0.25)
+
 [node name="HoldPoint" type="Marker3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, -1.4)
 
@@ -47,6 +59,23 @@ collision_mask = 5
 collide_with_areas = true
 script = ExtResource("3_interactor")
 hold_point = NodePath("../HoldPoint")
+
+[node name="Body" type="Node3D" parent="." node_paths=PackedStringArray("player", "grip", "elbow_hint")]
+script = ExtResource("10_player_body")
+player = NodePath("..")
+grip = NodePath("../Head/Hand/Grip")
+elbow_hint = NodePath("../Head/ElbowHint")
+
+[node name="Model" parent="Body" instance=ExtResource("11_player_model")]
+transform = Transform3D(-1.3, 0, 0, 0, 1.3, 0, 0, 0, -1.3, 0, 0, 0)
+
+[node name="AnimationPlayer" parent="Body/Model" index="1"]
+libraries = {
+&"crouch_idle": ExtResource("14_crouch_idle"),
+&"crouch_walk": ExtResource("15_crouch_walk"),
+&"idle": ExtResource("12_idle"),
+&"walk": ExtResource("13_walk")
+}
 
 [node name="CeilingCheck" type="ShapeCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
