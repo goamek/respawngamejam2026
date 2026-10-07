@@ -2,6 +2,7 @@ class_name Door
 extends Node3D
 ## Hinged door that swings open and closed when used.
 ## The player can only use it under its hue, unless it is a plain door; the entity opens it regardless.
+## A locked door is shut for good, to the player and the entity alike.
 
 ## Emitted when the door starts to open.
 signal opened
@@ -12,11 +13,17 @@ signal closed
 const OPEN_PROMPT: String = "Open"
 ## Hint shown while the door is open.
 const CLOSE_PROMPT: String = "Close"
+## Hint shown on a door that never opens.
+const LOCKED_PROMPT: String = "Locked"
 
 ## Hue the flashlight must shine on the door before it can be used. None makes a plain door that always opens.
 @export var hue: Spectrum.Hue = Spectrum.Hue.RED
+## Whether the door is shut for good: nobody can use it and the entity will not open it.
+@export var is_locked: bool = false
 ## Material a plain door wears in place of the reveal material; leave empty to keep it dark.
 @export var plain_material: Material
+## Material a locked door wears, so that no beam lights it up; leave empty to keep the reveal material.
+@export var locked_material: Material
 ## How far the door swings open, in degrees.
 @export var open_angle: float = 95.0
 ## How long a full swing takes, in seconds.
@@ -42,19 +49,21 @@ static func find_owner(node: Node) -> Door:
 	return null
 
 
-## Passes the hue to the panel, or makes the door plain, and listens for the player using it.
+## Sets the door up as locked, plain, or colored, and listens for the player using it.
 func _ready() -> void:
-	if hue == Spectrum.Hue.NONE:
+	if is_locked:
+		_become_locked()
+	elif hue == Spectrum.Hue.NONE:
 		_become_plain()
 	else:
 		_revealable.hue = hue
-	_interactable.prompt = OPEN_PROMPT
+		_interactable.prompt = OPEN_PROMPT
 	_interactable.interacted.connect(_on_interacted)
 
 
 ## Swings the door open; [param direction] of 1 or -1 picks which way it swings.
 func open(direction: float = 1.0) -> void:
-	if is_open:
+	if is_open or is_locked:
 		return
 	is_open = true
 	_interactable.prompt = CLOSE_PROMPT
@@ -82,15 +91,28 @@ func is_swinging() -> bool:
 	return _swing != null and _swing.is_running()
 
 
-## Drops the need for light, and dresses the panel in the plain material if one is set.
+## Drops the need for light, and dresses the panel in the plain material.
 func _become_plain() -> void:
 	_interactable.required_reveal = null
-	if plain_material == null:
+	_interactable.prompt = OPEN_PROMPT
+	_dress(plain_material)
+
+
+## Shows the locked hint whatever the light, and dresses the panel in the locked material.
+func _become_locked() -> void:
+	_interactable.required_reveal = null
+	_interactable.prompt = LOCKED_PROMPT
+	_dress(locked_material)
+
+
+## Puts [param material] on every surface of the panel's meshes; does nothing if it is null.
+func _dress(material: Material) -> void:
+	if material == null:
 		return
 	for node: Node in _panel.find_children("*", "MeshInstance3D", true, false):
 		var mesh: MeshInstance3D = node
 		for surface: int in mesh.get_surface_override_material_count():
-			mesh.set_surface_override_material(surface, plain_material)
+			mesh.set_surface_override_material(surface, material)
 
 
 ## Turns the hinge to [param angle], in radians, replacing any swing already under way.

@@ -94,7 +94,9 @@ Select a door in the level and set its **Hue** in the Inspector.
 - **None:** a plain door. It opens for anyone, with or without a flashlight, and wears the wood material so it reads as an ordinary door.
 - **White:** only the white beam opens it.
 
-The entity opens every door, whatever its hue.
+The entity opens every door, whatever its hue, unless the door is locked.
+
+**Is Locked** shuts a door for good. Aiming at it shows "Locked", no beam opens it (white included), it stays flat black, and the entity will not open it. Use it on every door that is not on the route. After locking or unlocking doors, re-bake the navigation mesh (`src/level/scripts/navigation_baker.gd`, File > Run), which treats locked doors as walls so the entity does not try to path through them.
 
 ## A level where the flashlight is found
 

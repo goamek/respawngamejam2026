@@ -39,7 +39,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.4, 0, -2.5)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.1, 0, -1.5)
 
 [node name="NorthCourtyardHall" type="Marker3D" parent="PatrolPoints" unique_id=1572523816]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42.2, 0, -31)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42.2, 0, -27.7)
 
 [node name="ClassroomWing" type="Marker3D" parent="PatrolPoints" unique_id=885847084]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.7, 0, -18.2)
@@ -107,3 +107,25 @@ hue = 3
 [node name="IndigoCrayon" parent="Greenhouse" instance=ExtResource("6_crayon")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 81.5, 0, -50.5)
 hue = 5
+
+[node name="LockerRoom" type="Node3D" parent="."]
+
+[node name="BlueCrayon" parent="LockerRoom" instance=ExtResource("6_crayon")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 111, 0, -14)
+hue = 4
+
+[node name="CafeteriaRoom" type="Node3D" parent="."]
+
+[node name="RedCrayon" parent="CafeteriaRoom" instance=ExtResource("6_crayon")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 73, 0, 8)
+hue = 0
+
+[node name="ArtStudio" type="Node3D" parent="."]
+
+[node name="OrangeCrayon" parent="ArtStudio" instance=ExtResource("6_crayon")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48.9, 0, 5.5)
+hue = 1
+
+[node name="VioletCrayon" parent="ArtStudio" instance=ExtResource("6_crayon")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.9, 0, 5.5)
+hue = 6

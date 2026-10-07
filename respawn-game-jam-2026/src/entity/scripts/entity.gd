@@ -317,6 +317,7 @@ func _follow_path(speed: float, delta: float) -> bool:
 
 
 ## Opens a closed door just ahead in [param direction], of any hue, swinging it away from the entity.
+## A locked door is left alone.
 func _open_door_ahead(direction: Vector3) -> void:
 	var from: Vector3 = global_position + Vector3.UP * DOOR_CHECK_HEIGHT
 	var query := PhysicsRayQueryParameters3D.create(from, from + direction * DOOR_REACH, WORLD_MASK, [get_rid()])
@@ -324,7 +325,7 @@ func _open_door_ahead(direction: Vector3) -> void:
 	if hit.is_empty():
 		return
 	var door: Door = Door.find_owner(hit.collider)
-	if door != null and not door.is_open:
+	if door != null and not door.is_open and not door.is_locked:
 		door.open_away_from(self)
 		_blocked_for = 0.0
 		if state == State.ROAMING:

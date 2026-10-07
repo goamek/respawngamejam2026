@@ -7,12 +7,17 @@
 [ext_resource type="PackedScene" path="res://src/environment/Meshes/SM_Door.fbx" id="5_door_model"]
 [ext_resource type="Material" path="res://src/environment/materials/Wood_Door/Wood.tres" id="6_plain"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_locked"]
+shading_mode = 0
+albedo_color = Color(0.02, 0.02, 0.02, 1)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_panel"]
 size = Vector3(1.24, 2.14, 0.06)
 
 [node name="SchoolDoor" type="Node3D"]
 script = ExtResource("1_door")
 plain_material = ExtResource("6_plain")
+locked_material = SubResource("StandardMaterial3D_locked")
 
 [node name="Hinge" type="Node3D" parent="."]
 
