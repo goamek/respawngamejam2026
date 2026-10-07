@@ -1,10 +1,10 @@
 class_name FirstSighting
 extends Node3D
 ## Scripted first meeting with the entity, which is kept asleep and out of sight until then.
-## It appears at the watch spot when the player nears, and stares once they walk into the room.
+## It appears at the watch spot when the player nears, and the stare begins once the door that shows it has swung open.
 ## Hiding makes it walk away and start roaming; waiting too long, coming close, or opening its door makes it attack.
 
-## Emitted when the player walks in and the stare begins.
+## Emitted when the stare begins.
 signal started
 ## Emitted when the player has hidden for long enough and the entity turns to leave.
 signal player_hid
@@ -19,7 +19,10 @@ signal ended
 @export var entity: Entity
 ## Region that puts the entity in place, entered before the player can see the watch spot.
 @export var arrival_trigger: PlayerTrigger
-## Region that begins the stare, entered once the player can see the watch spot.
+## Door that begins the stare once it has swung fully open, because the watch spot can be seen through its doorway.
+## A path, not a node: doors live inside the school scene, which the editor's node picker cannot reach into.
+@export var stare_door_path: NodePath
+## Region that begins the stare instead, for a level with no such door; leave empty otherwise.
 @export var stare_trigger: PlayerTrigger
 ## Where the entity stands to watch; it faces the way the marker's -Z points.
 @export var watch_spot: Marker3D
@@ -28,8 +31,7 @@ signal ended
 ## Regions under furniture; crouching inside any of them counts as hiding. Each must detect the player layer.
 @export var hiding_spots: Array[Area3D] = []
 ## Door the entity watches through; the player opening it sets the entity off. Leave empty if there is none.
-## A path, not a node: doors live inside the school scene, which the editor's node picker cannot reach into.
-@export var door_path: NodePath
+@export var watch_door_path: NodePath
 
 @export_group("Tuning")
 ## Time the entity stares before it comes for a player who has not hidden, in seconds; 0 waits forever.
@@ -46,7 +48,7 @@ signal ended
 @export var hint: String = "Crouch under a desk to hide"
 
 var _player: Player
-var _door: Door
+var _watch_door: Door
 var _patience_left: float = 0.0
 var _hidden_for: float = 0.0
 
@@ -59,7 +61,11 @@ func _ready() -> void:
 	if not is_enabled:
 		return
 	arrival_trigger.triggered.connect(_on_arrival_triggered)
-	stare_trigger.triggered.connect(_on_stare_triggered)
+	var stare_door := get_node_or_null(stare_door_path) as Door
+	if stare_door != null:
+		stare_door.fully_opened.connect(_on_stare_door_opened, CONNECT_ONE_SHOT)
+	if stare_trigger != null:
+		stare_trigger.triggered.connect(_begin_stare)
 
 
 ## Leaves once the player has hidden for long enough; attacks if they wait too long or come too close.
@@ -115,8 +121,8 @@ func _attack() -> void:
 func _finish() -> void:
 	set_physics_process(false)
 	_player.clear_hint()
-	if _door != null and _door.opened.is_connected(_attack):
-		_door.opened.disconnect(_attack)
+	if _watch_door != null and _watch_door.opened.is_connected(_attack):
+		_watch_door.opened.disconnect(_attack)
 	ended.emit()
 
 
@@ -125,15 +131,22 @@ func _on_arrival_triggered(_arriving_player: Player) -> void:
 	_place_entity()
 
 
-## Begins the stare: starts the countdown, shows the hint, and watches the door.
-func _on_stare_triggered(player: Player) -> void:
+## Begins the stare for the player in the level.
+func _on_stare_door_opened() -> void:
+	_begin_stare(get_tree().get_first_node_in_group("player") as Player)
+
+
+## Begins the stare at [param player]: starts the countdown, shows the hint, and watches the door.
+func _begin_stare(player: Player) -> void:
+	if _player != null:
+		return
 	_place_entity()
 	_player = player
 	_patience_left = patience
 	_hidden_for = 0.0
-	_door = get_node_or_null(door_path) as Door
-	if _door != null:
-		_door.opened.connect(_attack)
+	_watch_door = get_node_or_null(watch_door_path) as Door
+	if _watch_door != null:
+		_watch_door.opened.connect(_attack)
 	_player.show_hint(hint)
 	set_physics_process(true)
 	started.emit()

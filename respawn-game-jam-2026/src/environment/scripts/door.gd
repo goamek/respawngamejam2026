@@ -6,6 +6,8 @@ extends Node3D
 
 ## Emitted when the door starts to open.
 signal opened
+## Emitted when the door has finished swinging open.
+signal fully_opened
 ## Emitted when the door starts to close.
 signal closed
 ## Emitted when the door is slammed shut, which is the moment for its sound.
@@ -76,6 +78,8 @@ func open(direction: float = 1.0) -> void:
 	is_open = true
 	_interactable.prompt = CLOSE_PROMPT
 	_swing_to(deg_to_rad(open_angle) * signf(direction), swing_time)
+	# A swing that is cut short is discarded without finishing, so this only fires for a door that got all the way open.
+	_swing.finished.connect(fully_opened.emit)
 	opened.emit()
 
 

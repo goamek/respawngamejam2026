@@ -71,7 +71,10 @@ func _rebuild() -> void:
 		_write(WEEKDAY_LETTERS[column], Vector2(_column_offset(column, cell), _row_height(1, cell)), cell.y * 0.5, INK_COLOR)
 	for day: int in range(1, day_count + 1):
 		var slot: int = first_weekday + day - 1
-		var spot := Vector2(_column_offset(slot % WEEK_LENGTH, cell), _row_height(2 + slot / WEEK_LENGTH, cell))
+		# Whole weeks only: the days left over pick the column, so dropping the remainder is intended.
+		@warning_ignore("integer_division")
+		var week: int = slot / WEEK_LENGTH
+		var spot := Vector2(_column_offset(slot % WEEK_LENGTH, cell), _row_height(2 + week, cell))
 		_write(str(day), spot, cell.y * 0.55, INK_COLOR)
 		if day == circled_day:
 			_circle(spot, minf(cell.x, cell.y) * 0.5)

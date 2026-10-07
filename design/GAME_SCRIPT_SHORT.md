@@ -85,7 +85,7 @@ Taking a wrong book does nothing.
 
 **Locked in:** once the player walks into the library holding the flashlight, the main door slams shut behind them and locks. It unlocks again once the entity sighting below is over. Until then the only way out is through the two small rooms on the east side (archive, then office), whose doors need yellow.
 
-**Entity:** on the way out, the player steps into the office and sees it for the first time, staring at them through the window of the door to the main hall. A hint reads "Crouch under a desk to hide"; there is a desk in the office and one in the archive behind them. Crouching under either makes it walk away, and from then on it roams the school. Waiting about 8 seconds, walking up to the window, or opening that door makes it come in after the player instead. This is the hiding tutorial, and the only scripted entity moment in the game.
+**Entity:** on the way out, the player opens the office door and sees it for the first time, staring at them through the window of the door to the main hall. A hint reads "Crouch under a desk to hide"; there is a desk in the office and one in the archive behind them. Crouching under either makes it walk away, and from then on it roams the school. Waiting about 8 seconds, walking up to the window, or opening that door makes it come in after the player instead. This is the hiding tutorial, and the only scripted entity moment in the game.
 
 ### 2. Greenhouse (earn Green and Indigo)
 

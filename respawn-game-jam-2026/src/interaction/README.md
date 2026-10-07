@@ -155,11 +155,12 @@ One `FirstSighting` node per level. It hides the entity and switches it off when
 |---|---|
 | **Entity** | The level's entity. |
 | **Arrival Trigger** | A `PlayerTrigger` the player crosses before they can see the watch spot. The entity appears there at that moment, out of view. |
-| **Stare Trigger** | A `PlayerTrigger` the player crosses once they can see it. The countdown and the hint start here. |
+| **Stare Door Path** | The door that shows the watch spot when it opens, typed by hand as above. The countdown and the hint start when it has finished swinging open (the door's `fully_opened` signal). |
+| **Stare Trigger** | Only for a level with no such door: a `PlayerTrigger` that starts the stare instead. Otherwise leave it empty. |
 | **Watch Spot** | A `Marker3D` where the entity stands. |
 | **Leave Spot** | Where it walks to after the player hides; a patrol point works. |
 | **Hiding Spots** | One `Area3D` under each desk, with **Collision Mask** set to layer 2 (player) and a box that covers the back half of the space underneath. |
-| **Door Path** | The door it watches through, typed by hand as above. Optional. |
+| **Watch Door Path** | The door it watches through, typed by hand as above. Optional. |
 
 What the player does decides how it ends:
 

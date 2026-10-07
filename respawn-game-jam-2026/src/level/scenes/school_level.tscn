@@ -63,9 +63,6 @@ size = Vector3(17.3, 3, 0.6)
 [sub_resource type="BoxShape3D" id="BoxShape3D_arrival"]
 size = Vector3(5.2, 3, 10.3)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_stare"]
-size = Vector3(5.5, 3, 5)
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_hiding_spot"]
 size = Vector3(1.4, 1, 0.5)
 
@@ -201,15 +198,15 @@ requires_flashlight = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.85, 1.5, 2.4)
 shape = SubResource("BoxShape3D_entry_lock")
 
-[node name="FirstSighting" type="Node3D" parent="." node_paths=PackedStringArray("entity", "arrival_trigger", "stare_trigger", "watch_spot", "leave_spot", "hiding_spots")]
+[node name="FirstSighting" type="Node3D" parent="." node_paths=PackedStringArray("entity", "arrival_trigger", "watch_spot", "leave_spot", "hiding_spots")]
 script = ExtResource("16_first_sighting")
 entity = NodePath("../Entity")
 arrival_trigger = NodePath("ArrivalTrigger")
-stare_trigger = NodePath("StareTrigger")
+stare_door_path = NodePath("../SchoolEnv/SM_DoubleDoor_Center41/SM_Single_Door_Jam/SM_Door")
 watch_spot = NodePath("WatchSpot")
 leave_spot = NodePath("../PatrolPoints/MainCorridorWest")
 hiding_spots = [NodePath("OfficeDesk/HidingSpot"), NodePath("ArchiveDesk/HidingSpot")]
-door_path = NodePath("../SchoolEnv/SM_DoubleDoor_Center8/SM_DoubleDoor_Center8/SM_Single_Door_Jam/SM_Door")
+watch_door_path = NodePath("../SchoolEnv/SM_DoubleDoor_Center8/SM_DoubleDoor_Center8/SM_Single_Door_Jam/SM_Door")
 
 [node name="ArrivalTrigger" type="Area3D" parent="FirstSighting"]
 script = ExtResource("14_player_trigger")
@@ -217,13 +214,6 @@ script = ExtResource("14_player_trigger")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="FirstSighting/ArrivalTrigger"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.47, 1.5, 11.45)
 shape = SubResource("BoxShape3D_arrival")
-
-[node name="StareTrigger" type="Area3D" parent="FirstSighting"]
-script = ExtResource("14_player_trigger")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="FirstSighting/StareTrigger"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.62, 1.5, 2.7)
-shape = SubResource("BoxShape3D_stare")
 
 [node name="WatchSpot" type="Marker3D" parent="FirstSighting"]
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 19.78, 0, -0.32)
