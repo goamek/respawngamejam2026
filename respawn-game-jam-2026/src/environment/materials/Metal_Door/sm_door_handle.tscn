@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://byygs0gmt3b3"]
+
+[ext_resource type="PackedScene" uid="uid://dtamyatdnmod7" path="res://src/environment/Meshes/SM_Door_Handle.fbx" id="1_p6e5g"]
+[ext_resource type="Material" uid="uid://bb3aocohi3qpn" path="res://src/environment/materials/Metal_Door/Metal_Door.tres" id="2_g81os"]
+
+[node name="SM_Door_Handle" unique_id=2063462392 instance=ExtResource("1_p6e5g")]
+
+[node name="SM_Door_Handle" parent="." index="0" unique_id=1757864407]
+material_override = ExtResource("2_g81os")
