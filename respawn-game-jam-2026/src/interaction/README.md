@@ -185,11 +185,30 @@ Pieces, in `environment/scenes/`:
 
 How the basket plays: fruit set in it stays until the third piece is in, then all three are judged at once. Three apples stay for good and the basket emits `filled_right`; connect that to the reward crayon's `appear()`. Anything else is sent back to where each piece was picked up, and the basket emits `filled_wrong`; connect that to a noise alarm's `ring()`.
 
-The pile is dealt by `level/scripts/fruit_pile.gd`, a node in the level given every piece of fruit. Each time the level loads it shuffles the kinds across the pieces, so the apples are in different places every run. It keeps whatever kinds the scene has, so the scene decides how many of each there are and the shuffle only decides which piece is which. Untick **Is Shuffled** to keep the scene's layout while testing.
+The pile is dealt by an item shuffler (see **Shuffling a set of objects**) given every piece of fruit, with **Setting** `kind`, so the apples are in different places every run.
 
 In the school: fifteen pieces, three of each kind, on four placeholder benches pushed together in the middle of the cafeteria; the basket and the note on a bench against the south wall; the red crayon hidden in the basket; the noise alarm in the main corridor outside the cafeteria's north-west door.
 
 The apple and the plum are close in shape on purpose. The other fruit can be told apart by outline, so the light is what confirms an apple.
+
+## The art studio puzzle
+
+Pieces, in `environment/scenes/`:
+
+| Piece | What it is | Settings |
+|---|---|---|
+| `paint_jar.tscn` | A jar of paint the player carries, dark until its own color of light is on it. Every jar is the same shape. | **Paint**, the hue inside. It sets the color that shows the jar and the id a palette checks. |
+| `paint_palette.tscn` | A palette with an item socket: two slots, takes any jar, and is solved by its two paints in either order. | **Paints**, the two hues it mixes, and three sound names. |
+
+How a palette plays: the first jar set on it stays until the second is on, then both are judged. The right two stay and the palette emits `mixed`; connect that to the reward crayon's `appear()`. Any other pair is sent back to the shelf and the palette emits `mixed_wrong`; connect that to a noise alarm's `ring()`.
+
+In the school: five jars on a bench against the east wall (two red, one yellow, one blue, and a green decoy), shuffled along the shelf every run. Two palettes on benches against the west wall, each under a sign that stands in for an unfinished painting: "pumpkin" (red and yellow, orange crayon) and "eggplant" (red and blue, violet crayon). The signs name the thing to paint and leave the colors for the player to work out. The noise alarm is in the main corridor outside the studio's red door. There are two red jars so the player never has to take one back off a finished palette.
+
+The three drawings of the entity on the south wall are placeholders: hidden text reading "ME" in yellow, green and blue, each larger than the last.
+
+## Shuffling a set of objects (item shuffler)
+
+Add a `Node` with `level/scripts/item_shuffler.gd`. Give it **Items**, the objects, and **Setting**, the name of one setting they all have, such as `kind` on fruit or `paint` on paint jars. Each time the level loads it collects that setting's values from the objects, shuffles them, and hands them back out. So the scene decides how many of each value there are, and the shuffle only decides which object gets which. Untick **Is Shuffled** to keep the scene's layout while testing.
 
 ## A crayon that is a reward
 

@@ -129,10 +129,12 @@ Opening a wrong locker makes a loud clang, which brings the entity to the door.
 **Door:** red. **Colors needed:** red, yellow, blue.
 
 1. The walls have three drawings of the entity the player made as a child, each signed "ME". Each shows under a different color, and in each the entity is closer.
-2. A shelf of identical grey paint jars. Only light shows which color each one is.
-3. Two palettes, each under an unfinished painting with a note. One reads "red and yellow make the sun going down." The other reads "red and blue make grapes."
+2. A shelf of identical dark paint jars, in a different order every run. Only light shows which color each one is.
+3. Two palettes, each under an unfinished painting with a note. One reads "pumpkin". The other reads "eggplant". The player works out the colors: red and yellow for a pumpkin, red and blue for an eggplant.
 4. Red and yellow jars on the first palette make the orange crayon appear.
 5. Red and blue jars on the second palette make the violet crayon appear.
+
+A wrong pair goes back to the shelf with a noise that brings the entity to the door.
 
 There are two red jars, so the player does not have to move one back.
 
@@ -234,7 +236,7 @@ Simple rounded shapes are enough for the fruit. Under the crayon effect they onl
 |---|---|---|---|
 | Paint jar | Model, carried, 5 | one color each | One model: two red, one yellow, one blue, one green decoy. |
 | Palette | Model, 2 | always | One model. Each accepts two jars. |
-| Unfinished paintings with notes | Image with text, 2 | always | "red and yellow make the sun going down." and "red and blue make grapes." |
+| Unfinished paintings with signs | Image with text, 2 | always | "pumpkin" and "eggplant". Each names the thing to paint and leaves the colors to the player. |
 | Drawings of the entity | Image, 3 | one color each | Signed "ME". |
 
 ### Ending

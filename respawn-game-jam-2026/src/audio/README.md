@@ -120,6 +120,9 @@ Each of these has a slot in the Inspector, under **Sound**, holding the name of 
 | A wrong locker is tried | `gym_locker_open_wrong` | `Wrong Sound` on the locker |
 | A piece of fruit goes into the cafeteria basket | `place_plastic` | `Place Sound` on the fruit basket (`src/environment/scenes/fruit_basket.tscn`) |
 | A wrong three are thrown out of the basket | `door_close`, a stand-in | `Reject Sound` on the fruit basket |
+| A paint jar is set on a palette | `place_plastic` | `Place Sound` on the palette (`src/environment/scenes/paint_palette.tscn`) |
+| The right two paints are mixed | `art_wet_painting` | `Mix Sound` on the palette |
+| A wrong pair is thrown off a palette | `door_close`, a stand-in | `Reject Sound` on the palette |
 | The entity is a threat | `heartbeat_pair` | `Beat Sound` on the level's `Heartbeat` node |
 
 Door and entity sounds are played in the world, so they come from where the door or the entity is. The player's own sounds have no position.

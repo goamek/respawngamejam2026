@@ -31,7 +31,9 @@
 [ext_resource type="Script" path="res://src/level/scripts/gym_puzzle.gd" id="29_gym_puzzle"]
 [ext_resource type="PackedScene" path="res://src/environment/scenes/fruit.tscn" id="30_fruit"]
 [ext_resource type="PackedScene" path="res://src/environment/scenes/fruit_basket.tscn" id="31_fruit_basket"]
-[ext_resource type="Script" path="res://src/level/scripts/fruit_pile.gd" id="32_fruit_pile"]
+[ext_resource type="Script" path="res://src/level/scripts/item_shuffler.gd" id="32_item_shuffler"]
+[ext_resource type="PackedScene" path="res://src/environment/scenes/paint_jar.tscn" id="33_paint_jar"]
+[ext_resource type="PackedScene" path="res://src/environment/scenes/paint_palette.tscn" id="34_paint_palette"]
 
 [sub_resource type="Environment" id="Environment_dark"]
 background_mode = 1
@@ -451,19 +453,97 @@ text_height = 0.07
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 67.84, 0, -1.3)
 script = ExtResource("26_noise_alarm")
 
-[node name="FruitPile" type="Node" parent="CafeteriaRoom" node_paths=PackedStringArray("fruits")]
-script = ExtResource("32_fruit_pile")
-fruits = [NodePath("../Fruit01"), NodePath("../Fruit02"), NodePath("../Fruit03"), NodePath("../Fruit04"), NodePath("../Fruit05"), NodePath("../Fruit06"), NodePath("../Fruit07"), NodePath("../Fruit08"), NodePath("../Fruit09"), NodePath("../Fruit10"), NodePath("../Fruit11"), NodePath("../Fruit12"), NodePath("../Fruit13"), NodePath("../Fruit14"), NodePath("../Fruit15")]
+[node name="FruitPile" type="Node" parent="CafeteriaRoom" node_paths=PackedStringArray("items")]
+script = ExtResource("32_item_shuffler")
+setting = &"kind"
+items = [NodePath("../Fruit01"), NodePath("../Fruit02"), NodePath("../Fruit03"), NodePath("../Fruit04"), NodePath("../Fruit05"), NodePath("../Fruit06"), NodePath("../Fruit07"), NodePath("../Fruit08"), NodePath("../Fruit09"), NodePath("../Fruit10"), NodePath("../Fruit11"), NodePath("../Fruit12"), NodePath("../Fruit13"), NodePath("../Fruit14"), NodePath("../Fruit15")]
 
 [node name="ArtStudio" type="Node3D" parent="."]
 
 [node name="OrangeCrayon" parent="ArtStudio" instance=ExtResource("6_crayon")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48.9, 0, 5.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.4, 1.08, 4.0)
 hue = 1
+is_hidden_at_start = true
 
 [node name="VioletCrayon" parent="ArtStudio" instance=ExtResource("6_crayon")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.9, 0, 5.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.4, 1.08, 8.6)
 hue = 6
+is_hidden_at_start = true
+
+[node name="JarShelf" parent="ArtStudio" instance=ExtResource("22_bench")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 54.07, 0, 6.3)
+
+[node name="PaintJar1" parent="ArtStudio" instance=ExtResource("33_paint_jar")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54.07, 0.985, 5.50)
+
+[node name="PaintJar2" parent="ArtStudio" instance=ExtResource("33_paint_jar")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54.07, 0.985, 5.90)
+paint = 2
+
+[node name="PaintJar3" parent="ArtStudio" instance=ExtResource("33_paint_jar")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54.07, 0.985, 6.30)
+paint = 4
+
+[node name="PaintJar4" parent="ArtStudio" instance=ExtResource("33_paint_jar")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54.07, 0.985, 6.70)
+
+[node name="PaintJar5" parent="ArtStudio" instance=ExtResource("33_paint_jar")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54.07, 0.985, 7.10)
+paint = 3
+
+[node name="JarShuffler" type="Node" parent="ArtStudio" node_paths=PackedStringArray("items")]
+script = ExtResource("32_item_shuffler")
+setting = &"paint"
+items = [NodePath("../PaintJar1"), NodePath("../PaintJar2"), NodePath("../PaintJar3"), NodePath("../PaintJar4"), NodePath("../PaintJar5")]
+
+[node name="PumpkinTable" parent="ArtStudio" instance=ExtResource("22_bench")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 44.49, 0, 4.0)
+
+[node name="PumpkinPalette" parent="ArtStudio" instance=ExtResource("34_paint_palette")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 44.49, 0.9, 4.0)
+
+[node name="PumpkinPainting" parent="ArtStudio" instance=ExtResource("9_note")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 44.16, 1.8, 4.0)
+text = "pumpkin"
+paper_size = Vector2(0.8, 0.55)
+text_height = 0.14
+
+[node name="EggplantTable" parent="ArtStudio" instance=ExtResource("22_bench")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 44.49, 0, 8.6)
+
+[node name="EggplantPalette" parent="ArtStudio" instance=ExtResource("34_paint_palette")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 44.49, 0.9, 8.6)
+paints = Array[int]([0, 4])
+
+[node name="EggplantPainting" parent="ArtStudio" instance=ExtResource("9_note")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 44.16, 1.8, 8.6)
+text = "eggplant"
+paper_size = Vector2(0.8, 0.55)
+text_height = 0.14
+
+[node name="AlarmSpot" type="Marker3D" parent="ArtStudio"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.08, 0, -1.2)
+script = ExtResource("26_noise_alarm")
+
+[node name="DrawingFar" parent="ArtStudio" instance=ExtResource("25_hidden_text")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 49.6, 1.7, 12.33)
+text = "ME"
+text_height = 0.1
+tag_size = Vector2(0.32, 0.18)
+
+[node name="DrawingNearer" parent="ArtStudio" instance=ExtResource("25_hidden_text")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 51.1, 1.7, 12.33)
+text = "ME"
+hue = 3
+text_height = 0.17
+tag_size = Vector2(0.54, 0.31)
+
+[node name="DrawingClose" parent="ArtStudio" instance=ExtResource("25_hidden_text")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 52.8, 1.7, 12.33)
+text = "ME"
+hue = 4
+text_height = 0.26
+tag_size = Vector2(0.83, 0.47)
 
 [node name="Courtyard" type="Node3D" parent="."]
 
@@ -552,6 +632,10 @@ shape = SubResource("BoxShape3D_safe_ArtStudio")
 [connection signal="seeds_rejected" from="Greenhouse/PlantPot" to="Greenhouse/AlarmSpot" method="ring"]
 [connection signal="filled_right" from="CafeteriaRoom/FruitBasket" to="CafeteriaRoom/RedCrayon" method="appear"]
 [connection signal="filled_wrong" from="CafeteriaRoom/FruitBasket" to="CafeteriaRoom/AlarmSpot" method="ring"]
+[connection signal="mixed" from="ArtStudio/PumpkinPalette" to="ArtStudio/OrangeCrayon" method="appear"]
+[connection signal="mixed_wrong" from="ArtStudio/PumpkinPalette" to="ArtStudio/AlarmSpot" method="ring"]
+[connection signal="mixed" from="ArtStudio/EggplantPalette" to="ArtStudio/VioletCrayon" method="appear"]
+[connection signal="mixed_wrong" from="ArtStudio/EggplantPalette" to="ArtStudio/AlarmSpot" method="ring"]
 [connection signal="bloomed" from="Greenhouse/PlantPot" to="Greenhouse/IndigoCrayon" method="appear"]
 [connection signal="uncovered" from="Entity" to="EndingDirector" method="play_uncovered"]
 [connection signal="used" from="Courtyard/ExitDoor" to="EndingDirector" method="play_escape"]
