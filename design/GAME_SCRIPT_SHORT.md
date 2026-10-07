@@ -83,7 +83,9 @@ Taking a wrong book does nothing.
 
 **Teaches:** reading a clue, interacting, and that a crayon changes the flashlight.
 
-**Entity:** on leaving the library, the player sees it for the first time, crossing the corridor ahead. It does not chase. A desk stands beside the door: light off, crouch under it, stay still. This is the hiding tutorial, and the only scripted entity moment in the game.
+**Locked in:** once the player walks into the library holding the flashlight, the main door slams shut behind them and locks. It unlocks again once the entity sighting below is over. Until then the only way out is through the two small rooms on the east side (archive, then office), whose doors need yellow.
+
+**Entity:** on the way out, the player steps into the office and sees it for the first time, staring at them through the window of the door to the main hall. A hint reads "Crouch under a desk to hide"; there is a desk in the office and one in the archive behind them. Crouching under either makes it walk away, and from then on it roams the school. Waiting about 8 seconds, walking up to the window, or opening that door makes it come in after the player instead. This is the hiding tutorial, and the only scripted entity moment in the game.
 
 ### 2. Greenhouse (earn Green and Indigo)
 
@@ -151,8 +153,8 @@ All three are part of the base game.
 
 ## The entity through the run
 
-- **Lobby and library:** absent, then one scripted sighting.
-- **From the greenhouse on:** roams, investigates light and noise, opens doors.
+- **Lobby and library:** absent, then one scripted sighting at the office door on the way out.
+- **From that sighting on:** roams, investigates light and noise, opens doors.
 - **Safe rooms:** it cannot enter a puzzle room until that puzzle is solved.
 - **Gets faster:** a small speed increase with each crayon collected.
 

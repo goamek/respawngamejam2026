@@ -13,6 +13,9 @@
 [ext_resource type="PackedScene" path="res://src/environment/scenes/bookshelf.tscn" id="11_bookshelf"]
 [ext_resource type="PackedScene" path="res://src/environment/scenes/book.tscn" id="12_book"]
 [ext_resource type="PackedScene" path="res://src/environment/scenes/coloring_book.tscn" id="13_coloring_book"]
+[ext_resource type="Script" path="res://src/level/scripts/player_trigger.gd" id="14_player_trigger"]
+[ext_resource type="Script" path="res://src/level/scripts/door_lock_trigger.gd" id="15_door_lock_trigger"]
+[ext_resource type="Script" path="res://src/level/scripts/first_sighting.gd" id="16_first_sighting"]
 
 [sub_resource type="Environment" id="Environment_dark"]
 background_mode = 1
@@ -53,6 +56,18 @@ size = Vector3(22.7, 4, 16.4)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_safe_ArtStudio"]
 size = Vector3(9.9, 4, 11.7)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_entry_lock"]
+size = Vector3(17.3, 3, 0.6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_arrival"]
+size = Vector3(5.2, 3, 10.3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_stare"]
+size = Vector3(5.5, 3, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hiding_spot"]
+size = Vector3(1.4, 1, 0.5)
 
 [node name="SchoolLevel" type="Node3D" unique_id=102402281]
 
@@ -106,7 +121,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74, 0, 6.8)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.4, 0, 8.5)
 
 [node name="Entity" parent="." unique_id=1803776842 node_paths=PackedStringArray("patrol_points") instance=ExtResource("3_entity")]
-process_mode = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.2, 0, 8.037567)
 patrol_points = [NodePath("../PatrolPoints/Lobby"), NodePath("../PatrolPoints/MainCorridorWest"), NodePath("../PatrolPoints/MainCorridorCenter"), NodePath("../PatrolPoints/NorthCourtyardHall"), NodePath("../PatrolPoints/ScienceWing"), NodePath("../PatrolPoints/LinkHall"), NodePath("../PatrolPoints/PeCorridor"), NodePath("../PatrolPoints/EastCorridor"), NodePath("../PatrolPoints/Library"), NodePath("../PatrolPoints/Greenhouse"), NodePath("../PatrolPoints/Gymnasium"), NodePath("../PatrolPoints/LockerRoom"), NodePath("../PatrolPoints/Cafeteria"), NodePath("../PatrolPoints/ArtStudio")]
 
@@ -177,6 +191,64 @@ title = "Mouse and Moon"
 [node name="ColoringBook" parent="Library/Bookshelf" instance=ExtResource("13_coloring_book")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 1.2, -0.02)
 visible = false
+
+[node name="EntryLock" type="Area3D" parent="Library"]
+script = ExtResource("15_door_lock_trigger")
+door_path = NodePath("../../SchoolEnv/SM_DoubleDoor_Center8/SM_DoubleDoor_Center9/SM_Single_Door_Jam/SM_Door")
+requires_flashlight = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Library/EntryLock"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.85, 1.5, 2.4)
+shape = SubResource("BoxShape3D_entry_lock")
+
+[node name="FirstSighting" type="Node3D" parent="." node_paths=PackedStringArray("entity", "arrival_trigger", "stare_trigger", "watch_spot", "leave_spot", "hiding_spots")]
+script = ExtResource("16_first_sighting")
+entity = NodePath("../Entity")
+arrival_trigger = NodePath("ArrivalTrigger")
+stare_trigger = NodePath("StareTrigger")
+watch_spot = NodePath("WatchSpot")
+leave_spot = NodePath("../PatrolPoints/MainCorridorWest")
+hiding_spots = [NodePath("OfficeDesk/HidingSpot"), NodePath("ArchiveDesk/HidingSpot")]
+door_path = NodePath("../SchoolEnv/SM_DoubleDoor_Center8/SM_DoubleDoor_Center8/SM_Single_Door_Jam/SM_Door")
+
+[node name="ArrivalTrigger" type="Area3D" parent="FirstSighting"]
+script = ExtResource("14_player_trigger")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FirstSighting/ArrivalTrigger"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.47, 1.5, 11.45)
+shape = SubResource("BoxShape3D_arrival")
+
+[node name="StareTrigger" type="Area3D" parent="FirstSighting"]
+script = ExtResource("14_player_trigger")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FirstSighting/StareTrigger"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.62, 1.5, 2.7)
+shape = SubResource("BoxShape3D_stare")
+
+[node name="WatchSpot" type="Marker3D" parent="FirstSighting"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 19.78, 0, -0.32)
+
+[node name="OfficeDesk" parent="FirstSighting" instance=ExtResource("8_desk")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 22.8, 0, 3.6)
+
+[node name="HidingSpot" type="Area3D" parent="FirstSighting/OfficeDesk"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FirstSighting/OfficeDesk/HidingSpot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0.25)
+shape = SubResource("BoxShape3D_hiding_spot")
+
+[node name="ArchiveDesk" parent="FirstSighting" instance=ExtResource("8_desk")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 22.49, 0, 8.2)
+
+[node name="HidingSpot" type="Area3D" parent="FirstSighting/ArchiveDesk"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FirstSighting/ArchiveDesk/HidingSpot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0.25)
+shape = SubResource("BoxShape3D_hiding_spot")
 
 [node name="Greenhouse" type="Node3D" parent="."]
 
@@ -276,3 +348,4 @@ shape = SubResource("BoxShape3D_safe_ArtStudio")
 
 [connection signal="taken" from="Library/Bookshelf/MyColors" to="Library/Bookshelf/ColoringBook" method="show"]
 [connection signal="taken" from="Library/Bookshelf/MyColors" to="Library/YellowCrayon" method="appear"]
+[connection signal="ended" from="FirstSighting" to="Library/EntryLock" method="unlock_door"]

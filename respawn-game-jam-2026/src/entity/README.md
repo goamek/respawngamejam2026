@@ -31,8 +31,10 @@ The entity is always in exactly one state.
 | `INVESTIGATING` | Hurries to `last_known_position` at `investigate_speed`. On arrival, turns to face the player if it can still see them. | `SEARCHING` on arrival or when blocked, once the player is out of sight |
 | `SEARCHING` | Turns on the spot for `search_time`, looking around. | `PAUSING` when the time runs out |
 | `CATCHING` | Stands still facing the caught player. | `PAUSING` when reset with `reset_to_start()` |
+| `WATCHING` | Scripted: stands still and stares at the player. Entered with `watch_player()`. | Whatever the script sends it to next |
+| `LEAVING` | Scripted: walks to a given spot at `roam_speed`. Entered with `leave_to(spot)`. | `PAUSING` on arrival or when blocked |
 
-From any state except `CATCHING`, noticing the player switches it to `INVESTIGATING`.
+From any state except `CATCHING`, `WATCHING` and `LEAVING`, noticing the player switches it to `INVESTIGATING`. In the two scripted states its senses are off: it does not notice the player or their light, and cannot catch them. They are used by the first sighting (`src/level/scripts/first_sighting.gd`), which also keeps the entity hidden and switched off until that moment.
 
 ```
             pause ends
@@ -184,6 +186,8 @@ An agent radius of 0.25 is what keeps 1 m doorways walkable. A larger radius clo
 | `state` | variable | The current state. |
 | `last_known_position` | variable | The last place it noticed the player or was told to check. |
 | `investigate(spot)` | function | Sends it to check `spot`, for example after a noise. |
+| `watch_player(rise)` | function | Makes it stand and stare at the player with its senses off; `rise` lifts it to a window. |
+| `leave_to(spot)` | function | Sends it walking to `spot` with its senses off; it roams once it arrives. |
 | `sees_player()` | function | Whether it can see the player right now. |
 | `eye_position()` | function | Where its eyes are. The catch handler turns the player's view toward this. |
 | `reset_to_start()` | function | Puts it back where it started, pausing, unable to catch for `catch_cooldown`. |

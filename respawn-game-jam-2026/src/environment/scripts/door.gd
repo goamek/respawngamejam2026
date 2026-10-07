@@ -2,12 +2,16 @@ class_name Door
 extends Node3D
 ## Hinged door that swings open and closed when used.
 ## The player can only use it under its hue, unless it is a plain door; the entity opens it regardless.
-## A locked door is shut for good, to the player and the entity alike.
+## A locked door stays shut, to the player and the entity alike, until something unlocks it.
 
 ## Emitted when the door starts to open.
 signal opened
 ## Emitted when the door starts to close.
 signal closed
+## Emitted when the door is slammed shut, which is the moment for its sound.
+signal slammed
+## Emitted when a locked door becomes usable again.
+signal unlocked
 
 ## Hint shown while the door is closed.
 const OPEN_PROMPT: String = "Open"
@@ -18,8 +22,11 @@ const LOCKED_PROMPT: String = "Locked"
 
 ## Hue the flashlight must shine on the door before it can be used. None makes a plain door that always opens.
 @export var hue: Spectrum.Hue = Spectrum.Hue.RED
-## Whether the door is shut for good: nobody can use it and the entity will not open it.
+## Whether the door is locked: nobody can use it and the entity will not open it.
 @export var is_locked: bool = false
+## Whether the door will lock part way through the game and stay locked while the entity is about.
+## The entity's routes are planned as if it were locked already; re-bake the navigation mesh after changing this.
+@export var locks_during_play: bool = false
 ## Material a plain door wears in place of the reveal material; leave empty to keep it dark.
 @export var plain_material: Material
 ## Material a locked door wears, so that no beam lights it up; leave empty to keep the reveal material.
@@ -28,11 +35,14 @@ const LOCKED_PROMPT: String = "Locked"
 @export var open_angle: float = 95.0
 ## How long a full swing takes, in seconds.
 @export var swing_time: float = 0.6
+## How long the door takes to slam shut, in seconds.
+@export var slam_time: float = 0.12
 
 ## Whether the door is open or swinging open.
 var is_open: bool = false
 
 var _swing: Tween
+var _original_materials: Dictionary[MeshInstance3D, Array] = {}
 
 @onready var _hinge: Node3D = $Hinge
 @onready var _panel: Node3D = $Hinge/Panel
@@ -51,13 +61,11 @@ static func find_owner(node: Node) -> Door:
 
 ## Sets the door up as locked, plain, or colored, and listens for the player using it.
 func _ready() -> void:
+	_remember_materials()
 	if is_locked:
 		_become_locked()
-	elif hue == Spectrum.Hue.NONE:
-		_become_plain()
 	else:
-		_revealable.hue = hue
-		_interactable.prompt = OPEN_PROMPT
+		_become_usable()
 	_interactable.interacted.connect(_on_interacted)
 
 
@@ -67,7 +75,7 @@ func open(direction: float = 1.0) -> void:
 		return
 	is_open = true
 	_interactable.prompt = CLOSE_PROMPT
-	_swing_to(deg_to_rad(open_angle) * signf(direction))
+	_swing_to(deg_to_rad(open_angle) * signf(direction), swing_time)
 	opened.emit()
 
 
@@ -82,8 +90,31 @@ func close() -> void:
 		return
 	is_open = false
 	_interactable.prompt = OPEN_PROMPT
-	_swing_to(0.0)
+	_swing_to(0.0, swing_time)
 	closed.emit()
+
+
+## Slams the door shut if it is open, then locks it.
+func slam_and_lock() -> void:
+	if is_locked:
+		return
+	if is_open:
+		is_open = false
+		_swing_to(0.0, slam_time)
+		closed.emit()
+		slammed.emit()
+	is_locked = true
+	_become_locked()
+
+
+## Makes a locked door usable again, as the plain or colored door it was set up to be.
+func unlock() -> void:
+	if not is_locked:
+		return
+	is_locked = false
+	_restore_materials()
+	_become_usable()
+	unlocked.emit()
 
 
 ## Whether the door is part way through a swing.
@@ -91,11 +122,15 @@ func is_swinging() -> bool:
 	return _swing != null and _swing.is_running()
 
 
-## Drops the need for light, and dresses the panel in the plain material.
-func _become_plain() -> void:
-	_interactable.required_reveal = null
+## Sets the door up to open: for anyone if it is plain, otherwise only under its hue.
+func _become_usable() -> void:
 	_interactable.prompt = OPEN_PROMPT
-	_dress(plain_material)
+	if hue == Spectrum.Hue.NONE:
+		_interactable.required_reveal = null
+		_dress(plain_material)
+	else:
+		_interactable.required_reveal = _revealable
+		_revealable.hue = hue
 
 
 ## Shows the locked hint whatever the light, and dresses the panel in the locked material.
@@ -109,19 +144,35 @@ func _become_locked() -> void:
 func _dress(material: Material) -> void:
 	if material == null:
 		return
-	for node: Node in _panel.find_children("*", "MeshInstance3D", true, false):
-		var mesh: MeshInstance3D = node
+	for mesh: MeshInstance3D in _original_materials:
 		for surface: int in mesh.get_surface_override_material_count():
 			mesh.set_surface_override_material(surface, material)
 
 
-## Turns the hinge to [param angle], in radians, replacing any swing already under way.
-func _swing_to(angle: float) -> void:
+## Notes the material each surface of the panel starts with, so the panel can be undressed later.
+func _remember_materials() -> void:
+	for node: Node in _panel.find_children("*", "MeshInstance3D", true, false):
+		var mesh: MeshInstance3D = node
+		var materials: Array[Material] = []
+		for surface: int in mesh.get_surface_override_material_count():
+			materials.append(mesh.get_surface_override_material(surface))
+		_original_materials[mesh] = materials
+
+
+## Puts back the material each surface of the panel started with.
+func _restore_materials() -> void:
+	for mesh: MeshInstance3D in _original_materials:
+		for surface: int in mesh.get_surface_override_material_count():
+			mesh.set_surface_override_material(surface, _original_materials[mesh][surface])
+
+
+## Turns the hinge to [param angle], in radians, over [param duration] seconds, replacing any swing already under way.
+func _swing_to(angle: float, duration: float) -> void:
 	if _swing != null:
 		_swing.kill()
 	_swing = create_tween().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
 	_swing.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-	_swing.tween_property(_hinge, "rotation:y", angle, swing_time)
+	_swing.tween_property(_hinge, "rotation:y", angle, duration)
 
 
 ## Returns 1 or -1 so the door swings away from [param body].

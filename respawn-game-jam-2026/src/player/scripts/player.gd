@@ -5,6 +5,8 @@ extends CharacterBody3D
 
 ## Emitted when the player takes hold of [param flashlight].
 signal flashlight_equipped(flashlight: Flashlight)
+## Emitted when the on-screen hint should change; empty text means no hint.
+signal hint_changed(text: String)
 
 ## Distance from the top of the body down to the eyes, in meters.
 const EYE_OFFSET: float = 0.2
@@ -172,6 +174,16 @@ func respawn_at(spawn: Node3D) -> void:
 	rotation = Vector3(0.0, spawn.global_rotation.y, 0.0)
 	head.rotation = Vector3.ZERO
 	velocity = Vector3.ZERO
+
+
+## Shows [param text] as a hint on screen until it is cleared or replaced.
+func show_hint(text: String) -> void:
+	hint_changed.emit(text)
+
+
+## Removes the on-screen hint.
+func clear_hint() -> void:
+	hint_changed.emit("")
 
 
 ## Places [param item] in the player's hand and makes it the flashlight the player controls.

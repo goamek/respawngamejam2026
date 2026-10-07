@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" path="res://src/ui/scenes/hue_indicator.tscn" id="5_indicator"]
 [ext_resource type="PackedScene" path="res://src/ui/scenes/lives_display.tscn" id="6_lives"]
 [ext_resource type="PackedScene" path="res://src/post_processing/scenes/crayon_effect.tscn" id="7_crayon_effect"]
+[ext_resource type="PackedScene" path="res://src/ui/scenes/hint_display.tscn" id="8_hint"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_body"]
 radius = 0.3
@@ -57,6 +58,9 @@ target_position = Vector3(0, 0.8, 0)
 interactor = NodePath("../../Head/Interactor")
 
 [node name="HueIndicator" parent="HUD" node_paths=PackedStringArray("player") instance=ExtResource("5_indicator")]
+player = NodePath("../..")
+
+[node name="HintDisplay" parent="HUD" node_paths=PackedStringArray("player") instance=ExtResource("8_hint")]
 player = NodePath("../..")
 
 [node name="LivesDisplay" parent="HUD" instance=ExtResource("6_lives")]

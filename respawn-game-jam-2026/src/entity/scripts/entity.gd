@@ -10,7 +10,7 @@ signal player_spotted
 ## Emitted when the entity catches the player.
 signal player_caught
 
-enum State { PAUSING, ROAMING, INVESTIGATING, SEARCHING, CATCHING }
+enum State { PAUSING, ROAMING, INVESTIGATING, SEARCHING, CATCHING, WATCHING, LEAVING }
 
 ## Fraction of its intended speed below which the entity counts as blocked.
 const BLOCKED_SPEED_RATIO: float = 0.25
@@ -45,11 +45,15 @@ const STATE_ANIMATIONS: Dictionary[State, StringName] = {
 	State.INVESTIGATING: &"run",
 	State.SEARCHING: &"search",
 	State.CATCHING: &"catch",
+	State.WATCHING: &"idle",
+	State.LEAVING: &"walk",
 }
 ## Closest the face comes to the player's eyes in a lunge, so it never passes through the camera, in meters.
 const MIN_FACE_DISTANCE: float = 0.45
 ## Name Mixamo gives the single clip inside every library.
 const CLIP_NAME: StringName = &"mixamo_com"
+## How fast the head tips over to its tilt and back upright, in degrees per second.
+const HEAD_TILT_SPEED: float = 180.0
 
 @export_group("Roaming")
 ## Points the entity wanders between, in no fixed order.
@@ -120,10 +124,14 @@ var _catch_cooldown_left: float = 0.0
 var _leap_face_height: float = 0.0
 var _leap_face_gap: float = 0.0
 var _start_transform: Transform3D
+var _head_tilt_wanted: float = 0.0
+var _head_tilt: float = 0.0
 
 @onready var _agent: NavigationAgent3D = $NavigationAgent3D
 @onready var _eyes: Marker3D = $Eyes
 @onready var _model: Node3D = $Model
+@onready var _skeleton: Skeleton3D = $Model/Skeleton3D
+@onready var _head: BoneAttachment3D = $Model/Skeleton3D/Head
 @onready var _face_marker: Marker3D = $Model/Skeleton3D/Head/Face
 @onready var _animation: AnimationPlayer = $Model/AnimationPlayer
 
@@ -133,14 +141,18 @@ func _ready() -> void:
 	_player = get_tree().get_first_node_in_group("player") as Player
 	_start_transform = global_transform
 	_pause_left = pause_time
+	_animation.mixer_applied.connect(_tilt_head)
 	_play_state_animation()
 
 
 ## Checks for the player, tries to catch them, runs the current state, then moves the body.
 ## Open doors it bumps into stop being solid to it, so a door left open never traps it.
 func _physics_process(delta: float) -> void:
-	_update_sight()
-	_try_catch(delta)
+	if _is_scripted():
+		_sees_player = false
+	else:
+		_update_sight()
+		_try_catch(delta)
 	match state:
 		State.PAUSING:
 			_process_pausing(delta)
@@ -152,6 +164,10 @@ func _physics_process(delta: float) -> void:
 			_process_searching(delta)
 		State.CATCHING:
 			_process_catching(delta)
+		State.WATCHING:
+			_process_watching(delta)
+		State.LEAVING:
+			_process_leaving(delta)
 	_close_door_behind()
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -169,6 +185,22 @@ func investigate(spot: Vector3) -> void:
 	if state != State.INVESTIGATING:
 		_blocked_for = 0.0
 		_set_state(State.INVESTIGATING)
+
+
+## Makes the entity stand where it is and stare at the player, noticing and catching nothing, until told otherwise.
+## [param rise] lifts the model that far off the floor, in meters, to bring its face up to a window.
+## [param head_tilt] tips its head sideways by that many degrees; positive leans the top of the head to the left as the player sees it.
+func watch_player(rise: float = 0.0, head_tilt: float = 0.0) -> void:
+	_set_state(State.WATCHING)
+	_model.position.y = rise
+	_head_tilt_wanted = deg_to_rad(head_tilt)
+
+
+## Sends the entity walking to [param spot], still noticing nothing; it roams as normal once it arrives.
+func leave_to(spot: Vector3) -> void:
+	_agent.target_position = spot
+	_blocked_for = 0.0
+	_set_state(State.LEAVING)
 
 
 ## Whether the entity can currently see the player.
@@ -271,6 +303,23 @@ func _process_catching(delta: float) -> void:
 	_stop()
 	_face_point(_player.global_position, delta)
 	_hold_face_in_place(delta)
+
+
+## Stands still, turned toward the player.
+func _process_watching(delta: float) -> void:
+	_stop()
+	_face_point(_player.global_position, delta)
+
+
+## Walks to the spot it was sent to, then goes back to roaming.
+func _process_leaving(delta: float) -> void:
+	if _follow_path(roam_speed * _speed_scale(), delta):
+		_start_pausing()
+
+
+## Whether the entity is playing out a scripted moment, during which its senses are switched off.
+func _is_scripted() -> bool:
+	return state == State.WATCHING or state == State.LEAVING
 
 
 ## Stops and waits before choosing the next patrol point.
@@ -534,6 +583,17 @@ func _hold_face_in_place(delta: float) -> void:
 ## Puts the model back in place on the floor after a leap.
 func _land() -> void:
 	_model.position = Vector3.ZERO
+
+
+## Tips the head sideways on top of the pose the animation has just written, easing toward the tilt wanted while watching and back upright otherwise.
+func _tilt_head() -> void:
+	var wanted: float = _head_tilt_wanted if state == State.WATCHING else 0.0
+	_head_tilt = move_toward(_head_tilt, wanted, deg_to_rad(HEAD_TILT_SPEED) * get_process_delta_time())
+	if is_zero_approx(_head_tilt):
+		return
+	# The head bone's own Z axis runs through the face, so turning about it rolls the head.
+	var pose: Quaternion = _skeleton.get_bone_pose_rotation(_head.bone_idx)
+	_skeleton.set_bone_pose_rotation(_head.bone_idx, pose * Quaternion(Vector3.BACK, _head_tilt))
 
 
 ## Fades into the animation that belongs to the current state.

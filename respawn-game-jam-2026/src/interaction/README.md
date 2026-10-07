@@ -16,6 +16,9 @@ The parts a puzzle room is assembled from, and how to wire them together in the 
 | Wall calendar | `environment/scenes/wall_calendar.tscn` | A month with one day circled. |
 | Choice | `interaction/scripts/choice.gd` | One right answer among several things to take. |
 | Book | `environment/scenes/book.tscn` | A choice with a title, for a shelf. |
+| Player trigger | `level/scripts/player_trigger.gd` | An invisible region that reports the player walking in. |
+| Door lock trigger | `level/scripts/door_lock_trigger.gd` | A region that slams and locks a door behind the player. |
+| First sighting | `level/scripts/first_sighting.gd` | The scripted first meeting with the entity, and what keeps it asleep until then. |
 
 To add one of the script-only pieces, add a node of the type given below, then drag the script onto it (or search for its class name in the **Create New Node** window).
 
@@ -128,6 +131,48 @@ Select a door in the level and set its **Hue** in the Inspector.
 The entity opens every door, whatever its hue, unless the door is locked.
 
 **Is Locked** shuts a door for good. Aiming at it shows "Locked", no beam opens it (white included), it stays flat black, and the entity will not open it. Use it on every door that is not on the route. After locking or unlocking doors, re-bake the navigation mesh (`src/level/scripts/navigation_baker.gd`, File > Run), which treats locked doors as walls so the entity does not try to path through them.
+
+**Locks During Play** is for a door that starts usable, locks later (see the next section), and is still locked while the entity is roaming. The navigation bake treats such a door as a wall, so the entity never plans a route through it. Re-bake after ticking or unticking it. The library's main door does not need it: it is only locked while the entity is asleep.
+
+## A door that locks behind the player
+
+1. Add an `Area3D` with the `DoorLockTrigger` script, and give it a `CollisionShape3D` child covering the strip of floor the player must cross. Keep it at least 1.8 m past the door, so the panel does not swing shut on them.
+2. Set **Door Path** to the door. Doors sit inside the school scene, which the node picker cannot open, so type the path by hand; copy the pattern from `Library/EntryLock` in the school level.
+3. Tick **Requires Flashlight** if it should only happen once the player is holding the flashlight.
+4. If the door will still be locked while the entity roams, tick **Locks During Play** on the door itself and re-bake the navigation mesh.
+
+When the player walks in, the door slams shut, turns black and shows "Locked". The door's `slammed` signal fires at that moment; connect a sound to it.
+
+To let the player back through later, connect any signal to the trigger's `unlock_door()`. The door goes back to how it was set up (plain wood, or its color) and fires `unlocked`. In the school level, the first sighting's `ended` signal does this for the library.
+
+Plain `PlayerTrigger` regions work the same way without the door: they emit `triggered` when the player walks in, once by default. Connect that to anything.
+
+## The first sighting of the entity
+
+One `FirstSighting` node per level. It hides the entity and switches it off when the level starts, so nothing roams until the meeting happens.
+
+| Setting | What to give it |
+|---|---|
+| **Entity** | The level's entity. |
+| **Arrival Trigger** | A `PlayerTrigger` the player crosses before they can see the watch spot. The entity appears there at that moment, out of view. |
+| **Stare Trigger** | A `PlayerTrigger` the player crosses once they can see it. The countdown and the hint start here. |
+| **Watch Spot** | A `Marker3D` where the entity stands. |
+| **Leave Spot** | Where it walks to after the player hides; a patrol point works. |
+| **Hiding Spots** | One `Area3D` under each desk, with **Collision Mask** set to layer 2 (player) and a box that covers the back half of the space underneath. |
+| **Door Path** | The door it watches through, typed by hand as above. Optional. |
+
+What the player does decides how it ends:
+
+- **Crouches inside a hiding spot** for **Hide Time** (1.5 s): the entity walks to the leave spot, noticing nothing on the way, and then roams as normal.
+- **Stays in the open** for **Patience** (8 s; 0 waits forever), **comes within Alarm Distance** (2 m), or **opens the door**: the entity comes for them, opening the door itself.
+
+**Watch Rise** lifts the entity so its face lines up with a door window. **Head Tilt** tips its head sideways while it stares; positive leans the top of its head to the player's left, and 70 reads as about 10:30 on a clock because the idle pose already leans the other way. **Hint** is the line shown on screen during the stare. Signals `started`, `player_hid` and `entity_attacked` are there for sounds and music, and `ended` fires when the meeting is over either way.
+
+To test puzzles with no entity at all, untick **Is Enabled**: it then stays asleep for the whole game.
+
+## On-screen hints
+
+Call `show_hint("text")` on the player to put a line of guidance in the lower part of the screen, and `clear_hint()` to remove it. It is separate from the Open / Take hint under the crosshair.
 
 ## A level where the flashlight is found
 
