@@ -86,6 +86,16 @@ Drag in `pickup/scenes/crayon.tscn`, set its **Hue**, and tick **Starts Hidden**
 
 While the room is safe, the entity will not step into it, will not pick patrol points inside it, and cannot catch a player who is inside it. It will still come to the doorway and stare in. Only box shapes are read.
 
+## Doors
+
+Select a door in the level and set its **Hue** in the Inspector.
+
+- **A color:** the door is black until that color shines on it, and only opens while it is lit. White light opens every colored door.
+- **None:** a plain door. It opens for anyone, with or without a flashlight, and wears the wood material so it reads as an ordinary door.
+- **White:** only the white beam opens it.
+
+The entity opens every door, whatever its hue.
+
 ## A level where the flashlight is found
 
 1. Select the `Player` in the level and untick **Starts With Flashlight**. The player begins with an empty hand.

@@ -1,7 +1,7 @@
 class_name Door
 extends Node3D
 ## Hinged door that swings open and closed when used.
-## The player can only use it under its hue; the entity opens it regardless.
+## The player can only use it under its hue, unless it is a plain door; the entity opens it regardless.
 
 ## Emitted when the door starts to open.
 signal opened
@@ -13,8 +13,10 @@ const OPEN_PROMPT: String = "Open"
 ## Hint shown while the door is open.
 const CLOSE_PROMPT: String = "Close"
 
-## Hue the flashlight must shine on the door before it can be used.
+## Hue the flashlight must shine on the door before it can be used. None makes a plain door that always opens.
 @export var hue: Spectrum.Hue = Spectrum.Hue.RED
+## Material a plain door wears in place of the reveal material; leave empty to keep it dark.
+@export var plain_material: Material
 ## How far the door swings open, in degrees.
 @export var open_angle: float = 95.0
 ## How long a full swing takes, in seconds.
@@ -26,6 +28,7 @@ var is_open: bool = false
 var _swing: Tween
 
 @onready var _hinge: Node3D = $Hinge
+@onready var _panel: Node3D = $Hinge/Panel
 @onready var _revealable: Revealable = $Hinge/Panel/Revealable
 @onready var _interactable: Interactable = $Hinge/Panel/Interactable
 
@@ -39,9 +42,12 @@ static func find_owner(node: Node) -> Door:
 	return null
 
 
-## Passes the hue to the panel and listens for the player using the door.
+## Passes the hue to the panel, or makes the door plain, and listens for the player using it.
 func _ready() -> void:
-	_revealable.hue = hue
+	if hue == Spectrum.Hue.NONE:
+		_become_plain()
+	else:
+		_revealable.hue = hue
 	_interactable.prompt = OPEN_PROMPT
 	_interactable.interacted.connect(_on_interacted)
 
@@ -74,6 +80,17 @@ func close() -> void:
 ## Whether the door is part way through a swing.
 func is_swinging() -> bool:
 	return _swing != null and _swing.is_running()
+
+
+## Drops the need for light, and dresses the panel in the plain material if one is set.
+func _become_plain() -> void:
+	_interactable.required_reveal = null
+	if plain_material == null:
+		return
+	for node: Node in _panel.find_children("*", "MeshInstance3D", true, false):
+		var mesh: MeshInstance3D = node
+		for surface: int in mesh.get_surface_override_material_count():
+			mesh.set_surface_override_material(surface, plain_material)
 
 
 ## Turns the hinge to [param angle], in radians, replacing any swing already under way.
