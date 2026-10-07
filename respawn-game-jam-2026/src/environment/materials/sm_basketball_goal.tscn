@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://d3r7gbbe2pgdb"]
+
+[ext_resource type="PackedScene" uid="uid://q4k5hni67lxf" path="res://src/environment/materials/SM_Basketball_Goal.fbx" id="1_xbpey"]
+[ext_resource type="Material" uid="uid://52mttn4wpd60" path="res://src/environment/materials/White.tres" id="2_ujpt2"]
+[ext_resource type="Material" uid="uid://d0ew4dr8623eg" path="res://src/environment/materials/Cup.tres" id="3_pujof"]
+[ext_resource type="Material" uid="uid://c0wx25vanu2qx" path="res://src/environment/materials/Blue.tres" id="4_usotc"]
+
+[node name="SM_Basketball_Goal" unique_id=445273640 instance=ExtResource("1_xbpey")]
+
+[node name="polySurface53" parent="group2" parent_id_path=PackedInt32Array(928019544) index="0" unique_id=1322926736]
+material_override = ExtResource("2_ujpt2")
+
+[node name="polySurface50" parent="group2" parent_id_path=PackedInt32Array(928019544) index="2" unique_id=545139120]
+material_override = ExtResource("3_pujof")
+
+[node name="polySurface51" parent="group2" parent_id_path=PackedInt32Array(928019544) index="3" unique_id=849189076]
+material_override = ExtResource("3_pujof")
+
+[node name="polySurface58" parent="group2" parent_id_path=PackedInt32Array(928019544) index="6" unique_id=1317471878]
+material_override = ExtResource("3_pujof")
+
+[node name="polySurface49" parent="group2" parent_id_path=PackedInt32Array(928019544) index="7" unique_id=1645891364]
+material_override = ExtResource("4_usotc")
+
+[node name="polySurface55" parent="group2" parent_id_path=PackedInt32Array(928019544) index="8" unique_id=406997104]
+material_override = ExtResource("3_pujof")
+
+[node name="polySurface52" parent="group2" parent_id_path=PackedInt32Array(928019544) index="10" unique_id=1202528234]
+material_override = ExtResource("3_pujof")

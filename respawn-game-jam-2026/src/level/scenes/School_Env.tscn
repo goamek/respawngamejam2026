@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://scniej352mmb" path="res://src/environment/Meshes/sm_wall_01.tscn" id="15_vawj4"]
 [ext_resource type="PackedScene" uid="uid://ckxdt8o3j6eb2" path="res://src/environment/Meshes/sm_wall_02.tscn" id="16_lur82"]
 [ext_resource type="PackedScene" uid="uid://bdcoi4crlnvu7" path="res://src/environment/materials/Flower/sm_leaves.tscn" id="16_q6dn5"]
+[ext_resource type="Texture2D" uid="uid://cjnr5wvet2du" path="res://src/environment/Decals/Gymfloor3.jpg4f6b1c13-e003-432f-94d2-93bc69eaa6b1Zoom.jpg" id="16_vql7k"]
 [ext_resource type="PackedScene" uid="uid://dr22d51ljvkwv" path="res://src/environment/materials/Terracotta/sm_pot_01.tscn" id="17_egxdb"]
 [ext_resource type="PackedScene" uid="uid://bs4ina2701gea" path="res://src/environment/materials/Ceiling/sm_ceiling_01.tscn" id="17_lur82"]
 [ext_resource type="PackedScene" uid="uid://c4mbv0baerlf7" path="res://src/environment/materials/Flower/sm_flower_02.tscn" id="17_nt37o"]
@@ -49,6 +50,10 @@
 [ext_resource type="PackedScene" uid="uid://6ldj3ds4lk8g" path="res://src/environment/materials/sm_cup.tscn" id="47_aq6ci"]
 [ext_resource type="PackedScene" uid="uid://b528ymx8p1cua" path="res://src/environment/materials/sm_pencil.tscn" id="48_vvvmn"]
 [ext_resource type="PackedScene" uid="uid://cedgtrjyvqf1x" path="res://src/environment/materials/sm_pen.tscn" id="49_x7j37"]
+[ext_resource type="PackedScene" uid="uid://cdyikgrgtf6la" path="res://src/environment/materials/sm_paintbrush.tscn" id="50_aq6ci"]
+[ext_resource type="PackedScene" uid="uid://cqvuav1elluve" path="res://src/environment/materials/sm_drinking_fountain.tscn" id="51_vql7k"]
+[ext_resource type="PackedScene" uid="uid://d3r7gbbe2pgdb" path="res://src/environment/materials/sm_basketball_goal.tscn" id="52_6s2us"]
+[ext_resource type="PackedScene" uid="uid://bu511om553yji" path="res://src/environment/materials/Grass/sm_floor_Grass.tscn" id="53_t4mmw"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_dntc5"]
 size = Vector3(1.3822632, 4.972679, 2.7254639)
@@ -1200,7 +1205,29 @@ transform = Transform3D(-2.2292808e-09, -4.933751e-16, 0.078, 0, 0.061, 6.308730
 texture = ExtResource("14_tgb5p")
 
 [node name="SM_Floor_01" parent="." unique_id=2012410054 instance=ExtResource("18_q6dn5")]
-transform = Transform3D(14.760235, 0, 0, 0, -1.0204237e-06, 1.0000001, 0, -23.344572, -4.3711392e-08, -7.5394, 0, 31.601315)
+transform = Transform3D(5.705, 0, 0, 0, -3.946264e-07, 0.39, 0, -9.028, -1.704744e-08, -7.5394, 0, 31.601315)
+
+[node name="SM_Floor_04" parent="." unique_id=1317485416 instance=ExtResource("18_q6dn5")]
+transform = Transform3D(9.6985, 0, 0, 0, -3.946264e-07, 0.39, 0, -9.028, -1.704744e-08, 41.144684, -0.0003850313, 29.282085)
+
+[node name="Sprite3D" type="Sprite3D" parent="SM_Floor_04" unique_id=1726228578]
+transform = Transform3D(-2.8412392e-09, 0.06499999, 0, -0.064999975, -2.8412395e-09, -4.1633363e-17, 2.1316282e-14, 6.352747e-22, 0.065, 5.4719996, 5.759858, 5.8282167e-06)
+texture = ExtResource("16_vql7k")
+
+[node name="SM_Floor_05" parent="." unique_id=448291778 instance=ExtResource("18_q6dn5")]
+transform = Transform3D(6.7080045, 0, 0, 0, -3.946264e-07, 0.39, 0, -9.028, -1.704744e-08, 23.452032, 0.021615945, -26.231453)
+
+[node name="SM_Floor_06" parent="." unique_id=2069969924 instance=ExtResource("18_q6dn5")]
+transform = Transform3D(0.9713263, 0, 0, 0, -2.4862925e-07, 0.39, 0, -5.6879745, -1.704744e-08, 83.824, -6.0157265e-07, -39.99938)
+
+[node name="SM_Floor_07" parent="." unique_id=183872320 instance=ExtResource("18_q6dn5")]
+transform = Transform3D(2.8653002, 0, 0, 0, -2.4862925e-07, 0.39, 0, -5.6879745, -1.704744e-08, 58.252, 0, -4.017)
+
+[node name="SM_Floor_08" parent="." unique_id=590882313 instance=ExtResource("18_q6dn5")]
+transform = Transform3D(2.8653002, 0, 0, 0, -1.3544243e-07, 0.39, 0, -3.098562, -1.704744e-08, 105.122, 0, -4.942)
+
+[node name="SM_Floor_03" parent="." unique_id=1790576811 instance=ExtResource("18_q6dn5")]
+transform = Transform3D(3.438, 0, 0, 0, -3.906487e-07, 0.391, 0, -8.937, -1.7091153e-08, -7.539, 0, -3.063)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1701985939]
 transform = Transform3D(2, 0, 0, 0, -3.495734e-08, 2, 0, -0.79973066, -8.742278e-08, 56.552574, 1.7248529, 5.290412)
@@ -1856,3 +1883,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.000263, 0.0031768987, 10.0
 
 [node name="SM_Pen2" parent="." unique_id=1814138673 instance=ExtResource("49_x7j37")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50.326176, 0.0061492436, 10.183884)
+
+[node name="SM_Paintbrush2" parent="." unique_id=1122289518 instance=ExtResource("50_aq6ci")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48.639435, 0.15584162, 6.756079)
+
+[node name="SM_Drinking_Fountain2" parent="." unique_id=174692339 instance=ExtResource("51_vql7k")]
+transform = Transform3D(-5.4639237e-08, 0, 1.25, 0, 1.25, 0, -1.25, 0, -5.4639237e-08, 27.560398, 0.33029878, 12.606855)
+
+[node name="SM_Basketball_Goal" parent="." unique_id=445273640 instance=ExtResource("52_6s2us")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 93.706, -0.008168876, -35.07563)
+
+[node name="SM_Basketball_Goal2" parent="." unique_id=1785304999 instance=ExtResource("52_6s2us")]
+transform = Transform3D(-10, 0, 2.3849762e-07, 0, 10, 0, -2.3849762e-07, 0, -10, 93.706, -0.008168876, -10.07563)
+
+[node name="SM_Floor_02" parent="." unique_id=2140161556 instance=ExtResource("53_t4mmw")]
+transform = Transform3D(3.9, 0, 0, 0, -2.6663946e-07, 1, 0, -6.1, -4.371139e-08, 23.406006, 0, -2.79852)

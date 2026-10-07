@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://cqvuav1elluve"]
+
+[ext_resource type="PackedScene" uid="uid://dm6mlbxtnolq1" path="res://src/environment/SM_Drinking_Fountain.fbx" id="1_07vwy"]
+[ext_resource type="Material" uid="uid://bb3aocohi3qpn" path="res://src/environment/materials/Metal_Door/Metal_Door.tres" id="2_7u10x"]
+[ext_resource type="Material" uid="uid://bda4r2ur7upxk" path="res://src/environment/materials/Apple.tres" id="3_e2xg3"]
+[ext_resource type="Material" uid="uid://roo3gcywywh3" path="res://src/environment/materials/Plastic/Plastic.tres" id="4_m2hle"]
+[ext_resource type="Material" uid="uid://d0ew4dr8623eg" path="res://src/environment/materials/Cup.tres" id="5_ms4ug"]
+
+[node name="SM_Drinking_Fountain" unique_id=174692339 instance=ExtResource("1_07vwy")]
+
+[node name="polySurface31" parent="SM_Drinking_Fountain" parent_id_path=PackedInt32Array(1764706943) index="0" unique_id=1971661969]
+material_override = ExtResource("2_7u10x")
+
+[node name="polySurface36" parent="SM_Drinking_Fountain" parent_id_path=PackedInt32Array(1764706943) index="1" unique_id=1548874008]
+material_override = ExtResource("3_e2xg3")
+
+[node name="polySurface37" parent="SM_Drinking_Fountain" parent_id_path=PackedInt32Array(1764706943) index="2" unique_id=782910197]
+material_override = ExtResource("2_7u10x")
+
+[node name="polySurface40" parent="SM_Drinking_Fountain" parent_id_path=PackedInt32Array(1764706943) index="3" unique_id=1760726235]
+material_override = ExtResource("4_m2hle")
+
+[node name="polySurface43" parent="SM_Drinking_Fountain" parent_id_path=PackedInt32Array(1764706943) index="4" unique_id=1000123793]
+material_override = ExtResource("4_m2hle")
+
+[node name="polySurface48" parent="SM_Drinking_Fountain" parent_id_path=PackedInt32Array(1764706943) index="5" unique_id=663745475]
+material_override = ExtResource("4_m2hle")
+
+[node name="polySurface47" parent="SM_Drinking_Fountain" parent_id_path=PackedInt32Array(1764706943) index="6" unique_id=1932212482]
+material_override = ExtResource("2_7u10x")
+
+[node name="polySurface46" parent="SM_Drinking_Fountain" parent_id_path=PackedInt32Array(1764706943) index="7" unique_id=1573663406]
+material_override = ExtResource("5_ms4ug")
+
+[node name="polySurface45" parent="SM_Drinking_Fountain" parent_id_path=PackedInt32Array(1764706943) index="8" unique_id=330059975]
+material_override = ExtResource("4_m2hle")

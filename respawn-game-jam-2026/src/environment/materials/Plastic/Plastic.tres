@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://roo3gcywywh3"]
+
+[ext_resource type="Texture2D" uid="uid://djev1h4iniudn" path="res://src/environment/materials/Plastic/Plastic018A_1K-JPG_Color.jpg" id="1_s6f48"]
+[ext_resource type="Texture2D" uid="uid://duvw4y2cgk1jl" path="res://src/environment/materials/Plastic/Plastic018A_1K-JPG_Roughness.jpg" id="2_e5xa8"]
+
+[resource]
+albedo_texture = ExtResource("1_s6f48")
+roughness_texture = ExtResource("2_e5xa8")

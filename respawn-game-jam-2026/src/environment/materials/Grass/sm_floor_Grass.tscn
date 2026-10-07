@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://bu511om553yji"]
+
+[ext_resource type="PackedScene" uid="uid://lenp28q5li6e" path="res://src/environment/Meshes/FBX/SM_Floor_01.fbx" id="1_gejtw"]
+[ext_resource type="Material" uid="uid://odpe2t5dkc5r" path="res://src/environment/materials/Grass/Grass.tres" id="2_llphr"]
+
+[node name="SM_Floor_01" unique_id=1317485416 instance=ExtResource("1_gejtw")]
+
+[node name="SM_Wall_01" parent="." index="0" unique_id=1135780797]
+material_override = ExtResource("2_llphr")
