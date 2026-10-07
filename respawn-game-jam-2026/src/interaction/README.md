@@ -125,21 +125,52 @@ Three ready-made pieces, all in `environment/scenes/`:
 | Piece | What it is | Settings |
 |---|---|---|
 | `seed_sack.tscn` | A sack the player carries, with its name on a hidden-text tag (yellow). The hint is "Pick up" for every sack, so only the light tells them apart. | **Plant Name**, in lowercase: `flower`, `carrot`, `tree` or `weed`. It is both the name on the tag and the id the pot checks. |
-| `plant_pot.tscn` | The pot, with a socket, a light sensor, and the flower inside it. | **Alarm Spot**, **Alarm Range**, and three sound names. |
+| `plant_pot.tscn` | The pot, with a socket, a light sensor, and the flower inside it. | Three sound names. |
 | `bench.tscn` | A plain grey placeholder bench, 2.2 m long and 0.9 m high. | None. |
 
 How the pot plays:
 
-1. It takes any of the four sacks. A wrong one sits in it for a moment and is sent back to where it was picked up, with a thud and a noise the entity can hear.
+1. It takes any of the four sacks. A wrong one sits in it for a moment and is sent back to where it was picked up, with a thud. The pot emits `seeds_rejected`; connect that to a noise alarm's `ring()` (see **A noise that brings the entity**).
 2. The `flower` sack is planted: it disappears into the pot, and from then on yellow light counts.
 3. While yellow light is on the pot the flower grows, reaching full size after 3 seconds. Move the beam away and it shrinks back at the same rate.
 4. At full size the pot emits `bloomed`. Connect that to each reward crayon's `appear()`.
 
-**Alarm Spot** is where the noise of a wrong sack seems to come from. The entity ignores noise from inside a safe room it is kept out of, and the pot is inside one, so give it a `Marker3D` placed just outside the room's door. The entity runs there, looks around, and leaves.
-
-In the school: the bench, the four sacks and the note are in the potting room; the pot is on the greenhouse floor; the alarm marker is in the hall outside the bio lab's yellow door. The green and indigo crayons sit in the flower, hidden until `bloomed`. Taking both opens the wing to the entity, through the safe room.
+In the school: the bench, the four sacks and the note are in the potting room; the pot is on the greenhouse floor; the noise alarm is in the hall outside the bio lab's yellow door. The green and indigo crayons sit in the flower, hidden until `bloomed`. Taking both opens the wing to the entity, through the safe room.
 
 After moving the bench or the pot, re-bake the navigation mesh, since the entity walks round them once the wing is open.
+
+## A noise that brings the entity (noise alarm)
+
+Add a `Marker3D` with `level/scripts/noise_alarm.gd`. Calling its `ring()` makes a noise at the marker that the entity hears within **Noise Range** (25 m). The entity runs to the marker, looks around, and leaves.
+
+Put the marker just outside the room's door, not on the puzzle. The entity ignores any noise that comes from inside a safe room it is kept out of, and every puzzle is inside one.
+
+Connect a puzzle's wrong-answer signal to `ring()`: the plant pot's `seeds_rejected`, or a locker's `rattled`.
+
+## The gym puzzle
+
+Pieces, in `environment/scenes/`:
+
+| Piece | What it is | Settings |
+|---|---|---|
+| `scoreboard_digit.tscn` | A seven-bar digit that reads as a different number under each color of light. | **Digits** (a number for each hue), **Digit Height**, **Bar Thickness**. Tick **Is Off** to draw it switched off instead: seven plain dim bars that show no number. |
+| `scoreboard.tscn` | A full scoreboard, switched off: HOME and GUEST scores and a clock. The HOME score is the puzzle digit, with a row of three glowing dots under it. The GUEST score and the clock are switched-off digits, there for looks. | **Dot Order**, the hues of the dots from left to right. |
+| `locker.tscn` | A numbered locker built on the choice mechanic. The hint reads "Open locker 247". | **Number**, **Is Correct**, two sound names. |
+
+How the digit works: every digit on a seven-bar display uses at least one of the two right-hand bars, so three digits cannot each have bars of their own. Each bar is therefore split into thin stripes, one per hue, and a stripe is only drawn where that hue's digit uses the bar. The board behind is as dark as a hidden stripe, so nothing shows until the right light is on it.
+
+How a locker plays: a wrong one rattles, stays shut, reads "Not this one" for a moment, and emits `rattled`. The right one swings open and emits `opened`. Its **Contents Spot** is where to put what it holds.
+
+The answer is dealt by `level/scripts/gym_puzzle.gd`, a node in the level given the scoreboard, exactly six lockers, the reward crayon (hidden at start) and a noise alarm. Each time the level loads it:
+
+1. picks three different digits and deals them to yellow, green and indigo;
+2. puts the dots in a random order, which is the order to read the digits in;
+3. numbers the six lockers with the six arrangements of those digits, shuffled;
+4. moves the crayon into the right locker, makes it appear when that locker opens, and connects every wrong locker to the alarm.
+
+So do not set the scoreboard's digits, the dot order, or the lockers' numbers by hand in the level; the node overwrites them. To test with a known answer, type three different digits into its **Fixed Answer**, such as `247`. The dots are then yellow, green, indigo and the first locker in the list is the right one. Clear it again before shipping.
+
+In the school: the scoreboard and its note are on the gym's west wall, the six lockers along the locker room's north wall, and the alarm in the east corridor outside the locker room door. The two rooms do not connect, so the player reads the board in the gym and walks round to the locker room.
 
 ## A crayon that is a reward
 

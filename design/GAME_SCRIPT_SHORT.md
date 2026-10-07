@@ -103,10 +103,12 @@ Taking a wrong book does nothing.
 
 **Door:** green. **Colors needed:** yellow, green, indigo.
 
-1. The gym scoreboard shows one large digit made of seven bars. Each bar is drawn in one color, so the digit reads as a different number under yellow, under green, and under indigo.
+1. The gym scoreboard is switched off. Its HOME score is one large digit made of seven bars; the GUEST score and the clock stay dark. Each bar is drawn as three thin crayon stripes, one per color, and a stripe is only there where that color's digit needs the bar. So the digit reads as a different number under yellow, under green, and under indigo.
 2. Three crayon dots on the scoreboard's frame give the order: for example green, yellow, indigo. A note under it reads "my locker number, don't forget".
 3. The three digits in that order are a locker number.
-4. The locker room has a row of numbered lockers. The player opens that one. The blue crayon is inside.
+4. The locker room has a row of six numbered lockers, one for every order of the three digits. The player opens the right one. The blue crayon is inside.
+
+The digits, the order of the dots, and so the right locker are different every run.
 
 Opening a wrong locker makes a loud clang, which brings the entity to the door.
 

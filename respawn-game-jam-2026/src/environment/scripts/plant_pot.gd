@@ -1,18 +1,15 @@
 class_name PlantPot
 extends StaticBody3D
 ## Pot that grows a flower once the right seeds are set in it and yellow light is held on it.
-## The wrong seeds are thrown back out with a noise the entity can hear.
+## The wrong seeds are thrown back out, which it announces so the level can make a noise the entity hears.
 
 ## Emitted when the flower has grown to full size.
 signal bloomed
+## Emitted when the wrong seeds are thrown out.
+signal seeds_rejected
 
 ## Smallest size the flower is drawn at, as a fraction of full size; a scale of exactly zero cannot be drawn.
 const MIN_SCALE: float = 0.001
-
-## Where the noise of wrong seeds seems to come from, such as just outside the room's door; leave empty to use the pot.
-@export var alarm_spot: Node3D
-## Distance from the alarm spot within which the entity hears wrong seeds being thrown out, in meters.
-@export var alarm_range: float = 25.0
 
 @export_group("Sound")
 ## Name in the sound library of the sound played when the right seeds are planted; leave empty for none.
@@ -61,11 +58,10 @@ func _on_socket_solved() -> void:
 	AudioController.play_sound_at(plant_sound, global_position)
 
 
-## Makes the noise of the wrong seeds being thrown out; the socket sends them back by itself.
+## Plays the thud of the wrong seeds being thrown out and announces it; the socket sends them back by itself.
 func _on_socket_rejected() -> void:
 	AudioController.play_sound_at(reject_sound, global_position)
-	var noise_at: Vector3 = alarm_spot.global_position if alarm_spot != null else global_position
-	EntityHearing.make_noise(get_tree(), noise_at, alarm_range)
+	seeds_rejected.emit()
 
 
 ## Grows or shrinks the flower to [param ratio] of full size, with the growing sound only while it gets bigger.

@@ -116,6 +116,8 @@ Each of these has a slot in the Inspector, under **Sound**, holding the name of 
 | The right seeds are planted in the greenhouse pot | `greenhouse_seeds_planting` | `Plant Sound` on the plant pot (`src/environment/scenes/plant_pot.tscn`) |
 | The flower is growing under the light | `greenhouse_plant_growing`, repeating | `Grow Sound` on the plant pot |
 | The wrong seeds are thrown out | `door_close`, a stand-in | `Reject Sound` on the plant pot |
+| The right locker opens | `gym_locker_open_right` | `Open Sound` on the locker (`src/environment/scenes/locker.tscn`) |
+| A wrong locker is tried | `gym_locker_open_wrong` | `Wrong Sound` on the locker |
 | The entity is a threat | `heartbeat_pair` | `Beat Sound` on the level's `Heartbeat` node |
 
 Door and entity sounds are played in the world, so they come from where the door or the entity is. The player's own sounds have no position.

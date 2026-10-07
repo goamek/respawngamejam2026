@@ -383,15 +383,8 @@ transform = Transform3D(-1, 0, -8.742277e-08, 0, 1, 0, 8.742277e-08, 0, -1, 3.22
 hue = 3
 transform = Transform3D(1, 0, 0, 0, 1.1, 0, 0, 0, 1, 0.044, 0, -0.0295)
 
-[node name="SM_DoubleDoor_Center17" parent="." unique_id=1651790310 instance=ExtResource("19_single_wall")]
-transform = Transform3D(1, 0, -1.0141042e-05, 0, 1, 0, 1.0141042e-05, 0, 1, 93.96815, 0.0009309885, -39.830803)
-
-[node name="SM_Single_Door_Jam" parent="SM_DoubleDoor_Center17" unique_id=1821863918 instance=ExtResource("1_2pxfm")]
-transform = Transform3D(-1, 0, -8.742277e-08, 0, 1, 0, 8.742277e-08, 0, -1, 3.223, 0, -0.1195)
-
-[node name="SM_Door" parent="SM_DoubleDoor_Center17/SM_Single_Door_Jam" unique_id=1592839218 instance=ExtResource("6_y31mf")]
-is_locked = true
-transform = Transform3D(1, 0, 0, 0, 1.1, 0, 0, 0, 1, 0.044, 0, -0.0295)
+[node name="SM_Wall_GymBack" parent="." unique_id=1651790310 instance=ExtResource("3_hxgjm")]
+transform = Transform3D(0.569, 0, 0, 0, 1, 0, 0, 0, 1, 93.96815, 0.0009309885, -39.830803)
 
 [node name="SM_DoubleDoor_Center21" parent="." unique_id=1542416216 instance=ExtResource("19_single_wall")]
 transform = Transform3D(1.0097331e-05, 0, 1, 0, 1, 0, -1, 0, 1.0097331e-05, 61.534, 0, -43.06)

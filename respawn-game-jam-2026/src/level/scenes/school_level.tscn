@@ -25,6 +25,10 @@
 [ext_resource type="PackedScene" path="res://src/environment/scenes/seed_sack.tscn" id="23_seed_sack"]
 [ext_resource type="PackedScene" path="res://src/environment/scenes/plant_pot.tscn" id="24_plant_pot"]
 [ext_resource type="PackedScene" path="res://src/environment/scenes/hidden_text.tscn" id="25_hidden_text"]
+[ext_resource type="Script" path="res://src/level/scripts/noise_alarm.gd" id="26_noise_alarm"]
+[ext_resource type="PackedScene" path="res://src/environment/scenes/scoreboard.tscn" id="27_scoreboard"]
+[ext_resource type="PackedScene" path="res://src/environment/scenes/locker.tscn" id="28_locker"]
+[ext_resource type="Script" path="res://src/level/scripts/gym_puzzle.gd" id="29_gym_puzzle"]
 
 [sub_resource type="Environment" id="Environment_dark"]
 background_mode = 1
@@ -298,16 +302,58 @@ tag_size = Vector2(0.26, 0.1)
 
 [node name="AlarmSpot" type="Marker3D" parent="Greenhouse"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60.2, 0, -46.24)
+script = ExtResource("26_noise_alarm")
 
-[node name="PlantPot" parent="Greenhouse" node_paths=PackedStringArray("alarm_spot") instance=ExtResource("24_plant_pot")]
+[node name="PlantPot" parent="Greenhouse" instance=ExtResource("24_plant_pot")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 81.5, 0, -50.5)
-alarm_spot = NodePath("../AlarmSpot")
 
 [node name="LockerRoom" type="Node3D" parent="."]
 
 [node name="BlueCrayon" parent="LockerRoom" instance=ExtResource("6_crayon")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 111, 0, -14)
 hue = 4
+is_hidden_at_start = true
+
+[node name="Locker1" parent="LockerRoom" instance=ExtResource("28_locker")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 109.60, 0, -16.53)
+
+[node name="Locker2" parent="LockerRoom" instance=ExtResource("28_locker")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 110.20, 0, -16.53)
+
+[node name="Locker3" parent="LockerRoom" instance=ExtResource("28_locker")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 110.80, 0, -16.53)
+
+[node name="Locker4" parent="LockerRoom" instance=ExtResource("28_locker")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 111.40, 0, -16.53)
+
+[node name="Locker5" parent="LockerRoom" instance=ExtResource("28_locker")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 112.00, 0, -16.53)
+
+[node name="Locker6" parent="LockerRoom" instance=ExtResource("28_locker")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 112.60, 0, -16.53)
+
+[node name="AlarmSpot" type="Marker3D" parent="LockerRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 118.5, 0, -10.84)
+script = ExtResource("26_noise_alarm")
+
+[node name="Gym" type="Node3D" parent="."]
+
+[node name="Scoreboard" parent="Gym" instance=ExtResource("27_scoreboard")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 84.06, 2.3, -15)
+
+[node name="ScoreboardNote" parent="Gym" instance=ExtResource("9_note")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 84.06, 0.8, -13.85)
+text = "my locker number,
+don't forget"
+paper_size = Vector2(0.7, 0.3)
+text_height = 0.07
+
+[node name="GymPuzzle" type="Node" parent="." node_paths=PackedStringArray("scoreboard", "lockers", "crayon", "alarm")]
+script = ExtResource("29_gym_puzzle")
+scoreboard = NodePath("../Gym/Scoreboard")
+lockers = [NodePath("../LockerRoom/Locker1"), NodePath("../LockerRoom/Locker2"), NodePath("../LockerRoom/Locker3"), NodePath("../LockerRoom/Locker4"), NodePath("../LockerRoom/Locker5"), NodePath("../LockerRoom/Locker6")]
+crayon = NodePath("../LockerRoom/BlueCrayon")
+alarm = NodePath("../LockerRoom/AlarmSpot")
 
 [node name="CafeteriaRoom" type="Node3D" parent="."]
 
@@ -409,6 +455,7 @@ shape = SubResource("BoxShape3D_safe_ArtStudio")
 [connection signal="taken" from="Library/Bookshelf/MyColors" to="Library/YellowCrayon" method="appear"]
 [connection signal="ended" from="FirstSighting" to="Library/EntryLock" method="unlock_door"]
 [connection signal="bloomed" from="Greenhouse/PlantPot" to="Greenhouse/GreenCrayon" method="appear"]
+[connection signal="seeds_rejected" from="Greenhouse/PlantPot" to="Greenhouse/AlarmSpot" method="ring"]
 [connection signal="bloomed" from="Greenhouse/PlantPot" to="Greenhouse/IndigoCrayon" method="appear"]
 [connection signal="uncovered" from="Entity" to="EndingDirector" method="play_uncovered"]
 [connection signal="used" from="Courtyard/ExitDoor" to="EndingDirector" method="play_escape"]

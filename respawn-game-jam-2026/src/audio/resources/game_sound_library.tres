@@ -1,44 +1,48 @@
-[gd_resource type="Resource" script_class="SoundLibrary" format=3]
+[gd_resource type="Resource" script_class="SoundLibrary" format=3 uid="uid://b17wv5p8bj36l"]
 
-[ext_resource type="Script" path="res://src/audio/scripts/sound_cue.gd" id="1_xwbq8"]
-[ext_resource type="AudioStream" path="res://assets/sounds/interaction/door_close.wav" id="2_56wwy"]
-[ext_resource type="AudioStream" path="res://assets/sounds/interaction/door_creak.wav" id="3_jwcle"]
-[ext_resource type="AudioStream" path="res://assets/sounds/interaction/door_unlock.wav" id="4_ool5d"]
-[ext_resource type="AudioStream" path="res://assets/sounds/interaction/drawer_open.wav" id="5_x88ou"]
-[ext_resource type="AudioStream" path="res://assets/sounds/interaction/flashlight_switch.wav" id="6_x5rtg"]
-[ext_resource type="AudioStream" path="res://assets/sounds/interaction/keys_ringing.wav" id="7_wnl14"]
-[ext_resource type="AudioStream" path="res://assets/sounds/interaction/pickup_01.wav" id="8_hebby"]
-[ext_resource type="AudioStream" path="res://assets/sounds/interaction/pickup_mechanical_01.wav" id="9_rdjre"]
-[ext_resource type="AudioStream" path="res://assets/sounds/interaction/place_plastic_01.wav" id="10_jne6g"]
-[ext_resource type="AudioStream" path="res://assets/sounds/interaction/player_crouch_01.wav" id="11_f3sqr"]
-[ext_resource type="AudioStream" path="res://assets/sounds/interaction/player_steps_01.wav" id="12_k2y7l"]
-[ext_resource type="AudioStream" path="res://assets/sounds/entity/entity_attack.wav" id="13_ba583"]
-[ext_resource type="AudioStream" path="res://assets/sounds/entity/entity_voice.wav" id="14_nw8jp"]
-[ext_resource type="AudioStream" path="res://assets/sounds/entity/entity_step_01.wav" id="15_j7tbw"]
-[ext_resource type="AudioStream" path="res://assets/sounds/entity/entity_drag_01.wav" id="16_p2lb3"]
-[ext_resource type="AudioStream" path="res://assets/sounds/entity/entity_drag_02.wav" id="17_oooxk"]
-[ext_resource type="AudioStream" path="res://assets/sounds/entity/entity_scrape_01.wav" id="18_h3eak"]
-[ext_resource type="AudioStream" path="res://assets/sounds/entity/entity_scrape_02.wav" id="19_0uiql"]
-[ext_resource type="AudioStream" path="res://assets/sounds/entity/entity_scrape_03.wav" id="20_qoxrk"]
-[ext_resource type="AudioStream" path="res://assets/sounds/entity/heartbeat_pair.wav" id="21_b8mgd"]
-[ext_resource type="AudioStream" path="res://assets/sounds/puzzles/library_book_slide.wav" id="22_7a3h8"]
-[ext_resource type="AudioStream" path="res://assets/sounds/puzzles/library_paper_pickup.wav" id="23_41wvs"]
-[ext_resource type="AudioStream" path="res://assets/sounds/puzzles/gym_basketball_bounce.wav" id="24_cquoq"]
-[ext_resource type="AudioStream" path="res://assets/sounds/puzzles/gym_locker_open_right.wav" id="25_gm4nl"]
-[ext_resource type="AudioStream" path="res://assets/sounds/puzzles/gym_locker_open_wrong.wav" id="26_dwljv"]
-[ext_resource type="AudioStream" path="res://assets/sounds/puzzles/greenhouse_plant_growing.wav" id="27_r6pbj"]
-[ext_resource type="AudioStream" path="res://assets/sounds/puzzles/greenhouse_water_pouring.wav" id="28_isg7p"]
-[ext_resource type="AudioStream" path="res://assets/sounds/puzzles/greenhouse_seeds_planting.mp3" id="29_5csfj"]
-[ext_resource type="AudioStream" path="res://assets/sounds/puzzles/greenhouse_flower_watering.mp3" id="30_s8the"]
-[ext_resource type="AudioStream" path="res://assets/sounds/puzzles/art_wet_painting.wav" id="31_nch8e"]
-[ext_resource type="Script" path="res://src/audio/scripts/sound_library.gd" id="32_qbuxb"]
-[ext_resource type="AudioStream" path="res://assets/music/background_music_v1.mp3" id="33_hmk0e"]
-[ext_resource type="AudioStream" path="res://assets/music/background_music_loop.wav" id="34_pty7j"]
-[ext_resource type="AudioStream" path="res://assets/music/background_music_loop_quiet.wav" id="35_hjn7l"]
-[ext_resource type="AudioStream" path="res://assets/music/ending_win.mp3" id="36_cfo16"]
-[ext_resource type="AudioStream" path="res://assets/music/ending_lose.mp3" id="37_jn8wo"]
-[ext_resource type="AudioStream" path="res://assets/sounds/ambience/empty_school_loop.wav" id="38_lrsqq"]
-[ext_resource type="AudioStream" path="res://assets/sounds/ambience/empty_school_fountain.wav" id="39_6pcod"]
+[ext_resource type="Script" uid="uid://cr7gxisyi6jw3" path="res://src/audio/scripts/sound_cue.gd" id="1_xwbq8"]
+[ext_resource type="AudioStream" uid="uid://ckj6v134trl4w" path="res://assets/sounds/interaction/door_close.wav" id="2_56wwy"]
+[ext_resource type="AudioStream" uid="uid://y4kcv22oandy" path="res://assets/sounds/interaction/door_creak.wav" id="3_jwcle"]
+[ext_resource type="AudioStream" uid="uid://is0q4qkuakn8" path="res://assets/sounds/interaction/door_unlock.wav" id="4_ool5d"]
+[ext_resource type="AudioStream" uid="uid://br7nntenq3fmm" path="res://assets/sounds/interaction/drawer_open.wav" id="5_x88ou"]
+[ext_resource type="AudioStream" uid="uid://b4ag4onj0ti5c" path="res://assets/sounds/interaction/flashlight_switch.wav" id="6_x5rtg"]
+[ext_resource type="AudioStream" uid="uid://cg03gq3a4ksss" path="res://assets/sounds/interaction/keys_ringing.wav" id="7_wnl14"]
+[ext_resource type="AudioStream" uid="uid://brefaonbqw7wx" path="res://assets/sounds/interaction/pickup_01.wav" id="8_hebby"]
+[ext_resource type="AudioStream" uid="uid://d2xehggnq2oba" path="res://assets/sounds/interaction/pickup_mechanical_01.wav" id="9_rdjre"]
+[ext_resource type="AudioStream" uid="uid://7rtr3a2p7ua5" path="res://assets/sounds/interaction/place_plastic_01.wav" id="10_jne6g"]
+[ext_resource type="AudioStream" uid="uid://cl2y7e2xv40i7" path="res://assets/sounds/interaction/player_crouch_01.wav" id="11_f3sqr"]
+[ext_resource type="AudioStream" uid="uid://cw7eyee2r2bn5" path="res://assets/sounds/interaction/player_steps_01.wav" id="12_k2y7l"]
+[ext_resource type="AudioStream" uid="uid://clsl7p23ub7cb" path="res://assets/sounds/entity/entity_attack.wav" id="13_ba583"]
+[ext_resource type="AudioStream" uid="uid://boamv68af1g8s" path="res://assets/sounds/entity/entity_voice.wav" id="14_nw8jp"]
+[ext_resource type="AudioStream" uid="uid://74xe2pdla0e" path="res://assets/sounds/entity/entity_step_01.wav" id="15_j7tbw"]
+[ext_resource type="AudioStream" uid="uid://ddfmmjr4hvdes" path="res://assets/sounds/entity/entity_drag_01.wav" id="16_p2lb3"]
+[ext_resource type="AudioStream" uid="uid://b1o2e6oop1l0m" path="res://assets/sounds/entity/entity_drag_02.wav" id="17_oooxk"]
+[ext_resource type="AudioStream" uid="uid://dheg4hbicnl5s" path="res://assets/sounds/entity/entity_scrape_01.wav" id="18_h3eak"]
+[ext_resource type="AudioStream" uid="uid://dx6w2ipyun2yv" path="res://assets/sounds/entity/entity_scrape_02.wav" id="19_0uiql"]
+[ext_resource type="AudioStream" uid="uid://u2y0px2eewus" path="res://assets/sounds/entity/entity_scrape_03.wav" id="20_qoxrk"]
+[ext_resource type="AudioStream" uid="uid://c1wb7vnms2uym" path="res://assets/sounds/entity/heartbeat_pair.wav" id="21_b8mgd"]
+[ext_resource type="AudioStream" uid="uid://cwa3kl22kehle" path="res://assets/sounds/puzzles/library_book_slide.wav" id="22_7a3h8"]
+[ext_resource type="AudioStream" uid="uid://rq5dfqanbr7g" path="res://assets/sounds/puzzles/library_paper_pickup.wav" id="23_41wvs"]
+[ext_resource type="AudioStream" uid="uid://c7pu7i4bslgxf" path="res://assets/sounds/puzzles/gym_basketball_bounce.wav" id="24_cquoq"]
+[ext_resource type="AudioStream" uid="uid://wphmhee1y6ws" path="res://assets/sounds/puzzles/gym_locker_open_right.wav" id="25_gm4nl"]
+[ext_resource type="AudioStream" uid="uid://8kh7vqkj2xol" path="res://assets/sounds/puzzles/gym_locker_open_wrong.wav" id="26_dwljv"]
+[ext_resource type="AudioStream" uid="uid://bbm4s4ko83qcr" path="res://assets/sounds/puzzles/greenhouse_plant_growing.wav" id="27_r6pbj"]
+[ext_resource type="AudioStream" uid="uid://ca6dpjhrnbqp8" path="res://assets/sounds/puzzles/greenhouse_water_pouring.wav" id="28_isg7p"]
+[ext_resource type="AudioStream" uid="uid://hmv1mcbxudbv" path="res://assets/sounds/puzzles/greenhouse_seeds_planting.mp3" id="29_5csfj"]
+[ext_resource type="AudioStream" uid="uid://37fcfe6w02gf" path="res://assets/sounds/puzzles/greenhouse_flower_watering.mp3" id="30_s8the"]
+[ext_resource type="AudioStream" uid="uid://cwuc0q440xwn4" path="res://assets/sounds/puzzles/art_wet_painting.wav" id="31_nch8e"]
+[ext_resource type="Script" uid="uid://ceolt5qpig8ap" path="res://src/audio/scripts/sound_library.gd" id="32_qbuxb"]
+[ext_resource type="AudioStream" uid="uid://bgv2p7qmni1ns" path="res://assets/music/background_music_v1.mp3" id="33_hmk0e"]
+[ext_resource type="AudioStream" uid="uid://dyxml7o0yfavs" path="res://assets/music/background_music_loop.wav" id="34_pty7j"]
+[ext_resource type="AudioStream" uid="uid://bp3lcdjqgybp" path="res://assets/music/background_music_loop_quiet.wav" id="35_hjn7l"]
+[ext_resource type="AudioStream" uid="uid://b6ba8bbr50xc2" path="res://assets/music/ending_win.mp3" id="36_cfo16"]
+[ext_resource type="AudioStream" uid="uid://by32n2q6vufw6" path="res://assets/music/ending_lose.mp3" id="37_jn8wo"]
+[ext_resource type="AudioStream" uid="uid://dx52xqc2a6bd2" path="res://assets/sounds/ambience/empty_school_loop.wav" id="38_lrsqq"]
+[ext_resource type="AudioStream" uid="uid://cx52xqkmxj85o" path="res://assets/sounds/ambience/empty_school_fountain.wav" id="39_6pcod"]
+
+[sub_resource type="Resource" id="Resource_uyj0a"]
+script = ExtResource("1_xwbq8")
+stream = ExtResource("31_nch8e")
 
 [sub_resource type="Resource" id="Resource_c6g7g"]
 script = ExtResource("1_xwbq8")
@@ -56,54 +60,9 @@ stream = ExtResource("4_ool5d")
 script = ExtResource("1_xwbq8")
 stream = ExtResource("5_x88ou")
 
-[sub_resource type="Resource" id="Resource_pplmu"]
-script = ExtResource("1_xwbq8")
-stream = ExtResource("6_x5rtg")
-volume_db = -18.0
-
-[sub_resource type="Resource" id="Resource_onhtk"]
-script = ExtResource("1_xwbq8")
-stream = ExtResource("7_wnl14")
-
-[sub_resource type="Resource" id="Resource_5gee8"]
-script = ExtResource("1_xwbq8")
-stream = ExtResource("8_hebby")
-
-[sub_resource type="Resource" id="Resource_8vfcq"]
-script = ExtResource("1_xwbq8")
-stream = ExtResource("9_rdjre")
-
-[sub_resource type="Resource" id="Resource_g5h82"]
-script = ExtResource("1_xwbq8")
-stream = ExtResource("10_jne6g")
-
-[sub_resource type="Resource" id="Resource_lwgqh"]
-script = ExtResource("1_xwbq8")
-stream = ExtResource("11_f3sqr")
-
-[sub_resource type="Resource" id="Resource_lhe6o"]
-script = ExtResource("1_xwbq8")
-stream = ExtResource("12_k2y7l")
-
 [sub_resource type="Resource" id="Resource_6nd37"]
 script = ExtResource("1_xwbq8")
 stream = ExtResource("13_ba583")
-
-[sub_resource type="Resource" id="Resource_rqt6l"]
-script = ExtResource("1_xwbq8")
-stream = ExtResource("14_nw8jp")
-
-[sub_resource type="Resource" id="Resource_b4i4h"]
-script = ExtResource("1_xwbq8")
-stream = ExtResource("15_j7tbw")
-volume_db = 12.0
-pitch_variation = 0.08
-
-[sub_resource type="Resource" id="Resource_plstp"]
-script = ExtResource("1_xwbq8")
-stream = ExtResource("15_j7tbw")
-volume_db = -12.0
-pitch_variation = 0.08
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_g36qs"]
 streams_count = 2
@@ -124,17 +83,36 @@ stream_2/stream = ExtResource("20_qoxrk")
 script = ExtResource("1_xwbq8")
 stream = SubResource("AudioStreamRandomizer_misu1")
 
-[sub_resource type="Resource" id="Resource_65q4d"]
+[sub_resource type="Resource" id="Resource_b4i4h"]
 script = ExtResource("1_xwbq8")
-stream = ExtResource("21_b8mgd")
+stream = ExtResource("15_j7tbw")
+volume_db = 12.0
+pitch_variation = 0.08
 
-[sub_resource type="Resource" id="Resource_7e76t"]
+[sub_resource type="Resource" id="Resource_rqt6l"]
 script = ExtResource("1_xwbq8")
-stream = ExtResource("22_7a3h8")
+stream = ExtResource("14_nw8jp")
 
-[sub_resource type="Resource" id="Resource_qrjxt"]
+[sub_resource type="Resource" id="Resource_pplmu"]
 script = ExtResource("1_xwbq8")
-stream = ExtResource("23_41wvs")
+stream = ExtResource("6_x5rtg")
+volume_db = -18.0
+
+[sub_resource type="Resource" id="Resource_xpchj"]
+script = ExtResource("1_xwbq8")
+stream = ExtResource("30_s8the")
+
+[sub_resource type="Resource" id="Resource_odnm0"]
+script = ExtResource("1_xwbq8")
+stream = ExtResource("27_r6pbj")
+
+[sub_resource type="Resource" id="Resource_ym2ye"]
+script = ExtResource("1_xwbq8")
+stream = ExtResource("29_5csfj")
+
+[sub_resource type="Resource" id="Resource_36kfr"]
+script = ExtResource("1_xwbq8")
+stream = ExtResource("28_isg7p")
 
 [sub_resource type="Resource" id="Resource_v2d8c"]
 script = ExtResource("1_xwbq8")
@@ -148,25 +126,47 @@ stream = ExtResource("25_gm4nl")
 script = ExtResource("1_xwbq8")
 stream = ExtResource("26_dwljv")
 
-[sub_resource type="Resource" id="Resource_odnm0"]
+[sub_resource type="Resource" id="Resource_65q4d"]
 script = ExtResource("1_xwbq8")
-stream = ExtResource("27_r6pbj")
+stream = ExtResource("21_b8mgd")
 
-[sub_resource type="Resource" id="Resource_36kfr"]
+[sub_resource type="Resource" id="Resource_onhtk"]
 script = ExtResource("1_xwbq8")
-stream = ExtResource("28_isg7p")
+stream = ExtResource("7_wnl14")
 
-[sub_resource type="Resource" id="Resource_ym2ye"]
+[sub_resource type="Resource" id="Resource_7e76t"]
 script = ExtResource("1_xwbq8")
-stream = ExtResource("29_5csfj")
+stream = ExtResource("22_7a3h8")
 
-[sub_resource type="Resource" id="Resource_xpchj"]
+[sub_resource type="Resource" id="Resource_qrjxt"]
 script = ExtResource("1_xwbq8")
-stream = ExtResource("30_s8the")
+stream = ExtResource("23_41wvs")
 
-[sub_resource type="Resource" id="Resource_uyj0a"]
+[sub_resource type="Resource" id="Resource_5gee8"]
 script = ExtResource("1_xwbq8")
-stream = ExtResource("31_nch8e")
+stream = ExtResource("8_hebby")
+
+[sub_resource type="Resource" id="Resource_8vfcq"]
+script = ExtResource("1_xwbq8")
+stream = ExtResource("9_rdjre")
+
+[sub_resource type="Resource" id="Resource_g5h82"]
+script = ExtResource("1_xwbq8")
+stream = ExtResource("10_jne6g")
+
+[sub_resource type="Resource" id="Resource_lwgqh"]
+script = ExtResource("1_xwbq8")
+stream = ExtResource("11_f3sqr")
+
+[sub_resource type="Resource" id="Resource_plstp"]
+script = ExtResource("1_xwbq8")
+stream = ExtResource("15_j7tbw")
+volume_db = -12.0
+pitch_variation = 0.08
+
+[sub_resource type="Resource" id="Resource_lhe6o"]
+script = ExtResource("1_xwbq8")
+stream = ExtResource("12_k2y7l")
 
 [resource]
 script = ExtResource("32_qbuxb")
