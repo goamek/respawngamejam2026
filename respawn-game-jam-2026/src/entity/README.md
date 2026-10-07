@@ -33,8 +33,9 @@ The entity is always in exactly one state.
 | `CATCHING` | Stands still facing the caught player. | `PAUSING` when reset with `reset_to_start()` |
 | `WATCHING` | Scripted: stands still and stares at the player. Entered with `watch_player()`. | Whatever the script sends it to next |
 | `LEAVING` | Scripted: walks to a given spot at `roam_speed`. Entered with `leave_to(spot)`. | `PAUSING` on arrival or when blocked |
+| `UNCOVERED` | Stands still facing the player, in full color, harmless. Entered when white light has been held on it for `uncover_time`. | Nothing; the game ends |
 
-From any state except `CATCHING`, `WATCHING` and `LEAVING`, noticing the player switches it to `INVESTIGATING`. In the two scripted states its senses are off: it does not notice the player or their light, and cannot catch them. They are used by the first sighting (`src/level/scripts/first_sighting.gd`), which also keeps the entity hidden and switched off until that moment.
+From any state except `CATCHING`, `WATCHING`, `LEAVING` and `UNCOVERED`, noticing the player switches it to `INVESTIGATING`. In `WATCHING` and `LEAVING` its senses are off: it does not notice the player or their light, and cannot catch them. They are used by the first sighting (`src/level/scripts/first_sighting.gd`), which also keeps the entity hidden and switched off until that moment.
 
 ```
             pause ends
@@ -87,6 +88,17 @@ On a catch it switches to `CATCHING`, stands still facing the player, and emits 
 5. With no lives left: the handler emits `run_ended`. If its **Main Menu Scene** is set, a new run starts with 3 lives and the menu loads. The school level points it at `src/ui/scenes/main_menu.tscn`. The test levels leave it empty, so there the game quits instead; when playing from the editor, that just stops the running game.
 
 A level with no `CatchHandler` leaves a caught entity standing in `CATCHING` and the player untouched.
+
+## Uncovering it (the secret ending)
+
+While the player's beam is white, is on the entity's chest, and the entity can see the player, a meter fills. It drains at the same rate whenever any of those stops being true. As it fills:
+
+- the entity moves at `uncover_slowdown` times its usual speed (0.35), which is what gives the player time;
+- its black fades toward the colors of its own texture, and they start to glow faintly.
+
+After `uncover_time` (3 seconds) it stops, switches to `UNCOVERED`, and emits `uncovered`. It can still catch a player it reaches before then. Being reset after a catch empties the meter and turns it black again.
+
+The body's material in `scenes/entity.tscn` is the model's texture tinted black, so at an empty meter it looks exactly as before.
 
 ## Settings
 
@@ -194,6 +206,7 @@ An agent radius of 0.25 is what keeps 1 m doorways walkable. A larger radius clo
 | `state_changed(state)` | signal | Fires on every state change. Intended for animations. |
 | `player_spotted` | signal | Fires at the moment it first notices the player. Intended for a sound sting. |
 | `player_caught` | signal | Fires when it catches the player. The catch handler listens for it. |
+| `uncovered` | signal | Fires when white light has been held on it for `uncover_time`. The ending director listens for it. |
 
 The lit spot comes from `Flashlight.find_lit_spot()`, which returns where the center of the beam lands. Only the center is checked, so a spot where just the edge of the beam is in view does not count.
 

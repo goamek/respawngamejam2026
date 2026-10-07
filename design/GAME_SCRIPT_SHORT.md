@@ -139,7 +139,7 @@ With all seven crayons, the beam turns white.
 ### 6. Central courtyard (ending)
 
 - White shows everything at once, in full color.
-- In the courtyard, a door is drawn on the wall in white crayon. It is the way out.
+- A door stands alone in the middle of the courtyard. It was not there before: it appears the moment the beam turns white. It is black until the white beam is on it, and using it is the way out.
 
 ## Endings
 
@@ -147,8 +147,8 @@ All three are part of the base game.
 
 | Ending | How | What happens |
 |---|---|---|
-| Escape | Go through the white door | The player leaves with the coloring book. The school goes grey behind them, and the entity is still inside: they got out, but never faced it. |
-| Uncovered (secret) | Hold the white beam on the entity for a few seconds while it comes at the player | The black scribble flakes away and the colors the player first drew show through. It was never a monster, only a drawing they were scared of. This is the true ending. |
+| Escape | Use the white door in the courtyard | The player leaves with the coloring book. The school goes grey behind them, and the entity is still inside: they got out, but never faced it. |
+| Uncovered (secret) | Hold the white beam on the entity for 3 seconds while it comes at the player; the light slows it, and its colors show through as the time builds | The black scribble flakes away and the colors the player first drew show through. It was never a monster, only a drawing they were scared of. This is the true ending. |
 | Caught | Lose every life | A new drawing appears on the art studio wall: the child labeled "ME", scribbled over in black. |
 
 ## The entity through the run
@@ -239,7 +239,7 @@ Simple rounded shapes are enough for the fruit. Under the crayon effect they onl
 
 | Object | Type | Shows under | Notes |
 |---|---|---|---|
-| White crayon door | Image on a working door | white | On the courtyard wall. |
+| White door | Free-standing door and frame | white | In the middle of the courtyard; appears when the beam turns white. A placeholder made of boxes is in. |
 
 ### Already made, or not a level object
 

@@ -9,8 +9,10 @@ signal state_changed(state: State)
 signal player_spotted
 ## Emitted when the entity catches the player.
 signal player_caught
+## Emitted when white light has been held on the entity for long enough to show its true colors.
+signal uncovered
 
-enum State { PAUSING, ROAMING, INVESTIGATING, SEARCHING, CATCHING, WATCHING, LEAVING }
+enum State { PAUSING, ROAMING, INVESTIGATING, SEARCHING, CATCHING, WATCHING, LEAVING, UNCOVERED }
 
 ## Fraction of its intended speed below which the entity counts as blocked.
 const BLOCKED_SPEED_RATIO: float = 0.25
@@ -47,6 +49,7 @@ const STATE_ANIMATIONS: Dictionary[State, StringName] = {
 	State.CATCHING: &"catch",
 	State.WATCHING: &"idle",
 	State.LEAVING: &"walk",
+	State.UNCOVERED: &"idle",
 }
 ## Closest the face comes to the player's eyes in a lunge, so it never passes through the camera, in meters.
 const MIN_FACE_DISTANCE: float = 0.45
@@ -54,6 +57,10 @@ const MIN_FACE_DISTANCE: float = 0.45
 const CLIP_NAME: StringName = &"mixamo_com"
 ## How fast the head tips over to its tilt and back upright, in degrees per second.
 const HEAD_TILT_SPEED: float = 180.0
+## Height above the entity's feet of the point the white beam must be on to uncover it, in meters.
+const UNCOVER_POINT_HEIGHT: float = 1.0
+## How strongly the uncovered colors glow on their own, so they still show when the beam moves off.
+const UNCOVER_GLOW: float = 0.6
 
 @export_group("Roaming")
 ## Points the entity wanders between, in no fixed order.
@@ -93,6 +100,12 @@ const HEAD_TILT_SPEED: float = 180.0
 ## How far the body lunges toward the player in the leap, in meters.
 @export var catch_lunge_distance: float = 0.3
 
+@export_group("Uncovering")
+## Time the white beam must stay on the entity, while it can see the player, to uncover it, in seconds. Time off it drains at the same rate.
+@export var uncover_time: float = 3.0
+## How many times its usual speed the entity moves at while the white beam is on it.
+@export_range(0.0, 1.0) var uncover_slowdown: float = 0.35
+
 @export_group("Animation")
 ## How long one animation takes to fade into the next, in seconds.
 @export var animation_blend_time: float = 0.25
@@ -126,12 +139,16 @@ var _leap_face_gap: float = 0.0
 var _start_transform: Transform3D
 var _head_tilt_wanted: float = 0.0
 var _head_tilt: float = 0.0
+var _uncover_held: float = 0.0
+var _is_lit_by_white: bool = false
+var _body_material: StandardMaterial3D
 
 @onready var _agent: NavigationAgent3D = $NavigationAgent3D
 @onready var _eyes: Marker3D = $Eyes
 @onready var _model: Node3D = $Model
 @onready var _skeleton: Skeleton3D = $Model/Skeleton3D
 @onready var _head: BoneAttachment3D = $Model/Skeleton3D/Head
+@onready var _body_mesh: MeshInstance3D = $Model/Skeleton3D/Ch14
 @onready var _face_marker: Marker3D = $Model/Skeleton3D/Head/Face
 @onready var _animation: AnimationPlayer = $Model/AnimationPlayer
 
@@ -141,6 +158,9 @@ func _ready() -> void:
 	_player = get_tree().get_first_node_in_group("player") as Player
 	_start_transform = global_transform
 	_pause_left = pause_time
+	# Its own copy, so tinting this entity never changes another one.
+	_body_material = _body_mesh.material_override.duplicate() as StandardMaterial3D
+	_body_mesh.material_override = _body_material
 	_animation.mixer_applied.connect(_tilt_head)
 	_play_state_animation()
 
@@ -153,6 +173,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		_update_sight()
 		_try_catch(delta)
+		_update_uncovering(delta)
 	match state:
 		State.PAUSING:
 			_process_pausing(delta)
@@ -168,6 +189,8 @@ func _physics_process(delta: float) -> void:
 			_process_watching(delta)
 		State.LEAVING:
 			_process_leaving(delta)
+		State.UNCOVERED:
+			_process_uncovered(delta)
 	_close_door_behind()
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -225,6 +248,9 @@ func reset_to_start() -> void:
 	_sees_player = false
 	_door_to_close = null
 	_catch_cooldown_left = catch_cooldown
+	_uncover_held = 0.0
+	_is_lit_by_white = false
+	_show_uncover_progress(0.0)
 	_start_pausing()
 
 
@@ -317,9 +343,45 @@ func _process_leaving(delta: float) -> void:
 		_start_pausing()
 
 
-## Whether the entity is playing out a scripted moment, during which its senses are switched off.
+## Stands still, turned toward the player, harmless.
+func _process_uncovered(delta: float) -> void:
+	_stop()
+	_face_point(_player.global_position, delta)
+
+
+## Whether the entity is playing out a scripted moment or has been uncovered, during which its senses are switched off.
 func _is_scripted() -> bool:
-	return state == State.WATCHING or state == State.LEAVING
+	return state == State.WATCHING or state == State.LEAVING or state == State.UNCOVERED
+
+
+## Builds up while the white beam is on the entity and drains while it is not, showing more of its colors as it goes.
+func _update_uncovering(delta: float) -> void:
+	_is_lit_by_white = state != State.CATCHING and _is_in_white_beam()
+	var held: float = clampf(_uncover_held + (delta if _is_lit_by_white else -delta), 0.0, uncover_time)
+	# Compared exactly: the clamp makes an empty meter repeat the same value, and nothing needs redrawing then.
+	if held == _uncover_held:
+		return
+	_uncover_held = held
+	_show_uncover_progress(_uncover_held / uncover_time)
+	if _uncover_held >= uncover_time:
+		_stop()
+		_set_state(State.UNCOVERED)
+		uncovered.emit()
+
+
+## Whether the player's beam is white and on the entity, while the entity can see the player.
+func _is_in_white_beam() -> bool:
+	if not _sees_player or _player.flashlight == null:
+		return false
+	var flashlight: Flashlight = _player.flashlight
+	return flashlight.current_hue == Spectrum.Hue.WHITE and flashlight.is_lighting(global_position + Vector3.UP * UNCOVER_POINT_HEIGHT)
+
+
+## Shows [param ratio] of the entity's true colors, from 0 for solid black to 1 for fully colored.
+func _show_uncover_progress(ratio: float) -> void:
+	# The body's texture is multiplied by this color, so black hides it and white shows it as drawn.
+	_body_material.albedo_color = Color.BLACK.lerp(Color.WHITE, ratio)
+	_body_material.emission_energy_multiplier = UNCOVER_GLOW * ratio
 
 
 ## Stops and waits before choosing the next patrol point.
@@ -437,7 +499,7 @@ func _is_off_limits(point: Vector3) -> bool:
 	return SafeRoom.is_sheltered(get_tree(), point)
 
 
-## Returns how many times its base speeds the entity moves at, which grows with each spectrum hue the player unlocks.
+## Returns how many times its base speeds the entity moves at: faster with each spectrum hue the player unlocks, slower while the white beam is on it.
 func _speed_scale() -> float:
 	if _player == null or _player.flashlight == null:
 		return 1.0
@@ -445,7 +507,8 @@ func _speed_scale() -> float:
 	for hue: Spectrum.Hue in _player.flashlight.unlocked_hues:
 		if hue != Spectrum.Hue.WHITE:
 			hue_count += 1
-	return 1.0 + speed_gain_per_hue * hue_count
+	var gain: float = 1.0 + speed_gain_per_hue * hue_count
+	return gain * uncover_slowdown if _is_lit_by_white else gain
 
 
 ## Returns a random patrol point other than the current one and outside any room it is kept out of, or null when none are set.

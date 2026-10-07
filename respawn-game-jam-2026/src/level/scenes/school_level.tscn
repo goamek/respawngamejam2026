@@ -16,6 +16,8 @@
 [ext_resource type="Script" path="res://src/level/scripts/player_trigger.gd" id="14_player_trigger"]
 [ext_resource type="Script" path="res://src/level/scripts/door_lock_trigger.gd" id="15_door_lock_trigger"]
 [ext_resource type="Script" path="res://src/level/scripts/first_sighting.gd" id="16_first_sighting"]
+[ext_resource type="PackedScene" path="res://src/level/scenes/ending_director.tscn" id="17_ending_director"]
+[ext_resource type="PackedScene" path="res://src/environment/scenes/exit_door.tscn" id="18_exit_door"]
 
 [sub_resource type="Environment" id="Environment_dark"]
 background_mode = 1
@@ -126,7 +128,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.2, 0, 27.5)
 
 [node name="CatchHandler" parent="." unique_id=153618860 node_paths=PackedStringArray("spawn_point") instance=ExtResource("4_catch_handler")]
 spawn_point = NodePath("../PlayerSpawn")
-main_menu_scene = "res://src/ui/scenes/main_menu.tscn"
+run_end_scene = "res://src/ui/scenes/ending_screen.tscn"
 
 [node name="Player" parent="." unique_id=652413314 instance=ExtResource("2_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.2, 0, 27.5)
@@ -272,6 +274,13 @@ hue = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.9, 0, 5.5)
 hue = 6
 
+[node name="Courtyard" type="Node3D" parent="."]
+
+[node name="ExitDoor" parent="Courtyard" instance=ExtResource("18_exit_door")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.8, 0, -14.5)
+
+[node name="EndingDirector" parent="." instance=ExtResource("17_ending_director")]
+
 [node name="SafeRooms" type="Node3D" parent="."]
 
 [node name="LibrarySafeRoom" type="Area3D" parent="SafeRooms" node_paths=PackedStringArray("crayons")]
@@ -339,3 +348,5 @@ shape = SubResource("BoxShape3D_safe_ArtStudio")
 [connection signal="taken" from="Library/Bookshelf/MyColors" to="Library/Bookshelf/ColoringBook" method="show"]
 [connection signal="taken" from="Library/Bookshelf/MyColors" to="Library/YellowCrayon" method="appear"]
 [connection signal="ended" from="FirstSighting" to="Library/EntryLock" method="unlock_door"]
+[connection signal="uncovered" from="Entity" to="EndingDirector" method="play_uncovered"]
+[connection signal="used" from="Courtyard/ExitDoor" to="EndingDirector" method="play_escape"]

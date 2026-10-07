@@ -7,6 +7,7 @@
 [ext_resource type="AnimationLibrary" path="res://src/entity/models/run.fbx" id="5_run"]
 [ext_resource type="AnimationLibrary" path="res://src/entity/models/search.fbx" id="6_search"]
 [ext_resource type="AnimationLibrary" path="res://src/entity/models/catch.fbx" id="7_catch"]
+[ext_resource type="Texture2D" path="res://src/entity/models/entity_0.png" id="8_body_texture"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_body"]
 radius = 0.15
@@ -14,8 +15,14 @@ height = 1.8
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_body"]
 albedo_color = Color(0, 0, 0, 1)
+albedo_texture = ExtResource("8_body_texture")
 metallic_specular = 0.3
 roughness = 0.6
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 0.0
+emission_operator = 1
+emission_texture = ExtResource("8_body_texture")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eye"]
 shading_mode = 0

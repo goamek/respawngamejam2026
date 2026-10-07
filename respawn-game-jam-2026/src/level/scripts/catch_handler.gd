@@ -1,7 +1,7 @@
 class_name CatchHandler
 extends Node
 ## Plays the moment the entity catches the player, takes a life, and respawns the player at the hub.
-## On the last life the run ends: the game goes to the main menu, or quits if none is set.
+## On the last life the run ends with the Caught ending: the game goes to the run end scene, or quits if none is set.
 
 ## Emitted when the last life is lost, just before leaving the level.
 signal run_ended
@@ -13,8 +13,8 @@ const GAME_OVER_MESSAGE: String = "Game Over"
 
 ## Where the player comes back after being caught.
 @export var spawn_point: Node3D
-## Scene to load when the last life is lost; leave empty to quit the game instead.
-@export_file("*.tscn") var main_menu_scene: String = ""
+## Scene to load when the last life is lost, normally the ending screen; leave empty to quit the game instead.
+@export_file("*.tscn") var run_end_scene: String = ""
 ## Time the view takes to snap toward the entity, in seconds.
 @export var turn_time: float = 0.15
 ## Time the player stares at the entity after turning, before the fade, in seconds.
@@ -96,12 +96,12 @@ func _fade_to(alpha: float, duration: float) -> void:
 	await tween.finished
 
 
-## Ends the run: loads the main menu with a fresh run if one is set, otherwise quits the game.
+## Ends the run as Caught: loads the run end scene if one is set, otherwise quits the game.
 func _end_run() -> void:
 	run_ended.emit()
-	if main_menu_scene.is_empty():
-		# Test levels leave the menu unset, so they close the game instead.
+	if run_end_scene.is_empty():
+		# Test levels leave the scene unset, so they close the game instead.
 		get_tree().quit()
 		return
-	GameSession.start_new_game()
-	get_tree().change_scene_to_file(main_menu_scene)
+	GameSession.ending = GameSession.Ending.CAUGHT
+	get_tree().change_scene_to_file(run_end_scene)

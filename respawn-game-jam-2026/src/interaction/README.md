@@ -19,6 +19,8 @@ The parts a puzzle room is assembled from, and how to wire them together in the 
 | Player trigger | `level/scripts/player_trigger.gd` | An invisible region that reports the player walking in. |
 | Door lock trigger | `level/scripts/door_lock_trigger.gd` | A region that slams and locks a door behind the player. |
 | First sighting | `level/scripts/first_sighting.gd` | The scripted first meeting with the entity, and what keeps it asleep until then. |
+| Exit door | `environment/scenes/exit_door.tscn` | The white door that appears once the beam turns white; using it ends the game. |
+| Ending director | `level/scenes/ending_director.tscn` | Fades out of the level and shows an ending screen. |
 
 To add one of the script-only pieces, add a node of the type given below, then drag the script onto it (or search for its class name in the **Create New Node** window).
 
@@ -170,6 +172,30 @@ What the player does decides how it ends:
 **Watch Rise** lifts the entity so its face lines up with a door window. **Head Tilt** tips its head sideways while it stares; positive leans the top of its head to the player's left, and 70 reads as about 10:30 on a clock because the idle pose already leans the other way. **Hint** is the line shown on screen during the stare. Signals `started`, `player_hid` and `entity_attacked` are there for sounds and music, and `ended` fires when the meeting is over either way.
 
 To test puzzles with no entity at all, untick **Is Enabled**: it then stays asleep for the whole game.
+
+## Ending the game
+
+There are three endings, and `GameSession.ending` remembers which one was reached so the ending screen (`ui/scenes/ending_screen.tscn`) can show the right card.
+
+| Ending | What triggers it | Wired by |
+|---|---|---|
+| Escape | Using the exit door under the white beam | The exit door's `used` signal, connected to the ending director's `play_escape()` |
+| Uncovered | Holding the white beam on the entity for 3 seconds while it can see the player | The entity's `uncovered` signal, connected to the ending director's `play_uncovered()` |
+| Caught | Losing the last life | The catch handler's **Run End Scene**, set to the ending screen |
+
+**Setting up a level:**
+
+1. Drag in `level/scenes/ending_director.tscn`. One per level.
+2. Drag in `environment/scenes/exit_door.tscn` and place it. It is invisible and not solid until the flashlight turns white (all seven crayons), then it appears. It is black until the white beam is on it, and shows "Leave" while lit. Its `appeared` signal is there for a sound.
+3. Connect the two signals in the table above in the **Node** dock.
+4. On the catch handler, set **Run End Scene** to `ui/scenes/ending_screen.tscn`. Leave it empty in a test level, which then quits when the last life is lost.
+5. Re-bake the navigation mesh so the entity walks round the door.
+
+To end the game from something else, connect it to the ending director's `play_escape()`, or call `play(ending, delay)`.
+
+**Ending pictures:** open `ui/scenes/ending_screen.tscn`, select the root, and drop an image into **Escape Picture**, **Uncovered Picture** or **Caught Picture**. With none set, the card shows text only. The titles and story text are at the top of `ui/scripts/ending_screen.gd`.
+
+Only one flashlight should exist in a level at a time. Each one sends its beam to the reveal shader, so a second one (for example a pickup left lying about while the player already holds one) stops colored objects lighting up.
 
 ## On-screen hints
 
