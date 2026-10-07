@@ -4,12 +4,69 @@
 [ext_resource type="PackedScene" path="res://src/player/scenes/player.tscn" id="2_player"]
 [ext_resource type="PackedScene" path="res://src/entity/scenes/entity.tscn" id="3_entity"]
 [ext_resource type="PackedScene" path="res://src/level/scenes/catch_handler.tscn" id="4_catch_handler"]
+[ext_resource type="PackedScene" path="res://src/pickup/scenes/flashlight_pickup.tscn" id="5_flashlight_pickup"]
+[ext_resource type="PackedScene" path="res://src/pickup/scenes/crayon.tscn" id="6_crayon"]
+[ext_resource type="Script" path="res://src/level/scripts/safe_room.gd" id="7_safe_room"]
+[ext_resource type="PackedScene" path="res://src/environment/scenes/desk.tscn" id="8_desk"]
+[ext_resource type="PackedScene" path="res://src/environment/scenes/note.tscn" id="9_note"]
+[ext_resource type="PackedScene" path="res://src/environment/scenes/wall_calendar.tscn" id="10_wall_calendar"]
+[ext_resource type="PackedScene" path="res://src/environment/scenes/bookshelf.tscn" id="11_bookshelf"]
+[ext_resource type="PackedScene" path="res://src/environment/scenes/book.tscn" id="12_book"]
+[ext_resource type="PackedScene" path="res://src/environment/scenes/coloring_book.tscn" id="13_coloring_book"]
+[ext_resource type="Script" path="res://src/level/scripts/player_trigger.gd" id="14_player_trigger"]
+[ext_resource type="Script" path="res://src/level/scripts/door_lock_trigger.gd" id="15_door_lock_trigger"]
+[ext_resource type="Script" path="res://src/level/scripts/first_sighting.gd" id="16_first_sighting"]
+[ext_resource type="PackedScene" path="res://src/level/scenes/ending_director.tscn" id="17_ending_director"]
+[ext_resource type="PackedScene" path="res://src/environment/scenes/exit_door.tscn" id="18_exit_door"]
 
 [sub_resource type="Environment" id="Environment_dark"]
 background_mode = 1
 ambient_light_source = 2
 ambient_light_color = Color(1, 1, 1, 1)
 ambient_light_energy = 0.1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_counter"]
+size = Vector3(0.9, 1, 2.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_placeholder"]
+albedo_color = Color(0.35, 0.35, 0.38, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_counter"]
+material = SubResource("StandardMaterial3D_placeholder")
+size = Vector3(0.9, 1, 2.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_safe_Library"]
+size = Vector3(17.4, 4, 16.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_safe_Greenhouse"]
+size = Vector3(16.9, 4, 10.9)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_safe_BioLab"]
+size = Vector3(11.1, 4, 8.7)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_safe_PottingRoom"]
+size = Vector3(5.4, 4, 5.7)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_safe_Gym"]
+size = Vector3(20.6, 4, 34.4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_safe_LockerRoom"]
+size = Vector3(11.4, 4, 11.4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_safe_Cafeteria"]
+size = Vector3(22.7, 4, 16.4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_safe_ArtStudio"]
+size = Vector3(9.9, 4, 11.7)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_entry_lock"]
+size = Vector3(17.3, 3, 0.6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_arrival"]
+size = Vector3(5.2, 3, 10.3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hiding_spot"]
+size = Vector3(1.4, 1, 0.5)
 
 [node name="SchoolLevel" type="Node3D" unique_id=102402281]
 
@@ -20,46 +77,276 @@ environment = SubResource("Environment_dark")
 
 [node name="PatrolPoints" type="Node3D" parent="." unique_id=1984700109]
 
-[node name="MainCorridorWest" type="Marker3D" parent="PatrolPoints" unique_id=953874844]
+[node name="Lobby" type="Marker3D" parent="PatrolPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.2, 0, 14)
+
+[node name="MainCorridorWest" type="Marker3D" parent="PatrolPoints"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.4, 0, -2.5)
 
-[node name="MainCorridorCenter" type="Marker3D" parent="PatrolPoints" unique_id=1987059922]
+[node name="MainCorridorCenter" type="Marker3D" parent="PatrolPoints"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.1, 0, -1.5)
 
-[node name="NorthCourtyardHall" type="Marker3D" parent="PatrolPoints" unique_id=1572523816]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42.2, 0, -31)
+[node name="NorthCourtyardHall" type="Marker3D" parent="PatrolPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42.2, 0, -27.7)
 
-[node name="ClassroomWing" type="Marker3D" parent="PatrolPoints" unique_id=885847084]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.7, 0, -18.2)
+[node name="ScienceWing" type="Marker3D" parent="PatrolPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 0, -46.8)
 
-[node name="ScienceWing" type="Marker3D" parent="PatrolPoints" unique_id=1443073544]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60.8, 0, -46.8)
+[node name="LinkHall" type="Marker3D" parent="PatrolPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74.5, 0, -16)
 
-[node name="LinkHall" type="Marker3D" parent="PatrolPoints" unique_id=362792871]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74.5, 0.77, -16)
+[node name="PeCorridor" type="Marker3D" parent="PatrolPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 96.1, 0, -3)
 
-[node name="PeCorridor" type="Marker3D" parent="PatrolPoints" unique_id=1595847027]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 96.1, 0, -4.6)
+[node name="EastCorridor" type="Marker3D" parent="PatrolPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 121, 0, -15)
 
-[node name="Cafeteria" type="Marker3D" parent="PatrolPoints" unique_id=231191181]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74, 0, 6.8)
+[node name="Library" type="Marker3D" parent="PatrolPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.6, 0, 6.8)
 
-[node name="Gymnasium" type="Marker3D" parent="PatrolPoints" unique_id=2019614234]
+[node name="Greenhouse" type="Marker3D" parent="PatrolPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 83, 0, -52)
+
+[node name="Gymnasium" type="Marker3D" parent="PatrolPoints"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 96, 0, -24.6)
 
-[node name="Library" type="Marker3D" parent="PatrolPoints" unique_id=2135481764]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.6, 0, 6.8)
+[node name="LockerRoom" type="Marker3D" parent="PatrolPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 109, 0, -9.5)
+
+[node name="Cafeteria" type="Marker3D" parent="PatrolPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74, 0, 6.8)
+
+[node name="ArtStudio" type="Marker3D" parent="PatrolPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.4, 0, 8.5)
 
 [node name="Entity" parent="." unique_id=1803776842 node_paths=PackedStringArray("patrol_points") instance=ExtResource("3_entity")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.2, 0, 8.037567)
-patrol_points = [NodePath("../PatrolPoints/MainCorridorWest"), NodePath("../PatrolPoints/MainCorridorCenter"), NodePath("../PatrolPoints/NorthCourtyardHall"), NodePath("../PatrolPoints/ClassroomWing"), NodePath("../PatrolPoints/ScienceWing"), NodePath("../PatrolPoints/LinkHall"), NodePath("../PatrolPoints/PeCorridor"), NodePath("../PatrolPoints/Cafeteria"), NodePath("../PatrolPoints/Gymnasium"), NodePath("../PatrolPoints/Library")]
+patrol_points = [NodePath("../PatrolPoints/Lobby"), NodePath("../PatrolPoints/MainCorridorWest"), NodePath("../PatrolPoints/MainCorridorCenter"), NodePath("../PatrolPoints/NorthCourtyardHall"), NodePath("../PatrolPoints/ScienceWing"), NodePath("../PatrolPoints/LinkHall"), NodePath("../PatrolPoints/PeCorridor"), NodePath("../PatrolPoints/EastCorridor"), NodePath("../PatrolPoints/Library"), NodePath("../PatrolPoints/Greenhouse"), NodePath("../PatrolPoints/Gymnasium"), NodePath("../PatrolPoints/LockerRoom"), NodePath("../PatrolPoints/Cafeteria"), NodePath("../PatrolPoints/ArtStudio")]
 
 [node name="PlayerSpawn" type="Marker3D" parent="." unique_id=958146031]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.2, 0, 27.5)
 
 [node name="CatchHandler" parent="." unique_id=153618860 node_paths=PackedStringArray("spawn_point") instance=ExtResource("4_catch_handler")]
 spawn_point = NodePath("../PlayerSpawn")
-main_menu_scene = "res://src/ui/scenes/main_menu.tscn"
+run_end_scene = "res://src/ui/scenes/ending_screen.tscn"
 
 [node name="Player" parent="." unique_id=652413314 instance=ExtResource("2_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.2, 0, 27.5)
+has_flashlight_at_start = false
+
+[node name="Lobby" type="Node3D" parent="."]
+
+[node name="ReceptionCounter" type="StaticBody3D" parent="Lobby"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.95, 0.5, 24.5)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Lobby/ReceptionCounter"]
+mesh = SubResource("BoxMesh_counter")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Lobby/ReceptionCounter"]
+shape = SubResource("BoxShape3D_counter")
+
+[node name="FlashlightPickup" parent="Lobby" instance=ExtResource("5_flashlight_pickup")]
+transform = Transform3D(0.921, 0, -0.389, 0, 1, 0, 0.389, 0, 0.921, 28.05, 1.04, 24.5)
+
+[node name="Library" type="Node3D" parent="."]
+
+[node name="YellowCrayon" parent="Library" instance=ExtResource("6_crayon")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.09, 1.2, 16.19)
+hue = 2
+is_hidden_at_start = true
+
+[node name="Desk" parent="Library" instance=ExtResource("8_desk")]
+transform = Transform3D(1, 0, 0, 0, 0.64, 0, 0, 0, 1, 9, 0, 3.2)
+
+[node name="CheckOutSlip" parent="Library" instance=ExtResource("9_note")]
+transform = Transform3D(-1, 0, 0, 0, 0.9063, 0.4226, 0, 0.4226, -0.9063, 9, 1.0405, 3.2972)
+text = "ONE NEVER CAME BACK\n\nThe Lost Kite - Oct 3\nNight Garden - Oct 9\nMouse and Moon - Oct 14\nMy Colors - Oct 21"
+paper_size = Vector2(0.62, 0.46)
+text_height = 0.042
+
+[node name="WallCalendar" parent="Library" instance=ExtResource("10_wall_calendar")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 0.03, 1.6, 10)
+
+[node name="Bookshelf" parent="Library" instance=ExtResource("11_bookshelf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0, 16.36)
+
+[node name="TheLostKite" parent="Library/Bookshelf" instance=ExtResource("12_book")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 1.2, -0.05)
+title = "The Lost Kite"
+
+[node name="NightGarden" parent="Library/Bookshelf" instance=ExtResource("12_book")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 1.2, -0.05)
+title = "Night Garden"
+
+[node name="MyColors" parent="Library/Bookshelf" instance=ExtResource("12_book")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 1.2, -0.05)
+title = "My Colors"
+is_correct = true
+
+[node name="MouseAndMoon" parent="Library/Bookshelf" instance=ExtResource("12_book")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 1.2, -0.05)
+title = "Mouse and Moon"
+
+[node name="ColoringBook" parent="Library/Bookshelf" instance=ExtResource("13_coloring_book")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 1.2, -0.02)
+visible = false
+
+[node name="EntryLock" type="Area3D" parent="Library"]
+script = ExtResource("15_door_lock_trigger")
+door_path = NodePath("../../SchoolEnv/SM_DoubleDoor_Center8/SM_DoubleDoor_Center9/SM_Single_Door_Jam/SM_Door")
+is_flashlight_required = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Library/EntryLock"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.85, 1.5, 2.4)
+shape = SubResource("BoxShape3D_entry_lock")
+
+[node name="FirstSighting" type="Node3D" parent="." node_paths=PackedStringArray("entity", "arrival_trigger", "watch_spot", "leave_spot", "hiding_spots")]
+script = ExtResource("16_first_sighting")
+entity = NodePath("../Entity")
+arrival_trigger = NodePath("ArrivalTrigger")
+stare_door_path = NodePath("../SchoolEnv/SM_DoubleDoor_Center41/SM_Single_Door_Jam/SM_Door")
+watch_spot = NodePath("WatchSpot")
+leave_spot = NodePath("../PatrolPoints/MainCorridorWest")
+hiding_spots = [NodePath("OfficeDesk/HidingSpot"), NodePath("ArchiveDesk/HidingSpot")]
+watch_door_path = NodePath("../SchoolEnv/SM_DoubleDoor_Center8/SM_DoubleDoor_Center8/SM_Single_Door_Jam/SM_Door")
+
+[node name="ArrivalTrigger" type="Area3D" parent="FirstSighting"]
+script = ExtResource("14_player_trigger")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FirstSighting/ArrivalTrigger"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.47, 1.5, 11.45)
+shape = SubResource("BoxShape3D_arrival")
+
+[node name="WatchSpot" type="Marker3D" parent="FirstSighting"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 19.78, 0, -0.32)
+
+[node name="OfficeDesk" parent="FirstSighting" instance=ExtResource("8_desk")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 22.8, 0, 3.6)
+
+[node name="HidingSpot" type="Area3D" parent="FirstSighting/OfficeDesk"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FirstSighting/OfficeDesk/HidingSpot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0.25)
+shape = SubResource("BoxShape3D_hiding_spot")
+
+[node name="ArchiveDesk" parent="FirstSighting" instance=ExtResource("8_desk")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 22.49, 0, 8.2)
+
+[node name="HidingSpot" type="Area3D" parent="FirstSighting/ArchiveDesk"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FirstSighting/ArchiveDesk/HidingSpot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0.25)
+shape = SubResource("BoxShape3D_hiding_spot")
+
+[node name="Greenhouse" type="Node3D" parent="."]
+
+[node name="GreenCrayon" parent="Greenhouse" instance=ExtResource("6_crayon")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 80.5, 0, -50.5)
+hue = 3
+
+[node name="IndigoCrayon" parent="Greenhouse" instance=ExtResource("6_crayon")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 81.5, 0, -50.5)
+hue = 5
+
+[node name="LockerRoom" type="Node3D" parent="."]
+
+[node name="BlueCrayon" parent="LockerRoom" instance=ExtResource("6_crayon")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 111, 0, -14)
+hue = 4
+
+[node name="CafeteriaRoom" type="Node3D" parent="."]
+
+[node name="RedCrayon" parent="CafeteriaRoom" instance=ExtResource("6_crayon")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 73, 0, 8)
+hue = 0
+
+[node name="ArtStudio" type="Node3D" parent="."]
+
+[node name="OrangeCrayon" parent="ArtStudio" instance=ExtResource("6_crayon")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48.9, 0, 5.5)
+hue = 1
+
+[node name="VioletCrayon" parent="ArtStudio" instance=ExtResource("6_crayon")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.9, 0, 5.5)
+hue = 6
+
+[node name="Courtyard" type="Node3D" parent="."]
+
+[node name="ExitDoor" parent="Courtyard" instance=ExtResource("18_exit_door")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.8, 0, -14.5)
+
+[node name="EndingDirector" parent="." instance=ExtResource("17_ending_director")]
+
+[node name="SafeRooms" type="Node3D" parent="."]
+
+[node name="LibrarySafeRoom" type="Area3D" parent="SafeRooms" node_paths=PackedStringArray("crayons")]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("7_safe_room")
+crayons = [NodePath("../../Library/YellowCrayon")]
+
+[node name="Library" type="CollisionShape3D" parent="SafeRooms/LibrarySafeRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.9, 1.5, 8.5)
+shape = SubResource("BoxShape3D_safe_Library")
+
+[node name="GreenhouseSafeRoom" type="Area3D" parent="SafeRooms" node_paths=PackedStringArray("crayons")]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("7_safe_room")
+crayons = [NodePath("../../Greenhouse/GreenCrayon"), NodePath("../../Greenhouse/IndigoCrayon")]
+
+[node name="Greenhouse" type="CollisionShape3D" parent="SafeRooms/GreenhouseSafeRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 81.65, 1.5, -50.65)
+shape = SubResource("BoxShape3D_safe_Greenhouse")
+
+[node name="BioLab" type="CollisionShape3D" parent="SafeRooms/GreenhouseSafeRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 67.25, 1.5, -45.75)
+shape = SubResource("BoxShape3D_safe_BioLab")
+
+[node name="PottingRoom" type="CollisionShape3D" parent="SafeRooms/GreenhouseSafeRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 70.1, 1.5, -53.25)
+shape = SubResource("BoxShape3D_safe_PottingRoom")
+
+[node name="GymSafeRoom" type="Area3D" parent="SafeRooms" node_paths=PackedStringArray("crayons")]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("7_safe_room")
+crayons = [NodePath("../../LockerRoom/BlueCrayon")]
+
+[node name="Gym" type="CollisionShape3D" parent="SafeRooms/GymSafeRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 94.5, 1.5, -22.4)
+shape = SubResource("BoxShape3D_safe_Gym")
+
+[node name="LockerRoom" type="CollisionShape3D" parent="SafeRooms/GymSafeRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 111.1, 1.5, -10.9)
+shape = SubResource("BoxShape3D_safe_LockerRoom")
+
+[node name="CafeteriaSafeRoom" type="Area3D" parent="SafeRooms" node_paths=PackedStringArray("crayons")]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("7_safe_room")
+crayons = [NodePath("../../CafeteriaRoom/RedCrayon")]
+
+[node name="Cafeteria" type="CollisionShape3D" parent="SafeRooms/CafeteriaSafeRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 73.25, 1.5, 8.6)
+shape = SubResource("BoxShape3D_safe_Cafeteria")
+
+[node name="ArtStudioSafeRoom" type="Area3D" parent="SafeRooms" node_paths=PackedStringArray("crayons")]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("7_safe_room")
+crayons = [NodePath("../../ArtStudio/OrangeCrayon"), NodePath("../../ArtStudio/VioletCrayon")]
+
+[node name="ArtStudio" type="CollisionShape3D" parent="SafeRooms/ArtStudioSafeRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.35, 1.5, 6.25)
+shape = SubResource("BoxShape3D_safe_ArtStudio")
+
+[connection signal="taken" from="Library/Bookshelf/MyColors" to="Library/Bookshelf/ColoringBook" method="show"]
+[connection signal="taken" from="Library/Bookshelf/MyColors" to="Library/YellowCrayon" method="appear"]
+[connection signal="ended" from="FirstSighting" to="Library/EntryLock" method="unlock_door"]
+[connection signal="uncovered" from="Entity" to="EndingDirector" method="play_uncovered"]
+[connection signal="used" from="Courtyard/ExitDoor" to="EndingDirector" method="play_escape"]

@@ -25,7 +25,7 @@ func _ready() -> void:
 	_heart_shape = _build_heart_shape()
 	var hearts: int = GameSession.MAX_LIVES
 	custom_minimum_size = Vector2(hearts * heart_size + (hearts - 1) * spacing, heart_size)
-	GameSession.lives_changed.connect(_on_lives_changed)
+	GameSession.lives_changed.connect(_on_game_session_lives_changed)
 	queue_redraw()
 
 
@@ -43,7 +43,7 @@ func _draw() -> void:
 
 
 ## Redraws the hearts for the new number of lives.
-func _on_lives_changed(_lives: int) -> void:
+func _on_game_session_lives_changed(_lives: int) -> void:
 	queue_redraw()
 
 
@@ -56,8 +56,8 @@ func _heart_at(center: Vector2) -> PackedVector2Array:
 
 
 ## Returns a heart outline centered on the origin, fitted inside a 1 by 1 square.
-## Uses the classic heart curve: x = 16 sin^3 t, y = 13 cos t - 5 cos 2t - 2 cos 3t - cos 4t.
 func _build_heart_shape() -> PackedVector2Array:
+	# The classic heart curve: x = 16 sin^3 t, y = 13 cos t - 5 cos 2t - 2 cos 3t - cos 4t.
 	var raw := PackedVector2Array()
 	for step: int in HEART_POINTS:
 		var t: float = TAU * step / HEART_POINTS

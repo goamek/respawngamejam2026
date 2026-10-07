@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://bkv7eytagidhv"]
+
+[ext_resource type="Script" uid="uid://b31wiik8viblc" path="res://src/pickup/scripts/flashlight_pickup.gd" id="1_pickup"]
+[ext_resource type="Script" uid="uid://fciruc2lxj0a" path="res://src/interaction/scripts/interactable.gd" id="2_interactable"]
+[ext_resource type="PackedScene" uid="uid://bqpv7xylf0wpo" path="res://src/flashlight/scenes/flashlight.tscn" id="3_flashlight"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pickup"]
+size = Vector3(0.25, 0.2, 0.35)
+
+[node name="FlashlightPickup" type="StaticBody3D" unique_id=916115315]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_pickup")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2123490705]
+shape = SubResource("BoxShape3D_pickup")
+
+[node name="Flashlight" parent="." unique_id=423491788 instance=ExtResource("3_flashlight")]
+unlocked_hues = Array[int]([])
+
+[node name="Interactable" type="Node" parent="." unique_id=96238756]
+script = ExtResource("2_interactable")
+prompt = "Pick up"

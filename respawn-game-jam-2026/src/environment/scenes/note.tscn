@@ -1,0 +1,31 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/environment/scripts/note.gd" id="1_note"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_paper"]
+albedo_color = Color(0.86, 0.83, 0.74, 1)
+metallic_specular = 0.0
+roughness = 1.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_paper"]
+material = SubResource("StandardMaterial3D_paper")
+
+[node name="Note" type="Node3D"]
+script = ExtResource("1_note")
+
+[node name="Paper" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.3, 0, 0, 0, 0.4, 0, 0, 0, 1, 0, 0, 0)
+cast_shadow = 0
+mesh = SubResource("QuadMesh_paper")
+
+[node name="Label" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.003)
+pixel_size = 0.00046875
+double_sided = false
+alpha_cut = 1
+modulate = Color(0.05, 0.04, 0.04, 1)
+outline_modulate = Color(0, 0, 0, 0)
+font_size = 64
+outline_size = 0
+autowrap_mode = 3
+width = 533.0

@@ -1,0 +1,38 @@
+[gd_scene format=3]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_shelf"]
+albedo_color = Color(0.3, 0.28, 0.26, 1)
+metallic_specular = 0.0
+roughness = 1.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_base"]
+material = SubResource("StandardMaterial3D_shelf")
+size = Vector3(2.4, 1.2, 0.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_back"]
+material = SubResource("StandardMaterial3D_shelf")
+size = Vector3(2.4, 0.9, 0.06)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_base"]
+size = Vector3(2.4, 1.2, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_back"]
+size = Vector3(2.4, 0.9, 0.06)
+
+[node name="Bookshelf" type="StaticBody3D"]
+
+[node name="Base" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+mesh = SubResource("BoxMesh_base")
+
+[node name="Back" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.65, 0.22)
+mesh = SubResource("BoxMesh_back")
+
+[node name="BaseShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+shape = SubResource("BoxShape3D_base")
+
+[node name="BackShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.65, 0.22)
+shape = SubResource("BoxShape3D_back")

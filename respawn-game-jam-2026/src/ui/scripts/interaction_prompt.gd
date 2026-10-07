@@ -11,9 +11,9 @@ extends Control
 ## Clears the hint and listens for changes.
 func _ready() -> void:
 	_label.text = ""
-	interactor.prompt_changed.connect(_on_prompt_changed)
+	interactor.prompt_changed.connect(_on_interactor_prompt_changed)
 
 
 ## Shows [param text] under the crosshair.
-func _on_prompt_changed(text: String) -> void:
+func _on_interactor_prompt_changed(text: String) -> void:
 	_label.text = text

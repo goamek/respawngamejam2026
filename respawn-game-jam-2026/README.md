@@ -31,4 +31,6 @@ The game supports keyboard and mouse, and any connected controller.
 | Move between buttons | Arrow keys, or hover with the mouse | D-pad or left stick |
 | Press the highlighted button | Enter, Space, or left click | A / Cross |
 
+The ending screen is a menu too: its one button, **Main Menu**, is highlighted when the screen appears.
+
 Moving between buttons uses Godot's built-in `ui_up` and `ui_down` actions. `ui_accept` is overridden in the project settings to add the controller button, which Godot does not include by default.

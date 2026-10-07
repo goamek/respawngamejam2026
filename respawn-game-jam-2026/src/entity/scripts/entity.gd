@@ -9,8 +9,10 @@ signal state_changed(state: State)
 signal player_spotted
 ## Emitted when the entity catches the player.
 signal player_caught
+## Emitted when white light has been held on the entity for long enough to show its true colors.
+signal uncovered
 
-enum State { PAUSING, ROAMING, INVESTIGATING, SEARCHING, CATCHING }
+enum State { PAUSING, ROAMING, INVESTIGATING, SEARCHING, CATCHING, WATCHING, LEAVING, UNCOVERED }
 
 ## Fraction of its intended speed below which the entity counts as blocked.
 const BLOCKED_SPEED_RATIO: float = 0.25
@@ -38,6 +40,27 @@ const OVERLAP_DISTANCE: float = 0.3
 const STEP_HEIGHT: float = 0.3
 ## How far forward a step up carries the body, enough to land its middle on the lip, in meters.
 const STEP_REACH: float = 0.35
+## Animation library played in each state; each is one Mixamo file imported as a library.
+const STATE_ANIMATIONS: Dictionary[State, StringName] = {
+	State.PAUSING: &"idle",
+	State.ROAMING: &"walk",
+	State.INVESTIGATING: &"run",
+	State.SEARCHING: &"search",
+	State.CATCHING: &"catch",
+	State.WATCHING: &"idle",
+	State.LEAVING: &"walk",
+	State.UNCOVERED: &"idle",
+}
+## Closest the face comes to the player's eyes in a lunge, so it never passes through the camera, in meters.
+const MIN_FACE_DISTANCE: float = 0.45
+## Name Mixamo gives the single clip inside every library.
+const CLIP_NAME: StringName = &"mixamo_com"
+## How fast the head tips over to its tilt and back upright, in degrees per second.
+const HEAD_TILT_SPEED: float = 180.0
+## Height above the entity's feet of the point the white beam must be on to uncover it, in meters.
+const UNCOVER_POINT_HEIGHT: float = 1.0
+## How strongly the uncovered colors glow on their own, so they still show when the beam moves off.
+const UNCOVER_GLOW: float = 0.6
 
 @export_group("Roaming")
 ## Points the entity wanders between, in no fixed order.
@@ -68,8 +91,30 @@ const STEP_REACH: float = 0.35
 @export var catch_angle: float = 45.0
 ## Time after being reset during which the entity cannot catch, in seconds.
 @export var catch_cooldown: float = 3.0
+## Time the leap up to the player's eye level takes when catching, in seconds.
+@export var catch_leap_time: float = 0.15
+## Highest the body can leap off the floor when catching, in meters.
+@export var catch_leap_limit: float = 1.0
+## How far above the player's eye level the face ends up in the leap, in meters.
+@export var catch_leap_above_eyes: float = 0.15
+## How far the body lunges toward the player in the leap, in meters.
+@export var catch_lunge_distance: float = 0.3
+
+@export_group("Uncovering")
+## Time the white beam must stay on the entity, while it can see the player, to uncover it, in seconds. Time off it drains at the same rate.
+@export var uncover_time: float = 3.0
+## How many times its usual speed the entity moves at while the white beam is on it.
+@export_range(0.0, 1.0) var uncover_slowdown: float = 0.35
+
+@export_group("Animation")
+## How long one animation takes to fade into the next, in seconds.
+@export var animation_blend_time: float = 0.25
+## How many times faster than normal the catch animation plays.
+@export var catch_animation_speed: float = 2.0
 
 @export_group("Movement")
+## How much faster the entity gets for each spectrum hue the player has unlocked, as a fraction of its speeds.
+@export var speed_gain_per_hue: float = 0.05
 ## How fast the body turns to face where it is going, in degrees per second.
 @export var turn_speed: float = 240.0
 ## Time the entity may be blocked before it gives up on a destination, in seconds.
@@ -85,14 +130,27 @@ var _search_left: float = 0.0
 var _blocked_for: float = 0.0
 var _patrol_point: Node3D
 var _player: Player
-var _sees_player: bool = false
+var _is_player_in_sight: bool = false
 var _door_to_close: Door
 var _door_start_side: float = 0.0
 var _catch_cooldown_left: float = 0.0
+var _leap_face_height: float = 0.0
+var _leap_face_gap: float = 0.0
 var _start_transform: Transform3D
+var _head_tilt_wanted: float = 0.0
+var _head_tilt: float = 0.0
+var _uncover_held: float = 0.0
+var _is_lit_by_white: bool = false
+var _body_material: StandardMaterial3D
 
 @onready var _agent: NavigationAgent3D = $NavigationAgent3D
 @onready var _eyes: Marker3D = $Eyes
+@onready var _model: Node3D = $Model
+@onready var _skeleton: Skeleton3D = $Model/Skeleton3D
+@onready var _head: BoneAttachment3D = $Model/Skeleton3D/Head
+@onready var _body_mesh: MeshInstance3D = $Model/Skeleton3D/Ch14
+@onready var _face_marker: Marker3D = $Model/Skeleton3D/Head/Face
+@onready var _animation: AnimationPlayer = $Model/AnimationPlayer
 
 
 ## Finds the player, remembers where it started, and begins with a pause while the navigation map loads.
@@ -100,13 +158,21 @@ func _ready() -> void:
 	_player = get_tree().get_first_node_in_group("player") as Player
 	_start_transform = global_transform
 	_pause_left = pause_time
+	# Its own copy, so tinting this entity never changes another one.
+	_body_material = _body_mesh.material_override.duplicate() as StandardMaterial3D
+	_body_mesh.material_override = _body_material
+	_animation.mixer_applied.connect(_on_animation_mixer_applied)
+	_play_state_animation()
 
 
 ## Checks for the player, tries to catch them, runs the current state, then moves the body.
-## Open doors it bumps into stop being solid to it, so a door left open never traps it.
 func _physics_process(delta: float) -> void:
-	_update_sight()
-	_try_catch(delta)
+	if _is_scripted():
+		_is_player_in_sight = false
+	else:
+		_update_sight()
+		_try_catch(delta)
+		_update_uncovering(delta)
 	match state:
 		State.PAUSING:
 			_process_pausing(delta)
@@ -118,11 +184,18 @@ func _physics_process(delta: float) -> void:
 			_process_searching(delta)
 		State.CATCHING:
 			_process_catching(delta)
+		State.WATCHING:
+			_process_watching(delta)
+		State.LEAVING:
+			_process_leaving(delta)
+		State.UNCOVERED:
+			_process_uncovered(delta)
 	_close_door_behind()
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	var wanted := Vector3(velocity.x, 0.0, velocity.z)
 	move_and_slide()
+	# An open door it bumps into stops being solid to it, so a door left open never traps it.
 	_pass_open_doors()
 	_step_up(wanted)
 
@@ -137,23 +210,46 @@ func investigate(spot: Vector3) -> void:
 		_set_state(State.INVESTIGATING)
 
 
+## Makes the entity stand and stare at the player with its senses off, lifted [param rise] meters and with its head tipped [param head_tilt] degrees.
+func watch_player(rise: float = 0.0, head_tilt: float = 0.0) -> void:
+	_set_state(State.WATCHING)
+	_model.position.y = rise
+	# A positive tilt leans the top of the head to the left as the player sees it.
+	_head_tilt_wanted = deg_to_rad(head_tilt)
+
+
+## Sends the entity walking to [param spot], still noticing nothing; it roams as normal once it arrives.
+func leave_to(spot: Vector3) -> void:
+	_agent.target_position = spot
+	_blocked_for = 0.0
+	_set_state(State.LEAVING)
+
+
 ## Whether the entity can currently see the player.
-func sees_player() -> bool:
-	return _sees_player
+func is_player_in_sight() -> bool:
+	return _is_player_in_sight
 
 
-## Returns the position of the entity's eyes, in global space.
+## Returns the fixed point the entity sees from, in global space.
 func eye_position() -> Vector3:
 	return _eyes.global_position
+
+
+## Returns where the entity's face is right now, following its animation, in global space.
+func face_position() -> Vector3:
+	return _face_marker.global_position
 
 
 ## Puts the entity back where it started, roaming afresh and briefly unable to catch.
 func reset_to_start() -> void:
 	global_transform = _start_transform
 	velocity = Vector3.ZERO
-	_sees_player = false
+	_is_player_in_sight = false
 	_door_to_close = null
 	_catch_cooldown_left = catch_cooldown
+	_uncover_held = 0.0
+	_is_lit_by_white = false
+	_show_uncover_progress(0.0)
 	_start_pausing()
 
 
@@ -161,24 +257,26 @@ func reset_to_start() -> void:
 func _update_sight() -> void:
 	var can_see: bool = _can_see_player()
 	if can_see and state != State.CATCHING:
-		if not _sees_player:
+		if not _is_player_in_sight:
 			player_spotted.emit()
 		investigate(_player.global_position)
-	_sees_player = can_see
+	_is_player_in_sight = can_see
 
 
 ## Catches the player when it can see them, they are within reach, and it is facing them.
 func _try_catch(delta: float) -> void:
 	_catch_cooldown_left = maxf(_catch_cooldown_left - delta, 0.0)
-	if state == State.CATCHING or _catch_cooldown_left > 0.0 or not _sees_player:
+	if state == State.CATCHING or _catch_cooldown_left > 0.0 or not _is_player_in_sight:
+		return
+	if _is_off_limits(_player.global_position):
 		return
 	if _is_within_reach(_player.global_position):
 		_set_state(State.CATCHING)
+		_leap_at_player()
 		player_caught.emit()
 
 
-## Whether [param point] is within catching reach and within the catch angle of straight ahead.
-## Points closer than [constant OVERLAP_DISTANCE] count whatever the angle, since bodies can overlap.
+## Whether [param point] is within catching reach and the catch angle, or close enough to overlap the entity.
 func _is_within_reach(point: Vector3) -> bool:
 	var to_point: Vector3 = point - global_position
 	to_point.y = 0.0
@@ -200,15 +298,15 @@ func _process_pausing(delta: float) -> void:
 
 ## Walks to the patrol point, pausing on arrival.
 func _process_roaming(delta: float) -> void:
-	if _follow_path(roam_speed, delta):
+	if _follow_path(roam_speed * _speed_scale(), delta):
 		_start_pausing()
 
 
 ## Hurries to the spot being checked; on arrival, turns to the player if still in sight, otherwise looks around.
 func _process_investigating(delta: float) -> void:
-	if not _follow_path(investigate_speed, delta):
+	if not _follow_path(investigate_speed * _speed_scale(), delta):
 		return
-	if _sees_player:
+	if _is_player_in_sight:
 		_stop()
 		_face_point(last_known_position, delta)
 	else:
@@ -228,6 +326,60 @@ func _process_searching(delta: float) -> void:
 func _process_catching(delta: float) -> void:
 	_stop()
 	_face_point(_player.global_position, delta)
+	_hold_face_in_place(delta)
+
+
+## Stands still, turned toward the player.
+func _process_watching(delta: float) -> void:
+	_stop()
+	_face_point(_player.global_position, delta)
+
+
+## Walks to the spot it was sent to, then goes back to roaming.
+func _process_leaving(delta: float) -> void:
+	if _follow_path(roam_speed * _speed_scale(), delta):
+		_start_pausing()
+
+
+## Stands still, turned toward the player, harmless.
+func _process_uncovered(delta: float) -> void:
+	_stop()
+	_face_point(_player.global_position, delta)
+
+
+## Whether the entity is playing out a scripted moment or has been uncovered, during which its senses are switched off.
+func _is_scripted() -> bool:
+	return state == State.WATCHING or state == State.LEAVING or state == State.UNCOVERED
+
+
+## Builds up while the white beam is on the entity and drains while it is not, showing more of its colors as it goes.
+func _update_uncovering(delta: float) -> void:
+	_is_lit_by_white = state != State.CATCHING and _is_in_white_beam()
+	var held: float = clampf(_uncover_held + (delta if _is_lit_by_white else -delta), 0.0, uncover_time)
+	# Compared exactly: the clamp makes an empty meter repeat the same value, and nothing needs redrawing then.
+	if held == _uncover_held:
+		return
+	_uncover_held = held
+	_show_uncover_progress(_uncover_held / uncover_time)
+	if _uncover_held >= uncover_time:
+		_stop()
+		_set_state(State.UNCOVERED)
+		uncovered.emit()
+
+
+## Whether the player's beam is white and on the entity, while the entity can see the player.
+func _is_in_white_beam() -> bool:
+	if not _is_player_in_sight or _player.flashlight == null:
+		return false
+	var flashlight: Flashlight = _player.flashlight
+	return flashlight.current_hue == Spectrum.Hue.WHITE and flashlight.is_lighting(global_position + Vector3.UP * UNCOVER_POINT_HEIGHT)
+
+
+## Shows [param ratio] of the entity's true colors, from 0 for solid black to 1 for fully colored.
+func _show_uncover_progress(ratio: float) -> void:
+	# The body's texture is multiplied by this color, so black hides it and white shows it as drawn.
+	_body_material.albedo_color = Color.BLACK.lerp(Color.WHITE, ratio)
+	_body_material.emission_energy_multiplier = UNCOVER_GLOW * ratio
 
 
 ## Stops and waits before choosing the next patrol point.
@@ -253,11 +405,15 @@ func _start_searching() -> void:
 	_set_state(State.SEARCHING)
 
 
-## Moves one step along the current path at [param speed]; returns true on arrival or when stuck.
+## Whether the entity is done with its path after one more step at [param speed]: arrived, stuck, or about to enter a room it is kept out of.
 func _follow_path(speed: float, delta: float) -> bool:
 	if _agent.is_navigation_finished() or _is_stuck(speed, delta):
 		return true
-	var to_next: Vector3 = _agent.get_next_path_position() - global_position
+	var next_position: Vector3 = _agent.get_next_path_position()
+	if _is_off_limits(next_position):
+		_stop()
+		return true
+	var to_next: Vector3 = next_position - global_position
 	to_next.y = 0.0
 	var direction: Vector3 = to_next.normalized()
 	_open_door_ahead(direction)
@@ -268,7 +424,7 @@ func _follow_path(speed: float, delta: float) -> bool:
 	return false
 
 
-## Opens a closed door just ahead in [param direction], of any hue, swinging it away from the entity.
+## Opens a closed, unlocked door just ahead in [param direction], whatever its hue, swinging it away from the entity.
 func _open_door_ahead(direction: Vector3) -> void:
 	var from: Vector3 = global_position + Vector3.UP * DOOR_CHECK_HEIGHT
 	var query := PhysicsRayQueryParameters3D.create(from, from + direction * DOOR_REACH, WORLD_MASK, [get_rid()])
@@ -276,7 +432,7 @@ func _open_door_ahead(direction: Vector3) -> void:
 	if hit.is_empty():
 		return
 	var door: Door = Door.find_owner(hit.collider)
-	if door != null and not door.is_open:
+	if door != null and not door.is_open and not door.is_locked:
 		door.open_away_from(self)
 		_blocked_for = 0.0
 		if state == State.ROAMING:
@@ -334,11 +490,28 @@ func _stop() -> void:
 	velocity.z = 0.0
 
 
-## Returns a random patrol point other than the current one, or null when none are set.
+## Whether [param point], in global space, is inside a safe room the entity is still kept out of.
+func _is_off_limits(point: Vector3) -> bool:
+	return SafeRoom.is_sheltered(get_tree(), point)
+
+
+## Returns how many times its base speeds the entity moves at: faster with each spectrum hue the player unlocks, slower while the white beam is on it.
+func _speed_scale() -> float:
+	if _player == null or _player.flashlight == null:
+		return 1.0
+	var hue_count: int = 0
+	for hue: Spectrum.Hue in _player.flashlight.unlocked_hues:
+		if hue != Spectrum.Hue.WHITE:
+			hue_count += 1
+	var gain: float = 1.0 + speed_gain_per_hue * hue_count
+	return gain * uncover_slowdown if _is_lit_by_white else gain
+
+
+## Returns a random patrol point other than the current one and outside any room it is kept out of, or null when none are set.
 func _pick_patrol_point() -> Node3D:
 	var candidates: Array[Node3D] = []
 	for point: Node3D in patrol_points:
-		if point != null and point != _patrol_point:
+		if point != null and point != _patrol_point and not _is_off_limits(point.global_position):
 			candidates.append(point)
 	if candidates.is_empty():
 		return _patrol_point
@@ -349,11 +522,11 @@ func _pick_patrol_point() -> Node3D:
 func _can_see_player() -> bool:
 	if _player == null:
 		return false
-	return _sees_player_body() or _sees_flashlight_spot()
+	return _can_see_player_body() or _can_see_flashlight_spot()
 
 
 ## Whether the player is noticeable, and their head or body is in view with nothing in between.
-func _sees_player_body() -> bool:
+func _can_see_player_body() -> bool:
 	if not _is_noticeable(_player):
 		return false
 	var body_point: Vector3 = _player.global_position + Vector3.UP * PLAYER_BODY_HEIGHT
@@ -364,7 +537,7 @@ func _sees_player_body() -> bool:
 
 
 ## Whether the spot the player's beam lands on is in view, which tells the entity where the light comes from.
-func _sees_flashlight_spot() -> bool:
+func _can_see_flashlight_spot() -> bool:
 	if _player.flashlight == null:
 		return false
 	var hit: Dictionary = _player.flashlight.find_lit_spot()
@@ -435,4 +608,54 @@ func _set_state(new_state: State) -> void:
 	if new_state == state:
 		return
 	state = new_state
+	if state != State.CATCHING:
+		_land()
+	_play_state_animation()
 	state_changed.emit(state)
+
+
+## Starts the leap by picking where the face is held: just above the player's eyes and a lunge closer to them.
+func _leap_at_player() -> void:
+	# It is shorter than the player and hunches as it screams. Only the model moves; the body that collides stays put.
+	var eyes: Vector3 = _player.settled_eye_position()
+	var face: Vector3 = face_position()
+	var gap: float = Vector2(face.x - eyes.x, face.z - eyes.z).length()
+	_leap_face_height = eyes.y + catch_leap_above_eyes
+	_leap_face_gap = gap - clampf(gap - MIN_FACE_DISTANCE, 0.0, catch_lunge_distance)
+
+
+## Moves the model so its face reaches the leap spot in about the leap time, and then stays there.
+func _hold_face_in_place(delta: float) -> void:
+	# The catch animation hunches down and leans in; left alone, the face would drift and drag the player's view with it.
+	var eyes: Vector3 = _player.settled_eye_position()
+	var face: Vector3 = face_position()
+	var gap: float = Vector2(face.x - eyes.x, face.z - eyes.z).length()
+	# The entity faces the player while catching, so its forward (-Z) closes the gap.
+	var wanted := Vector3(
+		0.0,
+		clampf(_model.position.y + _leap_face_height - face.y, 0.0, catch_leap_limit),
+		clampf(_model.position.z - (gap - _leap_face_gap), -catch_lunge_distance, catch_lunge_distance),
+	)
+	_model.position = _model.position.lerp(wanted, 1.0 - exp(-3.0 * delta / catch_leap_time))
+
+
+## Puts the model back in place on the floor after a leap.
+func _land() -> void:
+	_model.position = Vector3.ZERO
+
+
+## Tips the head sideways on top of the pose the animation has just written, easing toward the tilt wanted while watching and back upright otherwise.
+func _on_animation_mixer_applied() -> void:
+	var wanted: float = _head_tilt_wanted if state == State.WATCHING else 0.0
+	_head_tilt = move_toward(_head_tilt, wanted, deg_to_rad(HEAD_TILT_SPEED) * get_process_delta_time())
+	if is_zero_approx(_head_tilt):
+		return
+	# The head bone's own Z axis runs through the face, so turning about it rolls the head.
+	var pose: Quaternion = _skeleton.get_bone_pose_rotation(_head.bone_idx)
+	_skeleton.set_bone_pose_rotation(_head.bone_idx, pose * Quaternion(Vector3.BACK, _head_tilt))
+
+
+## Fades into the animation that belongs to the current state.
+func _play_state_animation() -> void:
+	var speed: float = catch_animation_speed if state == State.CATCHING else 1.0
+	_animation.play("%s/%s" % [STATE_ANIMATIONS[state], CLIP_NAME], animation_blend_time, speed)

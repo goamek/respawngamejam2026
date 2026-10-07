@@ -1,7 +1,7 @@
 class_name CatchHandler
 extends Node
 ## Plays the moment the entity catches the player, takes a life, and respawns the player at the hub.
-## On the last life the run ends: the game goes to the main menu, or quits if none is set.
+## On the last life the run ends with the Caught ending: the game goes to the run end scene, or quits if none is set.
 
 ## Emitted when the last life is lost, just before leaving the level.
 signal run_ended
@@ -13,22 +13,27 @@ const GAME_OVER_MESSAGE: String = "Game Over"
 
 ## Where the player comes back after being caught.
 @export var spawn_point: Node3D
-## Scene to load when the last life is lost; leave empty to quit the game instead.
-@export_file("*.tscn") var main_menu_scene: String = ""
+## Scene to load when the last life is lost, normally the ending screen; leave empty to quit the game instead.
+@export_file("*.tscn") var run_end_scene: String = ""
 ## Time the view takes to snap toward the entity, in seconds.
 @export var turn_time: float = 0.15
 ## Time the player stares at the entity after turning, before the fade, in seconds.
-@export var hold_time: float = 0.45
+@export var hold_time: float = 1.45
+## How quickly the view catches up with the entity's face while the player stares at it, as a rate per second; higher is tighter.
+@export var follow_speed: float = 12.0
 ## How far the camera jolts at the start of the shake, in meters.
 @export var shake_strength: float = 0.08
-## Time the screen takes to fade to or from black, in seconds.
-@export var fade_time: float = 0.6
+## Time the screen takes to cut to black after the stare, in seconds.
+@export var fade_out_time: float = 0.2
+## Time the screen takes to fade back in after the respawn, in seconds.
+@export var fade_in_time: float = 0.6
 ## Time the black screen and its message stay up, in seconds.
 @export var message_time: float = 1.6
 
 var _player: Player
 var _entities: Array[Entity] = []
 var _is_handling: bool = false
+var _watched: Entity
 
 @onready var _fade: ColorRect = $Overlay/Fade
 @onready var _message: Label = $Overlay/Fade/Message
@@ -42,21 +47,29 @@ func _ready() -> void:
 	for node: Node in get_tree().get_nodes_in_group("entity"):
 		var entity: Entity = node as Entity
 		_entities.append(entity)
-		entity.player_caught.connect(_on_player_caught.bind(entity))
+		entity.player_caught.connect(_on_entity_player_caught.bind(entity))
+
+
+## Keeps the player's view on the face of the entity that caught them, which moves as its animation plays.
+func _process(delta: float) -> void:
+	if _watched != null:
+		_player.look_toward(_watched.face_position(), minf(follow_speed * delta, 1.0))
 
 
 ## Shakes the view as it snaps toward [param entity], fades out, and then respawns the player or ends the run.
-func _on_player_caught(entity: Entity) -> void:
+func _on_entity_player_caught(entity: Entity) -> void:
 	if _is_handling:
 		return
 	_is_handling = true
-	_player.controls_enabled = false
+	_player.is_input_enabled = false
 	_player.shake_camera(shake_strength, turn_time + hold_time)
-	await _player.face_toward(entity.eye_position(), turn_time).finished
+	await _player.face_toward(entity.face_position(), turn_time).finished
+	_watched = entity
 	await get_tree().create_timer(hold_time).timeout
 	var lives_left: int = GameSession.lose_life()
 	_message.text = _message_for(lives_left)
-	await _fade_to(1.0)
+	await _fade_to(1.0, fade_out_time)
+	_watched = null
 	await get_tree().create_timer(message_time).timeout
 	if lives_left <= 0:
 		_end_run()
@@ -64,8 +77,8 @@ func _on_player_caught(entity: Entity) -> void:
 	_player.respawn_at(spawn_point)
 	for each_entity: Entity in _entities:
 		each_entity.reset_to_start()
-	await _fade_to(0.0)
-	_player.controls_enabled = true
+	await _fade_to(0.0, fade_in_time)
+	_player.is_input_enabled = true
 	_is_handling = false
 
 
@@ -76,19 +89,19 @@ func _message_for(lives_left: int) -> String:
 	return CAUGHT_MESSAGE % [lives_left, "life" if lives_left == 1 else "lives"]
 
 
-## Fades the black overlay to [param alpha] and waits until it is done.
-func _fade_to(alpha: float) -> void:
+## Fades the black overlay to [param alpha] over [param duration] seconds and waits until it is done.
+func _fade_to(alpha: float, duration: float) -> void:
 	var tween: Tween = create_tween()
-	tween.tween_property(_fade, "modulate:a", alpha, fade_time)
+	tween.tween_property(_fade, "modulate:a", alpha, duration)
 	await tween.finished
 
 
-## Ends the run: loads the main menu with a fresh run if one is set, otherwise quits the game.
+## Ends the run as Caught: loads the run end scene if one is set, otherwise quits the game.
 func _end_run() -> void:
 	run_ended.emit()
-	if main_menu_scene.is_empty():
-		# Test levels leave the menu unset, so they close the game instead.
+	if run_end_scene.is_empty():
+		# Test levels leave the scene unset, so they close the game instead.
 		get_tree().quit()
 		return
-	GameSession.start_new_game()
-	get_tree().change_scene_to_file(main_menu_scene)
+	GameSession.ending = GameSession.Ending.CAUGHT
+	get_tree().change_scene_to_file(run_end_scene)
