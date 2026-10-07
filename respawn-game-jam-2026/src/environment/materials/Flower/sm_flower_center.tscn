@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://c7xl5eoh2f101"]
+
+[ext_resource type="PackedScene" uid="uid://cp18qvw4agkqi" path="res://src/environment/Meshes/SM_flower_center.fbx" id="1_ms3dh"]
+[ext_resource type="Material" uid="uid://b5bvv7unrcxem" path="res://src/environment/materials/Flower/Flower_Center.tres" id="2_cwupu"]
+
+[node name="SM_flower_center" unique_id=1775618243 instance=ExtResource("1_ms3dh")]
+
+[node name="SM_flower_center" parent="." index="0" unique_id=1332184244]
+material_override = ExtResource("2_cwupu")

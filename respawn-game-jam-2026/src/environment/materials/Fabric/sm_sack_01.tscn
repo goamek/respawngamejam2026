@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://dhnw3qomqlb7a"]
+
+[ext_resource type="PackedScene" uid="uid://derovfcji3g60" path="res://src/environment/Meshes/SM_Sack_01.fbx" id="1_lfnwc"]
+[ext_resource type="Material" uid="uid://c0afm24n18i3w" path="res://src/environment/materials/Fabric/Fabric.tres" id="2_1v2mo"]
+
+[node name="SM_Sack_01" unique_id=1556783956 instance=ExtResource("1_lfnwc")]
+
+[node name="SM_Sack_01" parent="." index="0" unique_id=182429193]
+material_override = ExtResource("2_1v2mo")

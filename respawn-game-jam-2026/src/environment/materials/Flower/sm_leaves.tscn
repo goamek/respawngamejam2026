@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://bdcoi4crlnvu7"]
+
+[ext_resource type="PackedScene" uid="uid://bem5lcuf5540c" path="res://src/environment/Meshes/SM_Leaves.fbx" id="1_vs7xj"]
+[ext_resource type="Material" uid="uid://tko8easd1m7b" path="res://src/environment/materials/Flower/Leaves.tres" id="2_h5rvq"]
+
+[node name="SM_Leaves" unique_id=1241828964 instance=ExtResource("1_vs7xj")]
+
+[node name="SM_Leaves" parent="." index="0" unique_id=1167313720]
+material_override = ExtResource("2_h5rvq")

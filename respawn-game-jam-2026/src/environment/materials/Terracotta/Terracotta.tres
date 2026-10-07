@@ -1,0 +1,13 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://dald6r1eym2kl"]
+
+[ext_resource type="Texture2D" uid="uid://b2ol2y3ps5nm8" path="res://src/environment/materials/Terracotta/GlazedTerracotta001_1K-JPG_Color.jpg" id="1_f80i8"]
+[ext_resource type="Texture2D" uid="uid://deapju7cer4gx" path="res://src/environment/materials/Terracotta/GlazedTerracotta001_1K-JPG_Displacement.jpg" id="2_dwlda"]
+[ext_resource type="Texture2D" uid="uid://bsfbvei5kh2vp" path="res://src/environment/materials/Terracotta/GlazedTerracotta001_1K-JPG_NormalGL.jpg" id="3_miu6e"]
+
+[resource]
+albedo_texture = ExtResource("1_f80i8")
+roughness = 0.5
+normal_enabled = true
+normal_texture = ExtResource("3_miu6e")
+heightmap_enabled = true
+heightmap_texture = ExtResource("2_dwlda")
