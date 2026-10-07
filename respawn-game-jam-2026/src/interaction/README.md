@@ -12,6 +12,10 @@ The parts a puzzle room is assembled from, and how to wire them together in the 
 | Crayon | `pickup/scenes/crayon.tscn` | Gives the flashlight a color. Can start hidden as a puzzle's reward. |
 | Door | `environment/scenes/school_door.tscn` | Opens only under its color. |
 | Safe room | `level/scripts/safe_room.gd` | Keeps the entity out of a room until its puzzle is solved. |
+| Note | `environment/scenes/note.tscn` | Paper with writing the player reads by flashlight. |
+| Wall calendar | `environment/scenes/wall_calendar.tscn` | A month with one day circled. |
+| Choice | `interaction/scripts/choice.gd` | One right answer among several things to take. |
+| Book | `environment/scenes/book.tscn` | A choice with a title, for a shelf. |
 
 To add one of the script-only pieces, add a node of the type given below, then drag the script onto it (or search for its class name in the **Create New Node** window).
 
@@ -59,6 +63,33 @@ Used for the plant growing, and for uncovering the entity.
    - **Is Enabled:** turn this off if an earlier step has to happen first.
 
 Signals: `charged` fires once when it is full. `progress_changed` fires as it fills and drains, with a number from 0 to 1, for anything that should grow or glow along with it.
+
+## Writing the player reads (note)
+
+Drag in `environment/scenes/note.tscn`. It is a sheet of pale paper with dark writing.
+
+- **Text:** what it says. Press Enter for a new line.
+- **Paper Size:** width and height of the sheet, in meters.
+- **Text Height:** height of one line, in meters. About 0.04 reads comfortably from a meter away.
+
+The paper is dim until the flashlight is on it, and the ink never glows, so the player needs a light to read it. The sheet faces along its blue arrow (Z). Turn and tilt it to lean it on a desk or hang it on a wall; it updates in the editor as you type.
+
+Keep its label on **Alpha Cut: Discard**, which is how it ships. The crayon screen effect only sees solid surfaces, so ordinary see-through text does not show up in the game at all. The same goes for any `Label3D` you add yourself.
+
+## A wall calendar
+
+Drag in `environment/scenes/wall_calendar.tscn` and set **Month Name**, **Day Count**, **First Weekday** (0 is Sunday), **Circled Day**, and **Circle Note** (the words under the grid). It draws itself, in the editor too.
+
+## One right answer among several (choice, and books)
+
+`interaction/scripts/choice.gd` is an interactable with a right or wrong answer. Tick **Is Correct** on the right ones.
+
+- A right pick fires `chosen_right`.
+- A wrong pick fires `chosen_wrong`, leaves the object where it is, and swaps its hint for **Wrong Prompt** ("Not this one") for **Wrong Prompt Time** seconds.
+
+`environment/scenes/book.tscn` is a book built on it. Set its **Title**, which shows in the hint as `Take "Title"`, and tick **Is Correct** on the one the player is after. The right book fires `taken` and comes off the shelf; connect `taken` to whatever it reveals.
+
+Example, the library: four books on `environment/scenes/bookshelf.tscn`. The right one's `taken` goes to the hidden coloring book's `show()` and to the hidden yellow crayon's `appear()`.
 
 ## Chaining steps with signals
 

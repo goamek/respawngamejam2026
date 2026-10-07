@@ -7,6 +7,12 @@
 [ext_resource type="PackedScene" path="res://src/pickup/scenes/flashlight_pickup.tscn" id="5_flashlight_pickup"]
 [ext_resource type="PackedScene" path="res://src/pickup/scenes/crayon.tscn" id="6_crayon"]
 [ext_resource type="Script" path="res://src/level/scripts/safe_room.gd" id="7_safe_room"]
+[ext_resource type="PackedScene" path="res://src/environment/scenes/desk.tscn" id="8_desk"]
+[ext_resource type="PackedScene" path="res://src/environment/scenes/note.tscn" id="9_note"]
+[ext_resource type="PackedScene" path="res://src/environment/scenes/wall_calendar.tscn" id="10_wall_calendar"]
+[ext_resource type="PackedScene" path="res://src/environment/scenes/bookshelf.tscn" id="11_bookshelf"]
+[ext_resource type="PackedScene" path="res://src/environment/scenes/book.tscn" id="12_book"]
+[ext_resource type="PackedScene" path="res://src/environment/scenes/coloring_book.tscn" id="13_coloring_book"]
 
 [sub_resource type="Environment" id="Environment_dark"]
 background_mode = 1
@@ -132,8 +138,45 @@ transform = Transform3D(0.921, 0, -0.389, 0, 1, 0, 0.389, 0, 0.921, 28.05, 1.04,
 [node name="Library" type="Node3D" parent="."]
 
 [node name="YellowCrayon" parent="Library" instance=ExtResource("6_crayon")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 0, 4.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.09, 1.2, 16.19)
 hue = 2
+starts_hidden = true
+
+[node name="Desk" parent="Library" instance=ExtResource("8_desk")]
+transform = Transform3D(1, 0, 0, 0, 0.64, 0, 0, 0, 1, 9, 0, 3.2)
+
+[node name="CheckOutSlip" parent="Library" instance=ExtResource("9_note")]
+transform = Transform3D(-1, 0, 0, 0, 0.9063, 0.4226, 0, 0.4226, -0.9063, 9, 1.0405, 3.2972)
+text = "ONE NEVER CAME BACK\n\nThe Lost Kite - Oct 3\nNight Garden - Oct 9\nMouse and Moon - Oct 14\nMy Colors - Oct 21"
+paper_size = Vector2(0.62, 0.46)
+text_height = 0.042
+
+[node name="WallCalendar" parent="Library" instance=ExtResource("10_wall_calendar")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 0.03, 1.6, 10)
+
+[node name="Bookshelf" parent="Library" instance=ExtResource("11_bookshelf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0, 16.36)
+
+[node name="TheLostKite" parent="Library/Bookshelf" instance=ExtResource("12_book")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 1.2, -0.05)
+title = "The Lost Kite"
+
+[node name="NightGarden" parent="Library/Bookshelf" instance=ExtResource("12_book")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 1.2, -0.05)
+title = "Night Garden"
+
+[node name="MyColors" parent="Library/Bookshelf" instance=ExtResource("12_book")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 1.2, -0.05)
+title = "My Colors"
+is_correct = true
+
+[node name="MouseAndMoon" parent="Library/Bookshelf" instance=ExtResource("12_book")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 1.2, -0.05)
+title = "Mouse and Moon"
+
+[node name="ColoringBook" parent="Library/Bookshelf" instance=ExtResource("13_coloring_book")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 1.2, -0.02)
+visible = false
 
 [node name="Greenhouse" type="Node3D" parent="."]
 
@@ -230,3 +273,6 @@ crayons = [NodePath("../../ArtStudio/OrangeCrayon"), NodePath("../../ArtStudio/V
 [node name="ArtStudio" type="CollisionShape3D" parent="SafeRooms/ArtStudioSafeRoom"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.35, 1.5, 6.25)
 shape = SubResource("BoxShape3D_safe_ArtStudio")
+
+[connection signal="taken" from="Library/Bookshelf/MyColors" to="Library/Bookshelf/ColoringBook" method="show"]
+[connection signal="taken" from="Library/Bookshelf/MyColors" to="Library/YellowCrayon" method="appear"]
