@@ -9,7 +9,7 @@
 [ext_resource type="AnimationLibrary" path="res://src/entity/models/catch.fbx" id="7_catch"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_body"]
-radius = 0.2
+radius = 0.15
 height = 1.8
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_body"]
