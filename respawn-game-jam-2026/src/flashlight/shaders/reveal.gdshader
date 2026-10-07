@@ -41,6 +41,11 @@ void fragment() {
 	float hue_reveals = float(flashlight_hue == hue || flashlight_hue == WHITE_HUE);
 	float reveal = in_cone * in_range * hue_reveals;
 
-	ALBEDO = mix(hidden_color, reveal_color.rgb, reveal);
-	EMISSION = reveal_color.rgb * reveal * glow_strength;
+	// While hidden the surface must not react to light at all: a beam of the wrong hue
+	// would otherwise tint it and make it look as if that hue were revealing it.
+	// So the hidden color is given off by the surface itself, and nothing is reflected.
+	ALBEDO = reveal_color.rgb * reveal;
+	EMISSION = hidden_color * (1.0 - reveal) + reveal_color.rgb * reveal * glow_strength;
+	SPECULAR = 0.0;
+	ROUGHNESS = 1.0;
 }

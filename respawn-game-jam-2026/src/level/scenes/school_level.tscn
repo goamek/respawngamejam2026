@@ -97,3 +97,13 @@ transform = Transform3D(0.921, 0, -0.389, 0, 1, 0, 0.389, 0, 0.921, 28.05, 1.04,
 [node name="YellowCrayon" parent="Library" instance=ExtResource("6_crayon")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 0, 4.5)
 hue = 2
+
+[node name="Greenhouse" type="Node3D" parent="."]
+
+[node name="GreenCrayon" parent="Greenhouse" instance=ExtResource("6_crayon")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 80.5, 0, -50.5)
+hue = 3
+
+[node name="IndigoCrayon" parent="Greenhouse" instance=ExtResource("6_crayon")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 81.5, 0, -50.5)
+hue = 5
