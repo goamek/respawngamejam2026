@@ -20,6 +20,7 @@
 [ext_resource type="PackedScene" path="res://src/environment/scenes/exit_door.tscn" id="18_exit_door"]
 [ext_resource type="Script" path="res://src/level/scripts/level_music.gd" id="19_level_music"]
 [ext_resource type="Script" path="res://src/level/scripts/hiding_spot.gd" id="20_hiding_spot"]
+[ext_resource type="Script" path="res://src/level/scripts/heartbeat.gd" id="21_heartbeat"]
 
 [sub_resource type="Environment" id="Environment_dark"]
 background_mode = 1
@@ -288,6 +289,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.8, 0, -14.5)
 [node name="LevelMusic" type="Node" parent="."]
 script = ExtResource("19_level_music")
 music_track = &"background_music_loop_quiet"
+
+[node name="Heartbeat" type="Node" parent="." node_paths=PackedStringArray("entity", "first_sighting")]
+script = ExtResource("21_heartbeat")
+entity = NodePath("../Entity")
+first_sighting = NodePath("../FirstSighting")
 
 [node name="SafeRooms" type="Node3D" parent="."]
 

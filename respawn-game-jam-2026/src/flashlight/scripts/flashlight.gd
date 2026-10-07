@@ -24,6 +24,8 @@ const _PARAM_HUE: StringName = &"flashlight_hue"
 @export var unlocked_hues: Array[Spectrum.Hue] = [Spectrum.Hue.RED]
 ## Whether the light is shining.
 @export var is_on: bool = true
+## Name in the sound library of the click played when the light is switched on or off; leave empty for none.
+@export var switch_sound: StringName = &"flashlight_switch"
 
 ## Hue the beam shines while the light is on; colorless until the first hue is unlocked.
 var current_hue: Spectrum.Hue:
@@ -57,6 +59,7 @@ func _exit_tree() -> void:
 func toggle() -> void:
 	is_on = not is_on
 	_refresh_light()
+	AudioController.play_sound(switch_sound)
 	toggled.emit(is_on)
 
 

@@ -111,9 +111,13 @@ Each of these has a slot in the Inspector, under **Sound**, holding the name of 
 | The entity takes a step | `entity_step` | `Step Sound` on the entity; `Stride Length` sets how far apart the steps are |
 | The player takes a step | `player_step` | `Step Sound` on the player; `Stride Length` sets how far apart the steps are |
 | The player crouches down | `player_crouch` | `Crouch Sound` on the player |
+| The flashlight is switched on or off | `flashlight_switch` | `Switch Sound` on the flashlight (`src/flashlight/scenes/flashlight.tscn`) |
+| The entity is a threat | `heartbeat_pair` | `Beat Sound` on the level's `Heartbeat` node |
 
 Door and entity sounds are played in the world, so they come from where the door or the entity is. The player's own sounds have no position.
 
 Music is started by a `LevelMusic` node (`src/level/scripts/level_music.gd`). Add one to a level and type a track name into `Music Track`, `Ambience Track`, or both. The tracks fade in when the level loads and fade out when it is left. The school level plays `background_music_loop_quiet`.
 
-Not hooked up yet: the door slam, unlocking, pickups, the flashlight switch, the entity's voice and catch, the puzzles, and the endings. Most of those moments already announce themselves with a signal, such as `slammed` on a door or `player_caught` on the entity, so adding a sound is one call in the function that handles the signal.
+The heartbeat is played by a `Heartbeat` node (`src/level/scripts/heartbeat.gd`), one per level, given the level's entity and its first sighting. It beats every `Tense Interval` (0.9 s) during the first sighting's stare and while the entity searches, and every `Chase Interval` (0.55 s) while the entity is running to the player or a noise, or catching. It is silent while the entity roams, pauses, walks away after the player hides, or is asleep.
+
+Not hooked up yet: the door slam, unlocking, pickups, the entity's voice and catch, the puzzles, and the endings. Most of those moments already announce themselves with a signal, such as `slammed` on a door or `player_caught` on the entity, so adding a sound is one call in the function that handles the signal.

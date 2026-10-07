@@ -170,10 +170,10 @@ All are shown in the Inspector on the entity.
 | Catching | `hiding_catch_reach` | 2.2 m | How close it must get to drag out a player it watched get into a hiding spot. Sized to reach anywhere under a desk from any side. |
 | Catching | `catch_cooldown` | 3 s | Time after a reset during which it cannot catch. |
 | Movement | `turn_speed` | 240 degrees/s | How fast it turns to face where it is walking. |
-| Movement | `speed_gain_per_hue` | 0.05 | How much faster it gets for each crayon the player has, as a fraction of its speeds. With all seven it moves 1.35 times as fast, which is faster than the player. |
+| Movement | `speed_gain_per_hue` | 0.05 | How much faster it gets for each crayon the player has, as a fraction of its speeds. With all seven it moves 1.35 times as fast, which is still slower than the player. |
 | Movement | `stuck_time` | 1.5 s | How long it may be blocked before giving up on a destination. |
 
-For comparison, the player moves at 4.5 m/s standing and 1.5 m/s crouched, and cannot sprint. An investigating entity moves at 3.8 m/s with no crayons collected, 4.37 with three, and 4.56 with four, so the player can outrun it early on and not from the fourth crayon.
+For comparison, the player moves at 5.3 m/s standing and 1.5 m/s crouched, and cannot sprint. An investigating entity moves at 3.8 m/s with no crayons collected and 5.13 with all seven, so the player can always outrun it in the open, by less and less as the game goes on.
 
 ## Model and animations
 

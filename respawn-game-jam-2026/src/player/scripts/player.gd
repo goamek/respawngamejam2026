@@ -20,7 +20,7 @@ const MOVING_SPEED: float = 0.5
 
 @export_group("Movement")
 ## Walking speed, in meters per second.
-@export var walk_speed: float = 4.5
+@export var walk_speed: float = 5.3
 ## Crouched speed, in meters per second.
 @export var crouch_speed: float = 1.5
 ## How fast the player speeds up and stops, in meters per second squared.
