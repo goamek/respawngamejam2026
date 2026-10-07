@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://6ldj3ds4lk8g"]
+
+[ext_resource type="PackedScene" uid="uid://fqcbkm0bm7sc" path="res://src/environment/Meshes/SM_Cup.fbx" id="1_ehcks"]
+[ext_resource type="Material" uid="uid://d0ew4dr8623eg" path="res://src/environment/materials/Cup.tres" id="2_ou42w"]
+
+[node name="SM_Cup" unique_id=2029447053 instance=ExtResource("1_ehcks")]
+
+[node name="SM_Cup" parent="." index="0" unique_id=438943291]
+material_override = ExtResource("2_ou42w")

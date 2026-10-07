@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://g2arnp02gu0s"]
+
+[ext_resource type="Texture2D" uid="uid://ewqjvrn8s6in" path="res://src/environment/materials/paper/Paper001_1K-JPG_Color.jpg" id="1_lfmjw"]
+[ext_resource type="Texture2D" uid="uid://dda5bbhqrw1es" path="res://src/environment/materials/paper/Paper001_1K-JPG_Roughness.jpg" id="2_n5tbs"]
+
+[resource]
+albedo_texture = ExtResource("1_lfmjw")
+roughness_texture = ExtResource("2_n5tbs")

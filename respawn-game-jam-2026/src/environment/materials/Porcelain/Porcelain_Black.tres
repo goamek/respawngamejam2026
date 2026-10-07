@@ -1,0 +1,7 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://csw8kiac0uqxs"]
+
+[ext_resource type="Texture2D" uid="uid://ey0s5xnsmjon" path="res://src/environment/materials/Porcelain/Porcelain001_1K-JPG_Color.jpg" id="1_f0l0e"]
+
+[resource]
+albedo_color = Color(0, 0, 0, 1)
+albedo_texture = ExtResource("1_f0l0e")

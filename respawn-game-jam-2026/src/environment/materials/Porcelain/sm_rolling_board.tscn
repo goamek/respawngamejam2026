@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://kc4vbukluhdy"]
+
+[ext_resource type="PackedScene" uid="uid://b8ldnjmqtyq4j" path="res://src/environment/Meshes/SM_Rolling_Board.fbx" id="1_shaar"]
+[ext_resource type="Material" uid="uid://csw8kiac0uqxs" path="res://src/environment/materials/Porcelain/Porcelain_Black.tres" id="2_vrdcw"]
+[ext_resource type="Material" uid="uid://crqq5gdm0ffhc" path="res://src/environment/materials/Porcelain/Porcelain.tres" id="3_edw1o"]
+[ext_resource type="Material" uid="uid://dnlyxndfbym2l" path="res://src/environment/materials/Wood/Wood.tres" id="4_vgylf"]
+
+[node name="SM_Rolling_Board" unique_id=2076646932 instance=ExtResource("1_shaar")]
+
+[node name="polySurface33" parent="SM_Rolling_Board" parent_id_path=PackedInt32Array(2117257005) index="0" unique_id=758830090]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.09064486, 0.4978464, -0.40166104)
+material_override = ExtResource("2_vrdcw")
+
+[node name="polySurface24" parent="SM_Rolling_Board" parent_id_path=PackedInt32Array(2117257005) index="1" unique_id=2019020542]
+material_override = ExtResource("3_edw1o")
+
+[node name="polySurface34" parent="SM_Rolling_Board" parent_id_path=PackedInt32Array(2117257005) index="2" unique_id=612114859]
+material_override = ExtResource("4_vgylf")

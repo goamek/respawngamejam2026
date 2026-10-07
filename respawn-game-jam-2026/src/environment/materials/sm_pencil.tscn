@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://b528ymx8p1cua"]
+
+[ext_resource type="PackedScene" uid="uid://br62m71msncue" path="res://src/environment/Meshes/SM_Pencil.fbx" id="1_nwee1"]
+[ext_resource type="Material" uid="uid://bivy6n6uwsi70" path="res://src/environment/materials/Pencil.tres" id="2_6gigq"]
+
+[node name="SM_Pencil" unique_id=835809175 instance=ExtResource("1_nwee1")]
+
+[node name="SM_Pencil" parent="." index="0" unique_id=803564128]
+material_override = ExtResource("2_6gigq")

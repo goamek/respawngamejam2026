@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://dn42pxmvuj52q"]
+
+[ext_resource type="PackedScene" uid="uid://bxkt7sykejd4p" path="res://src/environment/Meshes/SM_Paint_Easel.fbx" id="1_415h5"]
+[ext_resource type="Material" uid="uid://dnlyxndfbym2l" path="res://src/environment/materials/Wood/Wood.tres" id="2_abdaj"]
+[ext_resource type="Material" uid="uid://g2arnp02gu0s" path="res://src/environment/materials/paper/paper.tres" id="3_slfq1"]
+
+[node name="SM_Paint_Easel" unique_id=754367248 instance=ExtResource("1_415h5")]
+
+[node name="polySurface26" parent="SM_Paint_Easel" parent_id_path=PackedInt32Array(128531488) index="0" unique_id=16927850]
+material_override = ExtResource("2_abdaj")
+
+[node name="polySurface30" parent="SM_Paint_Easel" parent_id_path=PackedInt32Array(128531488) index="1" unique_id=1358576427]
+material_override = ExtResource("3_slfq1")

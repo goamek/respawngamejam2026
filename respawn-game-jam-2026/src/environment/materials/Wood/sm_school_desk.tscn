@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://ye0wykprswsy"]
+
+[ext_resource type="PackedScene" uid="uid://cuxl4kyjye1gp" path="res://src/environment/SM_School_Desk.fbx" id="1_do8uw"]
+[ext_resource type="Material" uid="uid://bb3aocohi3qpn" path="res://src/environment/materials/Metal_Door/Metal_Door.tres" id="2_jk6r1"]
+[ext_resource type="Material" uid="uid://dy4yulvv71cup" path="res://src/environment/materials/Wood/Wood_02.tres" id="3_davg5"]
+
+[node name="SM_School_Desk" unique_id=1114853187 instance=ExtResource("1_do8uw")]
+
+[node name="polySurface24" parent="SM_School_Desk" parent_id_path=PackedInt32Array(1490817600) index="0" unique_id=1353936054]
+material_override = ExtResource("2_jk6r1")
+
+[node name="polySurface21" parent="SM_School_Desk" parent_id_path=PackedInt32Array(1490817600) index="1" unique_id=1362775641]
+material_override = ExtResource("3_davg5")

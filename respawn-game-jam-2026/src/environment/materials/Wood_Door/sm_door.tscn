@@ -2,8 +2,16 @@
 
 [ext_resource type="PackedScene" uid="uid://cyf3k3dmpaq0h" path="res://src/environment/Meshes/SM_Door.fbx" id="1_qjc5f"]
 [ext_resource type="Material" uid="uid://5q2ycg8pqjkx" path="res://src/environment/materials/Wood_Door/Wood.tres" id="2_8h8xi"]
+[ext_resource type="PackedScene" uid="uid://byygs0gmt3b3" path="res://src/environment/materials/Metal_Door/sm_door_handle.tscn" id="3_0guhq"]
+[ext_resource type="PackedScene" uid="uid://11teb71d6bqv" path="res://src/environment/materials/Metal_Door/sm_door_window_jam.tscn" id="4_1wljb"]
 
 [node name="SM_Door" unique_id=1301109607 instance=ExtResource("1_qjc5f")]
 
-[node name="SM_Door" parent="." index="0" unique_id=1152588689]
+[node name="SM_Door" parent="." index="0" unique_id=1975564159]
 material_override = ExtResource("2_8h8xi")
+
+[node name="SM_Door_Handle" parent="SM_Door" index="0" unique_id=2063462392 instance=ExtResource("3_0guhq")]
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)
+
+[node name="SM_Door_Window_Jam" parent="SM_Door" index="1" unique_id=580509500 instance=ExtResource("4_1wljb")]
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)

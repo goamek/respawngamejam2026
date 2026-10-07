@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://dn1sql412vr1i"]
+
+[ext_resource type="PackedScene" uid="uid://camqwlm3ewgfn" path="res://src/environment/Meshes/SM_Bulletin_Board.fbx" id="1_60hin"]
+[ext_resource type="Texture2D" uid="uid://c1e7ycjdj5qhd" path="res://src/environment/materials/Wood_Door/Wood026_1K-JPG_Color.jpg" id="2_mvq73"]
+[ext_resource type="Material" uid="uid://b81jvnaeb85g8" path="res://src/environment/materials/Cork/Cork.tres" id="3_ry44t"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uofal"]
+albedo_texture = ExtResource("2_mvq73")
+
+[node name="SM_Bulletin_Board" unique_id=1984337325 instance=ExtResource("1_60hin")]
+
+[node name="polySurface19" parent="Bulletin_Board" parent_id_path=PackedInt32Array(15681752) index="0" unique_id=1140969093]
+material_override = SubResource("StandardMaterial3D_uofal")
+
+[node name="polySurface20" parent="Bulletin_Board" parent_id_path=PackedInt32Array(15681752) index="1" unique_id=1689745886]
+material_override = ExtResource("3_ry44t")
