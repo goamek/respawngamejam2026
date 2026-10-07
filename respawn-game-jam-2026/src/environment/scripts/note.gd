@@ -3,7 +3,8 @@ class_name Note
 extends Node3D
 ## Sheet of paper with writing on it, read in the world.
 ## The paper is dim until a light falls on it; the ink never glows, so the writing needs the flashlight.
-## Its label is set to cut out, not blend: the crayon screen effect only sees solid surfaces.
+
+# The label in the scene is set to cut out, not blend: the crayon screen effect only sees solid surfaces.
 
 ## Size the writing is drawn at before scaling; larger is sharper up close.
 const FONT_SIZE: int = 64

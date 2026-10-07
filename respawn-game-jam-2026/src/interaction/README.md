@@ -112,7 +112,7 @@ Example, the greenhouse: the pot is a socket with one slot, taking the four seed
 
 ## A crayon that is a reward
 
-Drag in `pickup/scenes/crayon.tscn`, set its **Hue**, and tick **Starts Hidden**. It is invisible and cannot be picked up until something calls its `appear()`.
+Drag in `pickup/scenes/crayon.tscn`, set its **Hue**, and tick **Is Hidden At Start**. It is invisible and cannot be picked up until something calls its `appear()`.
 
 ## A room the entity stays out of (safe room)
 
@@ -134,14 +134,14 @@ The entity opens every door, whatever its hue, unless the door is locked.
 
 **Is Locked** shuts a door for good. Aiming at it shows "Locked", no beam opens it (white included), it stays flat black, and the entity will not open it. Use it on every door that is not on the route. After locking or unlocking doors, re-bake the navigation mesh (`src/level/scripts/navigation_baker.gd`, File > Run), which treats locked doors as walls so the entity does not try to path through them.
 
-**Locks During Play** is for a door that starts usable, locks later (see the next section), and is still locked while the entity is roaming. The navigation bake treats such a door as a wall, so the entity never plans a route through it. Re-bake after ticking or unticking it. The library's main door does not need it: it is only locked while the entity is asleep.
+**Can Lock During Play** is for a door that starts usable, locks later (see the next section), and is still locked while the entity is roaming. The navigation bake treats such a door as a wall, so the entity never plans a route through it. Re-bake after ticking or unticking it. The library's main door does not need it: it is only locked while the entity is asleep.
 
 ## A door that locks behind the player
 
 1. Add an `Area3D` with the `DoorLockTrigger` script, and give it a `CollisionShape3D` child covering the strip of floor the player must cross. Keep it at least 1.8 m past the door, so the panel does not swing shut on them.
 2. Set **Door Path** to the door. Doors sit inside the school scene, which the node picker cannot open, so type the path by hand; copy the pattern from `Library/EntryLock` in the school level.
-3. Tick **Requires Flashlight** if it should only happen once the player is holding the flashlight.
-4. If the door will still be locked while the entity roams, tick **Locks During Play** on the door itself and re-bake the navigation mesh.
+3. Tick **Is Flashlight Required** if it should only happen once the player is holding the flashlight.
+4. If the door will still be locked while the entity roams, tick **Can Lock During Play** on the door itself and re-bake the navigation mesh.
 
 When the player walks in, the door slams shut, turns black and shows "Locked". The door's `slammed` signal fires at that moment; connect a sound to it.
 
@@ -203,7 +203,7 @@ Call `show_hint("text")` on the player to put a line of guidance in the lower pa
 
 ## A level where the flashlight is found
 
-1. Select the `Player` in the level and untick **Starts With Flashlight**. The player begins with an empty hand.
+1. Select the `Player` in the level and untick **Has Flashlight At Start**. The player begins with an empty hand.
 2. Drag in `pickup/scenes/flashlight_pickup.tscn` and place it where the flashlight should lie. It is switched on, so its beam helps the player spot it.
 
 Aiming at it shows "Pick up". Using it puts the flashlight in the player's hand.

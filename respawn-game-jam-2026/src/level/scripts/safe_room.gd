@@ -11,19 +11,10 @@ const GROUP: StringName = &"safe_room"
 
 ## Whether the entity is still kept out.
 @export var is_safe: bool = true
-## Crayons this room's puzzle awards; once the player has taken every one, the room opens to the entity.
-## Leave empty to open it another way, by calling open_to_entity().
+## Crayons this room's puzzle awards, which open the room to the entity once all are taken; leave empty to open it by calling open_to_entity().
 @export var crayons: Array[Crayon] = []
 
 var _crayons_left: int = 0
-
-
-## Whether any safe room in [param tree] is sheltering [param point], in global space.
-static func is_sheltered(tree: SceneTree, point: Vector3) -> bool:
-	for node: Node in tree.get_nodes_in_group(GROUP):
-		if (node as SafeRoom).shelters(point):
-			return true
-	return false
 
 
 ## Joins the group, switches off physics overlap checks, which the room does not use, and watches its crayons.
@@ -36,6 +27,14 @@ func _ready() -> void:
 		crayon.collected.connect(_on_crayon_collected)
 
 
+## Whether any safe room in [param tree] is sheltering [param point], in global space.
+static func is_sheltered(tree: SceneTree, point: Vector3) -> bool:
+	for node: Node in tree.get_nodes_in_group(GROUP):
+		if (node as SafeRoom).is_sheltering(point):
+			return true
+	return false
+
+
 ## Lets the entity in from now on.
 func open_to_entity() -> void:
 	if not is_safe:
@@ -45,7 +44,7 @@ func open_to_entity() -> void:
 
 
 ## Whether [param point], in global space, is inside the room while the entity is still kept out.
-func shelters(point: Vector3) -> bool:
+func is_sheltering(point: Vector3) -> bool:
 	if not is_safe:
 		return false
 	for child: Node in get_children():

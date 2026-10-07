@@ -10,7 +10,7 @@ signal triggered(player: Player)
 const PLAYER_LAYER: int = 0b10
 
 ## Whether the player must be holding the flashlight for the trigger to fire.
-@export var requires_flashlight: bool = false
+@export var is_flashlight_required: bool = false
 ## Whether the trigger fires only the first time, and never again.
 @export var is_one_shot: bool = true
 
@@ -29,7 +29,7 @@ func _on_body_entered(body: Node3D) -> void:
 	var player := body as Player
 	if player == null or (is_one_shot and _has_fired):
 		return
-	if requires_flashlight and player.flashlight == null:
+	if is_flashlight_required and player.flashlight == null:
 		return
 	_has_fired = true
 	triggered.emit(player)

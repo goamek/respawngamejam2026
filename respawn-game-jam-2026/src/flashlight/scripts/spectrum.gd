@@ -31,7 +31,6 @@ static func has_all_colors(hues: Array[Hue]) -> bool:
 	return true
 
 
-## Whether a beam of [param beam_hue] reveals an object of [param object_hue].
-## White reveals every hue; the colorless beam reveals none.
-static func reveals(beam_hue: Hue, object_hue: Hue) -> bool:
+## Whether a beam of [param beam_hue] reveals an object of [param object_hue]: white reveals every hue, the colorless beam none.
+static func can_reveal(beam_hue: Hue, object_hue: Hue) -> bool:
 	return beam_hue == object_hue or beam_hue == Hue.WHITE

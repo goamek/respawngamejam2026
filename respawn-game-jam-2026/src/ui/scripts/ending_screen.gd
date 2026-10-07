@@ -41,7 +41,7 @@ func _ready() -> void:
 	_story.text = STORIES[ending]
 	_picture.texture = _picture_for(ending)
 	_picture.visible = _picture.texture != null
-	_menu_button.pressed.connect(_on_menu_pressed)
+	_menu_button.pressed.connect(_on_menu_button_pressed)
 	_menu_button.mouse_entered.connect(_menu_button.grab_focus)
 	# A controller or keyboard can only press a button that has focus.
 	_menu_button.grab_focus()
@@ -59,6 +59,6 @@ func _picture_for(ending: GameSession.Ending) -> Texture2D:
 
 
 ## Goes back to the main menu with a fresh run ready.
-func _on_menu_pressed() -> void:
+func _on_menu_button_pressed() -> void:
 	GameSession.start_new_game()
 	get_tree().change_scene_to_file(main_menu_scene)

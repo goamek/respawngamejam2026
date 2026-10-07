@@ -132,7 +132,7 @@ run_end_scene = "res://src/ui/scenes/ending_screen.tscn"
 
 [node name="Player" parent="." unique_id=652413314 instance=ExtResource("2_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.2, 0, 27.5)
-starts_with_flashlight = false
+has_flashlight_at_start = false
 
 [node name="Lobby" type="Node3D" parent="."]
 
@@ -153,7 +153,7 @@ transform = Transform3D(0.921, 0, -0.389, 0, 1, 0, 0.389, 0, 0.921, 28.05, 1.04,
 [node name="YellowCrayon" parent="Library" instance=ExtResource("6_crayon")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.09, 1.2, 16.19)
 hue = 2
-starts_hidden = true
+is_hidden_at_start = true
 
 [node name="Desk" parent="Library" instance=ExtResource("8_desk")]
 transform = Transform3D(1, 0, 0, 0, 0.64, 0, 0, 0, 1, 9, 0, 3.2)
@@ -194,7 +194,7 @@ visible = false
 [node name="EntryLock" type="Area3D" parent="Library"]
 script = ExtResource("15_door_lock_trigger")
 door_path = NodePath("../../SchoolEnv/SM_DoubleDoor_Center8/SM_DoubleDoor_Center9/SM_Single_Door_Jam/SM_Door")
-requires_flashlight = true
+is_flashlight_required = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Library/EntryLock"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.85, 1.5, 2.4)

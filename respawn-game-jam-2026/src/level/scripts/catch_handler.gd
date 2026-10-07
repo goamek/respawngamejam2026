@@ -19,7 +19,7 @@ const GAME_OVER_MESSAGE: String = "Game Over"
 @export var turn_time: float = 0.15
 ## Time the player stares at the entity after turning, before the fade, in seconds.
 @export var hold_time: float = 1.45
-## How tightly the view follows the entity's face while the player stares at it; higher is tighter.
+## How quickly the view catches up with the entity's face while the player stares at it, as a rate per second; higher is tighter.
 @export var follow_speed: float = 12.0
 ## How far the camera jolts at the start of the shake, in meters.
 @export var shake_strength: float = 0.08
@@ -47,7 +47,7 @@ func _ready() -> void:
 	for node: Node in get_tree().get_nodes_in_group("entity"):
 		var entity: Entity = node as Entity
 		_entities.append(entity)
-		entity.player_caught.connect(_on_player_caught.bind(entity))
+		entity.player_caught.connect(_on_entity_player_caught.bind(entity))
 
 
 ## Keeps the player's view on the face of the entity that caught them, which moves as its animation plays.
@@ -57,11 +57,11 @@ func _process(delta: float) -> void:
 
 
 ## Shakes the view as it snaps toward [param entity], fades out, and then respawns the player or ends the run.
-func _on_player_caught(entity: Entity) -> void:
+func _on_entity_player_caught(entity: Entity) -> void:
 	if _is_handling:
 		return
 	_is_handling = true
-	_player.controls_enabled = false
+	_player.is_input_enabled = false
 	_player.shake_camera(shake_strength, turn_time + hold_time)
 	await _player.face_toward(entity.face_position(), turn_time).finished
 	_watched = entity
@@ -78,7 +78,7 @@ func _on_player_caught(entity: Entity) -> void:
 	for each_entity: Entity in _entities:
 		each_entity.reset_to_start()
 	await _fade_to(0.0, fade_in_time)
-	_player.controls_enabled = true
+	_player.is_input_enabled = true
 	_is_handling = false
 
 

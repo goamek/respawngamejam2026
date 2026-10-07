@@ -39,7 +39,7 @@ func _ready() -> void:
 ## Whether [param player] is carrying something that can be set down here right now.
 func can_interact(player: Player, aim_point: Vector3) -> bool:
 	var item: Carryable = player.interactor.carried
-	if is_solved or item == null or _placed.size() >= slots.size() or not accepts(item):
+	if is_solved or item == null or _placed.size() >= slots.size() or not can_accept(item):
 		return false
 	return super(player, aim_point)
 
@@ -58,13 +58,13 @@ func interact(player: Player) -> void:
 
 
 ## Whether [param item] is a kind this socket takes.
-func accepts(item: Carryable) -> bool:
+func can_accept(item: Carryable) -> bool:
 	return accepted_ids.is_empty() or accepted_ids.has(item.item_id)
 
 
 ## Keeps a full set of right items, or announces a wrong set and sends it back after a pause.
 func _judge() -> void:
-	if _holds_solution():
+	if _has_solution():
 		is_solved = true
 		solved.emit()
 		return
@@ -76,7 +76,7 @@ func _judge() -> void:
 
 
 ## Whether the placed items match the solution, in any order.
-func _holds_solution() -> bool:
+func _has_solution() -> bool:
 	if solution_ids.is_empty():
 		return true
 	var placed_ids: Array[StringName] = []

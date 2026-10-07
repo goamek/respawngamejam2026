@@ -11,9 +11,9 @@ extends Control
 ## Clears the hint and listens for changes.
 func _ready() -> void:
 	_label.text = ""
-	player.hint_changed.connect(_on_hint_changed)
+	player.hint_changed.connect(_on_player_hint_changed)
 
 
 ## Shows [param text]; empty text shows nothing.
-func _on_hint_changed(text: String) -> void:
+func _on_player_hint_changed(text: String) -> void:
 	_label.text = text

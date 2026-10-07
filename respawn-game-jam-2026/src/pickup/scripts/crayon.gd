@@ -13,7 +13,7 @@ const NEEDS_LIGHT_PROMPT: String = "You need a light"
 ## Brightness of the crayon's own glow, so it can be found in the dark.
 @export var glow: float = 0.6
 ## Whether the crayon is absent until appear() is called, as the reward for a puzzle.
-@export var starts_hidden: bool = false
+@export var is_hidden_at_start: bool = false
 
 var _collision_layer: int
 var _take_prompt: String
@@ -24,9 +24,9 @@ var _take_prompt: String
 ## Colors the crayon, hides it if it is a reward, and listens for the player picking it up.
 func _ready() -> void:
 	_apply_color()
-	_interactable.interacted.connect(_on_interacted)
+	_interactable.interacted.connect(_on_interactable_interacted)
 	_collision_layer = collision_layer
-	if starts_hidden:
+	if is_hidden_at_start:
 		visible = false
 		collision_layer = 0
 	_watch_for_flashlight()
@@ -56,16 +56,16 @@ func _watch_for_flashlight() -> void:
 		return
 	_take_prompt = _interactable.prompt
 	_interactable.prompt = NEEDS_LIGHT_PROMPT
-	player.flashlight_equipped.connect(_on_flashlight_equipped, CONNECT_ONE_SHOT)
+	player.flashlight_equipped.connect(_on_player_flashlight_equipped, CONNECT_ONE_SHOT)
 
 
 ## Puts the usual hint back once the player has a flashlight.
-func _on_flashlight_equipped(_flashlight: Flashlight) -> void:
+func _on_player_flashlight_equipped(_flashlight: Flashlight) -> void:
 	_interactable.prompt = _take_prompt
 
 
 ## Unlocks this crayon's hue on [param player]'s flashlight, then removes the crayon.
-func _on_interacted(player: Player) -> void:
+func _on_interactable_interacted(player: Player) -> void:
 	if player.flashlight == null:
 		return
 	player.flashlight.unlock_hue(hue)

@@ -1,10 +1,9 @@
 @tool
 extends EditorScript
-## Bakes the open level's navigation mesh from every solid surface in the scene, leaving doors out.
-## Locked doors, and doors that lock during play, are kept in, so the entity never plans a route through them.
-##
+## Bakes the open level's navigation mesh from every solid surface, leaving out doors unless they are locked or lock during play.
 ## Run it with File > Run in the script editor while the level is the open scene.
-## The editor's own Bake button cannot leave doors out, so closed doors would seal every doorway.
+
+# The editor's own Bake button cannot leave doors out, so closed doors would seal every doorway.
 
 # No class_name: EditorScript does not exist in exported games, so a global class would fail to load there.
 
@@ -59,7 +58,7 @@ static func _bake(level: Node) -> NavigationMesh:
 static func _is_part_of_locked_door(node: Node) -> bool:
 	# Read by property name: doors are not tool scripts, so in the editor they are placeholders.
 	while node != null:
-		if node.get(&"is_locked") == true or node.get(&"locks_during_play") == true:
+		if node.get(&"is_locked") == true or node.get(&"can_lock_during_play") == true:
 			return true
 		node = node.get_parent()
 	return false

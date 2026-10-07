@@ -1,11 +1,10 @@
 class_name DoorLockTrigger
 extends PlayerTrigger
-## Region that slams a door shut and locks it when the player walks in.
-## Connect a later event to unlock_door() to let the player back through.
+## Region that slams a door shut and locks it when the player walks in; call unlock_door() later to let them back through.
 ## Place it far enough past the door that the panel does not swing shut on the player.
 
+# A path, not a node: doors live inside the school scene, which the editor's node picker cannot reach into.
 ## Door to slam and lock.
-## A path, not a node: doors live inside the school scene, which the editor's node picker cannot reach into.
 @export var door_path: NodePath
 
 

@@ -16,7 +16,7 @@ var _collision_layer: int
 
 ## Hides the door, and waits for the player's flashlight to turn white.
 func _ready() -> void:
-	_interactable.interacted.connect(_on_interacted)
+	_interactable.interacted.connect(_on_interactable_interacted)
 	# The layer is kept on in the scene and only cleared here, so the navigation bake still routes the entity round the door.
 	_collision_layer = _body.collision_layer
 	visible = false
@@ -27,7 +27,7 @@ func _ready() -> void:
 	if player.flashlight != null:
 		_watch(player.flashlight)
 	else:
-		player.flashlight_equipped.connect(_watch, CONNECT_ONE_SHOT)
+		player.flashlight_equipped.connect(_on_player_flashlight_equipped, CONNECT_ONE_SHOT)
 
 
 ## Makes the door show up and become usable; does nothing if it already has.
@@ -44,15 +44,20 @@ func _watch(flashlight: Flashlight) -> void:
 	if flashlight.unlocked_hues.has(Spectrum.Hue.WHITE):
 		appear()
 	else:
-		flashlight.hue_unlocked.connect(_on_hue_unlocked)
+		flashlight.hue_unlocked.connect(_on_flashlight_hue_unlocked)
+
+
+## Starts watching [param flashlight] now that the player is holding it.
+func _on_player_flashlight_equipped(flashlight: Flashlight) -> void:
+	_watch(flashlight)
 
 
 ## Appears when the hue just unlocked is white.
-func _on_hue_unlocked(hue: Spectrum.Hue) -> void:
+func _on_flashlight_hue_unlocked(hue: Spectrum.Hue) -> void:
 	if hue == Spectrum.Hue.WHITE:
 		appear()
 
 
 ## Announces that [param _player] has used the door.
-func _on_interacted(_player: Player) -> void:
+func _on_interactable_interacted(_player: Player) -> void:
 	used.emit()

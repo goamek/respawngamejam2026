@@ -12,11 +12,11 @@ signal collected
 
 ## Listens for the player picking it up.
 func _ready() -> void:
-	_interactable.interacted.connect(_on_interacted)
+	_interactable.interacted.connect(_on_interactable_interacted)
 
 
 ## Hands the flashlight to [param player], then removes what is left of the pickup.
-func _on_interacted(player: Player) -> void:
+func _on_interactable_interacted(player: Player) -> void:
 	player.equip_flashlight(_flashlight)
 	collected.emit()
 	queue_free()

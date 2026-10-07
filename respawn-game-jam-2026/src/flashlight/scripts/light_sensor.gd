@@ -50,4 +50,4 @@ func _is_lit() -> bool:
 	if _player == null or _player.flashlight == null:
 		return false
 	var flashlight: Flashlight = _player.flashlight
-	return Spectrum.reveals(flashlight.current_hue, hue) and flashlight.is_lighting(global_position)
+	return Spectrum.can_reveal(flashlight.current_hue, hue) and flashlight.is_lighting(global_position)

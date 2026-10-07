@@ -1,7 +1,6 @@
 class_name FirstSighting
 extends Node3D
-## Scripted first meeting with the entity, which is kept asleep and out of sight until then.
-## It appears at the watch spot when the player nears, and the stare begins once the door that shows it has swung open.
+## Scripted first meeting with the entity, which is kept asleep until then and stares once the door that shows it has swung open.
 ## Hiding makes it walk away and start roaming; waiting too long, coming close, or opening its door makes it attack.
 
 ## Emitted when the stare begins.
@@ -19,8 +18,8 @@ signal ended
 @export var entity: Entity
 ## Region that puts the entity in place, entered before the player can see the watch spot.
 @export var arrival_trigger: PlayerTrigger
+# A path, not a node: doors live inside the school scene, which the editor's node picker cannot reach into.
 ## Door that begins the stare once it has swung fully open, because the watch spot can be seen through its doorway.
-## A path, not a node: doors live inside the school scene, which the editor's node picker cannot reach into.
 @export var stare_door_path: NodePath
 ## Region that begins the stare instead, for a level with no such door; leave empty otherwise.
 @export var stare_trigger: PlayerTrigger
@@ -60,12 +59,12 @@ func _ready() -> void:
 	entity.process_mode = Node.PROCESS_MODE_DISABLED
 	if not is_enabled:
 		return
-	arrival_trigger.triggered.connect(_on_arrival_triggered)
+	arrival_trigger.triggered.connect(_on_arrival_trigger_triggered)
 	var stare_door := get_node_or_null(stare_door_path) as Door
 	if stare_door != null:
-		stare_door.fully_opened.connect(_on_stare_door_opened, CONNECT_ONE_SHOT)
+		stare_door.fully_opened.connect(_on_stare_door_fully_opened, CONNECT_ONE_SHOT)
 	if stare_trigger != null:
-		stare_trigger.triggered.connect(_begin_stare)
+		stare_trigger.triggered.connect(_on_stare_trigger_triggered)
 
 
 ## Leaves once the player has hidden for long enough; attacks if they wait too long or come too close.
@@ -121,18 +120,28 @@ func _attack() -> void:
 func _finish() -> void:
 	set_physics_process(false)
 	_player.clear_hint()
-	if _watch_door != null and _watch_door.opened.is_connected(_attack):
-		_watch_door.opened.disconnect(_attack)
+	if _watch_door != null and _watch_door.opened.is_connected(_on_watch_door_opened):
+		_watch_door.opened.disconnect(_on_watch_door_opened)
 	ended.emit()
 
 
 ## Puts the entity in place while the player is still out of view.
-func _on_arrival_triggered(_arriving_player: Player) -> void:
+func _on_arrival_trigger_triggered(_arriving_player: Player) -> void:
 	_place_entity()
 
 
+## Begins the stare at [param player], who has walked into the trigger.
+func _on_stare_trigger_triggered(player: Player) -> void:
+	_begin_stare(player)
+
+
+## Sends the entity after the player, who has opened the door it was watching through.
+func _on_watch_door_opened() -> void:
+	_attack()
+
+
 ## Begins the stare for the player in the level.
-func _on_stare_door_opened() -> void:
+func _on_stare_door_fully_opened() -> void:
 	_begin_stare(get_tree().get_first_node_in_group("player") as Player)
 
 
@@ -146,7 +155,7 @@ func _begin_stare(player: Player) -> void:
 	_hidden_for = 0.0
 	_watch_door = get_node_or_null(watch_door_path) as Door
 	if _watch_door != null:
-		_watch_door.opened.connect(_attack)
+		_watch_door.opened.connect(_on_watch_door_opened)
 	_player.show_hint(hint)
 	set_physics_process(true)
 	started.emit()

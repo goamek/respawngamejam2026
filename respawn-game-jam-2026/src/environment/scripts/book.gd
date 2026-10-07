@@ -18,10 +18,10 @@ signal taken
 func _ready() -> void:
 	_choice.prompt = "Take \"%s\"" % title
 	_choice.is_correct = is_correct
-	_choice.chosen_right.connect(_on_chosen_right)
+	_choice.chosen_right.connect(_on_choice_chosen_right)
 
 
 ## Announces that the right book was taken, then removes it from the shelf.
-func _on_chosen_right() -> void:
+func _on_choice_chosen_right() -> void:
 	taken.emit()
 	queue_free()

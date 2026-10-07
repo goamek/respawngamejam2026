@@ -26,7 +26,7 @@ func is_revealed_by(flashlight: Flashlight) -> bool:
 
 ## Whether [param flashlight] is shining a revealing hue on [param point], in global space.
 func is_revealed_at(flashlight: Flashlight, point: Vector3) -> bool:
-	return Spectrum.reveals(flashlight.current_hue, hue) and flashlight.is_lighting(point)
+	return Spectrum.can_reveal(flashlight.current_hue, hue) and flashlight.is_lighting(point)
 
 
 ## Writes the hue and its color onto every mesh of the parent.

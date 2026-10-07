@@ -45,8 +45,7 @@ func carry(item: Carryable) -> void:
 	item.pick_up(hold_point, _player)
 
 
-## Returns the usable object under the ray, or null when there is none.
-## With full hands, only a socket that takes the carried item counts.
+## Returns the usable object under the ray, or null; with full hands, only a socket that takes the carried item counts.
 func _find_focus() -> Interactable:
 	if not is_colliding():
 		return null

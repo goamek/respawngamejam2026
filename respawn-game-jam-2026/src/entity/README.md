@@ -200,7 +200,7 @@ An agent radius of 0.25 is what keeps 1 m doorways walkable. A larger radius clo
 | `investigate(spot)` | function | Sends it to check `spot`, for example after a noise. |
 | `watch_player(rise)` | function | Makes it stand and stare at the player with its senses off; `rise` lifts it to a window. |
 | `leave_to(spot)` | function | Sends it walking to `spot` with its senses off; it roams once it arrives. |
-| `sees_player()` | function | Whether it can see the player right now. |
+| `is_player_in_sight()` | function | Whether it can see the player right now. |
 | `eye_position()` | function | Where its eyes are. The catch handler turns the player's view toward this. |
 | `reset_to_start()` | function | Puts it back where it started, pausing, unable to catch for `catch_cooldown`. |
 | `state_changed(state)` | signal | Fires on every state change. Intended for animations. |

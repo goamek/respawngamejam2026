@@ -130,7 +130,7 @@ var _search_left: float = 0.0
 var _blocked_for: float = 0.0
 var _patrol_point: Node3D
 var _player: Player
-var _sees_player: bool = false
+var _is_player_in_sight: bool = false
 var _door_to_close: Door
 var _door_start_side: float = 0.0
 var _catch_cooldown_left: float = 0.0
@@ -161,15 +161,14 @@ func _ready() -> void:
 	# Its own copy, so tinting this entity never changes another one.
 	_body_material = _body_mesh.material_override.duplicate() as StandardMaterial3D
 	_body_mesh.material_override = _body_material
-	_animation.mixer_applied.connect(_tilt_head)
+	_animation.mixer_applied.connect(_on_animation_mixer_applied)
 	_play_state_animation()
 
 
 ## Checks for the player, tries to catch them, runs the current state, then moves the body.
-## Open doors it bumps into stop being solid to it, so a door left open never traps it.
 func _physics_process(delta: float) -> void:
 	if _is_scripted():
-		_sees_player = false
+		_is_player_in_sight = false
 	else:
 		_update_sight()
 		_try_catch(delta)
@@ -196,6 +195,7 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * delta
 	var wanted := Vector3(velocity.x, 0.0, velocity.z)
 	move_and_slide()
+	# An open door it bumps into stops being solid to it, so a door left open never traps it.
 	_pass_open_doors()
 	_step_up(wanted)
 
@@ -210,12 +210,11 @@ func investigate(spot: Vector3) -> void:
 		_set_state(State.INVESTIGATING)
 
 
-## Makes the entity stand where it is and stare at the player, noticing and catching nothing, until told otherwise.
-## [param rise] lifts the model that far off the floor, in meters, to bring its face up to a window.
-## [param head_tilt] tips its head sideways by that many degrees; positive leans the top of the head to the left as the player sees it.
+## Makes the entity stand and stare at the player with its senses off, lifted [param rise] meters and with its head tipped [param head_tilt] degrees.
 func watch_player(rise: float = 0.0, head_tilt: float = 0.0) -> void:
 	_set_state(State.WATCHING)
 	_model.position.y = rise
+	# A positive tilt leans the top of the head to the left as the player sees it.
 	_head_tilt_wanted = deg_to_rad(head_tilt)
 
 
@@ -227,8 +226,8 @@ func leave_to(spot: Vector3) -> void:
 
 
 ## Whether the entity can currently see the player.
-func sees_player() -> bool:
-	return _sees_player
+func is_player_in_sight() -> bool:
+	return _is_player_in_sight
 
 
 ## Returns the fixed point the entity sees from, in global space.
@@ -245,7 +244,7 @@ func face_position() -> Vector3:
 func reset_to_start() -> void:
 	global_transform = _start_transform
 	velocity = Vector3.ZERO
-	_sees_player = false
+	_is_player_in_sight = false
 	_door_to_close = null
 	_catch_cooldown_left = catch_cooldown
 	_uncover_held = 0.0
@@ -258,16 +257,16 @@ func reset_to_start() -> void:
 func _update_sight() -> void:
 	var can_see: bool = _can_see_player()
 	if can_see and state != State.CATCHING:
-		if not _sees_player:
+		if not _is_player_in_sight:
 			player_spotted.emit()
 		investigate(_player.global_position)
-	_sees_player = can_see
+	_is_player_in_sight = can_see
 
 
 ## Catches the player when it can see them, they are within reach, and it is facing them.
 func _try_catch(delta: float) -> void:
 	_catch_cooldown_left = maxf(_catch_cooldown_left - delta, 0.0)
-	if state == State.CATCHING or _catch_cooldown_left > 0.0 or not _sees_player:
+	if state == State.CATCHING or _catch_cooldown_left > 0.0 or not _is_player_in_sight:
 		return
 	if _is_off_limits(_player.global_position):
 		return
@@ -277,8 +276,7 @@ func _try_catch(delta: float) -> void:
 		player_caught.emit()
 
 
-## Whether [param point] is within catching reach and within the catch angle of straight ahead.
-## Points closer than [constant OVERLAP_DISTANCE] count whatever the angle, since bodies can overlap.
+## Whether [param point] is within catching reach and the catch angle, or close enough to overlap the entity.
 func _is_within_reach(point: Vector3) -> bool:
 	var to_point: Vector3 = point - global_position
 	to_point.y = 0.0
@@ -308,7 +306,7 @@ func _process_roaming(delta: float) -> void:
 func _process_investigating(delta: float) -> void:
 	if not _follow_path(investigate_speed * _speed_scale(), delta):
 		return
-	if _sees_player:
+	if _is_player_in_sight:
 		_stop()
 		_face_point(last_known_position, delta)
 	else:
@@ -371,7 +369,7 @@ func _update_uncovering(delta: float) -> void:
 
 ## Whether the player's beam is white and on the entity, while the entity can see the player.
 func _is_in_white_beam() -> bool:
-	if not _sees_player or _player.flashlight == null:
+	if not _is_player_in_sight or _player.flashlight == null:
 		return false
 	var flashlight: Flashlight = _player.flashlight
 	return flashlight.current_hue == Spectrum.Hue.WHITE and flashlight.is_lighting(global_position + Vector3.UP * UNCOVER_POINT_HEIGHT)
@@ -407,8 +405,7 @@ func _start_searching() -> void:
 	_set_state(State.SEARCHING)
 
 
-## Moves one step along the current path at [param speed]; returns true on arrival, when stuck,
-## or when the next step would take it into a room it is still kept out of.
+## Whether the entity is done with its path after one more step at [param speed]: arrived, stuck, or about to enter a room it is kept out of.
 func _follow_path(speed: float, delta: float) -> bool:
 	if _agent.is_navigation_finished() or _is_stuck(speed, delta):
 		return true
@@ -427,8 +424,7 @@ func _follow_path(speed: float, delta: float) -> bool:
 	return false
 
 
-## Opens a closed door just ahead in [param direction], of any hue, swinging it away from the entity.
-## A locked door is left alone.
+## Opens a closed, unlocked door just ahead in [param direction], whatever its hue, swinging it away from the entity.
 func _open_door_ahead(direction: Vector3) -> void:
 	var from: Vector3 = global_position + Vector3.UP * DOOR_CHECK_HEIGHT
 	var query := PhysicsRayQueryParameters3D.create(from, from + direction * DOOR_REACH, WORLD_MASK, [get_rid()])
@@ -526,11 +522,11 @@ func _pick_patrol_point() -> Node3D:
 func _can_see_player() -> bool:
 	if _player == null:
 		return false
-	return _sees_player_body() or _sees_flashlight_spot()
+	return _can_see_player_body() or _can_see_flashlight_spot()
 
 
 ## Whether the player is noticeable, and their head or body is in view with nothing in between.
-func _sees_player_body() -> bool:
+func _can_see_player_body() -> bool:
 	if not _is_noticeable(_player):
 		return false
 	var body_point: Vector3 = _player.global_position + Vector3.UP * PLAYER_BODY_HEIGHT
@@ -541,7 +537,7 @@ func _sees_player_body() -> bool:
 
 
 ## Whether the spot the player's beam lands on is in view, which tells the entity where the light comes from.
-func _sees_flashlight_spot() -> bool:
+func _can_see_flashlight_spot() -> bool:
 	if _player.flashlight == null:
 		return false
 	var hit: Dictionary = _player.flashlight.find_lit_spot()
@@ -618,9 +614,9 @@ func _set_state(new_state: State) -> void:
 	state_changed.emit(state)
 
 
-## Starts the leap: picks where the face is held, just above the player's eyes and a lunge closer to them.
-## It is shorter than the player and hunches as it screams. Only the model moves; the body that collides stays put.
+## Starts the leap by picking where the face is held: just above the player's eyes and a lunge closer to them.
 func _leap_at_player() -> void:
+	# It is shorter than the player and hunches as it screams. Only the model moves; the body that collides stays put.
 	var eyes: Vector3 = _player.settled_eye_position()
 	var face: Vector3 = face_position()
 	var gap: float = Vector2(face.x - eyes.x, face.z - eyes.z).length()
@@ -629,8 +625,8 @@ func _leap_at_player() -> void:
 
 
 ## Moves the model so its face reaches the leap spot in about the leap time, and then stays there.
-## The catch animation hunches down and leans in; left alone, the face would drift and drag the player's view with it.
 func _hold_face_in_place(delta: float) -> void:
+	# The catch animation hunches down and leans in; left alone, the face would drift and drag the player's view with it.
 	var eyes: Vector3 = _player.settled_eye_position()
 	var face: Vector3 = face_position()
 	var gap: float = Vector2(face.x - eyes.x, face.z - eyes.z).length()
@@ -649,7 +645,7 @@ func _land() -> void:
 
 
 ## Tips the head sideways on top of the pose the animation has just written, easing toward the tilt wanted while watching and back upright otherwise.
-func _tilt_head() -> void:
+func _on_animation_mixer_applied() -> void:
 	var wanted: float = _head_tilt_wanted if state == State.WATCHING else 0.0
 	_head_tilt = move_toward(_head_tilt, wanted, deg_to_rad(HEAD_TILT_SPEED) * get_process_delta_time())
 	if is_zero_approx(_head_tilt):

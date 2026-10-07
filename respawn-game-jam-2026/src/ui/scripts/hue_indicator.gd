@@ -20,30 +20,30 @@ var _swatches: Dictionary[Spectrum.Hue, ColorRect] = {}
 
 ## Waits for the player to take hold of a flashlight.
 func _ready() -> void:
-	player.flashlight_equipped.connect(_on_flashlight_equipped)
+	player.flashlight_equipped.connect(_on_player_flashlight_equipped)
 
 
 ## Starts following [param flashlight] and draws its hues.
-func _on_flashlight_equipped(flashlight: Flashlight) -> void:
+func _on_player_flashlight_equipped(flashlight: Flashlight) -> void:
 	_flashlight = flashlight
-	flashlight.hue_unlocked.connect(_on_hue_unlocked)
-	flashlight.hue_changed.connect(_on_hue_changed)
-	flashlight.toggled.connect(_on_toggled)
+	flashlight.hue_unlocked.connect(_on_flashlight_hue_unlocked)
+	flashlight.hue_changed.connect(_on_flashlight_hue_changed)
+	flashlight.toggled.connect(_on_flashlight_toggled)
 	_rebuild()
 
 
 ## Adds a swatch when a new hue is unlocked.
-func _on_hue_unlocked(_hue: Spectrum.Hue) -> void:
+func _on_flashlight_hue_unlocked(_hue: Spectrum.Hue) -> void:
 	_rebuild()
 
 
 ## Moves the highlight when the beam changes hue.
-func _on_hue_changed(_hue: Spectrum.Hue) -> void:
+func _on_flashlight_hue_changed(_hue: Spectrum.Hue) -> void:
 	_refresh()
 
 
 ## Dims or restores the row when the light is switched.
-func _on_toggled(_is_on: bool) -> void:
+func _on_flashlight_toggled(_is_on: bool) -> void:
 	_refresh()
 
 

@@ -43,8 +43,9 @@ func play(ending: GameSession.Ending, delay: float = 0.0) -> void:
 	ending_started.emit(ending)
 	var player := get_tree().get_first_node_in_group("player") as Player
 	if player != null:
-		player.controls_enabled = false
+		player.is_input_enabled = false
 		player.clear_hint()
+	# The uncovered entity is left running: it is already harmless, and should keep moving while it is looked at.
 	if ending != GameSession.Ending.UNCOVERED:
 		_freeze_entities()
 	if delay > 0.0:
@@ -57,7 +58,6 @@ func play(ending: GameSession.Ending, delay: float = 0.0) -> void:
 
 
 ## Stops every entity where it stands, so none can catch the player during the fade.
-## The uncovered entity is left running: it is already harmless, and should keep moving while it is looked at.
 func _freeze_entities() -> void:
 	for node: Node in get_tree().get_nodes_in_group("entity"):
 		node.process_mode = Node.PROCESS_MODE_DISABLED

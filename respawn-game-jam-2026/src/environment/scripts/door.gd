@@ -1,7 +1,6 @@
 class_name Door
 extends Node3D
-## Hinged door that swings open and closed when used.
-## The player can only use it under its hue, unless it is a plain door; the entity opens it regardless.
+## Hinged door that swings open and closed: for the player only under its hue, unless it is plain, and for the entity always.
 ## A locked door stays shut, to the player and the entity alike, until something unlocks it.
 
 ## Emitted when the door starts to open.
@@ -26,9 +25,8 @@ const LOCKED_PROMPT: String = "Locked"
 @export var hue: Spectrum.Hue = Spectrum.Hue.RED
 ## Whether the door is locked: nobody can use it and the entity will not open it.
 @export var is_locked: bool = false
-## Whether the door will lock part way through the game and stay locked while the entity is about.
-## The entity's routes are planned as if it were locked already; re-bake the navigation mesh after changing this.
-@export var locks_during_play: bool = false
+## Whether the door will lock during play while the entity is about, so its routes treat the door as a wall; re-bake the navigation mesh after changing this.
+@export var can_lock_during_play: bool = false
 ## Material a plain door wears in place of the reveal material; leave empty to keep it dark.
 @export var plain_material: Material
 ## Material a locked door wears, so that no beam lights it up; leave empty to keep the reveal material.
@@ -52,15 +50,6 @@ var _original_materials: Dictionary[MeshInstance3D, Array] = {}
 @onready var _interactable: Interactable = $Hinge/Panel/Interactable
 
 
-## Returns the Door that [param node] is part of, such as its panel, or null if it is not part of one.
-static func find_owner(node: Node) -> Door:
-	while node != null:
-		if node is Door:
-			return node
-		node = node.get_parent()
-	return null
-
-
 ## Sets the door up as locked, plain, or colored, and listens for the player using it.
 func _ready() -> void:
 	_remember_materials()
@@ -68,7 +57,16 @@ func _ready() -> void:
 		_become_locked()
 	else:
 		_become_usable()
-	_interactable.interacted.connect(_on_interacted)
+	_interactable.interacted.connect(_on_interactable_interacted)
+
+
+## Returns the Door that [param node] is part of, such as its panel, or null if it is not part of one.
+static func find_owner(node: Node) -> Door:
+	while node != null:
+		if node is Door:
+			return node
+		node = node.get_parent()
+	return null
 
 
 ## Swings the door open; [param direction] of 1 or -1 picks which way it swings.
@@ -185,7 +183,7 @@ func _direction_away_from(body: Node3D) -> float:
 
 
 ## Closes the door if it is open, otherwise opens it away from [param player].
-func _on_interacted(player: Player) -> void:
+func _on_interactable_interacted(player: Player) -> void:
 	if is_open:
 		close()
 	else:
