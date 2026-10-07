@@ -14,6 +14,8 @@ signal dropped
 @export var max_follow_speed: float = 10.0
 ## Distance from the hold point at which the body is dropped, in meters.
 @export var break_distance: float = 3.0
+## Name in the sound library of the sound played when the player picks this up; leave empty for none.
+@export var pickup_sound: StringName = &"pickup"
 
 ## Whether the body is sitting in a socket, where it cannot be picked up.
 var is_placed: bool = false
@@ -54,8 +56,9 @@ func interact(player: Player) -> void:
 	player.interactor.carry(self)
 
 
-## Starts following [param hold_point] and stops colliding with [param carrier].
+## Starts following [param hold_point] and stops colliding with [param carrier], with the pickup sound.
 func pick_up(hold_point: Node3D, carrier: PhysicsBody3D) -> void:
+	AudioController.play_sound(pickup_sound)
 	if not _has_home:
 		_home = _body.global_transform
 		_has_home = true

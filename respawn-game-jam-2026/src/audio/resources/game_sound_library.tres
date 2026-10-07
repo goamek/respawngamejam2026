@@ -59,6 +59,7 @@ stream = ExtResource("5_x88ou")
 [sub_resource type="Resource" id="Resource_pplmu"]
 script = ExtResource("1_xwbq8")
 stream = ExtResource("6_x5rtg")
+volume_db = -18.0
 
 [sub_resource type="Resource" id="Resource_onhtk"]
 script = ExtResource("1_xwbq8")

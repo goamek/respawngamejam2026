@@ -112,6 +112,7 @@ Each of these has a slot in the Inspector, under **Sound**, holding the name of 
 | The player takes a step | `player_step` | `Step Sound` on the player; `Stride Length` sets how far apart the steps are |
 | The player crouches down | `player_crouch` | `Crouch Sound` on the player |
 | The flashlight is switched on or off | `flashlight_switch` | `Switch Sound` on the flashlight (`src/flashlight/scenes/flashlight.tscn`) |
+| The player picks something up: a crayon, the flashlight, an object to carry, or a library book (right or wrong) | `pickup` | `Pickup Sound` on the crayon, the flashlight pickup, the carried object's `Carryable` node, or the book |
 | The entity is a threat | `heartbeat_pair` | `Beat Sound` on the level's `Heartbeat` node |
 
 Door and entity sounds are played in the world, so they come from where the door or the entity is. The player's own sounds have no position.

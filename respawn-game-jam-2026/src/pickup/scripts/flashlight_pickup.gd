@@ -13,6 +13,8 @@ const OUTLINE_DIM_COLOR: Color = Color(0.45, 0.45, 0.45)
 
 ## Guidance shown on screen from the pickup until the player first switches the light; leave empty for none.
 @export var hint: String = "Press F or right click to turn the flashlight on and off (RT on a controller)"
+## Name in the sound library of the sound played when the player picks this up; leave empty for none.
+@export var pickup_sound: StringName = &"pickup"
 
 @onready var _interactable: Interactable = $Interactable
 @onready var _flashlight: Flashlight = $Flashlight
@@ -29,6 +31,7 @@ func _ready() -> void:
 ## Hands the flashlight to [param player] with a hint on how to switch it, then removes what is left of the pickup.
 func _on_interactable_interacted(player: Player) -> void:
 	player.equip_flashlight(_flashlight)
+	AudioController.play_sound(pickup_sound)
 	if not hint.is_empty():
 		player.show_hint(hint)
 		# The flashlight outlives this pickup, so it is the one that takes the hint away again.
