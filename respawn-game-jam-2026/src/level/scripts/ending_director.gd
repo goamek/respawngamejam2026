@@ -1,6 +1,6 @@
 class_name EndingDirector
 extends Node
-## Ends the run from inside a level: takes the controls and the on-screen display away, fades to black, and loads the ending screen.
+## Ends the run from inside a level: takes the controls and the on-screen display away, starts the ending music, fades to black, and loads the ending screen.
 ## Connect whatever finishes the game to play_escape() or play_uncovered().
 
 ## Emitted when an ending starts, before the fade.
@@ -41,6 +41,8 @@ func play(ending: GameSession.Ending, delay: float = 0.0) -> void:
 		return
 	is_playing = true
 	ending_started.emit(ending)
+	# Started now, not on the card, so the music rises as the level falls away.
+	EndingScreen.play_music_for(ending, fade_time)
 	var player := get_tree().get_first_node_in_group("player") as Player
 	if player != null:
 		player.is_input_enabled = false

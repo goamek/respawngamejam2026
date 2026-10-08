@@ -25,8 +25,8 @@ func _ready() -> void:
 		_fades.append(null)
 
 
-## Fades to [param stream] over [param fade_time] seconds and loops it; does nothing if it is already playing.
-func play(stream: AudioStream, fade_time: float) -> void:
+## Fades to [param stream] over [param fade_time] seconds and loops it at [param volume] times full volume; does nothing if it is already playing.
+func play(stream: AudioStream, fade_time: float, volume: float = 1.0) -> void:
 	if stream == _current:
 		return
 	_fade(_active_index, 0.0, fade_time)
@@ -35,7 +35,7 @@ func play(stream: AudioStream, fade_time: float) -> void:
 	var player: AudioStreamPlayer = _players[_active_index]
 	player.stream = stream
 	player.play()
-	_fade(_active_index, full_volume, fade_time)
+	_fade(_active_index, full_volume * volume, fade_time)
 
 
 ## Fades the current track out over [param fade_time] seconds and stops it.

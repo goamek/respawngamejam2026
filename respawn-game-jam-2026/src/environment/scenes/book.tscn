@@ -7,6 +7,10 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_book"]
 size = Vector3(0.11, 0.4031, 0.2884)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cover"]
+albedo_color = Color(0.02, 0.02, 0.025, 1)
+roughness = 0.8
+
 [node name="Book" type="StaticBody3D"]
 collision_layer = 4
 collision_mask = 0
@@ -15,6 +19,9 @@ script = ExtResource("1_book")
 [node name="Cover" parent="." instance=ExtResource("3_model")]
 transform = Transform3D(0, -1.5, 0, 0, 0, 1.75, -1.5, 0, 0, 0, 0.1915, 0)
 
+[node name="polySurface31" parent="Cover/SM_Book" index="0"]
+material_override = SubResource("StandardMaterial3D_cover")
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1915, -0.02)
 shape = SubResource("BoxShape3D_book")
@@ -22,3 +29,5 @@ shape = SubResource("BoxShape3D_book")
 [node name="Choice" type="Node" parent="."]
 script = ExtResource("2_choice")
 prompt = "Take"
+
+[editable path="Cover"]

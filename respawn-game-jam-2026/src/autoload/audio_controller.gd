@@ -106,11 +106,16 @@ func stop_loop(cue_name: StringName, fade_time: float = 0.15) -> void:
 		_loops[cue_name].stop(fade_time)
 
 
-## Fades to the music track called [param track_name] over [param fade_time] seconds and loops it.
-func play_music(track_name: StringName, fade_time: float = 1.0) -> void:
+## Fades to the music track called [param track_name] over [param fade_time] seconds and loops it, at [param volume] times its usual loudness.
+func play_music(track_name: StringName, fade_time: float = 1.0, volume: float = 1.0) -> void:
 	var track: AudioStream = _find_track(track_name)
 	if track != null:
-		_music.play(track, fade_time)
+		_music.play(track, fade_time, volume)
+
+
+## Whether the music track called [param track_name] is the one playing or fading in.
+func is_playing_music(track_name: StringName) -> bool:
+	return not track_name.is_empty() and _music.current_stream() == _find_track(track_name)
 
 
 ## Fades the music out over [param fade_time] seconds.

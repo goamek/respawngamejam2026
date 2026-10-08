@@ -8,7 +8,8 @@
 [ext_resource type="PackedScene" path="res://src/pickup/scenes/crayon.tscn" id="6_crayon"]
 [ext_resource type="Script" uid="uid://cgmjnkj3oiuau" path="res://src/level/scripts/safe_room.gd" id="7_safe_room"]
 [ext_resource type="PackedScene" path="res://src/environment/scenes/note.tscn" id="9_note"]
-[ext_resource type="PackedScene" path="res://src/environment/scenes/wall_calendar.tscn" id="10_wall_calendar"]
+[ext_resource type="Texture2D" path="res://src/environment/Decals/library_calendar.png" id="10_library_calendar"]
+[ext_resource type="Texture2D" path="res://src/environment/Decals/library_checkout.png" id="10_library_checkout"]
 [ext_resource type="PackedScene" path="res://src/environment/scenes/book.tscn" id="12_book"]
 [ext_resource type="PackedScene" path="res://src/environment/scenes/coloring_book.tscn" id="13_coloring_book"]
 [ext_resource type="Script" uid="uid://dfshmprncprm" path="res://src/level/scripts/player_trigger.gd" id="14_player_trigger"]
@@ -132,7 +133,7 @@ ExtResource("41_petals_02"): 4,
 ExtResource("41_locker_02"): 5,
 ExtResource("41_book_02"): 6
 })
-pictures = Array[Texture2D]([ExtResource("31_poster"), ExtResource("32_poster"), ExtResource("33_poster"), ExtResource("34_poster"), ExtResource("35_poster"), ExtResource("42_scoreboard"), ExtResource("42_evacuation_map"), ExtResource("42_drawing_a"), ExtResource("42_drawing_b"), ExtResource("42_drawing_c"), ExtResource("42_drawing_d"), ExtResource("42_drawing_e")])
+pictures = Array[Texture2D]([ExtResource("10_library_calendar"), ExtResource("31_poster"), ExtResource("32_poster"), ExtResource("33_poster"), ExtResource("34_poster"), ExtResource("35_poster"), ExtResource("42_scoreboard"), ExtResource("42_evacuation_map"), ExtResource("42_drawing_a"), ExtResource("42_drawing_b"), ExtResource("42_drawing_c"), ExtResource("42_drawing_d"), ExtResource("42_drawing_e")])
 painted = Dictionary[Texture2D, int]({
 ExtResource("42_court"): 2
 })
@@ -211,19 +212,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.52, 1.07, 16.16)
 hue = 2
 is_hidden_at_start = true
 
-[node name="CheckOutSlip" parent="Library" unique_id=1583216957 instance=ExtResource("9_note")]
+[node name="CheckOutSlip" type="Sprite3D" parent="Library" unique_id=1583216957]
 transform = Transform3D(-1, 0, 0, 0, 0, 1, 0, 1, 0, 9, 0.975, 3.2)
-text = "ONE NEVER CAME BACK
+pixel_size = 0.00053
+shaded = true
+transparent = false
+texture = ExtResource("10_library_checkout")
 
-The Lost Kite - Oct 3
-Night Garden - Oct 9
-Mouse and Moon - Oct 14
-My Colors - Oct 21"
-paper_size = Vector2(0.62, 0.46)
-text_height = 0.042
-
-[node name="WallCalendar" parent="Library" unique_id=183894882 instance=ExtResource("10_wall_calendar")]
+[node name="WallCalendar" type="Sprite3D" parent="Library" unique_id=183894882]
 transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 0.03, 1.6, 8.3)
+pixel_size = 0.000886
+shaded = true
+transparent = false
+texture = ExtResource("10_library_calendar")
 
 [node name="EntryLock" type="Area3D" parent="Library" unique_id=133095136]
 script = ExtResource("15_door_lock_trigger")
