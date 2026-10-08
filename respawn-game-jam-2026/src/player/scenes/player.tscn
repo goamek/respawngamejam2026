@@ -41,7 +41,7 @@ current = true
 [node name="CrayonEffect" parent="Head/Camera3D" instance=ExtResource("7_crayon_effect")]
 
 [node name="Hand" type="Marker3D" parent="Head"]
-transform = Transform3D(0.9943, -0.0102, -0.1057, 0, 0.9954, -0.0961, 0.1062, 0.0956, 0.9898, -0.22, -0.2, -0.35)
+transform = Transform3D(0.1626, -0.981, -0.1057, 0.9802, 0.1728, -0.0961, 0.1125, -0.088, 0.9897, -0.22, -0.2, -0.35)
 
 [node name="Flashlight" parent="Head/Hand" instance=ExtResource("2_flashlight")]
 
