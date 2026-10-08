@@ -1,6 +1,6 @@
 class_name EndingDirector
 extends Node
-## Ends the run from inside a level: takes the controls away, fades to black, and loads the ending screen.
+## Ends the run from inside a level: takes the controls and the on-screen display away, fades to black, and loads the ending screen.
 ## Connect whatever finishes the game to play_escape() or play_uncovered().
 
 ## Emitted when an ending starts, before the fade.
@@ -45,6 +45,7 @@ func play(ending: GameSession.Ending, delay: float = 0.0) -> void:
 	if player != null:
 		player.is_input_enabled = false
 		player.clear_hint()
+		player.hide_hud()
 	# The uncovered entity is left running: it is already harmless, and should keep moving while it is looked at.
 	if ending != GameSession.Ending.UNCOVERED:
 		_freeze_entities()

@@ -18,6 +18,8 @@ const STORIES: Dictionary[int, String] = {
 
 ## Scene loaded when the player leaves the card.
 @export_file("*.tscn") var main_menu_scene: String = ""
+## Time the card takes to fade in out of the black, in seconds.
+@export var fade_in_time: float = 1.2
 ## Picture for the Escape ending; leave empty to show text only.
 @export var escape_picture: Texture2D
 ## Picture for the Uncovered ending; leave empty to show text only.
@@ -25,13 +27,14 @@ const STORIES: Dictionary[int, String] = {
 ## Picture for the Caught ending; leave empty to show text only.
 @export var caught_picture: Texture2D
 
+@onready var _card: Control = $Card
 @onready var _picture: TextureRect = $Card/Picture
 @onready var _title: Label = $Card/Title
 @onready var _story: Label = $Card/Story
 @onready var _menu_button: Button = $Card/MenuButton
 
 
-## Frees the mouse, fills in the card for the ending that was reached, and highlights the button.
+## Frees the mouse, fills in the card for the ending that was reached, highlights the button, and fades the card in.
 func _ready() -> void:
 	assert(not main_menu_scene.is_empty(), "EndingScreen needs a main menu scene.")
 	# The player captures the mouse while playing, so it arrives here still hidden.
@@ -45,6 +48,8 @@ func _ready() -> void:
 	_menu_button.mouse_entered.connect(_menu_button.grab_focus)
 	# A controller or keyboard can only press a button that has focus.
 	_menu_button.grab_focus()
+	_card.modulate.a = 0.0
+	create_tween().tween_property(_card, "modulate:a", 1.0, fade_in_time)
 
 
 ## Returns the picture set for [param ending], or null when there is none.

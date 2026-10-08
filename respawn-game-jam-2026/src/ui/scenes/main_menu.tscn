@@ -1,9 +1,9 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://bet8qjyu0qljv"]
 
-[ext_resource type="Script" path="res://src/ui/scripts/main_menu.gd" id="1_main_menu"]
-[ext_resource type="Texture2D" path="res://src/ui/images/what_i_drew_title.png" id="2_title"]
+[ext_resource type="Script" uid="uid://bbmyibf4cyvqm" path="res://src/ui/scripts/main_menu.gd" id="1_main_menu"]
+[ext_resource type="Texture2D" uid="uid://b6ijh645mwp0r" path="res://src/ui/images/what_i_drew_title.png" id="2_title"]
 
-[node name="MainMenu" type="Control"]
+[node name="MainMenu" type="Control" unique_id=2139348359]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,7 +13,7 @@ grow_vertical = 2
 script = ExtResource("1_main_menu")
 game_scene = "res://src/level/scenes/school_level.tscn"
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="." unique_id=1133093884]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -23,19 +23,19 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
-[node name="Title" type="TextureRect" parent="."]
+[node name="Title" type="TextureRect" parent="." unique_id=1804097172]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_top = 20.0
-offset_bottom = 680.0
+offset_top = 79.0
+offset_bottom = 739.0
 grow_horizontal = 2
 mouse_filter = 2
 texture = ExtResource("2_title")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Buttons" type="VBoxContainer" parent="."]
+[node name="Buttons" type="VBoxContainer" parent="." unique_id=1229487402]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -43,60 +43,60 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -240.0
-offset_top = 150.0
+offset_top = 232.0
 offset_right = 240.0
-offset_bottom = 400.0
+offset_bottom = 482.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 6
 
-[node name="StartButton" type="Button" parent="Buttons"]
+[node name="StartButton" type="Button" parent="Buttons" unique_id=1463716202]
 layout_mode = 2
 focus_neighbor_top = NodePath("../QuitButton")
 focus_neighbor_bottom = NodePath("../ControlsButton")
 theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
 theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
 theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
 theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 34
 text = "Start Game"
 flat = true
 
-[node name="ControlsButton" type="Button" parent="Buttons"]
+[node name="ControlsButton" type="Button" parent="Buttons" unique_id=2135187899]
 layout_mode = 2
 focus_neighbor_top = NodePath("../StartButton")
 focus_neighbor_bottom = NodePath("../CreditsButton")
 theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
 theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
 theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
 theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 34
 text = "Controls"
 flat = true
 
-[node name="CreditsButton" type="Button" parent="Buttons"]
+[node name="CreditsButton" type="Button" parent="Buttons" unique_id=1830832844]
 layout_mode = 2
 focus_neighbor_top = NodePath("../ControlsButton")
 focus_neighbor_bottom = NodePath("../QuitButton")
 theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
 theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
 theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
 theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 34
 text = "Credits"
 flat = true
 
-[node name="QuitButton" type="Button" parent="Buttons"]
+[node name="QuitButton" type="Button" parent="Buttons" unique_id=1737529727]
 layout_mode = 2
 focus_neighbor_top = NodePath("../CreditsButton")
 focus_neighbor_bottom = NodePath("../StartButton")
 theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
 theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
 theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
 theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 34
 text = "Quit Game"

@@ -75,6 +75,7 @@ var _stride_travelled: float = 0.0
 @onready var _collision_shape: CollisionShape3D = $CollisionShape3D
 @onready var _ceiling_check: ShapeCast3D = $CeilingCheck
 @onready var _body_shape: CapsuleShape3D = _collision_shape.shape as CapsuleShape3D
+@onready var _hud: CanvasLayer = $HUD
 
 
 ## Captures the mouse, sizes the body from the exported heights, and takes or discards the flashlight in hand.
@@ -183,6 +184,11 @@ func respawn_at(spawn: Node3D) -> void:
 	rotation = Vector3(0.0, spawn.global_rotation.y, 0.0)
 	head.rotation = Vector3.ZERO
 	velocity = Vector3.ZERO
+
+
+## Takes the hearts, the color strip, the hints and the crosshair off the screen, for a moment that should be watched with nothing over it.
+func hide_hud() -> void:
+	_hud.visible = false
 
 
 ## Shows [param text] as a hint on screen until it is cleared or replaced.
