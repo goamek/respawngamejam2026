@@ -51,7 +51,7 @@
 background_mode = 1
 ambient_light_source = 2
 ambient_light_color = Color(1, 1, 1, 1)
-ambient_light_energy = 0.95
+ambient_light_energy = 0.01
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_placeholder"]
 albedo_color = Color(0.35, 0.35, 0.38, 1)
@@ -106,110 +106,110 @@ environment = SubResource("Environment_dark")
 
 [node name="SchoolEnv" parent="." unique_id=88071991 instance=ExtResource("1_school_env")]
 
-[node name="SM_Sack_03" parent="SchoolEnv"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 67.85, 0.0029, -55.75)
-
-[node name="SM_Dirt_small3" parent="SchoolEnv"]
-transform = Transform3D(3.395, 0, 0, 0, 3.395, 0, 0, 0, 3.395, 67.85, 0.2728, -55.75)
-
-[node name="SM_Sack_02" parent="SchoolEnv"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 69.1, 0.1187, -55.85)
-
-[node name="SM_Pot_02" parent="SchoolEnv"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 68.05, 0.963, -53.8)
-
-[node name="SM_Sack_04" parent="SchoolEnv"]
-transform = Transform3D(0.15951751, 0, -0.16003601, 0, 0.075245716, 0, 0.16013691, 0, 0.15941699, 68.05, 0.97, -52.8)
-
-[node name="SM_Basketball_Goal" parent="SchoolEnv"]
-transform = Transform3D(22, 0, 0, 0, 22, 0, 0, 0, 22, 94.497, -0.01, -39.57)
-
-[node name="SM_Basketball_Goal2" parent="SchoolEnv"]
-transform = Transform3D(-22, 0, 0, 0, 22, 0, 0, 0, -22, 94.684, -0.01, -5.4)
-
-[node name="Sprite3D" parent="SchoolEnv/SM_Floor_04"]
+[node name="Sprite3D2" parent="SchoolEnv" index="218" unique_id=505103715]
 visible = false
 
-[node name="Sprite3D3" parent="SchoolEnv"]
+[node name="Sprite3D4" parent="SchoolEnv" index="219" unique_id=911624690]
+visible = false
+
+[node name="Sprite3D5" parent="SchoolEnv" index="220" unique_id=1109008274]
+visible = false
+
+[node name="Sprite3D6" parent="SchoolEnv" index="221" unique_id=1965609842]
+visible = false
+
+[node name="Sprite3D3" parent="SchoolEnv" index="222" unique_id=1673137988]
 transparent = false
 
-[node name="SM_Locker99" parent="SchoolEnv"]
+[node name="Sprite3D" parent="SchoolEnv/SM_Floor_04" parent_id_path=PackedInt32Array(88071991, 1317485416) index="1" unique_id=1726228578]
 visible = false
 
-[node name="SM_Locker95" parent="SchoolEnv"]
+[node name="SM_Pot_02" parent="SchoolEnv" index="261" unique_id=195276706]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 68.05, 0.963, -53.8)
+
+[node name="SM_Dirt_small3" parent="SchoolEnv" index="262" unique_id=499203091]
+transform = Transform3D(3.395, 0, 0, 0, 3.395, 0, 0, 0, 3.395, 67.85, 0.2728, -55.75)
+
+[node name="SM_Sack_03" parent="SchoolEnv" index="263" unique_id=556558309]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 67.85, 0.0029, -55.75)
+
+[node name="SM_Sack_02" parent="SchoolEnv" index="264" unique_id=1556783956]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 69.1, 0.1187, -55.85)
+
+[node name="SM_Sack_04" parent="SchoolEnv" index="265" unique_id=1733379660]
+transform = Transform3D(0.15951751, 0, -0.16003601, 0, 0.075245716, 0, 0.16013691, 0, 0.15941699, 68.05, 0.97, -52.8)
+
+[node name="SM_Locker93" parent="SchoolEnv" index="318" unique_id=1200599815]
 visible = false
 
-[node name="SM_Locker96" parent="SchoolEnv"]
+[node name="SM_Locker94" parent="SchoolEnv" index="319" unique_id=1637923692]
 visible = false
 
-[node name="SM_Locker97" parent="SchoolEnv"]
+[node name="SM_Locker95" parent="SchoolEnv" index="320" unique_id=2073228822]
 visible = false
 
-[node name="SM_Locker93" parent="SchoolEnv"]
+[node name="SM_Locker99" parent="SchoolEnv" index="321" unique_id=595424360]
 visible = false
 
-[node name="SM_Locker94" parent="SchoolEnv"]
+[node name="SM_Locker96" parent="SchoolEnv" index="322" unique_id=259566300]
 visible = false
 
-[node name="SM_Paint_Easel2" parent="SchoolEnv"]
+[node name="SM_Locker97" parent="SchoolEnv" index="323" unique_id=1502616879]
 visible = false
 
-[node name="Sprite3D2" parent="SchoolEnv"]
+[node name="Sprite3D14" parent="SchoolEnv" index="385" unique_id=1440782173]
 visible = false
 
-[node name="Sprite3D4" parent="SchoolEnv"]
+[node name="Sprite3D17" parent="SchoolEnv" index="386" unique_id=2062426221]
 visible = false
 
-[node name="Sprite3D5" parent="SchoolEnv"]
+[node name="Sprite3D15" parent="SchoolEnv" index="387" unique_id=708867579]
 visible = false
 
-[node name="Sprite3D6" parent="SchoolEnv"]
+[node name="Sprite3D16" parent="SchoolEnv" index="388" unique_id=959495065]
 visible = false
 
-[node name="Sprite3D14" parent="SchoolEnv"]
+[node name="Sprite3D18" parent="SchoolEnv" index="389" unique_id=1248454509]
 visible = false
 
-[node name="Sprite3D17" parent="SchoolEnv"]
+[node name="Sprite3D19" parent="SchoolEnv" index="390" unique_id=1524608498]
 visible = false
 
-[node name="Sprite3D15" parent="SchoolEnv"]
+[node name="Sprite3D20" parent="SchoolEnv" index="391" unique_id=671946775]
 visible = false
 
-[node name="Sprite3D16" parent="SchoolEnv"]
+[node name="Sprite3D21" parent="SchoolEnv" index="392" unique_id=1496198525]
 visible = false
 
-[node name="Sprite3D18" parent="SchoolEnv"]
+[node name="Sprite3D11" parent="SchoolEnv" index="394" unique_id=1970349005]
 visible = false
 
-[node name="Sprite3D19" parent="SchoolEnv"]
+[node name="Sprite3D12" parent="SchoolEnv" index="395" unique_id=574608543]
 visible = false
 
-[node name="Sprite3D20" parent="SchoolEnv"]
+[node name="Sprite3D13" parent="SchoolEnv" index="396" unique_id=1870143706]
 visible = false
 
-[node name="Sprite3D21" parent="SchoolEnv"]
+[node name="Sprite3D35" parent="SchoolEnv" index="406" unique_id=2110836363]
 visible = false
 
-[node name="Sprite3D11" parent="SchoolEnv"]
+[node name="Sprite3D29" parent="SchoolEnv" index="413" unique_id=487663243]
 visible = false
 
-[node name="Sprite3D12" parent="SchoolEnv"]
+[node name="Sprite3D30" parent="SchoolEnv" index="415" unique_id=657273539]
 visible = false
 
-[node name="Sprite3D13" parent="SchoolEnv"]
+[node name="Sprite3D32" parent="SchoolEnv" index="417" unique_id=1517058727]
 visible = false
 
-[node name="Sprite3D35" parent="SchoolEnv"]
+[node name="SM_Paint_Easel2" parent="SchoolEnv" index="508" unique_id=754367248]
 visible = false
 
-[node name="Sprite3D29" parent="SchoolEnv"]
-visible = false
+[node name="SM_Basketball_Goal" parent="SchoolEnv" index="516" unique_id=445273640]
+transform = Transform3D(22, 0, 0, 0, 22, 0, 0, 0, 22, 94.497, -0.01, -39.57)
 
-[node name="Sprite3D30" parent="SchoolEnv"]
-visible = false
-
-[node name="Sprite3D32" parent="SchoolEnv"]
-visible = false
+[node name="SM_Basketball_Goal2" parent="SchoolEnv" index="517" unique_id=1785304999]
+transform = Transform3D(-22, 0, 0, 0, 22, 0, 0, 0, -22, 94.684, -0.01, -5.4)
 
 [node name="SolidProps" type="Node3D" parent="." unique_id=39733513 node_paths=PackedStringArray("environment")]
 script = ExtResource("21_solid_props")
