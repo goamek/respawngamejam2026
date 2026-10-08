@@ -4,23 +4,10 @@
 [ext_resource type="Material" path="res://src/flashlight/resources/reveal_material.tres" id="2_reveal"]
 [ext_resource type="Script" path="res://src/flashlight/scripts/revealable.gd" id="3_revealable"]
 [ext_resource type="Script" path="res://src/interaction/scripts/carryable.gd" id="4_carryable"]
+[ext_resource type="PackedScene" path="res://src/environment/materials/sm_cup.tscn" id="5_cup_model"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jar"]
-size = Vector3(0.11, 0.15, 0.11)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_jar"]
-top_radius = 0.05
-bottom_radius = 0.05
-height = 0.12
-radial_segments = 16
-rings = 1
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_lid"]
-top_radius = 0.042
-bottom_radius = 0.042
-height = 0.03
-radial_segments = 16
-rings = 1
+size = Vector3(0.11, 0.11, 0.11)
 
 [node name="PaintJar" type="RigidBody3D"]
 collision_layer = 5
@@ -30,15 +17,11 @@ script = ExtResource("1_paint_jar")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_jar")
 
-[node name="Jar" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.015, 0)
-material_override = ExtResource("2_reveal")
-mesh = SubResource("CylinderMesh_jar")
+[node name="Model" parent="." instance=ExtResource("5_cup_model")]
+transform = Transform3D(0.55, 0, 0, 0, 0.55, 0, 0, 0, 0.55, 0, 0, 0)
 
-[node name="Lid" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.06, 0)
+[node name="SM_Cup" parent="Model" index="0"]
 material_override = ExtResource("2_reveal")
-mesh = SubResource("CylinderMesh_lid")
 
 [node name="Revealable" type="Node3D" parent="."]
 script = ExtResource("3_revealable")
