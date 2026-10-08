@@ -119,6 +119,7 @@ visible = false
 visible = false
 
 [node name="Sprite3D3" parent="SchoolEnv" index="222" unique_id=1673137988]
+shaded = true
 transparent = false
 
 [node name="Sprite3D" parent="SchoolEnv/SM_Floor_04" parent_id_path=PackedInt32Array(88071991, 1317485416) index="1" unique_id=1726228578]
@@ -854,90 +855,105 @@ shape = SubResource("BoxShape3D_safe_ArtStudio")
 [node name="Poster1A" type="Sprite3D" parent="Posters" unique_id=305511435]
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 36.214, 1.7, 0.083)
 pixel_size = 0.00025
+shaded = true
 transparent = false
 texture = ExtResource("31_poster")
 
 [node name="Poster2A" type="Sprite3D" parent="Posters" unique_id=113505091]
 transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 122.394, 1.7, -15)
 pixel_size = 0.00025
+shaded = true
 transparent = false
 texture = ExtResource("32_poster")
 
 [node name="Poster3A" type="Sprite3D" parent="Posters" unique_id=1338220567]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 68.883, 1.7, -50.114)
 pixel_size = 0.00025
+shaded = true
 transparent = false
 texture = ExtResource("33_poster")
 
 [node name="Poster4A" type="Sprite3D" parent="Posters" unique_id=1454399409]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 79.083, 1.7, -4.811)
 pixel_size = 0.00025
+shaded = true
 transparent = false
 texture = ExtResource("34_poster")
 
 [node name="Poster5A" type="Sprite3D" parent="Posters" unique_id=821328389]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.277, 1.7, -28.895)
 pixel_size = 0.00025
+shaded = true
 transparent = false
 texture = ExtResource("35_poster")
 
 [node name="Poster1B" type="Sprite3D" parent="Posters" unique_id=2013466372]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.185, 1.7, -28.888)
 pixel_size = 0.00025
+shaded = true
 transparent = false
 texture = ExtResource("31_poster")
 
 [node name="Poster2B" type="Sprite3D" parent="Posters" unique_id=2141127987]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 1.7, -2.995)
 pixel_size = 0.00025
+shaded = true
 transparent = false
 texture = ExtResource("32_poster")
 
 [node name="Poster3B" type="Sprite3D" parent="Posters" unique_id=1738410792]
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 103.144, 1.7, 0.042)
 pixel_size = 0.00025
+shaded = true
 transparent = false
 texture = ExtResource("33_poster")
 
 [node name="Poster4B" type="Sprite3D" parent="Posters" unique_id=1795933982]
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 70.08, 1.7, -26.098)
 pixel_size = 0.00025
+shaded = true
 transparent = false
 texture = ExtResource("34_poster")
 
 [node name="Poster5B" type="Sprite3D" parent="Posters" unique_id=1472541764]
 transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 58.248, 1.7, -4.411)
 pixel_size = 0.00025
+shaded = true
 transparent = false
 texture = ExtResource("35_poster")
 
 [node name="Poster1C" type="Sprite3D" parent="Posters" unique_id=1255507342]
 transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 58.713, 1.7, -39.25)
 pixel_size = 0.00025
+shaded = true
 transparent = false
 texture = ExtResource("31_poster")
 
 [node name="Poster2C" type="Sprite3D" parent="Posters" unique_id=1030627603]
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 117.5, 1.7, 0.042)
 pixel_size = 0.00025
+shaded = true
 transparent = false
 texture = ExtResource("32_poster")
 
 [node name="Poster3C" type="Sprite3D" parent="Posters" unique_id=74110169]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.075, 1.7, -28.895)
 pixel_size = 0.00025
+shaded = true
 transparent = false
 texture = ExtResource("33_poster")
 
 [node name="Poster4C" type="Sprite3D" parent="Posters" unique_id=2115345278]
 transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 105.117, 1.7, -13.734)
 pixel_size = 0.00025
+shaded = true
 transparent = false
 texture = ExtResource("34_poster")
 
 [node name="Poster5C" type="Sprite3D" parent="Posters" unique_id=618663867]
 transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 61.3, 1.7, -16.5)
 pixel_size = 0.00025
+shaded = true
 transparent = false
 texture = ExtResource("35_poster")
 
