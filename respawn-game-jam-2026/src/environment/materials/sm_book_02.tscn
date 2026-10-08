@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://c86u34k0v7p52"]
+
+[ext_resource type="PackedScene" uid="uid://3cqivcg1jvj" path="res://src/environment/Meshes/SM_Book.fbx" id="1_m378j"]
+[ext_resource type="Material" uid="uid://cp5kwkbwi3d4p" path="res://src/environment/materials/book_02.tres" id="2_m378j"]
+[ext_resource type="Material" uid="uid://g2arnp02gu0s" path="res://src/environment/materials/paper/paper.tres" id="3_0nji0"]
+
+[node name="SM_Book" unique_id=415558012 instance=ExtResource("1_m378j")]
+
+[node name="polySurface31" parent="SM_Book" parent_id_path=PackedInt32Array(1209018738) index="0" unique_id=1927675085]
+material_override = ExtResource("2_m378j")
+
+[node name="polySurface32" parent="SM_Book" parent_id_path=PackedInt32Array(1209018738) index="1" unique_id=1852769525]
+material_override = ExtResource("3_0nji0")
