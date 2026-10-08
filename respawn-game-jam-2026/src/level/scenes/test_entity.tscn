@@ -6,6 +6,10 @@
 [ext_resource type="PackedScene" path="res://src/environment/scenes/door.tscn" id="4_door"]
 [ext_resource type="NavigationMesh" path="res://src/level/resources/test_entity_navigation_mesh.tres" id="5_navigation_mesh"]
 [ext_resource type="PackedScene" path="res://src/level/scenes/catch_handler.tscn" id="6_catch_handler"]
+[ext_resource type="AnimationLibrary" uid="uid://ctgj0w7gwl6i2" path="res://src/player/models/crouch_idle.fbx" id="7_tsdkd"]
+[ext_resource type="AnimationLibrary" uid="uid://c3obutn2jkpw2" path="res://src/player/models/crouch_walk.fbx" id="8_cybmk"]
+[ext_resource type="AnimationLibrary" uid="uid://hjqj40qdq4yt" path="res://src/player/models/idle.fbx" id="9_r0w7y"]
+[ext_resource type="AnimationLibrary" uid="uid://xlmwwhj2ixti" path="res://src/player/models/walk.fbx" id="10_ycrmj"]
 
 [sub_resource type="Environment" id="Environment_bright"]
 background_mode = 1
@@ -275,6 +279,48 @@ unlocked_hues = Array[int]([0, 1, 2, 3, 4, 5, 6, 7])
 [node name="Grip" parent="Player/Head/Hand" index="1"]
 transform = Transform3D(-4.3545054e-08, -3.8096983e-09, -1, -0.08715574, 0.9961947, 0, 0.9961947, 0.08715574, -4.371139e-08, -0.075, 0.035, 0.025)
 
+[node name="LeftHandGrip" parent="Player/Body/Model/Skeleton3D" index="1"]
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+
+[node name="RightHandGrip" parent="Player/Body/Model/Skeleton3D" index="2"]
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+
+[node name="AnimationPlayer" parent="Player/Body/Model" index="1" unique_id=1871298046]
+libraries/crouch_idle = ExtResource("7_tsdkd")
+libraries/crouch_walk = ExtResource("8_cybmk")
+libraries/idle = ExtResource("9_r0w7y")
+libraries/walk = ExtResource("10_ycrmj")
+
 [node name="InteractionPrompt" parent="Player/HUD" index="0"]
 layout_mode = 3
 
@@ -285,3 +331,4 @@ layout_mode = 3
 layout_mode = 3
 
 [editable path="Player"]
+[editable path="Player/Body/Model"]

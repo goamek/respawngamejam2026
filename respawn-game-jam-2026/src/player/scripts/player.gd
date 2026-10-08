@@ -197,6 +197,17 @@ func show_hint(text: String) -> void:
 	hint_changed.emit(text)
 
 
+## Shows [param text] as a hint on screen after [param delay] seconds, and takes it away again [param duration] seconds later.
+func show_hint_for(text: String, duration: float, delay: float = 0.0) -> void:
+	if delay > 0.0:
+		await get_tree().create_timer(delay).timeout
+	show_hint(text)
+	await get_tree().create_timer(duration).timeout
+	# Another hint may have taken its place meanwhile, and that one is not this call's to remove.
+	if current_hint == text:
+		clear_hint()
+
+
 ## Removes the on-screen hint.
 func clear_hint() -> void:
 	show_hint("")
