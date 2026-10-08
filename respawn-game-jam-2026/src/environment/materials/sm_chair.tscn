@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://b7dilvrngng1s"]
+
+[ext_resource type="PackedScene" uid="uid://uhr5q8vu67pq" path="res://src/environment/Meshes/SM_Chair.fbx" id="1_htcgj"]
+[ext_resource type="Material" uid="uid://bb3aocohi3qpn" path="res://src/environment/materials/Metal_Door/Metal_Door.tres" id="2_nxhte"]
+[ext_resource type="Material" uid="uid://dy4yulvv71cup" path="res://src/environment/materials/Wood/Wood_02.tres" id="3_wm8no"]
+
+[node name="SM_Chair" unique_id=1974541780 instance=ExtResource("1_htcgj")]
+
+[node name="polySurface96" parent="SM_Chair" parent_id_path=PackedInt32Array(1930596011) index="0" unique_id=1908909660]
+material_override = ExtResource("2_nxhte")
+
+[node name="polySurface102" parent="SM_Chair" parent_id_path=PackedInt32Array(1930596011) index="1" unique_id=902010254]
+material_override = ExtResource("3_wm8no")
+
+[node name="polySurface103" parent="SM_Chair" parent_id_path=PackedInt32Array(1930596011) index="2" unique_id=141304126]
+material_override = ExtResource("3_wm8no")
