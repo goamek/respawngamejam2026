@@ -125,6 +125,8 @@ const UNCOVER_GLOW: float = 0.6
 @export var turn_speed: float = 240.0
 ## Time the entity may be blocked before it gives up on a destination, in seconds.
 @export var stuck_time: float = 1.5
+## Closest to the player it may be put back after catching them, in meters.
+@export var restart_clearance: float = 15.0
 
 @export_group("Sound")
 ## Name in the sound library of the sound played for each footstep; leave empty for none.
@@ -274,9 +276,9 @@ func face_position() -> Vector3:
 	return _face_marker.global_position
 
 
-## Puts the entity back where it started, roaming afresh and briefly unable to catch.
-func reset_to_start() -> void:
-	global_transform = _start_transform
+## Moves the entity to a random patrol point away from the player, roaming afresh and briefly unable to catch.
+func reset_after_catch() -> void:
+	global_transform = _pick_restart_transform()
 	velocity = Vector3.ZERO
 	_forget_player()
 	_door_to_close = null
@@ -592,6 +594,21 @@ func _speed_scale() -> float:
 			hue_count += 1
 	var gain: float = 1.0 + speed_gain_per_hue * hue_count
 	return gain * uncover_slowdown if _is_lit_by_white else gain
+
+
+## Returns where to restart: a random patrol point it may stand at that is far enough from the player, or where it began when there is none.
+func _pick_restart_transform() -> Transform3D:
+	var candidates: Array[Node3D] = []
+	for point: Node3D in patrol_points:
+		if point == null or _is_off_limits(point.global_position):
+			continue
+		if _player != null and point.global_position.distance_to(_player.global_position) < restart_clearance:
+			continue
+		candidates.append(point)
+	if candidates.is_empty():
+		return _start_transform
+	# Only the place is taken from the point: patrol points are markers and may be turned any way.
+	return Transform3D(_start_transform.basis, (candidates.pick_random() as Node3D).global_position)
 
 
 ## Returns a random patrol point other than the current one and outside any room it is kept out of, or null when none are set.

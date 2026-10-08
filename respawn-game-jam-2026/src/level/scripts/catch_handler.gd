@@ -79,7 +79,7 @@ func _on_entity_player_caught(entity: Entity) -> void:
 		return
 	_player.respawn_at(spawn_point)
 	for each_entity: Entity in _entities:
-		each_entity.reset_to_start()
+		each_entity.reset_after_catch()
 	await _fade_to(0.0, fade_in_time)
 	_player.is_input_enabled = true
 	_is_handling = false

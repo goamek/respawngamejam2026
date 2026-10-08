@@ -32,7 +32,7 @@ The entity is always in exactly one state.
 | `ROAMING` | Walks to a randomly chosen patrol point at `roam_speed`. | `PAUSING` on arrival or when blocked |
 | `INVESTIGATING` | Hurries to `last_known_position` at `investigate_speed`, whether that is the player or a noise. On arrival, turns to face the player if it can still see them. | `SEARCHING` on arrival or when blocked, once the player is out of sight |
 | `SEARCHING` | Turns on the spot for `search_time`, looking around. | `PAUSING` when the time runs out |
-| `CATCHING` | Stands still facing the caught player. | `PAUSING` when reset with `reset_to_start()` |
+| `CATCHING` | Stands still facing the caught player. | `PAUSING` when reset with `reset_after_catch()` |
 | `WATCHING` | Scripted: stands still and stares at the player. Entered with `watch_player()`. | Whatever the script sends it to next |
 | `LEAVING` | Scripted: walks to a given spot at `roam_speed`. Entered with `leave_to(spot)`. | `PAUSING` on arrival or when blocked |
 | `UNCOVERED` | Stands still facing the player, in full color, harmless. Entered when white light has been held on it for `uncover_time`. | Nothing; the game ends |
@@ -255,7 +255,7 @@ An agent radius of 0.25 is what keeps 1 m doorways walkable. A larger radius clo
 | `is_player_in_sight()` | function | Whether it can see the player right now. |
 | `hear(spot, noise_range)` | function | Sends it to check a noise at `spot` if it is within `noise_range` and free to react. Normally called through `EntityHearing.make_noise()`. |
 | `eye_position()` | function | Where its eyes are. The catch handler turns the player's view toward this. |
-| `reset_to_start()` | function | Puts it back where it started, pausing, unable to catch for `catch_cooldown`. |
+| `reset_after_catch()` | function | Moves it to a random patrol point at least `restart_clearance` from the player and outside safe rooms, pausing, unable to catch for `catch_cooldown`. |
 | `state_changed(state)` | signal | Fires on every state change. Intended for animations. |
 | `player_spotted` | signal | Fires at the moment it first notices the player. Intended for a sound sting. |
 | `player_caught` | signal | Fires when it catches the player. The catch handler listens for it. |
