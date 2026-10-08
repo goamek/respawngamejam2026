@@ -5,6 +5,8 @@ extends Control
 
 ## Level loaded when the player starts the game.
 @export_file("*.tscn") var game_scene: String = ""
+## Page that lists the controls.
+@export_file("*.tscn") var controls_scene: String = ""
 
 @onready var _start_button: Button = $Buttons/StartButton
 @onready var _controls_button: Button = $Buttons/ControlsButton
@@ -15,6 +17,7 @@ extends Control
 ## Frees the mouse, wires up the buttons, and highlights the first one.
 func _ready() -> void:
 	assert(not game_scene.is_empty(), "MainMenu needs a game scene.")
+	assert(not controls_scene.is_empty(), "MainMenu needs a controls scene.")
 	# The player captures the mouse while playing, so it arrives here still hidden after a game over.
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	_start_button.pressed.connect(_on_start_button_pressed)
@@ -34,10 +37,9 @@ func _on_start_button_pressed() -> void:
 	get_tree().change_scene_to_file(game_scene)
 
 
-## Will show the controls.
+## Shows the controls page.
 func _on_controls_button_pressed() -> void:
-	# STUB: does nothing until a controls screen exists
-	pass
+	get_tree().change_scene_to_file(controls_scene)
 
 
 ## Will show the credits.

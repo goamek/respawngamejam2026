@@ -1,6 +1,7 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" path="res://src/ui/scripts/pause_menu.gd" id="1_pause"]
+[ext_resource type="PackedScene" path="res://src/ui/scenes/controls_screen.tscn" id="2_controls"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_text_only"]
 
@@ -56,15 +57,34 @@ text = "Master volume"
 custom_minimum_size = Vector2(420, 0)
 layout_mode = 2
 size_flags_vertical = 4
-focus_neighbor_bottom = NodePath("../../QuitButton")
+focus_neighbor_bottom = NodePath("../../ControlsButton")
 max_value = 1.0
 step = 0.05
 value = 1.0
 
-[node name="QuitButton" type="Button" parent="Panel/Items"]
+[node name="ControlsButton" type="Button" parent="Panel/Items"]
 layout_mode = 2
 size_flags_horizontal = 4
 focus_neighbor_top = NodePath("../VolumeRow/VolumeSlider")
+focus_neighbor_bottom = NodePath("../QuitButton")
+theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 48
+text = "Controls"
+flat = true
+theme_override_styles/focus = SubResource("StyleBoxEmpty_text_only")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_text_only")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_text_only")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_text_only")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_text_only")
+
+[node name="QuitButton" type="Button" parent="Panel/Items"]
+layout_mode = 2
+size_flags_horizontal = 4
+focus_neighbor_top = NodePath("../ControlsButton")
 theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
 theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
@@ -85,3 +105,7 @@ theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
 theme_override_font_sizes/font_size = 24
 text = "Esc or Start to resume"
 horizontal_alignment = 1
+
+[node name="Controls" parent="." instance=ExtResource("2_controls")]
+layout_mode = 1
+main_menu_scene = ""

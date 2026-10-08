@@ -1,0 +1,234 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/ui/scripts/controls_screen.gd" id="1_controls_screen"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_text_only"]
+
+[node name="ControlsScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_controls_screen")
+main_menu_scene = "res://src/ui/scenes/main_menu.tscn"
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Card" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 40
+
+[node name="Title" type="Label" parent="Card"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 72
+text = "Controls"
+horizontal_alignment = 1
+
+[node name="Rows" type="GridContainer" parent="Card"]
+layout_mode = 2
+theme_override_constants/h_separation = 80
+theme_override_constants/v_separation = 14
+columns = 3
+
+[node name="ActionHeading" type="Label" parent="Card/Rows"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
+theme_override_font_sizes/font_size = 26
+text = ""
+
+[node name="KeyboardHeading" type="Label" parent="Card/Rows"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
+theme_override_font_sizes/font_size = 26
+text = "Keyboard and mouse"
+
+[node name="ControllerHeading" type="Label" parent="Card/Rows"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
+theme_override_font_sizes/font_size = 26
+text = "Controller"
+
+[node name="Action1" type="Label" parent="Card/Rows"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 32
+text = "Move"
+
+[node name="Keyboard1" type="Label" parent="Card/Rows"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_font_sizes/font_size = 32
+text = "W A S D"
+
+[node name="Controller1" type="Label" parent="Card/Rows"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_font_sizes/font_size = 32
+text = "Left stick"
+
+[node name="Action2" type="Label" parent="Card/Rows"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 32
+text = "Look"
+
+[node name="Keyboard2" type="Label" parent="Card/Rows"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_font_sizes/font_size = 32
+text = "Mouse"
+
+[node name="Controller2" type="Label" parent="Card/Rows"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_font_sizes/font_size = 32
+text = "Right stick"
+
+[node name="Action3" type="Label" parent="Card/Rows"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 32
+text = "Crouch and hide"
+
+[node name="Keyboard3" type="Label" parent="Card/Rows"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_font_sizes/font_size = 32
+text = "Ctrl"
+
+[node name="Controller3" type="Label" parent="Card/Rows"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_font_sizes/font_size = 32
+text = "B"
+
+[node name="Action4" type="Label" parent="Card/Rows"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 32
+text = "Interact, pick up, place"
+
+[node name="Keyboard4" type="Label" parent="Card/Rows"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_font_sizes/font_size = 32
+text = "E or left click"
+
+[node name="Controller4" type="Label" parent="Card/Rows"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_font_sizes/font_size = 32
+text = "A"
+
+[node name="Action5" type="Label" parent="Card/Rows"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 32
+text = "Flashlight on and off"
+
+[node name="Keyboard5" type="Label" parent="Card/Rows"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_font_sizes/font_size = 32
+text = "F or right click"
+
+[node name="Controller5" type="Label" parent="Card/Rows"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_font_sizes/font_size = 32
+text = "RT"
+
+[node name="Action6" type="Label" parent="Card/Rows"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 32
+text = "Next color"
+
+[node name="Keyboard6" type="Label" parent="Card/Rows"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_font_sizes/font_size = 32
+text = "R or wheel down"
+
+[node name="Controller6" type="Label" parent="Card/Rows"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_font_sizes/font_size = 32
+text = "RB"
+
+[node name="Action7" type="Label" parent="Card/Rows"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 32
+text = "Previous color"
+
+[node name="Keyboard7" type="Label" parent="Card/Rows"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_font_sizes/font_size = 32
+text = "Q or wheel up"
+
+[node name="Controller7" type="Label" parent="Card/Rows"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_font_sizes/font_size = 32
+text = "LB"
+
+[node name="Action8" type="Label" parent="Card/Rows"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 32
+text = "Pause"
+
+[node name="Keyboard8" type="Label" parent="Card/Rows"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_font_sizes/font_size = 32
+text = "Esc"
+
+[node name="Controller8" type="Label" parent="Card/Rows"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_font_sizes/font_size = 32
+text = "Start"
+
+[node name="Note" type="Label" parent="Card"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
+theme_override_font_sizes/font_size = 24
+text = "Menus: W and S or the arrow keys, Enter to choose."
+horizontal_alignment = 1
+
+[node name="BackButton" type="Button" parent="Card"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 34
+text = "Back"
+flat = true
+theme_override_styles/focus = SubResource("StyleBoxEmpty_text_only")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_text_only")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_text_only")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_text_only")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_text_only")
