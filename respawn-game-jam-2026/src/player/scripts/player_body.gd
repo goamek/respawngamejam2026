@@ -199,6 +199,8 @@ func _mark_lower_arms(mesh: Mesh, bone_ranges: Array[Vector2i]) -> ArrayMesh:
 		var bones: PackedInt32Array = arrays[Mesh.ARRAY_BONES]
 		var weights: PackedFloat32Array = arrays[Mesh.ARRAY_WEIGHTS]
 		var vertex_count: int = (arrays[Mesh.ARRAY_VERTEX] as PackedVector3Array).size()
+		# A whole number by construction: every vertex has the same count of bone slots, four or eight.
+		@warning_ignore("integer_division")
 		var bones_per_vertex: int = bones.size() / vertex_count
 		var colors := PackedColorArray()
 		colors.resize(vertex_count)
