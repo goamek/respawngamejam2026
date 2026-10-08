@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://bl4imbssuam0m"]
+
+[ext_resource type="PackedScene" uid="uid://cx0tdwwciww7w" path="res://src/environment/Meshes/SM_Chalkboard.fbx" id="1_4e1hj"]
+[ext_resource type="Material" uid="uid://crqq5gdm0ffhc" path="res://src/environment/materials/Porcelain/Porcelain.tres" id="2_gcf4j"]
+[ext_resource type="Material" uid="uid://csw8kiac0uqxs" path="res://src/environment/materials/Porcelain/Porcelain_Black.tres" id="3_senac"]
+[ext_resource type="Material" uid="uid://dnlyxndfbym2l" path="res://src/environment/materials/Wood/Wood.tres" id="4_mnigo"]
+
+[node name="SM_Chalkboard" unique_id=1823233357 instance=ExtResource("1_4e1hj")]
+
+[node name="polySurface36" parent="SM_Chalkboard" parent_id_path=PackedInt32Array(951641028) index="0" unique_id=192833382]
+material_override = ExtResource("2_gcf4j")
+
+[node name="polySurface38" parent="SM_Chalkboard" parent_id_path=PackedInt32Array(951641028) index="1" unique_id=1347381606]
+material_override = ExtResource("3_senac")
+
+[node name="polySurface37" parent="SM_Chalkboard" parent_id_path=PackedInt32Array(951641028) index="2" unique_id=751078928]
+material_override = ExtResource("4_mnigo")

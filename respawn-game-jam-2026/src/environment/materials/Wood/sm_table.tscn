@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://n4u30wnyn017"]
+
+[ext_resource type="PackedScene" uid="uid://cv7yy5fxhfd2d" path="res://src/environment/Meshes/SM_Table.fbx" id="1_0pguh"]
+[ext_resource type="Material" uid="uid://dnlyxndfbym2l" path="res://src/environment/materials/Wood/Wood.tres" id="2_vrpsm"]
+
+[node name="SM_Table" unique_id=1066964277 instance=ExtResource("1_0pguh")]
+
+[node name="SM_Table" parent="." index="0" unique_id=1080175278]
+material_override = ExtResource("2_vrpsm")

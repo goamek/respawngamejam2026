@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://cdyikgrgtf6la"]
+
+[ext_resource type="PackedScene" uid="uid://ce76bsdb1lixk" path="res://src/environment/Meshes/SM_Paintbrush.fbx" id="1_aop0i"]
+[ext_resource type="Material" uid="uid://bivy6n6uwsi70" path="res://src/environment/materials/Pencil.tres" id="2_a2p1b"]
+[ext_resource type="Material" uid="uid://d0ew4dr8623eg" path="res://src/environment/materials/Cup.tres" id="3_8gwh6"]
+
+[node name="SM_Paintbrush" unique_id=1122289518 instance=ExtResource("1_aop0i")]
+
+[node name="polySurface37" parent="SM_Paintbrush" parent_id_path=PackedInt32Array(921046020) index="0" unique_id=23719195]
+material_override = ExtResource("2_a2p1b")
+
+[node name="polySurface38" parent="SM_Paintbrush" parent_id_path=PackedInt32Array(921046020) index="1" unique_id=456501274]
+material_override = ExtResource("3_8gwh6")
+
+[node name="polySurface39" parent="SM_Paintbrush" parent_id_path=PackedInt32Array(921046020) index="2" unique_id=1341233555]
+material_override = ExtResource("3_8gwh6")

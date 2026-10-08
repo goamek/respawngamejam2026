@@ -1,11 +1,13 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://bac4xg3gbibqd"]
 
-[ext_resource type="Script" path="res://src/environment/scripts/door.gd" id="1_door"]
-[ext_resource type="Script" path="res://src/flashlight/scripts/revealable.gd" id="2_revealable"]
-[ext_resource type="Script" path="res://src/interaction/scripts/interactable.gd" id="3_interactable"]
+[ext_resource type="Script" uid="uid://ci6kcq5lk1bkq" path="res://src/environment/scripts/door.gd" id="1_door"]
+[ext_resource type="Script" uid="uid://c44bwrr66s5p1" path="res://src/flashlight/scripts/revealable.gd" id="2_revealable"]
+[ext_resource type="Script" uid="uid://fciruc2lxj0a" path="res://src/interaction/scripts/interactable.gd" id="3_interactable"]
 [ext_resource type="Material" path="res://src/flashlight/resources/reveal_material.tres" id="4_reveal"]
-[ext_resource type="PackedScene" path="res://src/environment/Meshes/SM_Door.fbx" id="5_door_model"]
-[ext_resource type="Material" path="res://src/environment/materials/Wood_Door/Wood.tres" id="6_plain"]
+[ext_resource type="PackedScene" uid="uid://11teb71d6bqv" path="res://src/environment/materials/Metal_Door/sm_door_window_jam.tscn" id="5_8qbd7"]
+[ext_resource type="PackedScene" uid="uid://cyf3k3dmpaq0h" path="res://src/environment/Meshes/SM_Door.fbx" id="5_door_model"]
+[ext_resource type="PackedScene" uid="uid://byygs0gmt3b3" path="res://src/environment/materials/Metal_Door/sm_door_handle.tscn" id="6_ot8wj"]
+[ext_resource type="Material" uid="uid://5q2ycg8pqjkx" path="res://src/environment/materials/Wood_Door/Wood.tres" id="6_plain"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_locked"]
 shading_mode = 0
@@ -14,32 +16,37 @@ albedo_color = Color(0.02, 0.02, 0.02, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_panel"]
 size = Vector3(1.24, 2.14, 0.06)
 
-[node name="SchoolDoor" type="Node3D"]
+[node name="SchoolDoor" type="Node3D" unique_id=1083412066]
 script = ExtResource("1_door")
 plain_material = ExtResource("6_plain")
 locked_material = SubResource("StandardMaterial3D_locked")
 
-[node name="Hinge" type="Node3D" parent="."]
+[node name="Hinge" type="Node3D" parent="." unique_id=1796388896]
 
-[node name="Panel" type="AnimatableBody3D" parent="Hinge"]
+[node name="Panel" type="AnimatableBody3D" parent="Hinge" unique_id=517541079]
 collision_layer = 5
 collision_mask = 0
 sync_to_physics = false
 
-[node name="Model" parent="Hinge/Panel" instance=ExtResource("5_door_model")]
+[node name="Model" parent="Hinge/Panel" unique_id=466996634 instance=ExtResource("5_door_model")]
 
-[node name="SM_Door" parent="Hinge/Panel/Model" index="0"]
+[node name="SM_Door" parent="Hinge/Panel/Model" index="0" unique_id=1975564159]
+material_override = ExtResource("6_plain")
 surface_material_override/0 = ExtResource("4_reveal")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Hinge/Panel"]
+[node name="SM_Door_Window_Jam" parent="Hinge/Panel/Model" unique_id=580509500 instance=ExtResource("5_8qbd7")]
+
+[node name="SM_Door_Handle" parent="Hinge/Panel/Model" unique_id=2063462392 instance=ExtResource("6_ot8wj")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hinge/Panel" unique_id=1585152616]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.62, 1.07, -0.01)
 shape = SubResource("BoxShape3D_panel")
 
-[node name="Revealable" type="Node3D" parent="Hinge/Panel"]
+[node name="Revealable" type="Node3D" parent="Hinge/Panel" unique_id=1023857388]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.62, 1.07, 0)
 script = ExtResource("2_revealable")
 
-[node name="Interactable" type="Node" parent="Hinge/Panel" node_paths=PackedStringArray("required_reveal")]
+[node name="Interactable" type="Node" parent="Hinge/Panel" unique_id=1018845910 node_paths=PackedStringArray("required_reveal")]
 script = ExtResource("3_interactable")
 prompt = "Open"
 required_reveal = NodePath("../Revealable")

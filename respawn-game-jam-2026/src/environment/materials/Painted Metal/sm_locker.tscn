@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://cwt2niwcsglng"]
+
+[ext_resource type="PackedScene" uid="uid://bnwy0qpbvqv2g" path="res://src/environment/Meshes/SM_Locker.fbx" id="1_rb6gd"]
+[ext_resource type="Material" uid="uid://cmoph2gl3aass" path="res://src/environment/materials/Painted Metal/Locker_02.tres" id="2_rb6gd"]
+[ext_resource type="Material" uid="uid://bb3aocohi3qpn" path="res://src/environment/materials/Metal_Door/Metal_Door.tres" id="3_2rgth"]
+
+[node name="SM_Locker" unique_id=488764007 instance=ExtResource("1_rb6gd")]
+
+[node name="pCube48" parent="Locker" parent_id_path=PackedInt32Array(220429049) index="0" unique_id=1129880808]
+material_override = ExtResource("2_rb6gd")
+
+[node name="polySurface15" parent="Locker" parent_id_path=PackedInt32Array(220429049) index="1" unique_id=1270504775]
+material_override = ExtResource("3_2rgth")
+
+[node name="polySurface18" parent="Locker" parent_id_path=PackedInt32Array(220429049) index="2" unique_id=1801241801]
+material_override = ExtResource("2_rb6gd")

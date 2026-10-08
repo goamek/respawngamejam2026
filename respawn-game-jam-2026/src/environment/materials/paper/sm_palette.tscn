@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://4ld7rlpbcct1"]
+
+[ext_resource type="PackedScene" uid="uid://chapddh72bhuo" path="res://src/environment/Meshes/SM_Palette.fbx" id="1_srlni"]
+[ext_resource type="Material" uid="uid://dy4yulvv71cup" path="res://src/environment/materials/Wood/Wood_02.tres" id="2_hvnqa"]
+
+[node name="SM_Palette" unique_id=1249751692 instance=ExtResource("1_srlni")]
+
+[node name="SM_Palette" parent="." index="0" unique_id=1987631433]
+material_override = ExtResource("2_hvnqa")

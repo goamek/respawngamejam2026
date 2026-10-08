@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://cedgtrjyvqf1x"]
+
+[ext_resource type="PackedScene" uid="uid://dp34l6o7pbq23" path="res://src/environment/Meshes/SM_Pen.fbx" id="1_4avlu"]
+[ext_resource type="Material" uid="uid://d0ew4dr8623eg" path="res://src/environment/materials/Cup.tres" id="2_81lth"]
+
+[node name="SM_Pen" unique_id=1814138673 instance=ExtResource("1_4avlu")]
+
+[node name="SM_Pen" parent="." index="0" unique_id=1561761971]
+material_override = ExtResource("2_81lth")

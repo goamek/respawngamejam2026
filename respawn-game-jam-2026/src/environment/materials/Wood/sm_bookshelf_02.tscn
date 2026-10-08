@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://bexo4g1vxlhvd"]
+
+[ext_resource type="PackedScene" uid="uid://h5dbqrol5lkc" path="res://src/environment/Meshes/SM_Bookshelf_02.fbx" id="1_8vq1s"]
+[ext_resource type="Material" uid="uid://dnlyxndfbym2l" path="res://src/environment/materials/Wood/Wood.tres" id="2_iq0sq"]
+
+[node name="SM_Bookshelf_02" unique_id=1160725731 instance=ExtResource("1_8vq1s")]
+
+[node name="SM_Bookshelf_02" parent="." index="0" unique_id=1650486849]
+material_override = ExtResource("2_iq0sq")

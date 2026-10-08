@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://xeglsacdb45"]
+
+[ext_resource type="PackedScene" uid="uid://bp6kmrr1i4sxs" path="res://src/environment/Meshes/SM_Stack_Papers.fbx" id="1_ep3dh"]
+[ext_resource type="Material" uid="uid://g2arnp02gu0s" path="res://src/environment/materials/paper/paper.tres" id="2_usxco"]
+
+[node name="SM_Stack_Papers" unique_id=907030570 instance=ExtResource("1_ep3dh")]
+
+[node name="SM_Stack_Papers" parent="." index="0" unique_id=1354884524]
+material_override = ExtResource("2_usxco")

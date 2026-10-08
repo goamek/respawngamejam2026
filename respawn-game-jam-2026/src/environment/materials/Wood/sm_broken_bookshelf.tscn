@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://coet1tqcojydf"]
+
+[ext_resource type="PackedScene" uid="uid://i7xqcypa15x8" path="res://src/environment/Meshes/SM_Broken_Bookshelf.fbx" id="1_26fl2"]
+[ext_resource type="Material" uid="uid://dnlyxndfbym2l" path="res://src/environment/materials/Wood/Wood.tres" id="2_qggfk"]
+
+[node name="SM_Broken_Bookshelf" unique_id=906196754 instance=ExtResource("1_26fl2")]
+
+[node name="pCube23" parent="SM_Broken_Bookshelf" parent_id_path=PackedInt32Array(882140760) index="0" unique_id=983402512]
+material_override = ExtResource("2_qggfk")
+
+[node name="pCube24" parent="SM_Broken_Bookshelf" parent_id_path=PackedInt32Array(882140760) index="1" unique_id=152889542]
+material_override = ExtResource("2_qggfk")
+
+[node name="pCube25" parent="SM_Broken_Bookshelf" parent_id_path=PackedInt32Array(882140760) index="2" unique_id=1152503056]
+material_override = ExtResource("2_qggfk")
+
+[node name="pCube26" parent="SM_Broken_Bookshelf" parent_id_path=PackedInt32Array(882140760) index="3" unique_id=57923248]
+material_override = ExtResource("2_qggfk")
+
+[node name="pCube32" parent="SM_Broken_Bookshelf" parent_id_path=PackedInt32Array(882140760) index="4" unique_id=1631052360]
+material_override = ExtResource("2_qggfk")
+
+[node name="pCube33" parent="SM_Broken_Bookshelf" parent_id_path=PackedInt32Array(882140760) index="5" unique_id=597284246]
+material_override = ExtResource("2_qggfk")
+
+[node name="pCube27" parent="SM_Broken_Bookshelf" parent_id_path=PackedInt32Array(882140760) index="6" unique_id=469082052]
+material_override = ExtResource("2_qggfk")

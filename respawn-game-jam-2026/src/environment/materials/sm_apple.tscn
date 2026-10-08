@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://b07jnj34egjnr"]
+
+[ext_resource type="PackedScene" uid="uid://b627p0mtmfe5p" path="res://src/environment/Meshes/SM_Apple.fbx" id="1_70rjl"]
+[ext_resource type="Material" uid="uid://bda4r2ur7upxk" path="res://src/environment/materials/Apple.tres" id="2_217yu"]
+[ext_resource type="Material" uid="uid://d1ce6ad4dj3rc" path="res://src/environment/materials/Apple_Stem.tres" id="3_70rjl"]
+
+[node name="SM_Apple" unique_id=1181698951 instance=ExtResource("1_70rjl")]
+
+[node name="polySurface17" parent="SM_Apple" parent_id_path=PackedInt32Array(1882562485) index="0" unique_id=323816288]
+material_override = ExtResource("2_217yu")
+
+[node name="polySurface18" parent="SM_Apple" parent_id_path=PackedInt32Array(1882562485) index="1" unique_id=437160017]
+material_override = ExtResource("3_70rjl")
