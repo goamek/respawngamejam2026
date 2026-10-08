@@ -4,22 +4,10 @@
 [ext_resource type="Material" path="res://src/flashlight/resources/reveal_material.tres" id="2_reveal"]
 [ext_resource type="Script" path="res://src/flashlight/scripts/revealable.gd" id="3_revealable"]
 [ext_resource type="Script" path="res://src/interaction/scripts/carryable.gd" id="4_carryable"]
+[ext_resource type="PackedScene" path="res://src/environment/materials/sm_apple.tscn" id="5_apple_model"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fruit"]
 size = Vector3(0.13, 0.11, 0.13)
-
-[sub_resource type="SphereMesh" id="SphereMesh_apple"]
-radius = 0.06
-height = 0.12
-radial_segments = 16
-rings = 8
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_stem"]
-top_radius = 0.006
-bottom_radius = 0.006
-height = 0.04
-radial_segments = 6
-rings = 1
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_banana"]
 radius = 0.02
@@ -63,14 +51,14 @@ shape = SubResource("BoxShape3D_fruit")
 
 [node name="Apple" type="Node3D" parent="Shapes"]
 
-[node name="Body" type="MeshInstance3D" parent="Shapes/Apple"]
-material_override = ExtResource("2_reveal")
-mesh = SubResource("SphereMesh_apple")
+[node name="Model" parent="Shapes/Apple" instance=ExtResource("5_apple_model")]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.005, 0)
 
-[node name="Stem" type="MeshInstance3D" parent="Shapes/Apple"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.072, 0)
+[node name="polySurface17" parent="Shapes/Apple/Model/SM_Apple" index="0"]
 material_override = ExtResource("2_reveal")
-mesh = SubResource("CylinderMesh_stem")
+
+[node name="polySurface18" parent="Shapes/Apple/Model/SM_Apple" index="1"]
+material_override = ExtResource("2_reveal")
 
 [node name="Banana" type="Node3D" parent="Shapes"]
 

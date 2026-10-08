@@ -39,6 +39,8 @@
 [ext_resource type="PackedScene" path="res://src/environment/scenes/paint_palette.tscn" id="34_paint_palette"]
 [ext_resource type="PackedScene" path="res://src/environment/scenes/gym_floor.tscn" id="23_gym_floor"]
 [ext_resource type="PackedScene" path="res://src/environment/scenes/basketball.tscn" id="24_basketball"]
+[ext_resource type="PackedScene" path="res://src/environment/scenes/school_desk.tscn" id="25_school_desk"]
+[ext_resource type="PackedScene" path="res://src/environment/scenes/cup.tscn" id="26_cup"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hoop_post"]
 size = Vector3(0.36, 2.6, 0.4)
@@ -454,91 +456,156 @@ alarm = NodePath("../LockerRoom/AlarmSpot")
 [node name="CafeteriaRoom" type="Node3D" parent="." unique_id=902271857]
 
 [node name="RedCrayon" parent="CafeteriaRoom" unique_id=494231501 instance=ExtResource("6_crayon")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 73.34, 1.04, 16.64)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 73.34, 0.89, 16.54)
 hue = 0
 is_hidden_at_start = true
 
-[node name="FruitTableA" parent="CafeteriaRoom" unique_id=2074600514 instance=ExtResource("22_bench")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72.15, 0, 8.7)
+[node name="FruitDesk1" parent="CafeteriaRoom" instance=ExtResource("25_school_desk")]
+transform = Transform3D(0.94, 0, 0.342, 0, 1, 0, -0.342, 0, 0.94, 64, 0, 3)
 
-[node name="FruitTableB" parent="CafeteriaRoom" unique_id=650554677 instance=ExtResource("22_bench")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74.35, 0, 8.7)
+[node name="FruitDesk2" parent="CafeteriaRoom" instance=ExtResource("25_school_desk")]
+transform = Transform3D(0.985, 0, -0.174, 0, 1, 0, 0.174, 0, 0.985, 70.5, 0, 5.5)
 
-[node name="FruitTableC" parent="CafeteriaRoom" unique_id=926787393 instance=ExtResource("22_bench")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72.15, 0, 9.3)
+[node name="FruitDesk3" parent="CafeteriaRoom" instance=ExtResource("25_school_desk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 77, 0, 2.6)
 
-[node name="FruitTableD" parent="CafeteriaRoom" unique_id=1006150526 instance=ExtResource("22_bench")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74.35, 0, 9.3)
+[node name="FruitDesk4" parent="CafeteriaRoom" instance=ExtResource("25_school_desk")]
+transform = Transform3D(0.174, 0, 0.985, 0, 1, 0, -0.985, 0, 0.174, 82.5, 0, 6)
+
+[node name="FruitDesk5" parent="CafeteriaRoom" instance=ExtResource("25_school_desk")]
+transform = Transform3D(-0.087, 0, 0.996, 0, 1, 0, -0.996, 0, -0.087, 63.5, 0, 13.5)
+
+[node name="FruitDesk6" parent="CafeteriaRoom" instance=ExtResource("25_school_desk")]
+transform = Transform3D(0.966, 0, 0.259, 0, 1, 0, -0.259, 0, 0.966, 68.5, 0, 10.5)
+
+[node name="FruitDesk7" parent="CafeteriaRoom" instance=ExtResource("25_school_desk")]
+transform = Transform3D(0.906, 0, -0.423, 0, 1, 0, 0.423, 0, 0.906, 78.5, 0, 10)
+
+[node name="FruitDesk8" parent="CafeteriaRoom" instance=ExtResource("25_school_desk")]
+transform = Transform3D(-0.985, 0, 0.174, 0, 1, 0, -0.174, 0, -0.985, 82, 0, 15.6)
 
 [node name="Fruit01" parent="CafeteriaRoom" unique_id=678311456 instance=ExtResource("30_fruit")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 71.65, 0.97, 8.6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 63.829, 0.812, 3.115)
 
 [node name="Fruit02" parent="CafeteriaRoom" unique_id=1479702299 instance=ExtResource("30_fruit")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72.45, 0.97, 8.6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64.171, 0.812, 2.885)
 kind = 1
 
 [node name="Fruit03" parent="CafeteriaRoom" unique_id=192274943 instance=ExtResource("30_fruit")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 73.25, 0.97, 8.6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 70.294, 0.812, 5.515)
 kind = 2
 
 [node name="Fruit04" parent="CafeteriaRoom" unique_id=482501206 instance=ExtResource("30_fruit")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74.05, 0.97, 8.6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 70.706, 0.812, 5.485)
 kind = 3
 
 [node name="Fruit05" parent="CafeteriaRoom" unique_id=1566827791 instance=ExtResource("30_fruit")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74.85, 0.97, 8.6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 76.8, 0.812, 2.65)
 kind = 4
 
 [node name="Fruit06" parent="CafeteriaRoom" unique_id=445567065 instance=ExtResource("30_fruit")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 71.65, 0.97, 9)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 77.2, 0.812, 2.55)
 kind = 2
 
 [node name="Fruit07" parent="CafeteriaRoom" unique_id=900420157 instance=ExtResource("30_fruit")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72.45, 0.97, 9)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82.515, 0.812, 6.206)
 kind = 3
 
 [node name="Fruit08" parent="CafeteriaRoom" unique_id=1780860101 instance=ExtResource("30_fruit")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 73.25, 0.97, 9)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82.485, 0.812, 5.794)
 kind = 4
 
 [node name="Fruit09" parent="CafeteriaRoom" unique_id=74634932 instance=ExtResource("30_fruit")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74.05, 0.97, 9)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 63.567, 0.812, 13.695)
 
 [node name="Fruit10" parent="CafeteriaRoom" unique_id=229248879 instance=ExtResource("30_fruit")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74.85, 0.97, 9)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 63.433, 0.812, 13.305)
 kind = 1
 
 [node name="Fruit11" parent="CafeteriaRoom" unique_id=960611405 instance=ExtResource("30_fruit")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 71.65, 0.97, 9.4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 68.32, 0.812, 10.6)
 kind = 4
 
 [node name="Fruit12" parent="CafeteriaRoom" unique_id=710547164 instance=ExtResource("30_fruit")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72.45, 0.97, 9.4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 68.68, 0.812, 10.4)
 
 [node name="Fruit13" parent="CafeteriaRoom" unique_id=1141273974 instance=ExtResource("30_fruit")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 73.25, 0.97, 9.4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78.298, 0.812, 9.961)
 kind = 1
 
 [node name="Fruit14" parent="CafeteriaRoom" unique_id=1377441721 instance=ExtResource("30_fruit")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74.05, 0.97, 9.4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78.702, 0.812, 10.039)
 kind = 2
 
 [node name="Fruit15" parent="CafeteriaRoom" unique_id=1740217453 instance=ExtResource("30_fruit")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74.85, 0.97, 9.4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82, 0.812, 15.6)
 kind = 3
 
-[node name="BasketTable" parent="CafeteriaRoom" unique_id=1685406581 instance=ExtResource("22_bench")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 73.25, 0, 16.75)
+[node name="BasketDesk" parent="CafeteriaRoom" instance=ExtResource("25_school_desk")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 73.25, 0, 16.68)
 
 [node name="FruitBasket" parent="CafeteriaRoom" unique_id=327455302 instance=ExtResource("31_fruit_basket")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 73.25, 0.9, 16.72)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 73.25, 0.75, 16.62)
 
 [node name="BasketNote" parent="CafeteriaRoom" unique_id=727181469 instance=ExtResource("9_note")]
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 73.25, 1.6, 17.08)
-text = "3 apples
-for teacher."
-paper_size = Vector2(0.55, 0.32)
+text = "three for teacher.
+her favorite color is
+"
+paper_size = Vector2(0.72, 0.46)
+text_height = 0.055
+
+[node name="BasketNoteColor" parent="CafeteriaRoom" instance=ExtResource("25_hidden_text")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 73.25, 1.48, 17.072)
+text = "RED"
+hue = 0
 text_height = 0.07
+tag_size = Vector2(0.26, 0.1)
+
+[node name="Table1" parent="CafeteriaRoom" instance=ExtResource("20_round_table")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 66.5, 0, 7.5)
+
+[node name="Cup1" parent="CafeteriaRoom" instance=ExtResource("26_cup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 66.432, 0.963, 7.688)
+
+[node name="Table2" parent="CafeteriaRoom" instance=ExtResource("20_round_table")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 73.5, 0, 8.6)
+
+[node name="Cup2" parent="CafeteriaRoom" instance=ExtResource("26_cup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 73.3, 0.963, 8.6)
+
+[node name="Cup3" parent="CafeteriaRoom" instance=ExtResource("26_cup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 73.673, 0.963, 8.5)
+
+[node name="Table3" parent="CafeteriaRoom" instance=ExtResource("20_round_table")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74.6, 0, 12.8)
+
+[node name="Table4" parent="CafeteriaRoom" instance=ExtResource("20_round_table")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 80.5, 0, 13.2)
+
+[node name="Cup4" parent="CafeteriaRoom" instance=ExtResource("26_cup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 80.653, 0.963, 13.071)
+
+[node name="Table5" parent="CafeteriaRoom" instance=ExtResource("20_round_table")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 66.8, 0, 15)
+
+[node name="Cup5" parent="CafeteriaRoom" instance=ExtResource("26_cup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 66.973, 0.963, 15.1)
+
+[node name="Cup6" parent="CafeteriaRoom" instance=ExtResource("26_cup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 66.6, 0.963, 15)
+
+[node name="Table6" parent="CafeteriaRoom" instance=ExtResource("20_round_table")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72.8, 0, 3.2)
+
+[node name="Table7" parent="CafeteriaRoom" instance=ExtResource("20_round_table")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 80, 0, 6.9)
+
+[node name="Cup7" parent="CafeteriaRoom" instance=ExtResource("26_cup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 79.803, 0.963, 6.935)
+
+[node name="Table8" parent="CafeteriaRoom" instance=ExtResource("20_round_table")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 70.2, 0, 13.2)
 
 [node name="AlarmSpot" type="Marker3D" parent="CafeteriaRoom" unique_id=1857222941]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 67.84, 0, -1.3)
