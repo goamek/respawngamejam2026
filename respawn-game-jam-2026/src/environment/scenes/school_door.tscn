@@ -31,7 +31,6 @@ sync_to_physics = false
 [node name="Model" parent="Hinge/Panel" unique_id=466996634 instance=ExtResource("5_door_model")]
 
 [node name="SM_Door" parent="Hinge/Panel/Model" index="0" unique_id=1975564159]
-material_override = ExtResource("6_plain")
 surface_material_override/0 = ExtResource("4_reveal")
 
 [node name="SM_Door_Window_Jam" parent="Hinge/Panel/Model" unique_id=580509500 instance=ExtResource("5_8qbd7")]
