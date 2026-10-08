@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" path="res://src/ui/scripts/ending_screen.gd" id="1_ending_screen"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_text_only"]
+
 [node name="EndingScreen" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -71,3 +73,8 @@ theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 48
 text = "Main Menu"
 flat = true
+theme_override_styles/focus = SubResource("StyleBoxEmpty_text_only")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_text_only")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_text_only")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_text_only")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_text_only")

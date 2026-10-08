@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" path="res://src/ui/scripts/pause_menu.gd" id="1_pause"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_text_only"]
+
 [node name="PauseMenu" type="Control"]
 process_mode = 3
 layout_mode = 3
@@ -71,6 +73,11 @@ theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 48
 text = "Quit to title"
 flat = true
+theme_override_styles/focus = SubResource("StyleBoxEmpty_text_only")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_text_only")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_text_only")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_text_only")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_text_only")
 
 [node name="Hint" type="Label" parent="Panel/Items"]
 layout_mode = 2

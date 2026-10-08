@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://bbmyibf4cyvqm" path="res://src/ui/scripts/main_menu.gd" id="1_main_menu"]
 [ext_resource type="Texture2D" uid="uid://b6ijh645mwp0r" path="res://src/ui/images/what_i_drew_title.png" id="2_title"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_text_only"]
+
 [node name="MainMenu" type="Control" unique_id=2139348359]
 layout_mode = 3
 anchors_preset = 15
@@ -62,6 +64,11 @@ theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 34
 text = "Start Game"
 flat = true
+theme_override_styles/focus = SubResource("StyleBoxEmpty_text_only")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_text_only")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_text_only")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_text_only")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_text_only")
 
 [node name="ControlsButton" type="Button" parent="Buttons" unique_id=2135187899]
 layout_mode = 2
@@ -75,6 +82,11 @@ theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 34
 text = "Controls"
 flat = true
+theme_override_styles/focus = SubResource("StyleBoxEmpty_text_only")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_text_only")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_text_only")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_text_only")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_text_only")
 
 [node name="CreditsButton" type="Button" parent="Buttons" unique_id=1830832844]
 layout_mode = 2
@@ -88,6 +100,11 @@ theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 34
 text = "Credits"
 flat = true
+theme_override_styles/focus = SubResource("StyleBoxEmpty_text_only")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_text_only")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_text_only")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_text_only")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_text_only")
 
 [node name="QuitButton" type="Button" parent="Buttons" unique_id=1737529727]
 layout_mode = 2
@@ -101,3 +118,8 @@ theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 34
 text = "Quit Game"
 flat = true
+theme_override_styles/focus = SubResource("StyleBoxEmpty_text_only")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_text_only")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_text_only")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_text_only")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_text_only")
