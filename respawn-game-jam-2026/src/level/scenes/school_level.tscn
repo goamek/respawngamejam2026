@@ -61,6 +61,7 @@
 [ext_resource type="Texture2D" uid="uid://dtmme2o42mnyh" path="res://src/environment/Decals/20261006_215446337_iOS.jpg" id="42_drawing_e"]
 [ext_resource type="Texture2D" uid="uid://dx4f0402f44vo" path="res://src/environment/Decals/evacuation_map.png" id="42_evacuation_map"]
 [ext_resource type="Texture2D" path="res://src/environment/Decals/scoreboard.jpg" id="42_scoreboard"]
+[ext_resource type="Script" path="res://src/level/scripts/navigation_gate.gd" id="43_navigation_gate"]
 
 [sub_resource type="Environment" id="Environment_dark"]
 background_mode = 1
@@ -179,6 +180,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74, 0, 6.8)
 
 [node name="ArtStudio" type="Marker3D" parent="PatrolPoints" unique_id=2037367908]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.5, 0, 11.4)
+
+[node name="Courtyard" type="Marker3D" parent="PatrolPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.5, 0, -12)
 
 [node name="Entity" parent="." unique_id=1803776842 node_paths=PackedStringArray("patrol_points") instance=ExtResource("3_entity")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.2, 0, 8.037567)
@@ -562,6 +566,15 @@ script = ExtResource("26_noise_alarm")
 
 [node name="ExitDoor" parent="Courtyard" unique_id=1851873302 instance=ExtResource("18_exit_door")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.8, 0, -14.5)
+
+[node name="CourtyardGate" type="Node3D" parent="." node_paths=PackedStringArray("environment", "player", "entity", "patrol_point")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.915, 1.5, -14.57)
+script = ExtResource("43_navigation_gate")
+environment = NodePath("../SchoolEnv")
+player = NodePath("../Player")
+size = Vector3(34.69, 5, 23.56)
+entity = NodePath("../Entity")
+patrol_point = NodePath("../PatrolPoints/Courtyard")
 
 [node name="EndingDirector" parent="." unique_id=1222736225 instance=ExtResource("17_ending_director")]
 
