@@ -38,6 +38,9 @@
 [ext_resource type="AudioStream" uid="uid://b6ba8bbr50xc2" path="res://assets/music/ending_win.mp3" id="36_cfo16"]
 [ext_resource type="AudioStream" uid="uid://by32n2q6vufw6" path="res://assets/music/ending_lose.mp3" id="37_jn8wo"]
 [ext_resource type="AudioStream" uid="uid://dx52xqc2a6bd2" path="res://assets/sounds/ambience/empty_school_loop.wav" id="38_lrsqq"]
+[ext_resource type="AudioStream" path="res://assets/sounds/entity/entity_caught.wav" id="40_caught"]
+[ext_resource type="AudioStream" path="res://assets/sounds/entity/entity_giggle.wav" id="41_giggle"]
+[ext_resource type="AudioStream" path="res://assets/sounds/entity/entity_rubber_shoe.wav" id="42_rubber_shoe"]
 [ext_resource type="AudioStream" uid="uid://cx52xqkmxj85o" path="res://assets/sounds/ambience/empty_school_fountain.wav" id="39_6pcod"]
 
 [sub_resource type="Resource" id="Resource_uyj0a"]
@@ -85,9 +88,19 @@ stream = SubResource("AudioStreamRandomizer_misu1")
 
 [sub_resource type="Resource" id="Resource_b4i4h"]
 script = ExtResource("1_xwbq8")
-stream = ExtResource("15_j7tbw")
+stream = ExtResource("42_rubber_shoe")
 volume_db = 12.0
 pitch_variation = 0.08
+
+[sub_resource type="Resource" id="Resource_caught"]
+script = ExtResource("1_xwbq8")
+stream = ExtResource("40_caught")
+
+[sub_resource type="Resource" id="Resource_giggle"]
+script = ExtResource("1_xwbq8")
+stream = ExtResource("41_giggle")
+pitch_variation = 0.06
+max_distance = 35.0
 
 [sub_resource type="Resource" id="Resource_rqt6l"]
 script = ExtResource("1_xwbq8")
@@ -177,7 +190,9 @@ cues = Dictionary[StringName, ExtResource("1_xwbq8")]({
 &"door_unlock": SubResource("Resource_twktn"),
 &"drawer_open": SubResource("Resource_lx0ha"),
 &"entity_attack": SubResource("Resource_6nd37"),
+&"entity_caught": SubResource("Resource_caught"),
 &"entity_drag": SubResource("Resource_lnd64"),
+&"entity_giggle": SubResource("Resource_giggle"),
 &"entity_scrape": SubResource("Resource_mi8i3"),
 &"entity_step": SubResource("Resource_b4i4h"),
 &"entity_voice": SubResource("Resource_rqt6l"),

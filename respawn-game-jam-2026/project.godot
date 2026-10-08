@@ -10,10 +10,10 @@ config_version=5
 
 [application]
 
-config/name="Respawn Game Jam 2026"
+config/name="What I Drew"
 run/main_scene="res://src/ui/scenes/main_menu.tscn"
 config/features=PackedStringArray("4.7", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://src/ui/images/what_i_drew_icon.png"
 
 [autoload]
 

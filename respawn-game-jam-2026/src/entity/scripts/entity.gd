@@ -131,6 +131,10 @@ const UNCOVER_GLOW: float = 0.6
 @export var step_sound: StringName = &"entity_step"
 ## Distance the body covers between one footstep and the next, in meters.
 @export var stride_length: float = 0.9
+## Name in the sound library of the giggle it lets out now and then while wandering; leave empty for none.
+@export var giggle_sound: StringName = &"entity_giggle"
+## Shortest and longest wait between one giggle and the next, in seconds.
+@export var giggle_wait: Vector2 = Vector2(20.0, 40.0)
 
 ## What the entity is doing right now.
 var state: State = State.PAUSING
@@ -158,6 +162,7 @@ var _uncover_held: float = 0.0
 var _is_lit_by_white: bool = false
 var _body_material: StandardMaterial3D
 var _stride_travelled: float = 0.0
+var _giggle_left: float = 0.0
 
 @onready var _agent: NavigationAgent3D = $NavigationAgent3D
 @onready var _eyes: Marker3D = $Eyes
@@ -171,6 +176,8 @@ var _stride_travelled: float = 0.0
 
 ## Finds the player, remembers where it started, and begins with a pause while the navigation map loads.
 func _ready() -> void:
+	# A wait is drawn before the first giggle too, so the entity is quiet when a level starts.
+	_giggle_left = randf_range(giggle_wait.x, giggle_wait.y)
 	_player = get_tree().get_first_node_in_group("player") as Player
 	_start_transform = global_transform
 	_pause_left = pause_time
@@ -348,6 +355,7 @@ func _is_within_reach(point: Vector3) -> bool:
 
 ## Stands still until the pause runs out, then heads for a patrol point.
 func _process_pausing(delta: float) -> void:
+	_update_giggle(delta)
 	_stop()
 	_pause_left -= delta
 	if _pause_left <= 0.0:
@@ -356,6 +364,7 @@ func _process_pausing(delta: float) -> void:
 
 ## Walks to the patrol point, pausing on arrival.
 func _process_roaming(delta: float) -> void:
+	_update_giggle(delta)
 	if _follow_path(roam_speed * _speed_scale(), delta):
 		_start_pausing()
 
@@ -540,6 +549,15 @@ func _step_up(wanted: Vector3) -> void:
 	var landing := KinematicCollision3D.new()
 	if test_move(global_transform, -rise, landing):
 		global_position += landing.get_travel()
+
+
+## Giggles from where it stands each time the wait runs out, then draws a new wait.
+func _update_giggle(delta: float) -> void:
+	_giggle_left -= delta
+	if _giggle_left > 0.0:
+		return
+	AudioController.play_sound_at(giggle_sound, global_position)
+	_giggle_left = randf_range(giggle_wait.x, giggle_wait.y)
 
 
 ## Plays a footstep at the entity's feet each time it has covered another stride along the floor.
