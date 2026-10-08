@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://jd0o3krnuqtf"]
+
+[ext_resource type="PackedScene" uid="uid://m7cy3g8tfyht" path="res://src/environment/Meshes/SM_Plum.fbx" id="1_grlbn"]
+[ext_resource type="Material" uid="uid://doumxgr33bk4i" path="res://src/environment/materials/Plum.tres" id="2_s272q"]
+[ext_resource type="Material" uid="uid://tko8easd1m7b" path="res://src/environment/materials/Flower/Leaves.tres" id="3_fk55l"]
+[ext_resource type="Material" uid="uid://d1ce6ad4dj3rc" path="res://src/environment/materials/Apple_Stem.tres" id="4_ha73p"]
+
+[node name="SM_Plum" unique_id=190553251 instance=ExtResource("1_grlbn")]
+
+[node name="SM_Plum" parent="." index="0" unique_id=1164317286]
+material_override = ExtResource("2_s272q")
+
+[node name="pPlane1" parent="SM_Plum" index="0" unique_id=326266380]
+material_override = ExtResource("3_fk55l")
+
+[node name="pCube1" parent="SM_Plum" index="1" unique_id=1851106320]
+material_override = ExtResource("4_ha73p")

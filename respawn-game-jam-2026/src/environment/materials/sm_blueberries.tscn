@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://bxrt0mncbscwl"]
+
+[ext_resource type="PackedScene" uid="uid://cd0ussppb22wp" path="res://src/environment/Meshes/SM_Blueberries.fbx" id="1_vq02v"]
+[ext_resource type="Material" uid="uid://cq5xjir0fth0w" path="res://src/environment/materials/Blueberry_02.tres" id="2_ujujx"]
+[ext_resource type="Material" uid="uid://b6tfof07dvl0n" path="res://src/environment/materials/Blueberry_01.tres" id="3_jp4lh"]
+[ext_resource type="Material" uid="uid://tko8easd1m7b" path="res://src/environment/materials/Flower/Leaves.tres" id="4_bghqe"]
+
+[node name="SM_Blueberries" unique_id=2011209263 instance=ExtResource("1_vq02v")]
+
+[node name="SM_Blueberries" parent="." index="0" unique_id=2026194837]
+material_override = ExtResource("2_ujujx")
+
+[node name="pSphere2" parent="SM_Blueberries" index="0" unique_id=1407214512]
+material_override = ExtResource("2_ujujx")
+
+[node name="pSphere3" parent="SM_Blueberries" index="1" unique_id=740755602]
+material_override = ExtResource("3_jp4lh")
+
+[node name="pPlane3" parent="SM_Blueberries" index="2" unique_id=695351372]
+material_override = ExtResource("4_bghqe")
+
+[node name="pPlane4" parent="SM_Blueberries" index="3" unique_id=311153017]
+material_override = ExtResource("4_bghqe")
+
+[node name="pPlane5" parent="SM_Blueberries" index="4" unique_id=1712870249]
+material_override = ExtResource("4_bghqe")
+
+[node name="pSphere4" parent="SM_Blueberries" index="5" unique_id=1640303476]
+material_override = ExtResource("3_jp4lh")
+
+[node name="pPlane2" parent="SM_Blueberries" index="6" unique_id=2012520799]
+material_override = ExtResource("4_bghqe")
