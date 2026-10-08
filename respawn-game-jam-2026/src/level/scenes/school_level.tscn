@@ -20,10 +20,11 @@
 [ext_resource type="PackedScene" path="res://src/environment/scenes/exit_door.tscn" id="18_exit_door"]
 [ext_resource type="Script" uid="uid://q1gq6sjn2y5s" path="res://src/level/scripts/level_music.gd" id="19_level_music"]
 [ext_resource type="Script" uid="uid://bu3484ubcajrb" path="res://src/level/scripts/hiding_spot.gd" id="20_hiding_spot"]
-[ext_resource type="PackedScene" uid="uid://n4u30wnyn017" path="res://src/environment/materials/Wood/sm_table.tscn" id="20_slip_table"]
+[ext_resource type="PackedScene" path="res://src/environment/scenes/round_table.tscn" id="20_round_table"]
 [ext_resource type="Script" uid="uid://bbkwc8fcuk8e3" path="res://src/level/scripts/heartbeat.gd" id="21_heartbeat"]
 [ext_resource type="Script" uid="uid://cwqm07riuobrm" path="res://src/level/scripts/solid_props.gd" id="21_solid_props"]
 [ext_resource type="PackedScene" path="res://src/environment/scenes/bench.tscn" id="22_bench"]
+[ext_resource type="Script" uid="uid://duurucrbp6jvi" path="res://src/level/scripts/hint_trigger.gd" id="22_hint_trigger"]
 [ext_resource type="PackedScene" path="res://src/environment/scenes/seed_sack.tscn" id="23_seed_sack"]
 [ext_resource type="PackedScene" path="res://src/environment/scenes/plant_pot.tscn" id="24_plant_pot"]
 [ext_resource type="PackedScene" path="res://src/environment/scenes/hidden_text.tscn" id="25_hidden_text"]
@@ -36,7 +37,6 @@
 [ext_resource type="Script" uid="uid://brmcsuchgyjys" path="res://src/level/scripts/item_shuffler.gd" id="32_item_shuffler"]
 [ext_resource type="PackedScene" path="res://src/environment/scenes/paint_jar.tscn" id="33_paint_jar"]
 [ext_resource type="PackedScene" path="res://src/environment/scenes/paint_palette.tscn" id="34_paint_palette"]
-[ext_resource type="Script" path="res://src/level/scripts/hint_trigger.gd" id="22_hint_trigger"]
 
 [sub_resource type="Environment" id="Environment_dark"]
 background_mode = 1
@@ -53,10 +53,6 @@ size = Vector3(0.9, 1, 2.2)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_counter"]
 size = Vector3(0.9, 1, 2.2)
-
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_slip_table"]
-height = 0.96
-radius = 0.45
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_entry_lock"]
 size = Vector3(17.3, 3, 0.6)
@@ -184,15 +180,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.52, 1.07, 16.16)
 hue = 2
 is_hidden_at_start = true
 
-[node name="SlipTable" type="StaticBody3D" parent="Library" unique_id=1540070542]
+[node name="SlipTable" parent="Library" unique_id=308634157 instance=ExtResource("20_round_table")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 3.2)
-
-[node name="Model" parent="Library/SlipTable" unique_id=1056772488 instance=ExtResource("20_slip_table")]
-transform = Transform3D(44.8, 0, 0, 0, 44.8, 0, 0, 0, 44.8, 0.233, 0, 0.26)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Library/SlipTable" unique_id=550476886]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.48, 0)
-shape = SubResource("CylinderShape3D_slip_table")
 
 [node name="CheckOutSlip" parent="Library" unique_id=1583216957 instance=ExtResource("9_note")]
 transform = Transform3D(-1, 0, 0, 0, 0, 1, 0, 1, 0, 9, 0.975, 3.2)
@@ -250,11 +239,11 @@ is_flashlight_required = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.85, 1.5, 2.4)
 shape = SubResource("BoxShape3D_entry_lock")
 
-[node name="ScanHint" type="Area3D" parent="Library"]
+[node name="ScanHint" type="Area3D" parent="Library" unique_id=776345384]
 script = ExtResource("22_hint_trigger")
 hint = "Scan the bookshelves for a book you can take"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Library/ScanHint"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Library/ScanHint" unique_id=1145230058]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.85, 1.5, 2.4)
 shape = SubResource("BoxShape3D_entry_lock")
 
@@ -305,31 +294,34 @@ shape = SubResource("BoxShape3D_hiding_spot")
 [node name="Greenhouse" type="Node3D" parent="." unique_id=2071637037]
 
 [node name="GreenCrayon" parent="Greenhouse" unique_id=1217452499 instance=ExtResource("6_crayon")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 81.5, 0.45, -50.28)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 77.6, 0.95, -47.08)
 hue = 3
 is_hidden_at_start = true
 
 [node name="IndigoCrayon" parent="Greenhouse" unique_id=1477007315 instance=ExtResource("6_crayon")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 81.5, 0.85, -50.58)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 77.6, 1.35, -47.38)
 hue = 5
 is_hidden_at_start = true
 
-[node name="Bench" parent="Greenhouse" unique_id=901410170 instance=ExtResource("22_bench")]
-transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 67.61, 0, -53.3)
+[node name="SackTableA" parent="Greenhouse" unique_id=2079806876 instance=ExtResource("20_round_table")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 67.77, 0, -53.8)
+
+[node name="SackTableB" parent="Greenhouse" unique_id=320759809 instance=ExtResource("20_round_table")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 67.77, 0, -52.8)
 
 [node name="CarrotSack" parent="Greenhouse" unique_id=578038850 instance=ExtResource("23_seed_sack")]
-transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 67.61, 0.91, -54.05)
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 67.77, 0.975, -54.02)
 plant_name = "carrot"
 
 [node name="WeedSack" parent="Greenhouse" unique_id=1411444529 instance=ExtResource("23_seed_sack")]
-transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 67.61, 0.91, -53.55)
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 67.77, 0.975, -53.58)
 plant_name = "weed"
 
 [node name="FlowerSack" parent="Greenhouse" unique_id=1006747784 instance=ExtResource("23_seed_sack")]
-transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 67.61, 0.91, -53.05)
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 67.77, 0.975, -53.02)
 
 [node name="TreeSack" parent="Greenhouse" unique_id=1830884250 instance=ExtResource("23_seed_sack")]
-transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 67.61, 0.91, -52.55)
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 67.77, 0.975, -52.58)
 plant_name = "tree"
 
 [node name="BenchNote" parent="Greenhouse" unique_id=1001304601 instance=ExtResource("9_note")]
@@ -351,7 +343,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60.2, 0, -46.24)
 script = ExtResource("26_noise_alarm")
 
 [node name="PlantPot" parent="Greenhouse" unique_id=1044507827 instance=ExtResource("24_plant_pot")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 81.5, 0, -50.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 77.6, 0.5, -47.3)
 
 [node name="LockerRoom" type="Node3D" parent="." unique_id=1239835350]
 
