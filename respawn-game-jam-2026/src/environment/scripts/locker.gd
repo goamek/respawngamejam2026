@@ -25,10 +25,13 @@ const RATTLE_TIME: float = 0.06
 		is_correct = value
 		if is_node_ready():
 			_choice.is_correct = value
-## How far the door swings open, in degrees.
+## How far the door swings open, in degrees; negative swings the other way, for a door hinged on its right.
 @export var open_angle: float = 105.0
 ## How long the door takes to swing open, in seconds.
 @export var swing_time: float = 0.5
+
+## Parts of the locker's model that make up the door; they are hung on the hinge so that they swing with it.
+@export var door_parts: Array[NodePath] = []
 
 @export_group("Sound")
 ## Name in the sound library of the sound played when the right locker opens; leave empty for none.
@@ -47,6 +50,7 @@ const RATTLE_TIME: float = 0.06
 
 ## Shows the number and listens for the player trying the door.
 func _ready() -> void:
+	_hang_door()
 	_show_number()
 	_choice.is_correct = is_correct
 	_choice.chosen_right.connect(_on_choice_chosen_right)
@@ -72,6 +76,17 @@ func _on_choice_chosen_wrong() -> void:
 	for turn: float in [-RATTLE_ANGLE, RATTLE_ANGLE * 0.5, -RATTLE_ANGLE * 0.5, 0.0]:
 		shake.tween_property(_hinge, "rotation:y", deg_to_rad(turn), RATTLE_TIME)
 	rattled.emit()
+
+
+## Moves the door's parts from the model onto the hinge, where they stay in place until the hinge turns.
+func _hang_door() -> void:
+	# The model comes from the artist as one scene with the door inside it, so the door cannot be put under the hinge in the editor.
+	for path: NodePath in door_parts:
+		var part: Node = get_node_or_null(path)
+		if part == null:
+			push_warning("%s has no door part at %s." % [name, path])
+			continue
+		part.reparent(_hinge)
 
 
 ## Writes the number on the door's plate and into the hint.

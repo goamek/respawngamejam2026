@@ -57,7 +57,8 @@ func _note_occupied_spots(level: Node) -> void:
 func _make_solid(node: Node) -> void:
 	for child: Node in node.get_children():
 		if child is Node3D and _is_prop(child.name):
-			if not left_open.has(child.name):
+			# A hidden prop has been taken out of the level, usually to make room for a working copy of it.
+			if (child as Node3D).visible and not left_open.has(child.name):
 				_add_box(child)
 		else:
 			_make_solid(child)

@@ -3,83 +3,52 @@
 [ext_resource type="Script" path="res://src/environment/scripts/locker.gd" id="1_locker"]
 [ext_resource type="Script" path="res://src/interaction/scripts/choice.gd" id="2_choice"]
 [ext_resource type="PackedScene" path="res://src/environment/scenes/note.tscn" id="3_note"]
+[ext_resource type="PackedScene" path="res://src/environment/materials/Painted Metal/sm_locker.tscn" id="4_model"]
+[ext_resource type="Material" path="res://src/environment/materials/Painted Metal/Locker_02.tres" id="5_paint"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_placeholder"]
-albedo_color = Color(0.35, 0.35, 0.38, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_side"]
-material = SubResource("StandardMaterial3D_placeholder")
-size = Vector3(0.03, 1.9, 0.5)
-
-[sub_resource type="BoxMesh" id="BoxMesh_back"]
-material = SubResource("StandardMaterial3D_placeholder")
-size = Vector3(0.6, 1.9, 0.03)
-
-[sub_resource type="BoxMesh" id="BoxMesh_cap"]
-material = SubResource("StandardMaterial3D_placeholder")
-size = Vector3(0.6, 0.03, 0.5)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_door"]
-albedo_color = Color(0.42, 0.42, 0.46, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_door"]
-material = SubResource("StandardMaterial3D_door")
-size = Vector3(0.56, 1.84, 0.03)
+[sub_resource type="BoxMesh" id="BoxMesh_inside_back"]
+material = ExtResource("5_paint")
+size = Vector3(0.72, 2.4, 0.01)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_front"]
-size = Vector3(0.6, 1.9, 0.5)
+size = Vector3(0.75, 2.47, 0.75)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_back"]
-size = Vector3(0.6, 1.9, 0.06)
+size = Vector3(0.75, 2.47, 0.06)
 
 [node name="Locker" type="StaticBody3D"]
 collision_layer = 5
 script = ExtResource("1_locker")
+open_angle = -105.0
+door_parts = Array[NodePath]([NodePath("Model/Locker/polySurface18"), NodePath("Model/Locker/polySurface15")])
 
-[node name="SideLeft" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.285, 0.95, 0)
-mesh = SubResource("BoxMesh_side")
+[node name="Model" parent="." instance=ExtResource("4_model")]
+transform = Transform3D(0, 0, -1.5, 0, 1.5, 0, 1.5, 0, 0, -0.375, 0, 0.375)
 
-[node name="SideRight" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.285, 0.95, 0)
-mesh = SubResource("BoxMesh_side")
-
-[node name="BackPanel" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, -0.235)
-mesh = SubResource("BoxMesh_back")
-
-[node name="Top" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.885, 0)
-mesh = SubResource("BoxMesh_cap")
-
-[node name="Bottom" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.015, 0)
-mesh = SubResource("BoxMesh_cap")
+[node name="InsideBack" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.24, -0.19)
+mesh = SubResource("BoxMesh_inside_back")
 
 [node name="Hinge" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.28, 0, 0.25)
-
-[node name="Door" type="MeshInstance3D" parent="Hinge"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.28, 0.95, 0)
-mesh = SubResource("BoxMesh_door")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.33, 0, 0.35)
 
 [node name="NumberPlate" parent="Hinge" instance=ExtResource("3_note")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.28, 1.5, 0.02)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.33, 1.68, 0.062)
 text = "000"
 paper_size = Vector2(0.36, 0.17)
 text_height = 0.11
 
 [node name="Front" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.235, 0)
 shape = SubResource("BoxShape3D_front")
 
 [node name="Back" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, -0.22)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.235, -0.22)
 shape = SubResource("BoxShape3D_back")
 disabled = true
 
 [node name="ContentsSpot" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.06, 0.05)
 
 [node name="Choice" type="Node" parent="."]
 script = ExtResource("2_choice")

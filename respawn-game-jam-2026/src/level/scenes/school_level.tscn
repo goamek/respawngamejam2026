@@ -37,6 +37,11 @@
 [ext_resource type="Script" uid="uid://brmcsuchgyjys" path="res://src/level/scripts/item_shuffler.gd" id="32_item_shuffler"]
 [ext_resource type="PackedScene" path="res://src/environment/scenes/paint_jar.tscn" id="33_paint_jar"]
 [ext_resource type="PackedScene" path="res://src/environment/scenes/paint_palette.tscn" id="34_paint_palette"]
+[ext_resource type="PackedScene" path="res://src/environment/scenes/gym_floor.tscn" id="23_gym_floor"]
+[ext_resource type="PackedScene" path="res://src/environment/scenes/basketball.tscn" id="24_basketball"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hoop_post"]
+size = Vector3(0.36, 2.6, 0.4)
 
 [sub_resource type="Environment" id="Environment_dark"]
 background_mode = 1
@@ -94,11 +99,37 @@ environment = SubResource("Environment_dark")
 
 [node name="SchoolEnv" parent="." unique_id=88071991 instance=ExtResource("1_school_env")]
 
+[node name="SM_Basketball_Goal" parent="SchoolEnv"]
+transform = Transform3D(22, 0, 0, 0, 22, 0, 0, 0, 22, 94.497, -0.01, -39.57)
+
+[node name="SM_Basketball_Goal2" parent="SchoolEnv"]
+transform = Transform3D(-22, 0, 0, 0, 22, 0, 0, 0, -22, 94.684, -0.01, -5.4)
+
+[node name="Sprite3D" parent="SchoolEnv/SM_Floor_04"]
+visible = false
+
+[node name="SM_Locker99" parent="SchoolEnv"]
+visible = false
+
+[node name="SM_Locker95" parent="SchoolEnv"]
+visible = false
+
+[node name="SM_Locker96" parent="SchoolEnv"]
+visible = false
+
+[node name="SM_Locker97" parent="SchoolEnv"]
+visible = false
+
+[node name="SM_Locker93" parent="SchoolEnv"]
+visible = false
+
+[node name="SM_Locker94" parent="SchoolEnv"]
+visible = false
+
 [node name="SolidProps" type="Node3D" parent="." unique_id=39733513 node_paths=PackedStringArray("environment")]
 script = ExtResource("21_solid_props")
 environment = NodePath("../SchoolEnv")
 name_prefixes = PackedStringArray("SM_Bookshelf", "SM_Broken_Bookshelf", "SM_Table", "SM_School_Desk", "SM_Locker", "SM_Chalkboard", "SM_Rolling_Board", "SM_Drinking_Fountain", "SM_Pot", "SM_Sack", "SM_Paint_Easel")
-left_open = PackedStringArray("SM_Locker63", "SM_Locker67", "SM_Locker81", "SM_Locker82")
 
 [node name="PatrolPoints" type="Node3D" parent="." unique_id=1984700109]
 
@@ -353,28 +384,55 @@ hue = 4
 is_hidden_at_start = true
 
 [node name="Locker1" parent="LockerRoom" unique_id=1902528576 instance=ExtResource("28_locker")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 109.6, 0, -16.53)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 106.365, 0, -16.585)
 
 [node name="Locker2" parent="LockerRoom" unique_id=1442121111 instance=ExtResource("28_locker")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 110.2, 0, -16.53)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 107.115, 0, -16.585)
 
 [node name="Locker3" parent="LockerRoom" unique_id=910675063 instance=ExtResource("28_locker")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 110.8, 0, -16.53)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 107.865, 0, -16.585)
 
 [node name="Locker4" parent="LockerRoom" unique_id=1048993280 instance=ExtResource("28_locker")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 111.4, 0, -16.53)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 108.615, 0, -16.585)
 
 [node name="Locker5" parent="LockerRoom" unique_id=562444983 instance=ExtResource("28_locker")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 112, 0, -16.53)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 109.365, 0, -16.585)
 
 [node name="Locker6" parent="LockerRoom" unique_id=1450811145 instance=ExtResource("28_locker")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 112.6, 0, -16.53)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 110.115, 0, -16.585)
 
 [node name="AlarmSpot" type="Marker3D" parent="LockerRoom" unique_id=11967347]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 118.5, 0, -10.84)
 script = ExtResource("26_noise_alarm")
 
 [node name="Gym" type="Node3D" parent="." unique_id=307238908]
+
+[node name="Floor" parent="Gym" instance=ExtResource("23_gym_floor")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 94.585, 0, -22.475)
+
+[node name="HoopPostFar" type="StaticBody3D" parent="Gym"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 94.651, 1.3, -39.7)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Gym/HoopPostFar"]
+shape = SubResource("BoxShape3D_hoop_post")
+
+[node name="HoopPostNear" type="StaticBody3D" parent="Gym"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 94.53, 1.3, -5.27)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Gym/HoopPostNear"]
+shape = SubResource("BoxShape3D_hoop_post")
+
+[node name="BallA" parent="Gym" instance=ExtResource("24_basketball")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 95.4, 0.13, -12.6)
+
+[node name="BallB" parent="Gym" instance=ExtResource("24_basketball")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 91.9, 0.13, -14.1)
+
+[node name="BallC" parent="Gym" instance=ExtResource("24_basketball")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 96.2, 0.13, -31.8)
+
+[node name="BallD" parent="Gym" instance=ExtResource("24_basketball")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 92.6, 0.13, -30.4)
 
 [node name="Scoreboard" parent="Gym" unique_id=343229166 instance=ExtResource("27_scoreboard")]
 transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 84.06, 2.3, -15)
