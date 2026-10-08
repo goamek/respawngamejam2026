@@ -40,11 +40,10 @@ func open() -> void:
 	if entity == null or patrol_point == null:
 		return
 	entity.patrol_points.append(patrol_point)
-	# The navigation map takes in the newly opened part on the next physics frame; a route asked for sooner would stop at its edge.
-	await get_tree().physics_frame
-	await get_tree().physics_frame
-	# An entity that is asleep or mid-catch is left alone; it will find the area on its rounds.
-	if entity.can_process() and entity.state != Entity.State.CATCHING:
+	# The navigation map takes in the newly opened part in the background; a route asked for sooner would stop at its edge.
+	await NavigationServer3D.map_changed
+	# The level may have been left in the meantime; an entity that is asleep or mid-catch is left alone and finds the area on its rounds.
+	if is_instance_valid(entity) and entity.is_inside_tree() and entity.can_process() and entity.state != Entity.State.CATCHING:
 		entity.investigate(patrol_point.global_position)
 
 
