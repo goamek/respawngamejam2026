@@ -11,9 +11,9 @@ const TITLES: Dictionary[int, String] = {
 }
 ## Story text shown for each ending.
 const STORIES: Dictionary[int, String] = {
-	GameSession.Ending.ESCAPE: "You step through the white door with the coloring book under your arm.\n\nBehind you the school goes grey. It is still in there.\n\nYou got out, but you never faced it.",
+	GameSession.Ending.ESCAPE: "You step through the white door.\n\nYou got out, but you never faced it.",
 	GameSession.Ending.UNCOVERED: "Under the white light the black scribble flakes away, and the colors you first drew show through.\n\nIt was never a monster. It was only a drawing you were scared of.",
-	GameSession.Ending.CAUGHT: "A new drawing appears on the art studio wall.\n\nA child, labeled \"ME\", scribbled over in black.",
+	GameSession.Ending.CAUGHT: "A new drawing appears on the art studio wall.\n\nA child, scribbled over in black.",
 }
 ## Name in the sound library of the music played for each ending: one track for both ways of winning, another for losing.
 const MUSIC: Dictionary[int, StringName] = {
