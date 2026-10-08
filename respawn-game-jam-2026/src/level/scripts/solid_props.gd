@@ -24,6 +24,8 @@ const MIN_BOX_SIDE: float = 0.02
 	"SM_Pot",
 	"SM_Sack",
 	"SM_Paint_Easel",
+	"SM_table_",
+	"SM_Desk_01",
 ]
 
 ## Exact names of props to leave walk-through, for ones that stand where the player has to stand or pass.
@@ -60,7 +62,8 @@ func _make_solid(node: Node) -> void:
 			# A hidden prop has been taken out of the level, usually to make room for a working copy of it.
 			if (child as Node3D).visible and not left_open.has(child.name):
 				_add_box(child)
-		else:
+		elif not child is PhysicsBody3D:
+			# Something that is a physics body is solid already, and so is what it holds.
 			_make_solid(child)
 
 
