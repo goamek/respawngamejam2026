@@ -20,7 +20,9 @@
 [ext_resource type="PackedScene" path="res://src/environment/scenes/exit_door.tscn" id="18_exit_door"]
 [ext_resource type="Script" uid="uid://q1gq6sjn2y5s" path="res://src/level/scripts/level_music.gd" id="19_level_music"]
 [ext_resource type="Script" uid="uid://bu3484ubcajrb" path="res://src/level/scripts/hiding_spot.gd" id="20_hiding_spot"]
+[ext_resource type="PackedScene" uid="uid://n4u30wnyn017" path="res://src/environment/materials/Wood/sm_table.tscn" id="20_slip_table"]
 [ext_resource type="Script" uid="uid://bbkwc8fcuk8e3" path="res://src/level/scripts/heartbeat.gd" id="21_heartbeat"]
+[ext_resource type="Script" uid="uid://cwqm07riuobrm" path="res://src/level/scripts/solid_props.gd" id="21_solid_props"]
 [ext_resource type="PackedScene" path="res://src/environment/scenes/bench.tscn" id="22_bench"]
 [ext_resource type="PackedScene" path="res://src/environment/scenes/seed_sack.tscn" id="23_seed_sack"]
 [ext_resource type="PackedScene" path="res://src/environment/scenes/plant_pot.tscn" id="24_plant_pot"]
@@ -34,6 +36,7 @@
 [ext_resource type="Script" uid="uid://brmcsuchgyjys" path="res://src/level/scripts/item_shuffler.gd" id="32_item_shuffler"]
 [ext_resource type="PackedScene" path="res://src/environment/scenes/paint_jar.tscn" id="33_paint_jar"]
 [ext_resource type="PackedScene" path="res://src/environment/scenes/paint_palette.tscn" id="34_paint_palette"]
+[ext_resource type="Script" path="res://src/level/scripts/hint_trigger.gd" id="22_hint_trigger"]
 
 [sub_resource type="Environment" id="Environment_dark"]
 background_mode = 1
@@ -50,6 +53,10 @@ size = Vector3(0.9, 1, 2.2)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_counter"]
 size = Vector3(0.9, 1, 2.2)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_slip_table"]
+height = 0.96
+radius = 0.45
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_entry_lock"]
 size = Vector3(17.3, 3, 0.6)
@@ -90,6 +97,12 @@ size = Vector3(9.9, 4, 11.7)
 environment = SubResource("Environment_dark")
 
 [node name="SchoolEnv" parent="." unique_id=88071991 instance=ExtResource("1_school_env")]
+
+[node name="SolidProps" type="Node3D" parent="." unique_id=39733513 node_paths=PackedStringArray("environment")]
+script = ExtResource("21_solid_props")
+environment = NodePath("../SchoolEnv")
+name_prefixes = PackedStringArray("SM_Bookshelf", "SM_Broken_Bookshelf", "SM_Table", "SM_School_Desk", "SM_Locker", "SM_Chalkboard", "SM_Rolling_Board", "SM_Drinking_Fountain", "SM_Pot", "SM_Sack", "SM_Paint_Easel")
+left_open = PackedStringArray("SM_Locker63", "SM_Locker67", "SM_Locker81", "SM_Locker82")
 
 [node name="PatrolPoints" type="Node3D" parent="." unique_id=1984700109]
 
@@ -167,15 +180,22 @@ transform = Transform3D(0.921, 0, -0.389, 0, 1, 0, 0.389, 0, 0.921, 28.76983, 1.
 [node name="Library" type="Node3D" parent="." unique_id=906929169]
 
 [node name="YellowCrayon" parent="Library" unique_id=1111424673 instance=ExtResource("6_crayon")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.09, 1.2, 16.19)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.52, 1.07, 16.16)
 hue = 2
 is_hidden_at_start = true
 
-[node name="Desk" parent="Library" unique_id=1907416735 instance=ExtResource("8_desk")]
-transform = Transform3D(1, 0, 0, 0, 0.64, 0, 0, 0, 1, 9, 0, 3.2)
+[node name="SlipTable" type="StaticBody3D" parent="Library" unique_id=1540070542]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 3.2)
+
+[node name="Model" parent="Library/SlipTable" unique_id=1056772488 instance=ExtResource("20_slip_table")]
+transform = Transform3D(44.8, 0, 0, 0, 44.8, 0, 0, 0, 44.8, 0.233, 0, 0.26)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Library/SlipTable" unique_id=550476886]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.48, 0)
+shape = SubResource("CylinderShape3D_slip_table")
 
 [node name="CheckOutSlip" parent="Library" unique_id=1583216957 instance=ExtResource("9_note")]
-transform = Transform3D(-1, 0, 0, 0, 0.9063, 0.4226, 0, 0.4226, -0.9063, 9, 1.0405, 3.2972)
+transform = Transform3D(-1, 0, 0, 0, 0, 1, 0, 1, 0, 9, 0.975, 3.2)
 text = "ONE NEVER CAME BACK
 
 The Lost Kite - Oct 3
@@ -186,31 +206,40 @@ paper_size = Vector2(0.62, 0.46)
 text_height = 0.042
 
 [node name="WallCalendar" parent="Library" unique_id=183894882 instance=ExtResource("10_wall_calendar")]
-transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 0.03, 1.6, 10)
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 0.03, 1.6, 8.3)
 
 [node name="Bookshelf" parent="Library" unique_id=932479393 instance=ExtResource("11_bookshelf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0, 16.36)
 
-[node name="TheLostKite" parent="Library/Bookshelf" unique_id=370624574 instance=ExtResource("12_book")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 1.2, -0.05)
-title = "The Lost Kite"
-
-[node name="NightGarden" parent="Library/Bookshelf" unique_id=1043878074 instance=ExtResource("12_book")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 1.2, -0.05)
-title = "Night Garden"
-
 [node name="MyColors" parent="Library/Bookshelf" unique_id=1769679085 instance=ExtResource("12_book")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 1.2, -0.05)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22, 1.07, 0.0119)
 title = "My Colors"
 is_correct = true
 
-[node name="MouseAndMoon" parent="Library/Bookshelf" unique_id=937157361 instance=ExtResource("12_book")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 1.2, -0.05)
-title = "Mouse and Moon"
-
 [node name="ColoringBook" parent="Library/Bookshelf" unique_id=1221408489 instance=ExtResource("13_coloring_book")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 1.2, -0.02)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22, 1.07, -0.24)
 visible = false
+
+[node name="BookshelfFront" parent="Library" unique_id=1250738853 instance=ExtResource("11_bookshelf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 0, 6.2)
+
+[node name="TheLostKite" parent="Library/BookshelfFront" unique_id=370624574 instance=ExtResource("12_book")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.82, 1.07, 0.0119)
+title = "The Lost Kite"
+
+[node name="BookshelfWest" parent="Library" unique_id=166352472 instance=ExtResource("11_bookshelf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 16.36)
+
+[node name="NightGarden" parent="Library/BookshelfWest" unique_id=1043878074 instance=ExtResource("12_book")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.31, 1.07, 0.0119)
+title = "Night Garden"
+
+[node name="BookshelfEast" parent="Library" unique_id=1928958850 instance=ExtResource("11_bookshelf")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 17.375, 0, 14.9)
+
+[node name="MouseAndMoon" parent="Library/BookshelfEast" unique_id=937157361 instance=ExtResource("12_book")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.71, 1.07, 0.0119)
+title = "Mouse and Moon"
 
 [node name="EntryLock" type="Area3D" parent="Library" unique_id=133095136]
 script = ExtResource("15_door_lock_trigger")
@@ -218,6 +247,14 @@ door_path = NodePath("../../SchoolEnv/SM_DoubleDoor_Center8/SM_DoubleDoor_Center
 is_flashlight_required = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Library/EntryLock" unique_id=1315937198]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.85, 1.5, 2.4)
+shape = SubResource("BoxShape3D_entry_lock")
+
+[node name="ScanHint" type="Area3D" parent="Library"]
+script = ExtResource("22_hint_trigger")
+hint = "Scan the bookshelves for a book you can take"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Library/ScanHint"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.85, 1.5, 2.4)
 shape = SubResource("BoxShape3D_entry_lock")
 

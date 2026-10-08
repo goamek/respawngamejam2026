@@ -50,6 +50,8 @@ const MOVING_SPEED: float = 0.5
 ## Distance from which the entity hears each footstep taken standing up, in meters; crouched footsteps are silent to it.
 @export var step_noise_range: float = 4.0
 
+## Hint on screen at the moment; empty when there is none.
+var current_hint: String = ""
 ## Whether the player is crouched, by choice or because something is overhead.
 var is_crouching: bool = false
 ## Flashlight in the player's hand, or null while the hand is empty.
@@ -185,12 +187,13 @@ func respawn_at(spawn: Node3D) -> void:
 
 ## Shows [param text] as a hint on screen until it is cleared or replaced.
 func show_hint(text: String) -> void:
+	current_hint = text
 	hint_changed.emit(text)
 
 
 ## Removes the on-screen hint.
 func clear_hint() -> void:
-	hint_changed.emit("")
+	show_hint("")
 
 
 ## Places [param item] in the player's hand and makes it the flashlight the player controls.

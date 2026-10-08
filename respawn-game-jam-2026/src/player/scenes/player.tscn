@@ -46,7 +46,7 @@ transform = Transform3D(0.1626, -0.981, -0.1057, 0.9802, 0.1728, -0.0961, 0.1125
 [node name="Flashlight" parent="Head/Hand" instance=ExtResource("2_flashlight")]
 
 [node name="Grip" type="Marker3D" parent="Head/Hand"]
-transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -0.06, 0.035, 0.045)
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -0.06, 0.035, 0.025)
 
 [node name="ElbowHint" type="Marker3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, -0.65, 0.25)
