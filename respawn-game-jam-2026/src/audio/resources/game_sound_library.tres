@@ -41,7 +41,6 @@
 [ext_resource type="AudioStream" uid="uid://cx52xqkmxj85o" path="res://assets/sounds/ambience/empty_school_fountain.wav" id="39_6pcod"]
 [ext_resource type="AudioStream" uid="uid://cwwq5o6qbm628" path="res://assets/sounds/entity/entity_caught.wav" id="40_caught"]
 [ext_resource type="AudioStream" uid="uid://b7exqiq6s4uts" path="res://assets/sounds/entity/entity_giggle.wav" id="41_giggle"]
-[ext_resource type="AudioStream" uid="uid://cxcgx8fkh3pjf" path="res://assets/sounds/entity/entity_rubber_shoe.wav" id="42_rubber_shoe"]
 
 [sub_resource type="Resource" id="Resource_uyj0a"]
 script = ExtResource("1_xwbq8")
@@ -98,7 +97,7 @@ stream = SubResource("AudioStreamRandomizer_misu1")
 
 [sub_resource type="Resource" id="Resource_b4i4h"]
 script = ExtResource("1_xwbq8")
-stream = ExtResource("42_rubber_shoe")
+stream = ExtResource("15_j7tbw")
 volume_db = 12.0
 pitch_variation = 0.08
 

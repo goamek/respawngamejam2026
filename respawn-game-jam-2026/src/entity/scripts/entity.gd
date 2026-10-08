@@ -82,7 +82,7 @@ const UNCOVER_GLOW: float = 0.6
 
 @export_group("Investigating")
 ## Speed while heading to the spot it is checking, in meters per second.
-@export var investigate_speed: float = 3.8
+@export var investigate_speed: float = 3.6
 ## Time spent looking around after reaching that spot, in seconds.
 @export var search_time: float = 3.0
 ## How fast it turns while looking around, in degrees per second.
