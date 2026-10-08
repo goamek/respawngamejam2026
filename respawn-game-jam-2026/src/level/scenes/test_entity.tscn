@@ -1,4 +1,4 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://bwu0ks7nlsm14"]
 
 [ext_resource type="PackedScene" path="res://src/player/scenes/player.tscn" id="1_player"]
 [ext_resource type="PackedScene" path="res://src/entity/scenes/entity.tscn" id="2_entity"]
@@ -23,253 +23,265 @@ albedo_color = Color(0.55, 0.55, 0.58, 1)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_crate"]
 albedo_color = Color(0.4, 0.33, 0.25, 1)
 
-[node name="TestEntity" type="Node3D"]
+[node name="TestEntity" type="Node3D" unique_id=335196765]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=384946432]
 environment = SubResource("Environment_bright")
 
-[node name="Lights" type="Node3D" parent="."]
+[node name="Lights" type="Node3D" parent="." unique_id=1958327858]
 
-[node name="Hallway" type="OmniLight3D" parent="Lights"]
+[node name="Hallway" type="OmniLight3D" parent="Lights" unique_id=1348175612]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.7, 0)
 light_energy = 1.2
 omni_range = 14.0
 
-[node name="NorthWestRoom" type="OmniLight3D" parent="Lights"]
+[node name="NorthWestRoom" type="OmniLight3D" parent="Lights" unique_id=198706928]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 2.7, -4.75)
 light_energy = 1.2
 omni_range = 8.0
 
-[node name="NorthEastRoom" type="OmniLight3D" parent="Lights"]
+[node name="NorthEastRoom" type="OmniLight3D" parent="Lights" unique_id=307915265]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 2.7, -4.75)
 light_energy = 1.2
 omni_range = 8.0
 
-[node name="SouthWestRoom" type="OmniLight3D" parent="Lights"]
+[node name="SouthWestRoom" type="OmniLight3D" parent="Lights" unique_id=96601750]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 2.7, 4.75)
 light_energy = 1.2
 omni_range = 8.0
 
-[node name="SouthEastRoom" type="OmniLight3D" parent="Lights"]
+[node name="SouthEastRoom" type="OmniLight3D" parent="Lights" unique_id=216570871]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 2.7, 4.75)
 light_energy = 1.2
 omni_range = 8.0
 
-[node name="Geometry" type="Node3D" parent="."]
+[node name="Geometry" type="Node3D" parent="." unique_id=1209229486]
 
-[node name="Floor" type="CSGBox3D" parent="Geometry" groups=["navigation_mesh_source_group"]]
+[node name="Floor" type="CSGBox3D" parent="Geometry" unique_id=520416814 groups=["navigation_mesh_source_group"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
 use_collision = true
 size = Vector3(24.4, 0.2, 16.4)
 material = SubResource("StandardMaterial3D_floor")
 
-[node name="WallNorth" type="CSGBox3D" parent="Geometry" groups=["navigation_mesh_source_group"]]
+[node name="WallNorth" type="CSGBox3D" parent="Geometry" unique_id=1405407863 groups=["navigation_mesh_source_group"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -8.1)
 use_collision = true
 size = Vector3(24.4, 3, 0.2)
 material = SubResource("StandardMaterial3D_wall")
 
-[node name="WallSouth" type="CSGBox3D" parent="Geometry" groups=["navigation_mesh_source_group"]]
+[node name="WallSouth" type="CSGBox3D" parent="Geometry" unique_id=752182138 groups=["navigation_mesh_source_group"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 8.1)
 use_collision = true
 size = Vector3(24.4, 3, 0.2)
 material = SubResource("StandardMaterial3D_wall")
 
-[node name="WallEast" type="CSGBox3D" parent="Geometry" groups=["navigation_mesh_source_group"]]
+[node name="WallEast" type="CSGBox3D" parent="Geometry" unique_id=1696650490 groups=["navigation_mesh_source_group"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.1, 1.5, 0)
 use_collision = true
 size = Vector3(0.2, 3, 16)
 material = SubResource("StandardMaterial3D_wall")
 
-[node name="WallWest" type="CSGBox3D" parent="Geometry" groups=["navigation_mesh_source_group"]]
+[node name="WallWest" type="CSGBox3D" parent="Geometry" unique_id=1090846232 groups=["navigation_mesh_source_group"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.1, 1.5, 0)
 use_collision = true
 size = Vector3(0.2, 3, 16)
 material = SubResource("StandardMaterial3D_wall")
 
-[node name="HallNorthWest" type="CSGBox3D" parent="Geometry" groups=["navigation_mesh_source_group"]]
+[node name="HallNorthWest" type="CSGBox3D" parent="Geometry" unique_id=1329191691 groups=["navigation_mesh_source_group"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.25, 1.5, -1.5)
 use_collision = true
 size = Vector3(5.5, 3, 0.2)
 material = SubResource("StandardMaterial3D_wall")
 
-[node name="HallNorthMiddle" type="CSGBox3D" parent="Geometry" groups=["navigation_mesh_source_group"]]
+[node name="HallNorthMiddle" type="CSGBox3D" parent="Geometry" unique_id=227718050 groups=["navigation_mesh_source_group"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -1.5)
 use_collision = true
 size = Vector3(11, 3, 0.2)
 material = SubResource("StandardMaterial3D_wall")
 
-[node name="HallNorthEast" type="CSGBox3D" parent="Geometry" groups=["navigation_mesh_source_group"]]
+[node name="HallNorthEast" type="CSGBox3D" parent="Geometry" unique_id=2024367444 groups=["navigation_mesh_source_group"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.25, 1.5, -1.5)
 use_collision = true
 size = Vector3(5.5, 3, 0.2)
 material = SubResource("StandardMaterial3D_wall")
 
-[node name="LintelNorthWest" type="CSGBox3D" parent="Geometry" groups=["navigation_mesh_source_group"]]
+[node name="LintelNorthWest" type="CSGBox3D" parent="Geometry" unique_id=2121362272 groups=["navigation_mesh_source_group"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 2.55, -1.5)
 use_collision = true
 size = Vector3(1, 0.9, 0.2)
 material = SubResource("StandardMaterial3D_wall")
 
-[node name="LintelNorthEast" type="CSGBox3D" parent="Geometry" groups=["navigation_mesh_source_group"]]
+[node name="LintelNorthEast" type="CSGBox3D" parent="Geometry" unique_id=1165261786 groups=["navigation_mesh_source_group"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 2.55, -1.5)
 use_collision = true
 size = Vector3(1, 0.9, 0.2)
 material = SubResource("StandardMaterial3D_wall")
 
-[node name="HallSouthWest" type="CSGBox3D" parent="Geometry" groups=["navigation_mesh_source_group"]]
+[node name="HallSouthWest" type="CSGBox3D" parent="Geometry" unique_id=933846146 groups=["navigation_mesh_source_group"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.25, 1.5, 1.5)
 use_collision = true
 size = Vector3(5.5, 3, 0.2)
 material = SubResource("StandardMaterial3D_wall")
 
-[node name="HallSouthMiddle" type="CSGBox3D" parent="Geometry" groups=["navigation_mesh_source_group"]]
+[node name="HallSouthMiddle" type="CSGBox3D" parent="Geometry" unique_id=360056314 groups=["navigation_mesh_source_group"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 1.5)
 use_collision = true
 size = Vector3(11, 3, 0.2)
 material = SubResource("StandardMaterial3D_wall")
 
-[node name="HallSouthEast" type="CSGBox3D" parent="Geometry" groups=["navigation_mesh_source_group"]]
+[node name="HallSouthEast" type="CSGBox3D" parent="Geometry" unique_id=1899101705 groups=["navigation_mesh_source_group"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.25, 1.5, 1.5)
 use_collision = true
 size = Vector3(5.5, 3, 0.2)
 material = SubResource("StandardMaterial3D_wall")
 
-[node name="LintelSouthWest" type="CSGBox3D" parent="Geometry" groups=["navigation_mesh_source_group"]]
+[node name="LintelSouthWest" type="CSGBox3D" parent="Geometry" unique_id=1900106037 groups=["navigation_mesh_source_group"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 2.55, 1.5)
 use_collision = true
 size = Vector3(1, 0.9, 0.2)
 material = SubResource("StandardMaterial3D_wall")
 
-[node name="LintelSouthEast" type="CSGBox3D" parent="Geometry" groups=["navigation_mesh_source_group"]]
+[node name="LintelSouthEast" type="CSGBox3D" parent="Geometry" unique_id=1728782727 groups=["navigation_mesh_source_group"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 2.55, 1.5)
 use_collision = true
 size = Vector3(1, 0.9, 0.2)
 material = SubResource("StandardMaterial3D_wall")
 
-[node name="DividerNorthBack" type="CSGBox3D" parent="Geometry" groups=["navigation_mesh_source_group"]]
+[node name="DividerNorthBack" type="CSGBox3D" parent="Geometry" unique_id=2027727196 groups=["navigation_mesh_source_group"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -6.75)
 use_collision = true
 size = Vector3(0.2, 3, 2.5)
 material = SubResource("StandardMaterial3D_wall")
 
-[node name="DividerNorthFront" type="CSGBox3D" parent="Geometry" groups=["navigation_mesh_source_group"]]
+[node name="DividerNorthFront" type="CSGBox3D" parent="Geometry" unique_id=258099598 groups=["navigation_mesh_source_group"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -3)
 use_collision = true
 size = Vector3(0.2, 3, 3)
 material = SubResource("StandardMaterial3D_wall")
 
-[node name="LintelDivider" type="CSGBox3D" parent="Geometry" groups=["navigation_mesh_source_group"]]
+[node name="LintelDivider" type="CSGBox3D" parent="Geometry" unique_id=1868830445 groups=["navigation_mesh_source_group"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.55, -5)
 use_collision = true
 size = Vector3(0.2, 0.9, 1)
 material = SubResource("StandardMaterial3D_wall")
 
-[node name="DividerSouth" type="CSGBox3D" parent="Geometry" groups=["navigation_mesh_source_group"]]
+[node name="DividerSouth" type="CSGBox3D" parent="Geometry" unique_id=1834450466 groups=["navigation_mesh_source_group"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 4.75)
 use_collision = true
 size = Vector3(0.2, 3, 6.5)
 material = SubResource("StandardMaterial3D_wall")
 
-[node name="CrateNorthWest" type="CSGBox3D" parent="Geometry" groups=["navigation_mesh_source_group"]]
+[node name="CrateNorthWest" type="CSGBox3D" parent="Geometry" unique_id=2120918800 groups=["navigation_mesh_source_group"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0.7, -2.7)
 use_collision = true
 size = Vector3(1.2, 1.4, 1.2)
 material = SubResource("StandardMaterial3D_crate")
 
-[node name="CrateNorthEast" type="CSGBox3D" parent="Geometry" groups=["navigation_mesh_source_group"]]
+[node name="CrateNorthEast" type="CSGBox3D" parent="Geometry" unique_id=1583010206 groups=["navigation_mesh_source_group"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0.7, -6.8)
 use_collision = true
 size = Vector3(1.2, 1.4, 1.2)
 material = SubResource("StandardMaterial3D_crate")
 
-[node name="CrateSouthWest" type="CSGBox3D" parent="Geometry" groups=["navigation_mesh_source_group"]]
+[node name="CrateSouthWest" type="CSGBox3D" parent="Geometry" unique_id=1711514234 groups=["navigation_mesh_source_group"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0.7, 6.8)
 use_collision = true
 size = Vector3(1.2, 1.4, 1.2)
 material = SubResource("StandardMaterial3D_crate")
 
-[node name="CrateSouthEast" type="CSGBox3D" parent="Geometry" groups=["navigation_mesh_source_group"]]
+[node name="CrateSouthEast" type="CSGBox3D" parent="Geometry" unique_id=1086682113 groups=["navigation_mesh_source_group"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0.7, 3)
 use_collision = true
 size = Vector3(1.2, 1.4, 1.2)
 material = SubResource("StandardMaterial3D_crate")
 
-[node name="Desks" type="Node3D" parent="."]
+[node name="Desks" type="Node3D" parent="." unique_id=223207616]
 
-[node name="DeskNorthWestA" parent="Desks" instance=ExtResource("3_desk")]
+[node name="DeskNorthWestA" parent="Desks" unique_id=48434835 instance=ExtResource("3_desk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, -5.5)
 
-[node name="DeskNorthWestB" parent="Desks" instance=ExtResource("3_desk")]
+[node name="DeskNorthWestB" parent="Desks" unique_id=902707824 instance=ExtResource("3_desk")]
 transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -3, 0, -6)
 
-[node name="DeskNorthEastA" parent="Desks" instance=ExtResource("3_desk")]
+[node name="DeskNorthEastA" parent="Desks" unique_id=640423175 instance=ExtResource("3_desk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -6.2)
 
-[node name="DeskNorthEastB" parent="Desks" instance=ExtResource("3_desk")]
+[node name="DeskNorthEastB" parent="Desks" unique_id=623898158 instance=ExtResource("3_desk")]
 transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 9.5, 0, -4)
 
-[node name="DeskSouthWestA" parent="Desks" instance=ExtResource("3_desk")]
+[node name="DeskSouthWestA" parent="Desks" unique_id=1110078874 instance=ExtResource("3_desk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, 5)
 
-[node name="DeskSouthWestB" parent="Desks" instance=ExtResource("3_desk")]
+[node name="DeskSouthWestB" parent="Desks" unique_id=1474536202 instance=ExtResource("3_desk")]
 transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -3, 0, 4.5)
 
-[node name="DeskSouthEastA" parent="Desks" instance=ExtResource("3_desk")]
+[node name="DeskSouthEastA" parent="Desks" unique_id=2034366921 instance=ExtResource("3_desk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 5.5)
 
-[node name="DeskSouthEastB" parent="Desks" instance=ExtResource("3_desk")]
+[node name="DeskSouthEastB" parent="Desks" unique_id=1398149257 instance=ExtResource("3_desk")]
 transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 9.5, 0, 5.5)
 
-[node name="DeskHallway" parent="Desks" instance=ExtResource("3_desk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+[node name="DeskHallway" parent="Desks" unique_id=1839546486 instance=ExtResource("3_desk")]
 
-[node name="Doors" type="Node3D" parent="."]
+[node name="Doors" type="Node3D" parent="." unique_id=442880543]
 
-[node name="RedDoor" parent="Doors" instance=ExtResource("4_door")]
+[node name="RedDoor" parent="Doors" unique_id=1950200232 instance=ExtResource("4_door")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -1.5)
 
-[node name="BlueDoor" parent="Doors" instance=ExtResource("4_door")]
+[node name="BlueDoor" parent="Doors" unique_id=332767975 instance=ExtResource("4_door")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 1.5)
 hue = 4
 
-[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=760865849]
 navigation_mesh = ExtResource("5_navigation_mesh")
 
-[node name="PatrolPoints" type="Node3D" parent="."]
+[node name="PatrolPoints" type="Node3D" parent="." unique_id=432581588]
 
-[node name="HallWest" type="Marker3D" parent="PatrolPoints"]
+[node name="HallWest" type="Marker3D" parent="PatrolPoints" unique_id=2118188208]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5, 0, 0)
 
-[node name="HallEast" type="Marker3D" parent="PatrolPoints"]
+[node name="HallEast" type="Marker3D" parent="PatrolPoints" unique_id=1109408562]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5, 0, 0)
 
-[node name="NorthWestRoom" type="Marker3D" parent="PatrolPoints"]
+[node name="NorthWestRoom" type="Marker3D" parent="PatrolPoints" unique_id=1425411363]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -3.5)
 
-[node name="NorthEastRoom" type="Marker3D" parent="PatrolPoints"]
+[node name="NorthEastRoom" type="Marker3D" parent="PatrolPoints" unique_id=482002133]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -3.5)
 
-[node name="SouthWestRoom" type="Marker3D" parent="PatrolPoints"]
+[node name="SouthWestRoom" type="Marker3D" parent="PatrolPoints" unique_id=662158734]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 3.5)
 
-[node name="SouthEastRoom" type="Marker3D" parent="PatrolPoints"]
+[node name="SouthEastRoom" type="Marker3D" parent="PatrolPoints" unique_id=1622721070]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 6.5)
 
-[node name="Entity" parent="." node_paths=PackedStringArray("patrol_points") instance=ExtResource("2_entity")]
+[node name="Entity" parent="." unique_id=1084696179 node_paths=PackedStringArray("patrol_points") instance=ExtResource("2_entity")]
+process_mode = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -6)
 patrol_points = [NodePath("../PatrolPoints/HallWest"), NodePath("../PatrolPoints/HallEast"), NodePath("../PatrolPoints/NorthWestRoom"), NodePath("../PatrolPoints/NorthEastRoom"), NodePath("../PatrolPoints/SouthWestRoom"), NodePath("../PatrolPoints/SouthEastRoom")]
 
-[node name="PlayerSpawn" type="Marker3D" parent="."]
+[node name="PlayerSpawn" type="Marker3D" parent="." unique_id=1483545374]
 transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -10.5, 0, 0)
 
-[node name="CatchHandler" parent="." node_paths=PackedStringArray("spawn_point") instance=ExtResource("6_catch_handler")]
+[node name="CatchHandler" parent="." unique_id=89913230 node_paths=PackedStringArray("spawn_point") instance=ExtResource("6_catch_handler")]
 spawn_point = NodePath("../PlayerSpawn")
 
-[node name="Player" parent="." instance=ExtResource("1_player")]
+[node name="Player" parent="." unique_id=1566455703 instance=ExtResource("1_player")]
 transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -10.5, 0, 0)
 
 [node name="Flashlight" parent="Player/Head/Hand" index="0"]
 unlocked_hues = Array[int]([0, 1, 2, 3, 4, 5, 6, 7])
+
+[node name="Grip" parent="Player/Head/Hand" index="1"]
+transform = Transform3D(0.8007, 0.599, -0.0131, 0.5991, -0.8006, 0.0109, -0.0039, -0.0166, -0.9999, -0.058, 0.0285, 0.02)
+
+[node name="InteractionPrompt" parent="Player/HUD" index="0"]
+layout_mode = 3
+
+[node name="HintDisplay" parent="Player/HUD" index="2"]
+layout_mode = 3
+
+[node name="LivesDisplay" parent="Player/HUD" index="3"]
+layout_mode = 3
 
 [editable path="Player"]
