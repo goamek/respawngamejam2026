@@ -113,6 +113,13 @@ size = Vector3(0.36, 2.6, 0.4)
 [sub_resource type="BoxShape3D" id="BoxShape3D_0ooan"]
 size = Vector3(0.36, 2.6, 0.4)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e61hh"]
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_7n6n1"]
+material = SubResource("StandardMaterial3D_e61hh")
+
 [node name="SchoolEnv" type="Node3D" unique_id=1725289359]
 
 [node name="SM_DoubleDoor_Center39" parent="." unique_id=1064565331 instance=ExtResource("19_single_wall")]
@@ -8984,3 +8991,30 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 73.98187, 0.92706776, 10.3227
 
 [node name="CafeteriaCup7" parent="." unique_id=1326717673 instance=ExtResource("66_ibnls")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 71.26723, 0.92706776, 14.890087)
+
+[node name="WindowBlockers" type="Node3D" parent="." unique_id=475043453]
+
+[node name="Blocker1" type="MeshInstance3D" parent="WindowBlockers" unique_id=1719850590]
+transform = Transform3D(5.120018, 0, 0, 0, 3.8402934, 0, 0, 0, 0.03, 77.93495, 1.9201508, -56.791416)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_7n6n1")
+
+[node name="Blocker2" type="MeshInstance3D" parent="WindowBlockers" unique_id=1943536597]
+transform = Transform3D(5.120018, 0, 0, 0, 3.8402934, 0, 0, 0, 0.03, 82.93495, 1.9201508, -56.791416)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_7n6n1")
+
+[node name="Blocker3" type="MeshInstance3D" parent="WindowBlockers" unique_id=504601091]
+transform = Transform3D(5.120018, 0, 0, 0, 3.8402934, 0, 0, 0, 0.03, 87.93495, 1.9201508, -56.791416)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_7n6n1")
+
+[node name="Blocker4" type="MeshInstance3D" parent="WindowBlockers" unique_id=1054582718]
+transform = Transform3D(0.03, 0, 0, 0, 3.8402934, 0, 0, 0, 5.120014, 90.83924, 1.9201508, -53.77569)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_7n6n1")
+
+[node name="Blocker5" type="MeshInstance3D" parent="WindowBlockers" unique_id=83713997]
+transform = Transform3D(0.03, 0, 0, 0, 3.8402934, 0, 0, 0, 5.120014, 90.83924, 1.9201508, -48.77569)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_7n6n1")
