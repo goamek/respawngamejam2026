@@ -39,3 +39,5 @@ material_override = SubResource("StandardMaterial3D_leather")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_ball")
+
+[editable path="Model"]

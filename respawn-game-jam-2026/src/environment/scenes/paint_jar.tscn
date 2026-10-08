@@ -29,3 +29,5 @@ script = ExtResource("3_revealable")
 [node name="Carryable" type="Node" parent="."]
 script = ExtResource("4_carryable")
 prompt = "Pick up"
+
+[editable path="Model"]

@@ -119,3 +119,5 @@ player = NodePath("../..")
 
 [node name="PauseMenu" parent="HUD" node_paths=PackedStringArray("player") instance=ExtResource("9_pause")]
 player = NodePath("../..")
+
+[editable path="Body/Model"]
