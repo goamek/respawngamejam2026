@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://dvc7buabx7wxd"]
+
+[ext_resource type="PackedScene" uid="uid://t18dhc3nncx7" path="res://src/environment/Meshes/SM_Desk_01.fbx" id="1_silik"]
+[ext_resource type="Material" uid="uid://bb3aocohi3qpn" path="res://src/environment/materials/Metal_Door/Metal_Door.tres" id="2_wfa07"]
+[ext_resource type="Material" uid="uid://dnlyxndfbym2l" path="res://src/environment/materials/Wood/Wood.tres" id="3_oxoa8"]
+
+[node name="SM_Desk_01" unique_id=51679370 instance=ExtResource("1_silik")]
+
+[node name="polySurface96" parent="SM_Desk_01" parent_id_path=PackedInt32Array(388202966) index="0" unique_id=1368638417]
+material_override = ExtResource("2_wfa07")
+
+[node name="polySurface102" parent="SM_Desk_01" parent_id_path=PackedInt32Array(388202966) index="1" unique_id=545117646]
+material_override = ExtResource("3_oxoa8")

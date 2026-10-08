@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://ksgjx7fp6tio"]
+
+[ext_resource type="PackedScene" uid="uid://fi2xvd6clpew" path="res://src/environment/Meshes/SM_Basket.fbx" id="1_p1f22"]
+[ext_resource type="Material" uid="uid://c0afm24n18i3w" path="res://src/environment/materials/Fabric/Fabric.tres" id="2_0n24p"]
+
+[node name="SM_Basket" unique_id=853025337 instance=ExtResource("1_p1f22")]
+
+[node name="SM_Basket" parent="." index="0" unique_id=1519287567]
+material_override = ExtResource("2_0n24p")

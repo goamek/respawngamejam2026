@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://ts1m7i6m1byj"]
+
+[ext_resource type="PackedScene" uid="uid://dpmr38qr85nr4" path="res://src/environment/materials/SM_Flashlight.fbx" id="1_tmuvw"]
+[ext_resource type="Material" uid="uid://d0ew4dr8623eg" path="res://src/environment/materials/Cup.tres" id="2_aepn1"]
+
+[node name="SM_Flashlight" unique_id=834140535 instance=ExtResource("1_tmuvw")]
+
+[node name="SM_Flashlight" parent="." index="0" unique_id=729691779]
+material_override = ExtResource("2_aepn1")

@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://d05e2x8apdvqr"]
+
+[ext_resource type="PackedScene" uid="uid://ds76xev70qfgs" path="res://src/environment/Meshes/SM_table_02.fbx" id="1_ghf88"]
+[ext_resource type="Material" uid="uid://bb3aocohi3qpn" path="res://src/environment/materials/Metal_Door/Metal_Door.tres" id="2_ytv6r"]
+[ext_resource type="Material" uid="uid://dy4yulvv71cup" path="res://src/environment/materials/Wood/Wood_02.tres" id="3_1wvkv"]
+
+[node name="SM_table_02" unique_id=502440124 instance=ExtResource("1_ghf88")]
+
+[node name="polySurface96" parent="SM_table" parent_id_path=PackedInt32Array(1784021320) index="0" unique_id=121498787]
+material_override = ExtResource("2_ytv6r")
+
+[node name="polySurface102" parent="SM_table" parent_id_path=PackedInt32Array(1784021320) index="1" unique_id=1051479486]
+material_override = ExtResource("3_1wvkv")
