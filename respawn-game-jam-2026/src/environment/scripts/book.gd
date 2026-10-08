@@ -10,6 +10,8 @@ signal taken
 @export var title: String = "Untitled"
 ## Whether this is the book the player is looking for.
 @export var is_correct: bool = false
+## Name in the sound library of the sound played when the player takes hold of the book, right or wrong; leave empty for none.
+@export var pickup_sound: StringName = &"pickup"
 
 @onready var _choice: Choice = $Choice
 
@@ -19,9 +21,16 @@ func _ready() -> void:
 	_choice.prompt = "Take \"%s\"" % title
 	_choice.is_correct = is_correct
 	_choice.chosen_right.connect(_on_choice_chosen_right)
+	_choice.chosen_wrong.connect(_on_choice_chosen_wrong)
 
 
-## Announces that the right book was taken, then removes it from the shelf.
+## Plays the pickup sound, announces that the right book was taken, then removes it from the shelf.
 func _on_choice_chosen_right() -> void:
+	AudioController.play_sound(pickup_sound)
 	taken.emit()
 	queue_free()
+
+
+## Plays the pickup sound for a wrong book, which is pulled at and stays on the shelf.
+func _on_choice_chosen_wrong() -> void:
+	AudioController.play_sound(pickup_sound)

@@ -1,0 +1,111 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/environment/scripts/scoreboard.gd" id="1_scoreboard"]
+[ext_resource type="PackedScene" path="res://src/environment/scenes/scoreboard_digit.tscn" id="2_digit"]
+[ext_resource type="Texture2D" path="res://src/environment/Decals/scoreboard.jpg" id="3_face"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_face"]
+albedo_texture = ExtResource("3_face")
+metallic_specular = 0.0
+roughness = 1.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_face"]
+material = SubResource("StandardMaterial3D_face")
+size = Vector2(3.9, 1.95)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_casing"]
+albedo_color = Color(0.12, 0.12, 0.13, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_casing"]
+material = SubResource("StandardMaterial3D_casing")
+size = Vector3(3.9, 1.95, 0.09)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_off"]
+albedo_color = Color(0.13, 0.13, 0.14, 1)
+metallic_specular = 0.0
+roughness = 1.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_dot"]
+radius = 0.055
+height = 0.11
+radial_segments = 16
+rings = 8
+
+[node name="Scoreboard" type="Node3D"]
+script = ExtResource("1_scoreboard")
+
+[node name="Casing" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.05)
+mesh = SubResource("BoxMesh_casing")
+
+[node name="Face" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.097)
+cast_shadow = 0
+mesh = SubResource("QuadMesh_face")
+
+[node name="Digit" parent="." instance=ExtResource("2_digit")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.443, -0.249, 0.1)
+digit_height = 0.6
+bar_thickness = 0.12
+
+[node name="GuestDigit" parent="." instance=ExtResource("2_digit")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.443, -0.249, 0.1)
+digit_height = 0.6
+bar_thickness = 0.12
+is_off = true
+off_material = SubResource("StandardMaterial3D_off")
+
+[node name="QuarterDigit" parent="." instance=ExtResource("2_digit")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.008, -0.493, 0.1)
+digit_height = 0.56
+bar_thickness = 0.085
+is_off = true
+off_material = SubResource("StandardMaterial3D_off")
+
+[node name="Clock" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.533, 0.1)
+
+[node name="TenMinutes" parent="Clock" instance=ExtResource("2_digit")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.662, 0, 0)
+digit_height = 0.56
+bar_thickness = 0.085
+is_off = true
+off_material = SubResource("StandardMaterial3D_off")
+
+[node name="Minutes" parent="Clock" instance=ExtResource("2_digit")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.282, 0, 0)
+digit_height = 0.56
+bar_thickness = 0.085
+is_off = true
+off_material = SubResource("StandardMaterial3D_off")
+
+[node name="TenSeconds" parent="Clock" instance=ExtResource("2_digit")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.282, 0, 0)
+digit_height = 0.56
+bar_thickness = 0.085
+is_off = true
+off_material = SubResource("StandardMaterial3D_off")
+
+[node name="Seconds" parent="Clock" instance=ExtResource("2_digit")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.662, 0, 0)
+digit_height = 0.56
+bar_thickness = 0.085
+is_off = true
+off_material = SubResource("StandardMaterial3D_off")
+
+[node name="Dots" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.443, -0.8, 0.11)
+
+[node name="DotLeft" type="MeshInstance3D" parent="Dots"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.24, 0, 0)
+cast_shadow = 0
+mesh = SubResource("SphereMesh_dot")
+
+[node name="DotMiddle" type="MeshInstance3D" parent="Dots"]
+cast_shadow = 0
+mesh = SubResource("SphereMesh_dot")
+
+[node name="DotRight" type="MeshInstance3D" parent="Dots"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.24, 0, 0)
+cast_shadow = 0
+mesh = SubResource("SphereMesh_dot")

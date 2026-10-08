@@ -1,0 +1,33 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/environment/scripts/paint_jar.gd" id="1_paint_jar"]
+[ext_resource type="Material" path="res://src/flashlight/resources/reveal_material.tres" id="2_reveal"]
+[ext_resource type="Script" path="res://src/flashlight/scripts/revealable.gd" id="3_revealable"]
+[ext_resource type="Script" path="res://src/interaction/scripts/carryable.gd" id="4_carryable"]
+[ext_resource type="PackedScene" path="res://src/environment/materials/sm_cup.tscn" id="5_cup_model"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jar"]
+size = Vector3(0.11, 0.11, 0.11)
+
+[node name="PaintJar" type="RigidBody3D"]
+collision_layer = 5
+collision_mask = 7
+script = ExtResource("1_paint_jar")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_jar")
+
+[node name="Model" parent="." instance=ExtResource("5_cup_model")]
+transform = Transform3D(0.55, 0, 0, 0, 0.55, 0, 0, 0, 0.55, 0, 0, 0)
+
+[node name="SM_Cup" parent="Model" index="0"]
+material_override = ExtResource("2_reveal")
+
+[node name="Revealable" type="Node3D" parent="."]
+script = ExtResource("3_revealable")
+
+[node name="Carryable" type="Node" parent="."]
+script = ExtResource("4_carryable")
+prompt = "Pick up"
+
+[editable path="Model"]

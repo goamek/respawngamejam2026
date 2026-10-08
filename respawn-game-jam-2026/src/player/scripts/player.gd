@@ -1,6 +1,6 @@
 class_name Player
 extends CharacterBody3D
-## First-person player body: walks, sprints, crouches, and looks around.
+## First-person player body: walks, crouches, and looks around.
 ## Mouse movement and the right stick both turn the body and tilt the head.
 
 ## Emitted when the player takes hold of [param flashlight].
@@ -20,9 +20,7 @@ const MOVING_SPEED: float = 0.5
 
 @export_group("Movement")
 ## Walking speed, in meters per second.
-@export var walk_speed: float = 3.0
-## Sprinting speed, in meters per second.
-@export var sprint_speed: float = 5.5
+@export var walk_speed: float = 5.3
 ## Crouched speed, in meters per second.
 @export var crouch_speed: float = 1.5
 ## How fast the player speeds up and stops, in meters per second squared.
@@ -42,6 +40,18 @@ const MOVING_SPEED: float = 0.5
 ## How fast the body moves between standing and crouched, in meters per second.
 @export var crouch_transition_speed: float = 4.0
 
+@export_group("Sound")
+## Name in the sound library of the sound played for each footstep; leave empty for none.
+@export var step_sound: StringName = &"player_step"
+## Distance the player covers between one footstep and the next, in meters.
+@export var stride_length: float = 2.0
+## Name in the sound library of the sound played as the player crouches down; leave empty for none.
+@export var crouch_sound: StringName = &"player_crouch"
+## Distance from which the entity hears each footstep taken standing up, in meters; crouched footsteps are silent to it.
+@export var step_noise_range: float = 4.0
+
+## Hint on screen at the moment; empty when there is none.
+var current_hint: String = ""
 ## Whether the player is crouched, by choice or because something is overhead.
 var is_crouching: bool = false
 ## Flashlight in the player's hand, or null while the hand is empty.
@@ -53,6 +63,7 @@ var _height: float
 var _shake_strength: float = 0.0
 var _shake_duration: float = 0.0
 var _shake_left: float = 0.0
+var _stride_travelled: float = 0.0
 
 ## Pivot at eye level that tilts up and down; the camera and anything held follow it.
 @onready var head: Node3D = $Head
@@ -83,14 +94,11 @@ func _ready() -> void:
 			child.queue_free()
 
 
-## Routes the pause action, and while controls are enabled, mouse look, the interact action, and hue changes.
+## While controls are enabled, routes mouse look, the interact action, and hue changes.
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("pause"):
-		# STUB: frees the mouse until a real pause menu exists
-		_toggle_mouse_capture()
-	elif not is_input_enabled:
+	if not is_input_enabled:
 		return
-	elif event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		var motion: InputEventMouseMotion = event
 		_look(motion.relative * mouse_sensitivity)
 	elif event.is_action_pressed("interact"):
@@ -121,6 +129,7 @@ func _physics_process(delta: float) -> void:
 	_update_crouch(delta)
 	_update_velocity(delta)
 	move_and_slide()
+	_update_footsteps(delta)
 
 
 ## Whether the player is moving fast enough to be noticed.
@@ -178,12 +187,13 @@ func respawn_at(spawn: Node3D) -> void:
 
 ## Shows [param text] as a hint on screen until it is cleared or replaced.
 func show_hint(text: String) -> void:
+	current_hint = text
 	hint_changed.emit(text)
 
 
 ## Removes the on-screen hint.
 func clear_hint() -> void:
-	hint_changed.emit("")
+	show_hint("")
 
 
 ## Places [param item] in the player's hand and makes it the flashlight the player controls.
@@ -211,7 +221,10 @@ func _look(degrees: Vector2) -> void:
 
 ## Crouches while the action is held, and stays crouched while something blocks standing up.
 func _update_crouch(delta: float) -> void:
+	var was_crouching: bool = is_crouching
 	is_crouching = _is_crouch_needed()
+	if is_crouching and not was_crouching:
+		AudioController.play_sound(crouch_sound)
 	var target_height: float = crouch_height if is_crouching else stand_height
 	_height = move_toward(_height, target_height, crouch_transition_speed * delta)
 	_apply_height()
@@ -222,6 +235,23 @@ func _is_crouch_needed() -> bool:
 	var is_blocked: bool = is_crouching and _ceiling_check.is_colliding()
 	var wants_crouch: bool = is_input_enabled and Input.is_action_pressed("crouch")
 	return wants_crouch or is_blocked
+
+
+## Plays a footstep each time the player has covered another stride along the floor.
+func _update_footsteps(delta: float) -> void:
+	if not is_on_floor():
+		return
+	if not is_moving():
+		# Standing still starts the count again, so short shuffles never add up to a step.
+		_stride_travelled = 0.0
+		return
+	var moved: Vector3 = get_real_velocity()
+	_stride_travelled += Vector2(moved.x, moved.z).length() * delta
+	if _stride_travelled >= stride_length:
+		_stride_travelled = 0.0
+		AudioController.play_sound(step_sound)
+		if not is_crouching:
+			EntityHearing.make_noise(get_tree(), global_position, step_noise_range)
 
 
 ## Resizes the collision shape to the current height and keeps the head near its top.
@@ -243,12 +273,10 @@ func _update_velocity(delta: float) -> void:
 	velocity.z = move_toward(velocity.z, target.z, acceleration * delta)
 
 
-## Returns the top speed for the current state: crouched, sprinting, or walking.
+## Returns the top speed for the current state: crouched or walking.
 func _current_speed() -> float:
 	if is_crouching:
 		return crouch_speed
-	if Input.is_action_pressed("sprint"):
-		return sprint_speed
 	return walk_speed
 
 
@@ -258,11 +286,3 @@ func _handle_hue_input(event: InputEvent) -> void:
 		flashlight.cycle_hue(1)
 	elif event.is_action_pressed("color_prev"):
 		flashlight.cycle_hue(-1)
-
-
-## Switches the mouse between captured for play and visible for the desktop.
-func _toggle_mouse_capture() -> void:
-	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	else:
-		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED

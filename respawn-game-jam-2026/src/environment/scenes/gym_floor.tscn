@@ -1,0 +1,25 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://src/environment/Decals/Gymfloor3.jpg4f6b1c13-e003-432f-94d2-93bc69eaa6b1Zoom.jpg" id="1_court"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_court"]
+albedo_texture = ExtResource("1_court")
+metallic_specular = 0.2
+roughness = 0.7
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_court"]
+material = SubResource("StandardMaterial3D_court")
+size = Vector2(35.1, 21.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_floor"]
+size = Vector3(21.2, 0.4, 35.1)
+
+[node name="GymFloor" type="StaticBody3D"]
+
+[node name="Court" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 0, 0, 0)
+mesh = SubResource("PlaneMesh_court")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+shape = SubResource("BoxShape3D_floor")

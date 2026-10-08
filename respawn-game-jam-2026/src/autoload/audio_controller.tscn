@@ -1,0 +1,18 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/autoload/audio_controller.gd" id="1_controller"]
+[ext_resource type="Script" path="res://src/audio/scripts/crossfade_player.gd" id="2_crossfade"]
+[ext_resource type="Resource" path="res://src/audio/resources/game_sound_library.tres" id="3_library"]
+
+[node name="AudioController" type="Node"]
+process_mode = 3
+script = ExtResource("1_controller")
+library = ExtResource("3_library")
+
+[node name="Music" type="Node" parent="."]
+script = ExtResource("2_crossfade")
+bus = &"Music"
+
+[node name="Ambience" type="Node" parent="."]
+script = ExtResource("2_crossfade")
+bus = &"Ambience"

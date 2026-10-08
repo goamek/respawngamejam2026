@@ -36,19 +36,21 @@ Anything the player aims at must be on layers **1 and 3** (world and interactabl
 
 To make it show only under a color, give its mesh the reveal material and add a `Revealable` child, as for any colored object.
 
+A carried item is held a fixed reach in front of the player's head, but never through a floor or wall: if something solid is in the way it is held just short of it, by **Hold Clearance** (0.12 m, about half the item's size; raise it for a bigger item). As a last resort, an item that ends up more than 10 m below where it was first picked up is put back there, so a puzzle piece can never be lost for good.
+
 ## A spot that takes items (item socket)
 
 Used for the plant pot, the fruit basket and the paint palettes.
 
 1. Make the object the items go on or in: a `StaticBody3D` on layers 1 and 3 with a collision shape.
-2. Add one `Marker3D` child for each item it holds, placed where that item should sit. Keep them clear of the object's own collision shape.
+2. Add one `Marker3D` child for each item it holds, placed where that item should sit. They may be inside the object's collision shape.
 3. Add a child `Node` with the `ItemSocket` script.
 4. In the Inspector:
    - **Slots:** add the markers, in the order they should fill.
    - **Accepted Ids:** every item id the player is allowed to set down here, right or wrong. Leave empty to take anything.
    - **Solution Ids:** the ids that count as correct, one per slot, in any order. Leave empty if anything accepted is correct.
 
-How it plays: while carrying an accepted item and aiming at the object, the hint reads "Place". Each item jumps to the next free slot and cannot be taken back. When the last slot fills:
+How it plays: while carrying an accepted item, the hint reads "Place" when the player aims at the object, aims within 0.75 m of one of its slots, or simply holds the item within 0.75 m of a slot. The last two are there because players line the item up with the object, which leaves the crosshair pointing past it. Anywhere else the hint reads "Drop". Each item jumps to the next free slot and cannot be taken back. A placed item is for show only: it stops being solid, so it never blocks the player's aim at the object. That means the object's own collision shape should cover everything the player might aim at, including the space the items sit in. When the last slot fills:
 
 - **Right items:** the `solved` signal fires and they stay for good.
 - **Wrong items:** the `rejected` signal fires, and after a moment they all return to where the player first picked them up.
@@ -108,7 +110,105 @@ Select the node that sends the signal, open the **Node** dock, double-click the 
 | The light has been held long enough | sensor `charged` | any `Node3D`'s `show()` |
 | The puzzle is finished | socket `solved` or sensor `charged` | safe room `open_to_entity()` |
 
-Example, the greenhouse: the pot is a socket with one slot, taking the four seed packets, with the flower packet as its solution. Its `solved` goes to the sensor's `enable()`. The sensor sits on the pot, yellow, 3 seconds. Its `charged` goes to the flower's `show()`, both crayons' `appear()`, and the safe room's `open_to_entity()`.
+The greenhouse uses this chain, packed into one ready-made object; see **The greenhouse puzzle** below.
+
+## Writing that shows under one color (hidden text)
+
+Drag in `environment/scenes/hidden_text.tscn`. It is a small dark tag with writing on it that only shows under a beam of its **Hue**, or a white beam. Set **Text**, **Hue**, **Text Height** and **Tag Size** (both in meters).
+
+The tag is there on purpose. Hidden things are drawn near black, so hidden writing straight on pale paper would be readable as black letters. On a tag of the same black it cannot be made out until the right light is on it.
+
+Used for the names on the seed sacks and the missing word on the greenhouse note. The same piece will do for locker numbers and jar labels.
+
+## The greenhouse puzzle
+
+Three ready-made pieces, all in `environment/scenes/`:
+
+| Piece | What it is | Settings |
+|---|---|---|
+| `seed_sack.tscn` | A sack the player carries, with its name on a hidden-text tag (yellow). The hint is "Pick up" for every sack, so only the light tells them apart. | **Plant Name**, in lowercase: `flower`, `carrot`, `tree` or `weed`. It is both the name on the tag and the id the pot checks. |
+| `plant_pot.tscn` | The pot, with a socket, a light sensor, and the flower inside it. | Three sound names. |
+| `bench.tscn` | A plain grey placeholder bench, 2.2 m long and 0.9 m high. | None. |
+
+How the pot plays:
+
+1. It takes any of the four sacks. A wrong one sits in it for a moment and is sent back to where it was picked up, with a thud. The pot emits `seeds_rejected`; connect that to a noise alarm's `ring()` (see **A noise that brings the entity**).
+2. The `flower` sack is planted: it disappears into the pot, and from then on yellow light counts.
+3. While yellow light is on the pot the flower grows, reaching full size after 3 seconds. Move the beam away and it shrinks back at the same rate.
+4. At full size the pot emits `bloomed`. Connect that to each reward crayon's `appear()`.
+
+In the school: the bench, the four sacks and the note are in the potting room; the pot is on the greenhouse floor; the noise alarm is in the hall outside the bio lab's yellow door. The green and indigo crayons sit in the flower, hidden until `bloomed`. Taking both opens the wing to the entity, through the safe room.
+
+After moving the bench or the pot, re-bake the navigation mesh, since the entity walks round them once the wing is open.
+
+## A noise that brings the entity (noise alarm)
+
+Add a `Marker3D` with `level/scripts/noise_alarm.gd`. Calling its `ring()` makes a noise at the marker that the entity hears within **Noise Range** (25 m). The entity runs to the marker, looks around, and leaves.
+
+Put the marker just outside the room's door, not on the puzzle. The entity ignores any noise that comes from inside a safe room it is kept out of, and every puzzle is inside one.
+
+Connect a puzzle's wrong-answer signal to `ring()`: the plant pot's `seeds_rejected`, or a locker's `rattled`.
+
+## The gym puzzle
+
+Pieces, in `environment/scenes/`:
+
+| Piece | What it is | Settings |
+|---|---|---|
+| `scoreboard_digit.tscn` | A seven-bar digit that reads as a different number under each color of light. | **Digits** (a number for each hue), **Digit Height**, **Bar Thickness**. Tick **Is Off** to draw it switched off instead: seven plain dim bars that show no number. |
+| `scoreboard.tscn` | A full scoreboard, switched off: HOME and GUEST scores and a clock. The HOME score is the puzzle digit, with a row of three glowing dots under it. The GUEST score and the clock are switched-off digits, there for looks. | **Dot Order**, the hues of the dots from left to right. |
+| `locker.tscn` | A numbered locker built on the choice mechanic. The hint reads "Open locker 247". | **Number**, **Is Correct**, two sound names. |
+
+How the digit works: every digit on a seven-bar display uses at least one of the two right-hand bars, so three digits cannot each have bars of their own. Each bar is therefore split into thin stripes, one per hue, and a stripe is only drawn where that hue's digit uses the bar. The board behind is as dark as a hidden stripe, so nothing shows until the right light is on it.
+
+How a locker plays: a wrong one rattles, stays shut, reads "Not this one" for a moment, and emits `rattled`. The right one swings open and emits `opened`. Its **Contents Spot** is where to put what it holds.
+
+The answer is dealt by `level/scripts/gym_puzzle.gd`, a node in the level given the scoreboard, exactly six lockers, the reward crayon (hidden at start) and a noise alarm. Each time the level loads it:
+
+1. picks three different digits and deals them to yellow, green and indigo;
+2. puts the dots in a random order, which is the order to read the digits in;
+3. numbers the six lockers with the six arrangements of those digits, shuffled;
+4. moves the crayon into the right locker, makes it appear when that locker opens, and connects every wrong locker to the alarm.
+
+So do not set the scoreboard's digits, the dot order, or the lockers' numbers by hand in the level; the node overwrites them. To test with a known answer, type three different digits into its **Fixed Answer**, such as `247`. The dots are then yellow, green, indigo and the first locker in the list is the right one. Clear it again before shipping.
+
+In the school: the scoreboard and its note are on the gym's west wall, the six lockers along the locker room's north wall, and the alarm in the east corridor outside the locker room door. The two rooms do not connect, so the player reads the board in the gym and walks round to the locker room.
+
+## The cafeteria puzzle
+
+Pieces, in `environment/scenes/`:
+
+| Piece | What it is | Settings |
+|---|---|---|
+| `fruit.tscn` | A piece of fruit the player carries, dark until its own color of light is on it. Placeholder shapes built from balls and capsules. | **Kind**: apple (red), banana (yellow), pear (green), blueberries (blue) or plum (indigo). It sets the shape, the color and the id the basket checks. |
+| `fruit_basket.tscn` | A basket with an item socket: three slots, takes any fruit, and is solved by three apples. | Two sound names. |
+
+How the basket plays: fruit set in it stays until the third piece is in, then all three are judged at once. Three apples stay for good and the basket emits `filled_right`; connect that to the reward crayon's `appear()`. Anything else is sent back to where each piece was picked up, and the basket emits `filled_wrong`; connect that to a noise alarm's `ring()`.
+
+The pile is dealt by an item shuffler (see **Shuffling a set of objects**) given every piece of fruit, with **Setting** `kind`, so the apples are in different places every run.
+
+In the school: fifteen pieces, three of each kind, on four placeholder benches pushed together in the middle of the cafeteria; the basket and the note on a bench against the south wall; the red crayon hidden in the basket; the noise alarm in the main corridor outside the cafeteria's north-west door.
+
+The apple and the plum are close in shape on purpose. The other fruit can be told apart by outline, so the light is what confirms an apple.
+
+## The art studio puzzle
+
+Pieces, in `environment/scenes/`:
+
+| Piece | What it is | Settings |
+|---|---|---|
+| `paint_jar.tscn` | A jar of paint the player carries, dark until its own color of light is on it. Every jar is the same shape. | **Paint**, the hue inside. It sets the color that shows the jar and the id a palette checks. |
+| `paint_palette.tscn` | A palette with an item socket: two slots, takes any jar, and is solved by its two paints in either order. | **Paints**, the two hues it mixes, and three sound names. |
+
+How a palette plays: the first jar set on it stays until the second is on, then both are judged. The right two stay and the palette emits `mixed`; connect that to the reward crayon's `appear()`. Any other pair is sent back to the shelf and the palette emits `mixed_wrong`; connect that to a noise alarm's `ring()`.
+
+In the school: five jars on a bench against the east wall (two red, one yellow, one blue, and a green decoy), shuffled along the shelf every run. Two palettes on benches against the west wall, each under a sign that stands in for an unfinished painting: "pumpkin" (red and yellow, orange crayon) and "eggplant" (red and blue, violet crayon). The signs name the thing to paint and leave the colors for the player to work out. The noise alarm is in the main corridor outside the studio's red door. There are two red jars so the player never has to take one back off a finished palette.
+
+The three drawings of the entity on the south wall are placeholders: hidden text reading "ME" in yellow, green and blue, each larger than the last.
+
+## Shuffling a set of objects (item shuffler)
+
+Add a `Node` with `level/scripts/item_shuffler.gd`. Give it **Items**, the objects, and **Setting**, the name of one setting they all have, such as `kind` on fruit or `paint` on paint jars. Each time the level loads it collects that setting's values from the objects, shuffles them, and hands them back out. So the scene decides how many of each value there are, and the shuffle only decides which object gets which. Untick **Is Shuffled** to keep the scene's layout while testing.
 
 ## A crayon that is a reward
 
@@ -161,7 +261,7 @@ One `FirstSighting` node per level. It hides the entity and switches it off when
 | **Stare Trigger** | Only for a level with no such door: a `PlayerTrigger` that starts the stare instead. Otherwise leave it empty. |
 | **Watch Spot** | A `Marker3D` where the entity stands. |
 | **Leave Spot** | Where it walks to after the player hides; a patrol point works. |
-| **Hiding Spots** | One `Area3D` under each desk, with **Collision Mask** set to layer 2 (player) and a box that covers the back half of the space underneath. |
+| **Hiding Spots** | The hiding spots that count for this meeting, normally the one under each nearby desk. See the next section for how to make one. |
 | **Watch Door Path** | The door it watches through, typed by hand as above. Optional. |
 
 What the player does decides how it ends:
@@ -172,6 +272,17 @@ What the player does decides how it ends:
 **Watch Rise** lifts the entity so its face lines up with a door window. **Head Tilt** tips its head sideways while it stares; positive leans the top of its head to the player's left, and 70 reads as about 10:30 on a clock because the idle pose already leans the other way. **Hint** is the line shown on screen during the stare. Signals `started`, `player_hid` and `entity_attacked` are there for sounds and music, and `ended` fires when the meeting is over either way.
 
 To test puzzles with no entity at all, untick **Is Enabled**: it then stays asleep for the whole game.
+
+## A place to hide (hiding spot)
+
+A hiding spot is an invisible region, usually under a desk. A player crouched inside it cannot be spotted by the entity, unless the entity was already chasing them when they got in.
+
+1. Add an `Area3D` as a child of the piece of furniture and attach `src/level/scripts/hiding_spot.gd`.
+2. Give it a `CollisionShape3D` with a box that covers the space underneath. Keep the box inside the furniture, so that standing next to it does not count.
+
+That is all: it sets its own collision layers and the entity finds it by itself. The player has to be crouching, so make sure there is room to crouch in. The full rules are in `src/entity/README.md`.
+
+The two desks used by the first sighting, in the office and the archive, are hiding spots.
 
 ## Ending the game
 
@@ -204,10 +315,14 @@ Call `show_hint("text")` on the player to put a line of guidance in the lower pa
 ## A level where the flashlight is found
 
 1. Select the `Player` in the level and untick **Has Flashlight At Start**. The player begins with an empty hand.
-2. Drag in `pickup/scenes/flashlight_pickup.tscn` and place it where the flashlight should lie. It is switched on, so its beam helps the player spot it.
+2. Drag in `pickup/scenes/flashlight_pickup.tscn` and place it where the flashlight should lie. It is switched off, so it needs to lie somewhere the player can see without it.
 
-Aiming at it shows "Pick up". Using it puts the flashlight in the player's hand.
+Aiming at it shows "Pick up". Using it puts the flashlight in the player's hand, still off, and shows a hint on how to switch it. The hint stays until the player first switches the light, and its wording is the pickup's **Hint** setting; clear that for no hint.
 
-## The flashlight with no color
+## The flashlight's grey beam
 
-A flashlight whose **Unlocked Hues** list is empty shines a dim grey beam. It lights the way and reveals nothing. The first crayon gives it its first color.
+Every flashlight has a dim grey beam that lights the way and reveals nothing. It is always there, first in the row of colors, and is never replaced: each crayon adds a color after it, and the player can cycle back to grey at any time.
+
+A flashlight whose **Unlocked Hues** list is empty has grey and nothing else, which is how the one in the lobby starts. A flashlight given colors there still gets grey, and starts on its first color.
+
+Grey does not count as a crayon: it does not speed the entity up, and it is not one of the seven that unlock white.

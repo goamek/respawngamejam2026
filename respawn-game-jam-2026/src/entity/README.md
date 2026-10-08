@@ -1,6 +1,6 @@
 # Entity
 
-The creature that hunts the player. It roams the level, notices the player when they give themselves away, goes to check the last place it noticed them, and catches them if it reaches them.
+The creature that hunts the player. It roams the level, chases the player for as long as it can see them, hunts for them where it lost them, comes to check noises, and catches the player if it reaches them.
 
 - Scene: `scenes/entity.tscn`
 - Script: `scripts/entity.gd` (`class_name Entity`)
@@ -17,6 +17,8 @@ The body is a rigged character from Mixamo, shown solid black with two white eye
 | Seeing the player | Built |
 | Noticing the flashlight's lit spot when the player is out of view | Built |
 | Investigating the last place it noticed the player | Built |
+| Hearing footsteps and doors | Built |
+| Hiding spots | Built |
 | Catching the player | Built |
 | Model and animations | Built |
 
@@ -28,14 +30,14 @@ The entity is always in exactly one state.
 |---|---|---|
 | `PAUSING` | Stands still for `pause_time`. Also the starting state. | `ROAMING` when the pause ends |
 | `ROAMING` | Walks to a randomly chosen patrol point at `roam_speed`. | `PAUSING` on arrival or when blocked |
-| `INVESTIGATING` | Hurries to `last_known_position` at `investigate_speed`. On arrival, turns to face the player if it can still see them. | `SEARCHING` on arrival or when blocked, once the player is out of sight |
+| `INVESTIGATING` | Hurries to `last_known_position` at `investigate_speed`, whether that is the player or a noise. On arrival, turns to face the player if it can still see them. | `SEARCHING` on arrival or when blocked, once the player is out of sight |
 | `SEARCHING` | Turns on the spot for `search_time`, looking around. | `PAUSING` when the time runs out |
 | `CATCHING` | Stands still facing the caught player. | `PAUSING` when reset with `reset_to_start()` |
 | `WATCHING` | Scripted: stands still and stares at the player. Entered with `watch_player()`. | Whatever the script sends it to next |
 | `LEAVING` | Scripted: walks to a given spot at `roam_speed`. Entered with `leave_to(spot)`. | `PAUSING` on arrival or when blocked |
 | `UNCOVERED` | Stands still facing the player, in full color, harmless. Entered when white light has been held on it for `uncover_time`. | Nothing; the game ends |
 
-From any state except `CATCHING`, `WATCHING`, `LEAVING` and `UNCOVERED`, noticing the player switches it to `INVESTIGATING`. In `WATCHING` and `LEAVING` its senses are off: it does not notice the player or their light, and cannot catch them. They are used by the first sighting (`src/level/scripts/first_sighting.gd`), which also keeps the entity hidden and switched off until that moment.
+From any state except `CATCHING`, `WATCHING`, `LEAVING` and `UNCOVERED`, noticing the player or hearing a noise switches it to `INVESTIGATING`. In `WATCHING` and `LEAVING` its senses are off: it does not notice the player, their light or any noise, and cannot catch them. They are used by the first sighting (`src/level/scripts/first_sighting.gd`), which also keeps the entity hidden and switched off until that moment.
 
 ```
             pause ends
@@ -51,32 +53,79 @@ From any state except `CATCHING`, `WATCHING`, `LEAVING` and `UNCOVERED`, noticin
 
 ## Noticing the player
 
-Checked every physics frame. The entity notices the player when all of these are true:
+Checked every physics frame. Whether the player is moving, and whether their flashlight is on, make no difference to being seen.
 
-1. **The player gives themselves away:** they are moving faster than 0.5 m/s, or their flashlight is on.
-2. **In range:** within `sight_range` of the entity's eyes.
-3. **In view:** within `sight_angle` of straight ahead.
-4. **Nothing in between:** a ray from the eyes reaches the player's head or body before hitting anything on the world layer. Walls, closed doors and the carry box block it. Pickups such as crayons do not.
+### Spotting
 
-It also notices the player through their light, even when the player themselves is out of view:
+The entity spots the player when all of these are true:
+
+1. **In range:** within `sight_range` of the entity's eyes.
+2. **In view:** within `sight_angle` of straight ahead, or closer than `awareness_radius` in any direction. The second part means it cannot be hugged from behind.
+3. **Nothing in between:** a ray from the eyes reaches the player's head or body before hitting anything on the world layer. Walls, closed doors and the carry box block it. Pickups such as crayons do not.
+4. **Not hiding:** the player is not crouched in a hiding spot (see below).
+
+It also spots the player through their light, even when the player themselves is out of view:
 
 1. **The flashlight is on**, and the center of its beam lands on a surface.
-2. **That lit spot is in range and in view**, by the same range and angle as above.
+2. **That lit spot is in range and in view**, by the same rules as above.
 3. **Nothing blocks its view of the spot.**
 
-The entity is smart enough to tell where the light comes from, so it heads for the player, not for the lit spot. Shining the beam past it, or onto a wall in front of it, gives the player away.
+The entity is smart enough to tell where the light comes from, so it heads for the player, not for the lit spot.
 
-A player standing still with the flashlight off is never noticed, even in plain view. This is the main way to hide.
+### Tracking
 
-While the player stays noticed, `last_known_position` follows them every frame, so the entity effectively chases. Once they stop being noticed, it goes to the last place it saw them, not to where they are now, then searches.
+Once it has spotted the player it is tracking them, and two of the rules relax:
+
+- **The view angle no longer matters.** It keeps seeing the player anywhere within `sight_range` as long as nothing is in between, so running round it does not shake it off.
+- **Hiding spots no longer work.** It watched the player get in.
+
+`last_known_position` follows the player every frame while they are seen.
+
+### Losing the player
+
+The only way to be lost is to put a wall or a closed door in the way, or to get out of range.
+
+1. For `sight_memory` (1 second) after that, the entity still knows where the player really is and keeps heading there. This carries it round the corner or through the door the player just took, where it will usually see them again.
+2. After that it stops tracking. It runs to the last position it knew, looks around (`SEARCHING`), and goes back to roaming.
+3. From then on it has to spot the player afresh, so a hiding spot works again.
+
+### Hiding spots
+
+A hiding spot is an invisible region under a piece of furniture (`src/level/scripts/hiding_spot.gd`). A player who is crouched inside one cannot be spotted, however close the entity comes and whatever it can see. A player who is being tracked when they get in gains nothing from it. The entity remembers watching them hide, and until they come out again:
+
+- it counts as seeing them even where the furniture blocks its view, so it never loses them and wanders off;
+- it catches them from `hiding_catch_reach` (2.2 m) whichever way it faces, as if dragging them out. Furniture such as the desk has solid panels that keep its body further away than its normal reach.
+
+Tracking includes the `sight_memory` second after losing sight, so ducking round a corner and straight under a desk does not count as hiding unseen.
+
+How to add one is in `src/interaction/README.md`.
+
+## Hearing
+
+Two things make a noise the entity can hear:
+
+| Noise | Carries | Setting |
+|---|---|---|
+| Each footstep the player takes standing up | 4 m | `step_noise_range` on the player |
+| The player opening or closing a door | 6 m | `noise_range` on the door |
+
+Crouched footsteps are silent, and so are doors the entity opens itself. Sneaking past it closer than 4 m means crouching.
+
+A noise carries its distance in a straight line, through walls. An entity within that distance runs to where the noise came from and searches there. It learns the spot, not where the player is, so making a noise and leaving sends it the wrong way.
+
+It ignores a noise while it is already tracking the player, while catching, while asleep or scripted (the first sighting), and when the noise comes from inside a safe room it is still kept out of.
+
+Anything else can make a noise with one call: `EntityHearing.make_noise(get_tree(), global_position, range_in_meters)` (`scripts/entity_hearing.gd`).
 
 ## Catching the player
 
 The entity catches the player when all of these are true:
 
-1. **It is noticing the player right now**, by the rules above. A hidden player is safe even if it walks right into them.
+1. **It can see the player right now**, by the rules above. Standing still does not help; a player in a hiding spot it never saw them enter is safe.
 2. **The player is within `catch_reach`.**
 3. **The player is within `catch_angle` of straight ahead.** Closer than 0.3 m counts whatever the angle, because the two bodies pass through each other.
+
+   Rules 2 and 3 are replaced by one distance, `hiding_catch_reach`, for a player in a hiding spot the entity watched them get into.
 4. **The catch cooldown has run out.** It starts after every reset, so the player cannot be caught again the moment they respawn.
 
 On a catch it switches to `CATCHING`, stands still facing the player, and emits `player_caught`. What happens next belongs to the level's `CatchHandler` (`src/level/scenes/catch_handler.tscn`):
@@ -110,18 +159,21 @@ All are shown in the Inspector on the entity.
 | Roaming | `roam_speed` | 1.8 m/s | Walking speed while roaming. |
 | Roaming | `pause_time` | 2 s | Time spent standing at each patrol point. |
 | Senses | `sight_range` | 12 m | How far it can see. |
-| Senses | `sight_angle` | 60 degrees | Half the width of its view (120 degrees in total). |
+| Senses | `sight_angle` | 60 degrees | Half the width of its view (120 degrees in total). Only matters for first spotting the player. |
+| Senses | `awareness_radius` | 1.5 m | Distance within which it senses the player in any direction, even behind it. |
+| Senses | `sight_memory` | 1 s | Time it keeps knowing where the player is after losing sight of them. |
 | Investigating | `investigate_speed` | 3.8 m/s | Speed while heading to the spot it is checking. |
 | Investigating | `search_time` | 3 s | Time spent looking around after arriving. |
 | Investigating | `search_turn_speed` | 90 degrees/s | Turning speed while looking around. |
 | Catching | `catch_reach` | 1.2 m | How close the player must be to be caught. |
 | Catching | `catch_angle` | 45 degrees | How far off straight ahead the player may be and still be caught. |
+| Catching | `hiding_catch_reach` | 2.2 m | How close it must get to drag out a player it watched get into a hiding spot. Sized to reach anywhere under a desk from any side. |
 | Catching | `catch_cooldown` | 3 s | Time after a reset during which it cannot catch. |
 | Movement | `turn_speed` | 240 degrees/s | How fast it turns to face where it is walking. |
-| Movement | `speed_gain_per_hue` | 0.05 | How much faster it gets for each crayon the player has, as a fraction of its speeds. With all seven it moves 1.35 times as fast, which is still slower than the player's sprint. |
+| Movement | `speed_gain_per_hue` | 0.05 | How much faster it gets for each crayon the player has, as a fraction of its speeds. With all seven it moves 1.35 times as fast, which is still slower than the player. |
 | Movement | `stuck_time` | 1.5 s | How long it may be blocked before giving up on a destination. |
 
-For comparison, the player walks at 3.0 m/s and sprints at 5.5 m/s, so sprinting outruns an investigating entity.
+For comparison, the player moves at 5.3 m/s standing and 1.5 m/s crouched, and cannot sprint. An investigating entity moves at 3.8 m/s with no crayons collected and 5.13 with all seven, so the player can always outrun it in the open, by less and less as the game goes on.
 
 ## Model and animations
 
@@ -201,6 +253,7 @@ An agent radius of 0.25 is what keeps 1 m doorways walkable. A larger radius clo
 | `watch_player(rise)` | function | Makes it stand and stare at the player with its senses off; `rise` lifts it to a window. |
 | `leave_to(spot)` | function | Sends it walking to `spot` with its senses off; it roams once it arrives. |
 | `is_player_in_sight()` | function | Whether it can see the player right now. |
+| `hear(spot, noise_range)` | function | Sends it to check a noise at `spot` if it is within `noise_range` and free to react. Normally called through `EntityHearing.make_noise()`. |
 | `eye_position()` | function | Where its eyes are. The catch handler turns the player's view toward this. |
 | `reset_to_start()` | function | Puts it back where it started, pausing, unable to catch for `catch_cooldown`. |
 | `state_changed(state)` | signal | Fires on every state change. Intended for animations. |

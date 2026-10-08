@@ -4,29 +4,54 @@
 [ext_resource type="PackedScene" path="res://src/player/scenes/player.tscn" id="2_player"]
 [ext_resource type="PackedScene" path="res://src/entity/scenes/entity.tscn" id="3_entity"]
 [ext_resource type="PackedScene" path="res://src/level/scenes/catch_handler.tscn" id="4_catch_handler"]
-[ext_resource type="PackedScene" path="res://src/pickup/scenes/flashlight_pickup.tscn" id="5_flashlight_pickup"]
+[ext_resource type="PackedScene" uid="uid://bkv7eytagidhv" path="res://src/pickup/scenes/flashlight_pickup.tscn" id="5_flashlight_pickup"]
 [ext_resource type="PackedScene" path="res://src/pickup/scenes/crayon.tscn" id="6_crayon"]
-[ext_resource type="Script" path="res://src/level/scripts/safe_room.gd" id="7_safe_room"]
+[ext_resource type="Script" uid="uid://cgmjnkj3oiuau" path="res://src/level/scripts/safe_room.gd" id="7_safe_room"]
 [ext_resource type="PackedScene" path="res://src/environment/scenes/desk.tscn" id="8_desk"]
 [ext_resource type="PackedScene" path="res://src/environment/scenes/note.tscn" id="9_note"]
 [ext_resource type="PackedScene" path="res://src/environment/scenes/wall_calendar.tscn" id="10_wall_calendar"]
 [ext_resource type="PackedScene" path="res://src/environment/scenes/bookshelf.tscn" id="11_bookshelf"]
 [ext_resource type="PackedScene" path="res://src/environment/scenes/book.tscn" id="12_book"]
 [ext_resource type="PackedScene" path="res://src/environment/scenes/coloring_book.tscn" id="13_coloring_book"]
-[ext_resource type="Script" path="res://src/level/scripts/player_trigger.gd" id="14_player_trigger"]
-[ext_resource type="Script" path="res://src/level/scripts/door_lock_trigger.gd" id="15_door_lock_trigger"]
-[ext_resource type="Script" path="res://src/level/scripts/first_sighting.gd" id="16_first_sighting"]
+[ext_resource type="Script" uid="uid://dfshmprncprm" path="res://src/level/scripts/player_trigger.gd" id="14_player_trigger"]
+[ext_resource type="Script" uid="uid://d0msp870y1i04" path="res://src/level/scripts/door_lock_trigger.gd" id="15_door_lock_trigger"]
+[ext_resource type="Script" uid="uid://c12vmm15enief" path="res://src/level/scripts/first_sighting.gd" id="16_first_sighting"]
 [ext_resource type="PackedScene" path="res://src/level/scenes/ending_director.tscn" id="17_ending_director"]
 [ext_resource type="PackedScene" path="res://src/environment/scenes/exit_door.tscn" id="18_exit_door"]
+[ext_resource type="Script" uid="uid://q1gq6sjn2y5s" path="res://src/level/scripts/level_music.gd" id="19_level_music"]
+[ext_resource type="Script" uid="uid://bu3484ubcajrb" path="res://src/level/scripts/hiding_spot.gd" id="20_hiding_spot"]
+[ext_resource type="PackedScene" path="res://src/environment/scenes/round_table.tscn" id="20_round_table"]
+[ext_resource type="Script" uid="uid://bbkwc8fcuk8e3" path="res://src/level/scripts/heartbeat.gd" id="21_heartbeat"]
+[ext_resource type="Script" uid="uid://cwqm07riuobrm" path="res://src/level/scripts/solid_props.gd" id="21_solid_props"]
+[ext_resource type="Script" uid="uid://duurucrbp6jvi" path="res://src/level/scripts/hint_trigger.gd" id="22_hint_trigger"]
+[ext_resource type="PackedScene" path="res://src/environment/scenes/gym_floor.tscn" id="23_gym_floor"]
+[ext_resource type="PackedScene" path="res://src/environment/scenes/seed_sack.tscn" id="23_seed_sack"]
+[ext_resource type="PackedScene" path="res://src/environment/scenes/basketball.tscn" id="24_basketball"]
+[ext_resource type="PackedScene" path="res://src/environment/scenes/plant_pot.tscn" id="24_plant_pot"]
+[ext_resource type="PackedScene" path="res://src/environment/scenes/hidden_text.tscn" id="25_hidden_text"]
+[ext_resource type="PackedScene" path="res://src/environment/scenes/school_desk.tscn" id="25_school_desk"]
+[ext_resource type="PackedScene" path="res://src/environment/scenes/cup.tscn" id="26_cup"]
+[ext_resource type="Script" uid="uid://duk3v0kvrwyos" path="res://src/level/scripts/noise_alarm.gd" id="26_noise_alarm"]
+[ext_resource type="PackedScene" path="res://src/environment/scenes/easel.tscn" id="27_easel"]
+[ext_resource type="PackedScene" path="res://src/environment/scenes/scoreboard.tscn" id="27_scoreboard"]
+[ext_resource type="PackedScene" path="res://src/environment/scenes/locker.tscn" id="28_locker"]
+[ext_resource type="Script" uid="uid://0nea50oqynja" path="res://src/level/scripts/gym_puzzle.gd" id="29_gym_puzzle"]
+[ext_resource type="PackedScene" path="res://src/environment/scenes/fruit.tscn" id="30_fruit"]
+[ext_resource type="PackedScene" path="res://src/environment/scenes/fruit_basket.tscn" id="31_fruit_basket"]
+[ext_resource type="Texture2D" uid="uid://dbrbqhcmv3jxq" path="res://src/environment/Decals/1.jpg" id="31_poster"]
+[ext_resource type="Script" uid="uid://brmcsuchgyjys" path="res://src/level/scripts/item_shuffler.gd" id="32_item_shuffler"]
+[ext_resource type="Texture2D" uid="uid://ctnxwobbltd71" path="res://src/environment/Decals/2.jpg" id="32_poster"]
+[ext_resource type="PackedScene" path="res://src/environment/scenes/paint_jar.tscn" id="33_paint_jar"]
+[ext_resource type="Texture2D" uid="uid://bh6dt38ejo4rw" path="res://src/environment/Decals/3.jpg" id="33_poster"]
+[ext_resource type="PackedScene" path="res://src/environment/scenes/paint_palette.tscn" id="34_paint_palette"]
+[ext_resource type="Texture2D" uid="uid://cakjvelprketq" path="res://src/environment/Decals/4.jpg" id="34_poster"]
+[ext_resource type="Texture2D" uid="uid://bg5r4irb4cv3g" path="res://src/environment/Decals/5.jpg" id="35_poster"]
 
 [sub_resource type="Environment" id="Environment_dark"]
 background_mode = 1
 ambient_light_source = 2
 ambient_light_color = Color(1, 1, 1, 1)
-ambient_light_energy = 0.1
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_counter"]
-size = Vector3(0.9, 1, 2.2)
+ambient_light_energy = 0.01
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_placeholder"]
 albedo_color = Color(0.35, 0.35, 0.38, 1)
@@ -34,6 +59,21 @@ albedo_color = Color(0.35, 0.35, 0.38, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_counter"]
 material = SubResource("StandardMaterial3D_placeholder")
 size = Vector3(0.9, 1, 2.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_counter"]
+size = Vector3(0.9, 1, 2.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_entry_lock"]
+size = Vector3(17.3, 3, 0.6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_arrival"]
+size = Vector3(5.2, 3, 10.3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hiding_spot"]
+size = Vector3(1.4, 1, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hoop_post"]
+size = Vector3(0.36, 2.6, 0.4)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_safe_Library"]
 size = Vector3(17.4, 4, 16.2)
@@ -59,15 +99,6 @@ size = Vector3(22.7, 4, 16.4)
 [sub_resource type="BoxShape3D" id="BoxShape3D_safe_ArtStudio"]
 size = Vector3(9.9, 4, 11.7)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_entry_lock"]
-size = Vector3(17.3, 3, 0.6)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_arrival"]
-size = Vector3(5.2, 3, 10.3)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_hiding_spot"]
-size = Vector3(1.4, 1, 0.5)
-
 [node name="SchoolLevel" type="Node3D" unique_id=102402281]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=619872373]
@@ -75,48 +106,159 @@ environment = SubResource("Environment_dark")
 
 [node name="SchoolEnv" parent="." unique_id=88071991 instance=ExtResource("1_school_env")]
 
+[node name="Sprite3D2" parent="SchoolEnv" index="218" unique_id=505103715]
+visible = false
+
+[node name="Sprite3D4" parent="SchoolEnv" index="219" unique_id=911624690]
+visible = false
+
+[node name="Sprite3D5" parent="SchoolEnv" index="220" unique_id=1109008274]
+visible = false
+
+[node name="Sprite3D6" parent="SchoolEnv" index="221" unique_id=1965609842]
+visible = false
+
+[node name="Sprite3D3" parent="SchoolEnv" index="222" unique_id=1673137988]
+transparent = false
+
+[node name="Sprite3D" parent="SchoolEnv/SM_Floor_04" parent_id_path=PackedInt32Array(88071991, 1317485416) index="1" unique_id=1726228578]
+visible = false
+
+[node name="SM_Pot_02" parent="SchoolEnv" index="261" unique_id=195276706]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 68.05, 0.963, -53.8)
+
+[node name="SM_Dirt_small3" parent="SchoolEnv" index="262" unique_id=499203091]
+transform = Transform3D(3.395, 0, 0, 0, 3.395, 0, 0, 0, 3.395, 67.85, 0.2728, -55.75)
+
+[node name="SM_Sack_03" parent="SchoolEnv" index="263" unique_id=556558309]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 67.85, 0.0029, -55.75)
+
+[node name="SM_Sack_02" parent="SchoolEnv" index="264" unique_id=1556783956]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 69.1, 0.1187, -55.85)
+
+[node name="SM_Sack_04" parent="SchoolEnv" index="265" unique_id=1733379660]
+transform = Transform3D(0.15951751, 0, -0.16003601, 0, 0.075245716, 0, 0.16013691, 0, 0.15941699, 68.05, 0.97, -52.8)
+
+[node name="SM_Locker93" parent="SchoolEnv" index="318" unique_id=1200599815]
+visible = false
+
+[node name="SM_Locker94" parent="SchoolEnv" index="319" unique_id=1637923692]
+visible = false
+
+[node name="SM_Locker95" parent="SchoolEnv" index="320" unique_id=2073228822]
+visible = false
+
+[node name="SM_Locker99" parent="SchoolEnv" index="321" unique_id=595424360]
+visible = false
+
+[node name="SM_Locker96" parent="SchoolEnv" index="322" unique_id=259566300]
+visible = false
+
+[node name="SM_Locker97" parent="SchoolEnv" index="323" unique_id=1502616879]
+visible = false
+
+[node name="Sprite3D14" parent="SchoolEnv" index="385" unique_id=1440782173]
+visible = false
+
+[node name="Sprite3D17" parent="SchoolEnv" index="386" unique_id=2062426221]
+visible = false
+
+[node name="Sprite3D15" parent="SchoolEnv" index="387" unique_id=708867579]
+visible = false
+
+[node name="Sprite3D16" parent="SchoolEnv" index="388" unique_id=959495065]
+visible = false
+
+[node name="Sprite3D18" parent="SchoolEnv" index="389" unique_id=1248454509]
+visible = false
+
+[node name="Sprite3D19" parent="SchoolEnv" index="390" unique_id=1524608498]
+visible = false
+
+[node name="Sprite3D20" parent="SchoolEnv" index="391" unique_id=671946775]
+visible = false
+
+[node name="Sprite3D21" parent="SchoolEnv" index="392" unique_id=1496198525]
+visible = false
+
+[node name="Sprite3D11" parent="SchoolEnv" index="394" unique_id=1970349005]
+visible = false
+
+[node name="Sprite3D12" parent="SchoolEnv" index="395" unique_id=574608543]
+visible = false
+
+[node name="Sprite3D13" parent="SchoolEnv" index="396" unique_id=1870143706]
+visible = false
+
+[node name="Sprite3D35" parent="SchoolEnv" index="406" unique_id=2110836363]
+visible = false
+
+[node name="Sprite3D29" parent="SchoolEnv" index="413" unique_id=487663243]
+visible = false
+
+[node name="Sprite3D30" parent="SchoolEnv" index="415" unique_id=657273539]
+visible = false
+
+[node name="Sprite3D32" parent="SchoolEnv" index="417" unique_id=1517058727]
+visible = false
+
+[node name="SM_Paint_Easel2" parent="SchoolEnv" index="508" unique_id=754367248]
+visible = false
+
+[node name="SM_Basketball_Goal" parent="SchoolEnv" index="516" unique_id=445273640]
+transform = Transform3D(22, 0, 0, 0, 22, 0, 0, 0, 22, 94.497, -0.01, -39.57)
+
+[node name="SM_Basketball_Goal2" parent="SchoolEnv" index="517" unique_id=1785304999]
+transform = Transform3D(-22, 0, 0, 0, 22, 0, 0, 0, -22, 94.684, -0.01, -5.4)
+
+[node name="SolidProps" type="Node3D" parent="." unique_id=39733513 node_paths=PackedStringArray("environment")]
+script = ExtResource("21_solid_props")
+environment = NodePath("../SchoolEnv")
+name_prefixes = PackedStringArray("SM_Bookshelf", "SM_Broken_Bookshelf", "SM_Table", "SM_School_Desk", "SM_Locker", "SM_Chalkboard", "SM_Rolling_Board", "SM_Drinking_Fountain", "SM_Pot", "SM_Sack", "SM_Paint_Easel")
+left_open = PackedStringArray()
+
 [node name="PatrolPoints" type="Node3D" parent="." unique_id=1984700109]
 
-[node name="Lobby" type="Marker3D" parent="PatrolPoints"]
+[node name="Lobby" type="Marker3D" parent="PatrolPoints" unique_id=1340644502]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.2, 0, 14)
 
-[node name="MainCorridorWest" type="Marker3D" parent="PatrolPoints"]
+[node name="MainCorridorWest" type="Marker3D" parent="PatrolPoints" unique_id=1211233304]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.4, 0, -2.5)
 
-[node name="MainCorridorCenter" type="Marker3D" parent="PatrolPoints"]
+[node name="MainCorridorCenter" type="Marker3D" parent="PatrolPoints" unique_id=1557869248]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.1, 0, -1.5)
 
-[node name="NorthCourtyardHall" type="Marker3D" parent="PatrolPoints"]
+[node name="NorthCourtyardHall" type="Marker3D" parent="PatrolPoints" unique_id=2130332518]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42.2, 0, -27.7)
 
-[node name="ScienceWing" type="Marker3D" parent="PatrolPoints"]
+[node name="ScienceWing" type="Marker3D" parent="PatrolPoints" unique_id=1116985425]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 0, -46.8)
 
-[node name="LinkHall" type="Marker3D" parent="PatrolPoints"]
+[node name="LinkHall" type="Marker3D" parent="PatrolPoints" unique_id=483060283]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74.5, 0, -16)
 
-[node name="PeCorridor" type="Marker3D" parent="PatrolPoints"]
+[node name="PeCorridor" type="Marker3D" parent="PatrolPoints" unique_id=217656968]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 96.1, 0, -3)
 
-[node name="EastCorridor" type="Marker3D" parent="PatrolPoints"]
+[node name="EastCorridor" type="Marker3D" parent="PatrolPoints" unique_id=1663827903]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 121, 0, -15)
 
-[node name="Library" type="Marker3D" parent="PatrolPoints"]
+[node name="Library" type="Marker3D" parent="PatrolPoints" unique_id=297231905]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.6, 0, 6.8)
 
-[node name="Greenhouse" type="Marker3D" parent="PatrolPoints"]
+[node name="Greenhouse" type="Marker3D" parent="PatrolPoints" unique_id=1180053767]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 83, 0, -52)
 
-[node name="Gymnasium" type="Marker3D" parent="PatrolPoints"]
+[node name="Gymnasium" type="Marker3D" parent="PatrolPoints" unique_id=2138861566]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 96, 0, -24.6)
 
-[node name="LockerRoom" type="Marker3D" parent="PatrolPoints"]
+[node name="LockerRoom" type="Marker3D" parent="PatrolPoints" unique_id=81752088]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 109, 0, -9.5)
 
-[node name="Cafeteria" type="Marker3D" parent="PatrolPoints"]
+[node name="Cafeteria" type="Marker3D" parent="PatrolPoints" unique_id=211127984]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74, 0, 6.8)
 
-[node name="ArtStudio" type="Marker3D" parent="PatrolPoints"]
+[node name="ArtStudio" type="Marker3D" parent="PatrolPoints" unique_id=2037367908]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.4, 0, 8.5)
 
 [node name="Entity" parent="." unique_id=1803776842 node_paths=PackedStringArray("patrol_points") instance=ExtResource("3_entity")]
@@ -134,73 +276,95 @@ run_end_scene = "res://src/ui/scenes/ending_screen.tscn"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.2, 0, 27.5)
 has_flashlight_at_start = false
 
-[node name="Lobby" type="Node3D" parent="."]
+[node name="Lobby" type="Node3D" parent="." unique_id=189788047]
 
-[node name="ReceptionCounter" type="StaticBody3D" parent="Lobby"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.95, 0.5, 24.5)
+[node name="ReceptionCounter" type="StaticBody3D" parent="Lobby" unique_id=431678804]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.773777, 0.5, 24.5)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Lobby/ReceptionCounter"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Lobby/ReceptionCounter" unique_id=1520050966]
 mesh = SubResource("BoxMesh_counter")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Lobby/ReceptionCounter"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Lobby/ReceptionCounter" unique_id=284593200]
 shape = SubResource("BoxShape3D_counter")
 
-[node name="FlashlightPickup" parent="Lobby" instance=ExtResource("5_flashlight_pickup")]
-transform = Transform3D(0.921, 0, -0.389, 0, 1, 0, 0.389, 0, 0.921, 28.05, 1.04, 24.5)
+[node name="FlashlightPickup" parent="Lobby" unique_id=1255171923 instance=ExtResource("5_flashlight_pickup")]
+transform = Transform3D(0.921, 0, -0.389, 0, 1, 0, 0.389, 0, 0.921, 28.76983, 1.04, 24.5)
 
-[node name="Library" type="Node3D" parent="."]
+[node name="Library" type="Node3D" parent="." unique_id=906929169]
 
-[node name="YellowCrayon" parent="Library" instance=ExtResource("6_crayon")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.09, 1.2, 16.19)
+[node name="YellowCrayon" parent="Library" unique_id=1111424673 instance=ExtResource("6_crayon")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.52, 1.07, 16.16)
 hue = 2
 is_hidden_at_start = true
 
-[node name="Desk" parent="Library" instance=ExtResource("8_desk")]
-transform = Transform3D(1, 0, 0, 0, 0.64, 0, 0, 0, 1, 9, 0, 3.2)
+[node name="SlipTable" parent="Library" unique_id=308634157 instance=ExtResource("20_round_table")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 3.2)
 
-[node name="CheckOutSlip" parent="Library" instance=ExtResource("9_note")]
-transform = Transform3D(-1, 0, 0, 0, 0.9063, 0.4226, 0, 0.4226, -0.9063, 9, 1.0405, 3.2972)
-text = "ONE NEVER CAME BACK\n\nThe Lost Kite - Oct 3\nNight Garden - Oct 9\nMouse and Moon - Oct 14\nMy Colors - Oct 21"
+[node name="CheckOutSlip" parent="Library" unique_id=1583216957 instance=ExtResource("9_note")]
+transform = Transform3D(-1, 0, 0, 0, 0, 1, 0, 1, 0, 9, 0.975, 3.2)
+text = "ONE NEVER CAME BACK
+
+The Lost Kite - Oct 3
+Night Garden - Oct 9
+Mouse and Moon - Oct 14
+My Colors - Oct 21"
 paper_size = Vector2(0.62, 0.46)
 text_height = 0.042
 
-[node name="WallCalendar" parent="Library" instance=ExtResource("10_wall_calendar")]
-transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 0.03, 1.6, 10)
+[node name="WallCalendar" parent="Library" unique_id=183894882 instance=ExtResource("10_wall_calendar")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 0.03, 1.6, 8.3)
 
-[node name="Bookshelf" parent="Library" instance=ExtResource("11_bookshelf")]
+[node name="Bookshelf" parent="Library" unique_id=932479393 instance=ExtResource("11_bookshelf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0, 16.36)
 
-[node name="TheLostKite" parent="Library/Bookshelf" instance=ExtResource("12_book")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 1.2, -0.05)
-title = "The Lost Kite"
-
-[node name="NightGarden" parent="Library/Bookshelf" instance=ExtResource("12_book")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 1.2, -0.05)
-title = "Night Garden"
-
-[node name="MyColors" parent="Library/Bookshelf" instance=ExtResource("12_book")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 1.2, -0.05)
+[node name="MyColors" parent="Library/Bookshelf" unique_id=1769679085 instance=ExtResource("12_book")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22, 1.07, 0.0119)
 title = "My Colors"
 is_correct = true
 
-[node name="MouseAndMoon" parent="Library/Bookshelf" instance=ExtResource("12_book")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 1.2, -0.05)
-title = "Mouse and Moon"
-
-[node name="ColoringBook" parent="Library/Bookshelf" instance=ExtResource("13_coloring_book")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 1.2, -0.02)
+[node name="ColoringBook" parent="Library/Bookshelf" unique_id=1221408489 instance=ExtResource("13_coloring_book")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22, 1.07, -0.24)
 visible = false
 
-[node name="EntryLock" type="Area3D" parent="Library"]
+[node name="BookshelfFront" parent="Library" unique_id=1250738853 instance=ExtResource("11_bookshelf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 0, 6.2)
+
+[node name="TheLostKite" parent="Library/BookshelfFront" unique_id=370624574 instance=ExtResource("12_book")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.82, 1.07, 0.0119)
+title = "The Lost Kite"
+
+[node name="BookshelfWest" parent="Library" unique_id=166352472 instance=ExtResource("11_bookshelf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 16.36)
+
+[node name="NightGarden" parent="Library/BookshelfWest" unique_id=1043878074 instance=ExtResource("12_book")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.31, 1.07, 0.0119)
+title = "Night Garden"
+
+[node name="BookshelfEast" parent="Library" unique_id=1928958850 instance=ExtResource("11_bookshelf")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 17.375, 0, 14.9)
+
+[node name="MouseAndMoon" parent="Library/BookshelfEast" unique_id=937157361 instance=ExtResource("12_book")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.71, 1.07, 0.0119)
+title = "Mouse and Moon"
+
+[node name="EntryLock" type="Area3D" parent="Library" unique_id=133095136]
 script = ExtResource("15_door_lock_trigger")
 door_path = NodePath("../../SchoolEnv/SM_DoubleDoor_Center8/SM_DoubleDoor_Center9/SM_Single_Door_Jam/SM_Door")
 is_flashlight_required = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Library/EntryLock"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Library/EntryLock" unique_id=1315937198]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.85, 1.5, 2.4)
 shape = SubResource("BoxShape3D_entry_lock")
 
-[node name="FirstSighting" type="Node3D" parent="." node_paths=PackedStringArray("entity", "arrival_trigger", "watch_spot", "leave_spot", "hiding_spots")]
+[node name="ScanHint" type="Area3D" parent="Library" unique_id=776345384]
+script = ExtResource("22_hint_trigger")
+hint = "Scan the bookshelves for a book you can take"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Library/ScanHint" unique_id=1145230058]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.85, 1.5, 2.4)
+shape = SubResource("BoxShape3D_entry_lock")
+
+[node name="FirstSighting" type="Node3D" parent="." unique_id=1443189704 node_paths=PackedStringArray("entity", "arrival_trigger", "watch_spot", "leave_spot", "hiding_spots")]
 script = ExtResource("16_first_sighting")
 entity = NodePath("../Entity")
 arrival_trigger = NodePath("ArrivalTrigger")
@@ -210,143 +374,586 @@ leave_spot = NodePath("../PatrolPoints/MainCorridorWest")
 hiding_spots = [NodePath("OfficeDesk/HidingSpot"), NodePath("ArchiveDesk/HidingSpot")]
 watch_door_path = NodePath("../SchoolEnv/SM_DoubleDoor_Center8/SM_DoubleDoor_Center8/SM_Single_Door_Jam/SM_Door")
 
-[node name="ArrivalTrigger" type="Area3D" parent="FirstSighting"]
+[node name="ArrivalTrigger" type="Area3D" parent="FirstSighting" unique_id=1325471337]
 script = ExtResource("14_player_trigger")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="FirstSighting/ArrivalTrigger"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FirstSighting/ArrivalTrigger" unique_id=1690796457]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.47, 1.5, 11.45)
 shape = SubResource("BoxShape3D_arrival")
 
-[node name="WatchSpot" type="Marker3D" parent="FirstSighting"]
+[node name="WatchSpot" type="Marker3D" parent="FirstSighting" unique_id=1340037604]
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 19.78, 0, -0.32)
 
-[node name="OfficeDesk" parent="FirstSighting" instance=ExtResource("8_desk")]
+[node name="OfficeDesk" parent="FirstSighting" unique_id=247361362 instance=ExtResource("8_desk")]
 transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 22.8, 0, 3.6)
 
-[node name="HidingSpot" type="Area3D" parent="FirstSighting/OfficeDesk"]
+[node name="HidingSpot" type="Area3D" parent="FirstSighting/OfficeDesk" unique_id=1115154832]
 collision_layer = 0
 collision_mask = 2
+script = ExtResource("20_hiding_spot")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="FirstSighting/OfficeDesk/HidingSpot"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FirstSighting/OfficeDesk/HidingSpot" unique_id=638847956]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0.25)
 shape = SubResource("BoxShape3D_hiding_spot")
 
-[node name="ArchiveDesk" parent="FirstSighting" instance=ExtResource("8_desk")]
+[node name="ArchiveDesk" parent="FirstSighting" unique_id=2016957446 instance=ExtResource("8_desk")]
 transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 22.49, 0, 8.2)
 
-[node name="HidingSpot" type="Area3D" parent="FirstSighting/ArchiveDesk"]
+[node name="HidingSpot" type="Area3D" parent="FirstSighting/ArchiveDesk" unique_id=607858211]
 collision_layer = 0
 collision_mask = 2
+script = ExtResource("20_hiding_spot")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="FirstSighting/ArchiveDesk/HidingSpot"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FirstSighting/ArchiveDesk/HidingSpot" unique_id=636406309]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0.25)
 shape = SubResource("BoxShape3D_hiding_spot")
 
-[node name="Greenhouse" type="Node3D" parent="."]
+[node name="Greenhouse" type="Node3D" parent="." unique_id=2071637037]
 
-[node name="GreenCrayon" parent="Greenhouse" instance=ExtResource("6_crayon")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 80.5, 0, -50.5)
+[node name="GreenCrayon" parent="Greenhouse" unique_id=1217452499 instance=ExtResource("6_crayon")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 77.6, 0.95, -47.08)
 hue = 3
+is_hidden_at_start = true
 
-[node name="IndigoCrayon" parent="Greenhouse" instance=ExtResource("6_crayon")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 81.5, 0, -50.5)
+[node name="IndigoCrayon" parent="Greenhouse" unique_id=1477007315 instance=ExtResource("6_crayon")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 77.6, 1.35, -47.38)
 hue = 5
+is_hidden_at_start = true
 
-[node name="LockerRoom" type="Node3D" parent="."]
+[node name="SackTableA" parent="Greenhouse" unique_id=2079806876 instance=ExtResource("20_round_table")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 67.77, 0, -53.8)
 
-[node name="BlueCrayon" parent="LockerRoom" instance=ExtResource("6_crayon")]
+[node name="SackTableB" parent="Greenhouse" unique_id=320759809 instance=ExtResource("20_round_table")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 67.77, 0, -52.8)
+
+[node name="CarrotSack" parent="Greenhouse" unique_id=578038850 instance=ExtResource("23_seed_sack")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 67.77, 0.975, -54.02)
+plant_name = "carrot"
+
+[node name="WeedSack" parent="Greenhouse" unique_id=1411444529 instance=ExtResource("23_seed_sack")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 67.77, 0.975, -53.58)
+plant_name = "weed"
+
+[node name="FlowerSack" parent="Greenhouse" unique_id=1006747784 instance=ExtResource("23_seed_sack")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 67.77, 0.975, -53.02)
+
+[node name="TreeSack" parent="Greenhouse" unique_id=1830884250 instance=ExtResource("23_seed_sack")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 67.77, 0.975, -52.58)
+plant_name = "tree"
+
+[node name="BenchNote" parent="Greenhouse" unique_id=1001304601 instance=ExtResource("9_note")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 67.275, 1.68, -53.3)
+text = "Flowers need
+a seed and
+"
+paper_size = Vector2(0.6, 0.42)
+text_height = 0.055
+
+[node name="BenchNoteSun" parent="Greenhouse" unique_id=1095494705 instance=ExtResource("25_hidden_text")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 67.283, 1.56, -53.3)
+text = "SUN"
+text_height = 0.07
+tag_size = Vector2(0.26, 0.1)
+
+[node name="AlarmSpot" type="Marker3D" parent="Greenhouse" unique_id=1626343454]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60.2, 0, -46.24)
+script = ExtResource("26_noise_alarm")
+
+[node name="PlantPot" parent="Greenhouse" unique_id=1044507827 instance=ExtResource("24_plant_pot")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 77.6, 0.5, -47.3)
+
+[node name="LockerRoom" type="Node3D" parent="." unique_id=1239835350]
+
+[node name="BlueCrayon" parent="LockerRoom" unique_id=2034798435 instance=ExtResource("6_crayon")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 111, 0, -14)
 hue = 4
+is_hidden_at_start = true
 
-[node name="CafeteriaRoom" type="Node3D" parent="."]
+[node name="Locker1" parent="LockerRoom" unique_id=1902528576 instance=ExtResource("28_locker")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 106.365, 0, -16.585)
 
-[node name="RedCrayon" parent="CafeteriaRoom" instance=ExtResource("6_crayon")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 73, 0, 8)
+[node name="Locker2" parent="LockerRoom" unique_id=1442121111 instance=ExtResource("28_locker")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 107.115, 0, -16.585)
+
+[node name="Locker3" parent="LockerRoom" unique_id=910675063 instance=ExtResource("28_locker")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 107.865, 0, -16.585)
+
+[node name="Locker4" parent="LockerRoom" unique_id=1048993280 instance=ExtResource("28_locker")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 108.615, 0, -16.585)
+
+[node name="Locker5" parent="LockerRoom" unique_id=562444983 instance=ExtResource("28_locker")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 109.365, 0, -16.585)
+
+[node name="Locker6" parent="LockerRoom" unique_id=1450811145 instance=ExtResource("28_locker")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 110.115, 0, -16.585)
+
+[node name="AlarmSpot" type="Marker3D" parent="LockerRoom" unique_id=11967347]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 118.5, 0, -10.84)
+script = ExtResource("26_noise_alarm")
+
+[node name="Gym" type="Node3D" parent="." unique_id=307238908]
+
+[node name="Floor" parent="Gym" unique_id=1901595528 instance=ExtResource("23_gym_floor")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 94.585, 0, -22.475)
+
+[node name="HoopPostFar" type="StaticBody3D" parent="Gym" unique_id=1192954208]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 94.651, 1.3, -39.7)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Gym/HoopPostFar" unique_id=697066641]
+shape = SubResource("BoxShape3D_hoop_post")
+
+[node name="HoopPostNear" type="StaticBody3D" parent="Gym" unique_id=1159815294]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 94.53, 1.3, -5.27)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Gym/HoopPostNear" unique_id=2071214591]
+shape = SubResource("BoxShape3D_hoop_post")
+
+[node name="BallA" parent="Gym" unique_id=1957013483 instance=ExtResource("24_basketball")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 95.4, 0.13, -12.6)
+
+[node name="BallB" parent="Gym" unique_id=464903887 instance=ExtResource("24_basketball")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 91.9, 0.13, -14.1)
+
+[node name="BallC" parent="Gym" unique_id=1242100061 instance=ExtResource("24_basketball")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 96.2, 0.13, -31.8)
+
+[node name="BallD" parent="Gym" unique_id=1902063435 instance=ExtResource("24_basketball")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 92.6, 0.13, -30.4)
+
+[node name="Scoreboard" parent="Gym" unique_id=343229166 instance=ExtResource("27_scoreboard")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 84.06, 2.3, -15)
+
+[node name="ScoreboardNote" parent="Gym" unique_id=1762272599 instance=ExtResource("9_note")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 84.06, 0.8, -13.85)
+text = "my locker number,
+don't forget"
+paper_size = Vector2(0.7, 0.3)
+text_height = 0.07
+
+[node name="GymPuzzle" type="Node" parent="." unique_id=1730501336 node_paths=PackedStringArray("scoreboard", "lockers", "crayon", "alarm")]
+script = ExtResource("29_gym_puzzle")
+scoreboard = NodePath("../Gym/Scoreboard")
+lockers = [NodePath("../LockerRoom/Locker1"), NodePath("../LockerRoom/Locker2"), NodePath("../LockerRoom/Locker3"), NodePath("../LockerRoom/Locker4"), NodePath("../LockerRoom/Locker5"), NodePath("../LockerRoom/Locker6")]
+crayon = NodePath("../LockerRoom/BlueCrayon")
+alarm = NodePath("../LockerRoom/AlarmSpot")
+
+[node name="CafeteriaRoom" type="Node3D" parent="." unique_id=902271857]
+
+[node name="RedCrayon" parent="CafeteriaRoom" unique_id=494231501 instance=ExtResource("6_crayon")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 73.34, 0.89, 16.54)
 hue = 0
+is_hidden_at_start = true
 
-[node name="ArtStudio" type="Node3D" parent="."]
+[node name="FruitDesk1" parent="CafeteriaRoom" unique_id=2087161962 instance=ExtResource("25_school_desk")]
+transform = Transform3D(0.94, 0, 0.342, 0, 1, 0, -0.342, 0, 0.94, 64, 0, 3)
 
-[node name="OrangeCrayon" parent="ArtStudio" instance=ExtResource("6_crayon")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48.9, 0, 5.5)
-hue = 1
+[node name="FruitDesk2" parent="CafeteriaRoom" unique_id=1240594119 instance=ExtResource("25_school_desk")]
+transform = Transform3D(0.985, 0, -0.174, 0, 1, 0, 0.174, 0, 0.985, 70.5, 0, 5.5)
 
-[node name="VioletCrayon" parent="ArtStudio" instance=ExtResource("6_crayon")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.9, 0, 5.5)
+[node name="FruitDesk3" parent="CafeteriaRoom" unique_id=816963604 instance=ExtResource("25_school_desk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 77, 0, 2.6)
+
+[node name="FruitDesk4" parent="CafeteriaRoom" unique_id=461358542 instance=ExtResource("25_school_desk")]
+transform = Transform3D(0.174, 0, 0.985, 0, 1, 0, -0.985, 0, 0.174, 82.5, 0, 6)
+
+[node name="FruitDesk5" parent="CafeteriaRoom" unique_id=1929969323 instance=ExtResource("25_school_desk")]
+transform = Transform3D(-0.087, 0, 0.996, 0, 1, 0, -0.996, 0, -0.087, 63.5, 0, 13.5)
+
+[node name="FruitDesk6" parent="CafeteriaRoom" unique_id=2080483365 instance=ExtResource("25_school_desk")]
+transform = Transform3D(0.966, 0, 0.259, 0, 1, 0, -0.259, 0, 0.966, 68.5, 0, 10.5)
+
+[node name="FruitDesk7" parent="CafeteriaRoom" unique_id=2058436140 instance=ExtResource("25_school_desk")]
+transform = Transform3D(0.906, 0, -0.423, 0, 1, 0, 0.423, 0, 0.906, 78.5, 0, 10)
+
+[node name="FruitDesk8" parent="CafeteriaRoom" unique_id=1105038596 instance=ExtResource("25_school_desk")]
+transform = Transform3D(-0.985, 0, 0.174, 0, 1, 0, -0.174, 0, -0.985, 82, 0, 15.6)
+
+[node name="Fruit01" parent="CafeteriaRoom" unique_id=678311456 instance=ExtResource("30_fruit")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 63.829, 0.812, 3.115)
+
+[node name="Fruit02" parent="CafeteriaRoom" unique_id=1479702299 instance=ExtResource("30_fruit")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64.171, 0.812, 2.885)
+kind = 1
+
+[node name="Fruit03" parent="CafeteriaRoom" unique_id=192274943 instance=ExtResource("30_fruit")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 70.294, 0.812, 5.515)
+kind = 2
+
+[node name="Fruit04" parent="CafeteriaRoom" unique_id=482501206 instance=ExtResource("30_fruit")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 70.706, 0.812, 5.485)
+kind = 3
+
+[node name="Fruit05" parent="CafeteriaRoom" unique_id=1566827791 instance=ExtResource("30_fruit")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 76.8, 0.812, 2.65)
+kind = 4
+
+[node name="Fruit06" parent="CafeteriaRoom" unique_id=445567065 instance=ExtResource("30_fruit")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 77.2, 0.812, 2.55)
+kind = 2
+
+[node name="Fruit07" parent="CafeteriaRoom" unique_id=900420157 instance=ExtResource("30_fruit")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82.515, 0.812, 6.206)
+kind = 3
+
+[node name="Fruit08" parent="CafeteriaRoom" unique_id=1780860101 instance=ExtResource("30_fruit")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82.485, 0.812, 5.794)
+kind = 4
+
+[node name="Fruit09" parent="CafeteriaRoom" unique_id=74634932 instance=ExtResource("30_fruit")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 63.567, 0.812, 13.695)
+
+[node name="Fruit10" parent="CafeteriaRoom" unique_id=229248879 instance=ExtResource("30_fruit")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 63.433, 0.812, 13.305)
+kind = 1
+
+[node name="Fruit11" parent="CafeteriaRoom" unique_id=960611405 instance=ExtResource("30_fruit")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 68.32, 0.812, 10.6)
+kind = 4
+
+[node name="Fruit12" parent="CafeteriaRoom" unique_id=710547164 instance=ExtResource("30_fruit")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 68.68, 0.812, 10.4)
+
+[node name="Fruit13" parent="CafeteriaRoom" unique_id=1141273974 instance=ExtResource("30_fruit")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78.298, 0.812, 9.961)
+kind = 1
+
+[node name="Fruit14" parent="CafeteriaRoom" unique_id=1377441721 instance=ExtResource("30_fruit")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78.702, 0.812, 10.039)
+kind = 2
+
+[node name="Fruit15" parent="CafeteriaRoom" unique_id=1740217453 instance=ExtResource("30_fruit")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82, 0.812, 15.6)
+kind = 3
+
+[node name="BasketDesk" parent="CafeteriaRoom" unique_id=1845451316 instance=ExtResource("25_school_desk")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 73.25, 0, 16.68)
+
+[node name="FruitBasket" parent="CafeteriaRoom" unique_id=327455302 instance=ExtResource("31_fruit_basket")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 73.25, 0.75, 16.62)
+
+[node name="BasketNote" parent="CafeteriaRoom" unique_id=727181469 instance=ExtResource("9_note")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 73.25, 1.6, 17.08)
+text = "three for teacher.
+her favorite color is
+"
+paper_size = Vector2(0.72, 0.46)
+text_height = 0.055
+
+[node name="BasketNoteColor" parent="CafeteriaRoom" unique_id=334525317 instance=ExtResource("25_hidden_text")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 73.25, 1.48, 17.072)
+text = "RED"
+hue = 0
+text_height = 0.07
+tag_size = Vector2(0.26, 0.1)
+
+[node name="Table1" parent="CafeteriaRoom" unique_id=620417810 instance=ExtResource("20_round_table")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 66.5, 0, 7.5)
+
+[node name="Cup1" parent="CafeteriaRoom" unique_id=317796951 instance=ExtResource("26_cup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 66.432, 0.963, 7.688)
+
+[node name="Table2" parent="CafeteriaRoom" unique_id=1581856431 instance=ExtResource("20_round_table")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 73.5, 0, 8.6)
+
+[node name="Cup2" parent="CafeteriaRoom" unique_id=1471730269 instance=ExtResource("26_cup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 73.3, 0.963, 8.6)
+
+[node name="Cup3" parent="CafeteriaRoom" unique_id=340456635 instance=ExtResource("26_cup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 73.673, 0.963, 8.5)
+
+[node name="Table3" parent="CafeteriaRoom" unique_id=2016481064 instance=ExtResource("20_round_table")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74.6, 0, 12.8)
+
+[node name="Table4" parent="CafeteriaRoom" unique_id=806503788 instance=ExtResource("20_round_table")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 80.5, 0, 13.2)
+
+[node name="Cup4" parent="CafeteriaRoom" unique_id=1410702496 instance=ExtResource("26_cup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 80.653, 0.963, 13.071)
+
+[node name="Table5" parent="CafeteriaRoom" unique_id=1459617685 instance=ExtResource("20_round_table")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 66.8, 0, 15)
+
+[node name="Cup5" parent="CafeteriaRoom" unique_id=151052650 instance=ExtResource("26_cup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 66.973, 0.963, 15.1)
+
+[node name="Cup6" parent="CafeteriaRoom" unique_id=298895609 instance=ExtResource("26_cup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 66.6, 0.963, 15)
+
+[node name="Table6" parent="CafeteriaRoom" unique_id=1606909136 instance=ExtResource("20_round_table")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72.8, 0, 3.2)
+
+[node name="Table7" parent="CafeteriaRoom" unique_id=1280198833 instance=ExtResource("20_round_table")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 80, 0, 6.9)
+
+[node name="Cup7" parent="CafeteriaRoom" unique_id=1326717673 instance=ExtResource("26_cup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 79.803, 0.963, 6.935)
+
+[node name="Table8" parent="CafeteriaRoom" unique_id=720900740 instance=ExtResource("20_round_table")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 70.2, 0, 13.2)
+
+[node name="AlarmSpot" type="Marker3D" parent="CafeteriaRoom" unique_id=1857222941]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 67.84, 0, -1.3)
+script = ExtResource("26_noise_alarm")
+
+[node name="FruitPile" type="Node" parent="CafeteriaRoom" unique_id=473119865 node_paths=PackedStringArray("items")]
+script = ExtResource("32_item_shuffler")
+items = [NodePath("../Fruit01"), NodePath("../Fruit02"), NodePath("../Fruit03"), NodePath("../Fruit04"), NodePath("../Fruit05"), NodePath("../Fruit06"), NodePath("../Fruit07"), NodePath("../Fruit08"), NodePath("../Fruit09"), NodePath("../Fruit10"), NodePath("../Fruit11"), NodePath("../Fruit12"), NodePath("../Fruit13"), NodePath("../Fruit14"), NodePath("../Fruit15")]
+setting = &"kind"
+
+[node name="ArtStudio" type="Node3D" parent="." unique_id=1937754773]
+
+[node name="OrangeCrayon" parent="ArtStudio" unique_id=774712965 instance=ExtResource("6_crayon")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 53.04, 0.927, 2)
+is_hidden_at_start = true
+
+[node name="VioletCrayon" parent="ArtStudio" unique_id=1823498109 instance=ExtResource("6_crayon")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 53.04, 0.927, 4.3)
 hue = 6
+is_hidden_at_start = true
 
-[node name="Courtyard" type="Node3D" parent="."]
+[node name="PaintJar1" parent="ArtStudio" unique_id=1968665052 instance=ExtResource("33_paint_jar")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.6, 1.3, 6.5)
 
-[node name="ExitDoor" parent="Courtyard" instance=ExtResource("18_exit_door")]
+[node name="PaintJar2" parent="ArtStudio" unique_id=1392319640 instance=ExtResource("33_paint_jar")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.6, 1.3, 6.8)
+paint = 2
+
+[node name="PaintJar3" parent="ArtStudio" unique_id=228019849 instance=ExtResource("33_paint_jar")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.6, 1.3, 7.1)
+paint = 4
+
+[node name="PaintJar4" parent="ArtStudio" unique_id=546538081 instance=ExtResource("33_paint_jar")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.6, 1.3, 7.4)
+
+[node name="PaintJar5" parent="ArtStudio" unique_id=1337649947 instance=ExtResource("33_paint_jar")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.6, 1.3, 7.7)
+paint = 3
+
+[node name="JarShuffler" type="Node" parent="ArtStudio" unique_id=214295432 node_paths=PackedStringArray("items")]
+script = ExtResource("32_item_shuffler")
+items = [NodePath("../PaintJar1"), NodePath("../PaintJar2"), NodePath("../PaintJar3"), NodePath("../PaintJar4"), NodePath("../PaintJar5")]
+setting = &"paint"
+
+[node name="PumpkinEasel" parent="ArtStudio" unique_id=647643413 instance=ExtResource("27_easel")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 53.96, 0, 2)
+
+[node name="PumpkinDesk" parent="ArtStudio" unique_id=1681132426 instance=ExtResource("25_school_desk")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 52.95, 0, 2)
+
+[node name="PumpkinPalette" parent="ArtStudio" unique_id=768047682 instance=ExtResource("34_paint_palette")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 52.95, 0.747, 2)
+
+[node name="PumpkinPainting" parent="ArtStudio" unique_id=1659857425 instance=ExtResource("9_note")]
+transform = Transform3D(0, 0.1959, -0.9806, 0, 0.9806, 0.1959, 1, 0, 0, 53.724, 1.1, 2)
+text = "pumpkin"
+paper_size = Vector2(0.6, 0.42)
+text_height = 0.1
+
+[node name="EggplantEasel" parent="ArtStudio" unique_id=584988566 instance=ExtResource("27_easel")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 53.96, 0, 4.3)
+
+[node name="EggplantDesk" parent="ArtStudio" unique_id=1515312834 instance=ExtResource("25_school_desk")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 52.95, 0, 4.3)
+
+[node name="EggplantPalette" parent="ArtStudio" unique_id=206926085 instance=ExtResource("34_paint_palette")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 52.95, 0.747, 4.3)
+paints = Array[int]([0, 4])
+
+[node name="EggplantPainting" parent="ArtStudio" unique_id=1615123426 instance=ExtResource("9_note")]
+transform = Transform3D(0, 0.1959, -0.9806, 0, 0.9806, 0.1959, 1, 0, 0, 53.724, 1.1, 4.3)
+text = "eggplant"
+paper_size = Vector2(0.6, 0.42)
+text_height = 0.1
+
+[node name="AlarmSpot" type="Marker3D" parent="ArtStudio" unique_id=1465926319]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.08, 0, -1.2)
+script = ExtResource("26_noise_alarm")
+
+[node name="Courtyard" type="Node3D" parent="." unique_id=286694400]
+
+[node name="ExitDoor" parent="Courtyard" unique_id=1851873302 instance=ExtResource("18_exit_door")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.8, 0, -14.5)
 
-[node name="EndingDirector" parent="." instance=ExtResource("17_ending_director")]
+[node name="EndingDirector" parent="." unique_id=1222736225 instance=ExtResource("17_ending_director")]
 
-[node name="SafeRooms" type="Node3D" parent="."]
+[node name="LevelMusic" type="Node" parent="." unique_id=73095880]
+script = ExtResource("19_level_music")
+music_track = &"background_music_loop_quiet"
 
-[node name="LibrarySafeRoom" type="Area3D" parent="SafeRooms" node_paths=PackedStringArray("crayons")]
+[node name="Heartbeat" type="Node" parent="." unique_id=330182509 node_paths=PackedStringArray("entity", "first_sighting")]
+script = ExtResource("21_heartbeat")
+entity = NodePath("../Entity")
+first_sighting = NodePath("../FirstSighting")
+
+[node name="SafeRooms" type="Node3D" parent="." unique_id=909740511]
+
+[node name="LibrarySafeRoom" type="Area3D" parent="SafeRooms" unique_id=842054267 node_paths=PackedStringArray("crayons")]
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("7_safe_room")
 crayons = [NodePath("../../Library/YellowCrayon")]
 
-[node name="Library" type="CollisionShape3D" parent="SafeRooms/LibrarySafeRoom"]
+[node name="Library" type="CollisionShape3D" parent="SafeRooms/LibrarySafeRoom" unique_id=1939620472]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.9, 1.5, 8.5)
 shape = SubResource("BoxShape3D_safe_Library")
 
-[node name="GreenhouseSafeRoom" type="Area3D" parent="SafeRooms" node_paths=PackedStringArray("crayons")]
+[node name="GreenhouseSafeRoom" type="Area3D" parent="SafeRooms" unique_id=967257674 node_paths=PackedStringArray("crayons")]
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("7_safe_room")
 crayons = [NodePath("../../Greenhouse/GreenCrayon"), NodePath("../../Greenhouse/IndigoCrayon")]
 
-[node name="Greenhouse" type="CollisionShape3D" parent="SafeRooms/GreenhouseSafeRoom"]
+[node name="Greenhouse" type="CollisionShape3D" parent="SafeRooms/GreenhouseSafeRoom" unique_id=1269691646]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 81.65, 1.5, -50.65)
 shape = SubResource("BoxShape3D_safe_Greenhouse")
 
-[node name="BioLab" type="CollisionShape3D" parent="SafeRooms/GreenhouseSafeRoom"]
+[node name="BioLab" type="CollisionShape3D" parent="SafeRooms/GreenhouseSafeRoom" unique_id=2146985336]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 67.25, 1.5, -45.75)
 shape = SubResource("BoxShape3D_safe_BioLab")
 
-[node name="PottingRoom" type="CollisionShape3D" parent="SafeRooms/GreenhouseSafeRoom"]
+[node name="PottingRoom" type="CollisionShape3D" parent="SafeRooms/GreenhouseSafeRoom" unique_id=682651159]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 70.1, 1.5, -53.25)
 shape = SubResource("BoxShape3D_safe_PottingRoom")
 
-[node name="GymSafeRoom" type="Area3D" parent="SafeRooms" node_paths=PackedStringArray("crayons")]
+[node name="GymSafeRoom" type="Area3D" parent="SafeRooms" unique_id=1973538947 node_paths=PackedStringArray("crayons")]
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("7_safe_room")
 crayons = [NodePath("../../LockerRoom/BlueCrayon")]
 
-[node name="Gym" type="CollisionShape3D" parent="SafeRooms/GymSafeRoom"]
+[node name="Gym" type="CollisionShape3D" parent="SafeRooms/GymSafeRoom" unique_id=928306683]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 94.5, 1.5, -22.4)
 shape = SubResource("BoxShape3D_safe_Gym")
 
-[node name="LockerRoom" type="CollisionShape3D" parent="SafeRooms/GymSafeRoom"]
+[node name="LockerRoom" type="CollisionShape3D" parent="SafeRooms/GymSafeRoom" unique_id=1041085866]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 111.1, 1.5, -10.9)
 shape = SubResource("BoxShape3D_safe_LockerRoom")
 
-[node name="CafeteriaSafeRoom" type="Area3D" parent="SafeRooms" node_paths=PackedStringArray("crayons")]
+[node name="CafeteriaSafeRoom" type="Area3D" parent="SafeRooms" unique_id=1957342176 node_paths=PackedStringArray("crayons")]
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("7_safe_room")
 crayons = [NodePath("../../CafeteriaRoom/RedCrayon")]
 
-[node name="Cafeteria" type="CollisionShape3D" parent="SafeRooms/CafeteriaSafeRoom"]
+[node name="Cafeteria" type="CollisionShape3D" parent="SafeRooms/CafeteriaSafeRoom" unique_id=606927061]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 73.25, 1.5, 8.6)
 shape = SubResource("BoxShape3D_safe_Cafeteria")
 
-[node name="ArtStudioSafeRoom" type="Area3D" parent="SafeRooms" node_paths=PackedStringArray("crayons")]
+[node name="ArtStudioSafeRoom" type="Area3D" parent="SafeRooms" unique_id=791532427 node_paths=PackedStringArray("crayons")]
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("7_safe_room")
 crayons = [NodePath("../../ArtStudio/OrangeCrayon"), NodePath("../../ArtStudio/VioletCrayon")]
 
-[node name="ArtStudio" type="CollisionShape3D" parent="SafeRooms/ArtStudioSafeRoom"]
+[node name="ArtStudio" type="CollisionShape3D" parent="SafeRooms/ArtStudioSafeRoom" unique_id=1058108317]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.35, 1.5, 6.25)
 shape = SubResource("BoxShape3D_safe_ArtStudio")
 
-[connection signal="taken" from="Library/Bookshelf/MyColors" to="Library/Bookshelf/ColoringBook" method="show"]
-[connection signal="taken" from="Library/Bookshelf/MyColors" to="Library/YellowCrayon" method="appear"]
-[connection signal="ended" from="FirstSighting" to="Library/EntryLock" method="unlock_door"]
+[node name="Posters" type="Node3D" parent="." unique_id=1034962965]
+
+[node name="Poster1A" type="Sprite3D" parent="Posters" unique_id=305511435]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 36.214, 1.7, 0.083)
+pixel_size = 0.00025
+transparent = false
+texture = ExtResource("31_poster")
+
+[node name="Poster2A" type="Sprite3D" parent="Posters" unique_id=113505091]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 122.394, 1.7, -15)
+pixel_size = 0.00025
+transparent = false
+texture = ExtResource("32_poster")
+
+[node name="Poster3A" type="Sprite3D" parent="Posters" unique_id=1338220567]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 68.883, 1.7, -50.114)
+pixel_size = 0.00025
+transparent = false
+texture = ExtResource("33_poster")
+
+[node name="Poster4A" type="Sprite3D" parent="Posters" unique_id=1454399409]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 79.083, 1.7, -4.811)
+pixel_size = 0.00025
+transparent = false
+texture = ExtResource("34_poster")
+
+[node name="Poster5A" type="Sprite3D" parent="Posters" unique_id=821328389]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.277, 1.7, -28.895)
+pixel_size = 0.00025
+transparent = false
+texture = ExtResource("35_poster")
+
+[node name="Poster1B" type="Sprite3D" parent="Posters" unique_id=2013466372]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.185, 1.7, -28.888)
+pixel_size = 0.00025
+transparent = false
+texture = ExtResource("31_poster")
+
+[node name="Poster2B" type="Sprite3D" parent="Posters" unique_id=2141127987]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 1.7, -2.995)
+pixel_size = 0.00025
+transparent = false
+texture = ExtResource("32_poster")
+
+[node name="Poster3B" type="Sprite3D" parent="Posters" unique_id=1738410792]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 103.144, 1.7, 0.042)
+pixel_size = 0.00025
+transparent = false
+texture = ExtResource("33_poster")
+
+[node name="Poster4B" type="Sprite3D" parent="Posters" unique_id=1795933982]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 70.08, 1.7, -26.098)
+pixel_size = 0.00025
+transparent = false
+texture = ExtResource("34_poster")
+
+[node name="Poster5B" type="Sprite3D" parent="Posters" unique_id=1472541764]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 58.248, 1.7, -4.411)
+pixel_size = 0.00025
+transparent = false
+texture = ExtResource("35_poster")
+
+[node name="Poster1C" type="Sprite3D" parent="Posters" unique_id=1255507342]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 58.713, 1.7, -39.25)
+pixel_size = 0.00025
+transparent = false
+texture = ExtResource("31_poster")
+
+[node name="Poster2C" type="Sprite3D" parent="Posters" unique_id=1030627603]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 117.5, 1.7, 0.042)
+pixel_size = 0.00025
+transparent = false
+texture = ExtResource("32_poster")
+
+[node name="Poster3C" type="Sprite3D" parent="Posters" unique_id=74110169]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.075, 1.7, -28.895)
+pixel_size = 0.00025
+transparent = false
+texture = ExtResource("33_poster")
+
+[node name="Poster4C" type="Sprite3D" parent="Posters" unique_id=2115345278]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 105.117, 1.7, -13.734)
+pixel_size = 0.00025
+transparent = false
+texture = ExtResource("34_poster")
+
+[node name="Poster5C" type="Sprite3D" parent="Posters" unique_id=618663867]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 61.3, 1.7, -16.5)
+pixel_size = 0.00025
+transparent = false
+texture = ExtResource("35_poster")
+
 [connection signal="uncovered" from="Entity" to="EndingDirector" method="play_uncovered"]
+[connection signal="taken" from="Library/Bookshelf/MyColors" to="Library/YellowCrayon" method="appear"]
+[connection signal="taken" from="Library/Bookshelf/MyColors" to="Library/Bookshelf/ColoringBook" method="show"]
+[connection signal="ended" from="FirstSighting" to="Library/EntryLock" method="unlock_door"]
+[connection signal="bloomed" from="Greenhouse/PlantPot" to="Greenhouse/GreenCrayon" method="appear"]
+[connection signal="bloomed" from="Greenhouse/PlantPot" to="Greenhouse/IndigoCrayon" method="appear"]
+[connection signal="seeds_rejected" from="Greenhouse/PlantPot" to="Greenhouse/AlarmSpot" method="ring"]
+[connection signal="filled_right" from="CafeteriaRoom/FruitBasket" to="CafeteriaRoom/RedCrayon" method="appear"]
+[connection signal="filled_wrong" from="CafeteriaRoom/FruitBasket" to="CafeteriaRoom/AlarmSpot" method="ring"]
+[connection signal="mixed" from="ArtStudio/PumpkinPalette" to="ArtStudio/OrangeCrayon" method="appear"]
+[connection signal="mixed_wrong" from="ArtStudio/PumpkinPalette" to="ArtStudio/AlarmSpot" method="ring"]
+[connection signal="mixed" from="ArtStudio/EggplantPalette" to="ArtStudio/VioletCrayon" method="appear"]
+[connection signal="mixed_wrong" from="ArtStudio/EggplantPalette" to="ArtStudio/AlarmSpot" method="ring"]
 [connection signal="used" from="Courtyard/ExitDoor" to="EndingDirector" method="play_escape"]
+
+[editable path="SchoolEnv"]

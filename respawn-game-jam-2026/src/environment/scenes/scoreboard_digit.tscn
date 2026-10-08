@@ -1,0 +1,8 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/environment/scripts/scoreboard_digit.gd" id="1_scoreboard_digit"]
+[ext_resource type="Material" path="res://src/flashlight/resources/reveal_material.tres" id="2_reveal"]
+
+[node name="ScoreboardDigit" type="Node3D"]
+script = ExtResource("1_scoreboard_digit")
+stripe_material = ExtResource("2_reveal")

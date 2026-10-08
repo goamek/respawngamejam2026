@@ -1,0 +1,51 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/environment/scripts/plant_pot.gd" id="1_plant_pot"]
+[ext_resource type="PackedScene" path="res://src/environment/materials/Terracotta/sm_pot_01.tscn" id="2_pot_model"]
+[ext_resource type="PackedScene" path="res://src/environment/materials/Dirt/sm_dirt_small.tscn" id="3_dirt_model"]
+[ext_resource type="PackedScene" path="res://src/environment/materials/Flower/sm_flower.tscn" id="4_flower_model"]
+[ext_resource type="Script" path="res://src/interaction/scripts/item_socket.gd" id="5_item_socket"]
+[ext_resource type="Script" path="res://src/flashlight/scripts/light_sensor.gd" id="6_light_sensor"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_pot"]
+height = 0.42
+radius = 0.36
+
+[node name="PlantPot" type="StaticBody3D"]
+collision_layer = 5
+script = ExtResource("1_plant_pot")
+
+[node name="Model" type="Node3D" parent="."]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+
+[node name="Pot" parent="Model" instance=ExtResource("2_pot_model")]
+
+[node name="Dirt" parent="Model" instance=ExtResource("3_dirt_model")]
+
+[node name="Sprout" type="Node3D" parent="Model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.13, 0)
+
+[node name="Flower" parent="Model/Sprout" instance=ExtResource("4_flower_model")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.13, 0)
+
+[node name="FlowerCrossed" parent="Model/Sprout" instance=ExtResource("4_flower_model")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 0, -0.13, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.21, 0)
+shape = SubResource("CylinderShape3D_pot")
+
+[node name="Slot" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.46, 0)
+
+[node name="Socket" type="Node" parent="." node_paths=PackedStringArray("slots")]
+script = ExtResource("5_item_socket")
+slots = [NodePath("../Slot")]
+accepted_ids = Array[StringName]([&"flower", &"carrot", &"tree", &"weed"])
+solution_ids = Array[StringName]([&"flower"])
+
+[node name="Sensor" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.42, 0)
+script = ExtResource("6_light_sensor")
+hold_time = 3.0
+is_enabled = false

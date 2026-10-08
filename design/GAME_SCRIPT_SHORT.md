@@ -49,7 +49,7 @@ How the player learns this, with no dialogue:
 
 ## Route at a glance
 
-The flashlight starts with no color. The route is one loop of the school that ends beside where it began.
+The flashlight starts with no color, only a grey beam that reveals nothing. It keeps that grey beam for the whole game, alongside the colors it gains. The route is one loop of the school that ends beside where it began.
 
 | # | Room | Door | Crayons earned | The idea |
 |---|---|---|---|---|
@@ -68,7 +68,7 @@ Every puzzle can be solved with only the colors the player has when they reach i
 ### 0. Entry lobby (tutorial, no entity)
 
 - The front door shuts behind the player. The lobby is nearly black.
-- A flashlight lies on the reception counter. Picking it up teaches interact. It gives a weak grey beam.
+- A flashlight lies on the reception counter, switched off. Picking it up teaches interact, and a hint then teaches the on and off switch. It gives a weak grey beam.
 
 ### 1. Library (earn Yellow)
 
@@ -103,10 +103,12 @@ Taking a wrong book does nothing.
 
 **Door:** green. **Colors needed:** yellow, green, indigo.
 
-1. The gym scoreboard shows one large digit made of seven bars. Each bar is drawn in one color, so the digit reads as a different number under yellow, under green, and under indigo.
+1. The gym scoreboard is switched off. Its HOME score is one large digit made of seven bars; the GUEST score and the clock stay dark. Each bar is drawn as three thin crayon stripes, one per color, and a stripe is only there where that color's digit needs the bar. So the digit reads as a different number under yellow, under green, and under indigo.
 2. Three crayon dots on the scoreboard's frame give the order: for example green, yellow, indigo. A note under it reads "my locker number, don't forget".
 3. The three digits in that order are a locker number.
-4. The locker room has a row of numbered lockers. The player opens that one. The blue crayon is inside.
+4. The locker room has a row of six numbered lockers, one for every order of the three digits. The player opens the right one. The blue crayon is inside.
+
+The digits, the order of the dots, and so the right locker are different every run.
 
 Opening a wrong locker makes a loud clang, which brings the entity to the door.
 
@@ -116,10 +118,10 @@ Opening a wrong locker makes a loud clang, which brings the entity to the door.
 
 **Door:** blue. **Colors needed:** yellow, green, indigo, blue.
 
-1. A pile of fruit on a table, all grey. Beside an empty basket is a note in childhood handwriting: "3 apples for teacher."
+1. A pile of fruit on a table, all dark: three each of bananas, pears, blueberries, plums and apples, in different places every run. Beside an empty basket is a note in childhood handwriting: "3 apples for teacher."
 2. Under yellow the bananas show. Under green, the pears. Under blue, the blueberries. Under indigo, the plums.
 3. Three pieces never light up under any color the player owns. Those are the apples, because the player has no red.
-4. Carry the three dark fruit to the basket. The red crayon appears among them.
+4. Carry the three dark fruit to the basket. The red crayon appears among them. A wrong three go back to the pile with a noise that brings the entity to the door.
 5. With red, the apples show in color, confirming the answer.
 
 ### 5. Art studio (earn Orange and Violet)
@@ -127,10 +129,12 @@ Opening a wrong locker makes a loud clang, which brings the entity to the door.
 **Door:** red. **Colors needed:** red, yellow, blue.
 
 1. The walls have three drawings of the entity the player made as a child, each signed "ME". Each shows under a different color, and in each the entity is closer.
-2. A shelf of identical grey paint jars. Only light shows which color each one is.
-3. Two palettes, each under an unfinished painting with a note. One reads "red and yellow make the sun going down." The other reads "red and blue make grapes."
+2. A shelf of identical dark paint jars, in a different order every run. Only light shows which color each one is.
+3. Two palettes, each under an unfinished painting with a note. One reads "pumpkin". The other reads "eggplant". The player works out the colors: red and yellow for a pumpkin, red and blue for an eggplant.
 4. Red and yellow jars on the first palette make the orange crayon appear.
 5. Red and blue jars on the second palette make the violet crayon appear.
+
+A wrong pair goes back to the shelf with a noise that brings the entity to the door.
 
 There are two red jars, so the player does not have to move one back.
 
@@ -232,7 +236,7 @@ Simple rounded shapes are enough for the fruit. Under the crayon effect they onl
 |---|---|---|---|
 | Paint jar | Model, carried, 5 | one color each | One model: two red, one yellow, one blue, one green decoy. |
 | Palette | Model, 2 | always | One model. Each accepts two jars. |
-| Unfinished paintings with notes | Image with text, 2 | always | "red and yellow make the sun going down." and "red and blue make grapes." |
+| Unfinished paintings with signs | Image with text, 2 | always | "pumpkin" and "eggplant". Each names the thing to paint and leaves the colors to the player. |
 | Drawings of the entity | Image, 3 | one color each | Signed "ME". |
 
 ### Ending

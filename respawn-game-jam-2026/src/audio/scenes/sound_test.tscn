@@ -1,0 +1,116 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/audio/scripts/sound_test.gd" id="1_test"]
+
+[node name="SoundTest" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_test")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.09, 0.09, 0.11, 1)
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 48
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 48
+theme_override_constants/margin_bottom = 40
+
+[node name="Columns" type="HBoxContainer" parent="Margin"]
+layout_mode = 2
+theme_override_constants/separation = 56
+
+[node name="SoundsColumn" type="VBoxContainer" parent="Margin/Columns"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 16
+
+[node name="Title" type="Label" parent="Margin/Columns/SoundsColumn"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Sound effects"
+
+[node name="Scroll" type="ScrollContainer" parent="Margin/Columns/SoundsColumn"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="Sounds" type="GridContainer" parent="Margin/Columns/SoundsColumn/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 12
+columns = 3
+
+[node name="Side" type="VBoxContainer" parent="Margin/Columns"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 16
+
+[node name="TracksTitle" type="Label" parent="Margin/Columns/Side"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Music and ambience"
+
+[node name="Tracks" type="GridContainer" parent="Margin/Columns/Side"]
+layout_mode = 2
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 8
+columns = 3
+
+[node name="FadeRow" type="HBoxContainer" parent="Margin/Columns/Side"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="FadeLabel" type="Label" parent="Margin/Columns/Side/FadeRow"]
+layout_mode = 2
+text = "Fade time, in seconds"
+
+[node name="FadeTime" type="SpinBox" parent="Margin/Columns/Side/FadeRow"]
+layout_mode = 2
+max_value = 10.0
+step = 0.5
+value = 1.0
+
+[node name="StopRow" type="HBoxContainer" parent="Margin/Columns/Side"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="StopMusic" type="Button" parent="Margin/Columns/Side/StopRow"]
+layout_mode = 2
+text = "Stop music"
+
+[node name="StopAmbience" type="Button" parent="Margin/Columns/Side/StopRow"]
+layout_mode = 2
+text = "Stop ambience"
+
+[node name="StopSounds" type="Button" parent="Margin/Columns/Side/StopRow"]
+layout_mode = 2
+text = "Stop sound effects"
+
+[node name="VolumesTitle" type="Label" parent="Margin/Columns/Side"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Volume"
+
+[node name="Volumes" type="GridContainer" parent="Margin/Columns/Side"]
+layout_mode = 2
+theme_override_constants/h_separation = 16
+theme_override_constants/v_separation = 12
+columns = 2

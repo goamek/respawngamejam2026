@@ -7,6 +7,20 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_pickup"]
 size = Vector3(0.25, 0.2, 0.35)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_outline"]
+cull_mode = 1
+shading_mode = 0
+grow = true
+grow_amount = 0.022
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_outline"]
+material = SubResource("StandardMaterial3D_outline")
+top_radius = 0.028
+bottom_radius = 0.02
+height = 0.16
+radial_segments = 16
+rings = 1
+
 [node name="FlashlightPickup" type="StaticBody3D" unique_id=916115315]
 collision_layer = 4
 collision_mask = 0
@@ -16,7 +30,17 @@ script = ExtResource("1_pickup")
 shape = SubResource("BoxShape3D_pickup")
 
 [node name="Flashlight" parent="." unique_id=423491788 instance=ExtResource("3_flashlight")]
-unlocked_hues = Array[int]([])
+is_on = false
+
+[node name="Outline" type="MeshInstance3D" parent="." unique_id=500468944]
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0)
+cast_shadow = 0
+mesh = SubResource("CylinderMesh_outline")
+
+[node name="Glow" type="OmniLight3D" parent="." unique_id=132057614]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12, 0)
+light_energy = 0.4
+omni_range = 0.8
 
 [node name="Interactable" type="Node" parent="." unique_id=96238756]
 script = ExtResource("2_interactable")

@@ -10,6 +10,9 @@ signal solved
 ## Emitted when the slots are full of the wrong items, just before they are sent back.
 signal rejected
 
+## Group every socket joins, so a carried item held near one can find it.
+const GROUP: StringName = &"item_socket"
+
 ## Places the items sit, filled in order; the number of slots is how many items the socket holds.
 @export var slots: Array[Node3D] = []
 ## Item ids that can be set down here; leave empty to take any carried item.
@@ -30,8 +33,9 @@ func _init() -> void:
 	prompt = "Place"
 
 
-## Checks the socket has slots, and as many as its solution needs.
+## Joins the group, and checks the socket has slots, and as many as its solution needs.
 func _ready() -> void:
+	add_to_group(GROUP)
 	assert(not slots.is_empty(), "ItemSocket needs at least one slot.")
 	assert(solution_ids.is_empty() or solution_ids.size() == slots.size(), "ItemSocket needs one slot per solution item.")
 
@@ -55,6 +59,14 @@ func interact(player: Player) -> void:
 	item_placed.emit(item)
 	if _placed.size() == slots.size():
 		_judge()
+
+
+## Returns the distance from [param point], in global space, to the nearest of the socket's slots, in meters.
+func distance_to_slots(point: Vector3) -> float:
+	var nearest: float = INF
+	for slot: Node3D in slots:
+		nearest = minf(nearest, slot.global_position.distance_to(point))
+	return nearest
 
 
 ## Whether [param item] is a kind this socket takes.

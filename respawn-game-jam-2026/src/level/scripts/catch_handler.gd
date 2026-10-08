@@ -15,6 +15,8 @@ const GAME_OVER_MESSAGE: String = "Game Over"
 @export var spawn_point: Node3D
 ## Scene to load when the last life is lost, normally the ending screen; leave empty to quit the game instead.
 @export_file("*.tscn") var run_end_scene: String = ""
+## Name in the sound library of the sound played as the player is caught; leave empty for none.
+@export var caught_sound: StringName = &"entity_caught"
 ## Time the view takes to snap toward the entity, in seconds.
 @export var turn_time: float = 0.15
 ## Time the player stares at the entity after turning, before the fade, in seconds.
@@ -62,6 +64,7 @@ func _on_entity_player_caught(entity: Entity) -> void:
 		return
 	_is_handling = true
 	_player.is_input_enabled = false
+	AudioController.play_sound(caught_sound)
 	_player.shake_camera(shake_strength, turn_time + hold_time)
 	await _player.face_toward(entity.face_position(), turn_time).finished
 	_watched = entity

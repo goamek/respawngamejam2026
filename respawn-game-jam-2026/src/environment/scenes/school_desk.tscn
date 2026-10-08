@@ -1,0 +1,15 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://src/environment/materials/Wood/sm_school_desk.tscn" id="1_model"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_desk"]
+size = Vector3(0.935, 0.747, 0.82)
+
+[node name="SchoolDesk" type="StaticBody3D"]
+
+[node name="Model" parent="." instance=ExtResource("1_model")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.43, 0, 0.4)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3735, 0)
+shape = SubResource("BoxShape3D_desk")

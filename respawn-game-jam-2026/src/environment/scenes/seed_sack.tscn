@@ -1,0 +1,34 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/environment/scripts/seed_sack.gd" id="1_seed_sack"]
+[ext_resource type="PackedScene" path="res://src/environment/materials/Fabric/sm_sack_02.tscn" id="2_sack_model"]
+[ext_resource type="PackedScene" path="res://src/environment/scenes/hidden_text.tscn" id="3_hidden_text"]
+[ext_resource type="Script" path="res://src/interaction/scripts/carryable.gd" id="4_carryable"]
+[ext_resource type="PackedScene" path="res://src/environment/materials/Dirt/sm_dirt_small.tscn" id="5_fill_model"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sack"]
+size = Vector3(0.34, 0.26, 0.3)
+
+[node name="SeedSack" type="RigidBody3D"]
+collision_layer = 5
+collision_mask = 7
+script = ExtResource("1_seed_sack")
+
+[node name="Model" parent="." instance=ExtResource("2_sack_model")]
+transform = Transform3D(0.35, 0, 0, 0, 0.35, 0, 0, 0, 0.35, 0, 0, 0)
+
+[node name="Fill" parent="." instance=ExtResource("5_fill_model")]
+transform = Transform3D(1.1883, 0, 0, 0, 1.1883, 0, 0, 0, 1.1883, 0, 0.0945, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.13, 0)
+shape = SubResource("BoxShape3D_sack")
+
+[node name="Label" parent="." instance=ExtResource("3_hidden_text")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12, 0.19)
+text_height = 0.05
+tag_size = Vector2(0.3, 0.1)
+
+[node name="Carryable" type="Node" parent="."]
+script = ExtResource("4_carryable")
+prompt = "Pick up"
