@@ -23,6 +23,27 @@
 [ext_resource type="PackedScene" path="res://src/environment/scenes/round_table.tscn" id="20_round_table"]
 [ext_resource type="Script" uid="uid://bbkwc8fcuk8e3" path="res://src/level/scripts/heartbeat.gd" id="21_heartbeat"]
 [ext_resource type="Script" uid="uid://cwqm07riuobrm" path="res://src/level/scripts/solid_props.gd" id="21_solid_props"]
+[ext_resource type="Script" path="res://src/level/scripts/true_colors.gd" id="40_true_colors"]
+[ext_resource type="Material" path="res://src/environment/materials/book_01.tres" id="41_book_01"]
+[ext_resource type="Material" path="res://src/environment/materials/Apple.tres" id="41_apple"]
+[ext_resource type="Material" path="res://src/environment/materials/Terracotta/Terracotta.tres" id="41_terracotta"]
+[ext_resource type="Material" path="res://src/environment/materials/Pencil.tres" id="41_pencil"]
+[ext_resource type="Material" path="res://src/environment/materials/Flower/Leaves.tres" id="41_leaves"]
+[ext_resource type="Material" path="res://src/environment/materials/Grass/Grass.tres" id="41_grass"]
+[ext_resource type="Material" path="res://src/environment/materials/Blue.tres" id="41_blue"]
+[ext_resource type="Material" path="res://src/environment/materials/Flower/Flower_Petals_01.tres" id="41_petals_01"]
+[ext_resource type="Material" path="res://src/environment/materials/Flower/Flower_Petals_02.tres" id="41_petals_02"]
+[ext_resource type="Material" path="res://src/environment/materials/Painted Metal/Locker_02.tres" id="41_locker_02"]
+[ext_resource type="Material" path="res://src/environment/materials/book_02.tres" id="41_book_02"]
+[ext_resource type="Material" path="res://src/environment/resources/basketball_leather.tres" id="41_leather"]
+[ext_resource type="Texture2D" path="res://src/environment/Decals/scoreboard.jpg" id="42_scoreboard"]
+[ext_resource type="Texture2D" path="res://src/environment/Decals/Gymfloor3.jpg4f6b1c13-e003-432f-94d2-93bc69eaa6b1Zoom.jpg" id="42_court"]
+[ext_resource type="Texture2D" path="res://src/environment/Decals/evacuation_map.png" id="42_evacuation_map"]
+[ext_resource type="Texture2D" path="res://src/environment/Decals/20261006_215446067_iOS.jpg" id="42_drawing_a"]
+[ext_resource type="Texture2D" path="res://src/environment/Decals/20261006_215446203_iOS.jpg" id="42_drawing_b"]
+[ext_resource type="Texture2D" path="res://src/environment/Decals/20261006_215446249_iOS.jpg" id="42_drawing_c"]
+[ext_resource type="Texture2D" path="res://src/environment/Decals/20261006_215446290_iOS.jpg" id="42_drawing_d"]
+[ext_resource type="Texture2D" path="res://src/environment/Decals/20261006_215446337_iOS.jpg" id="42_drawing_e"]
 [ext_resource type="Script" uid="uid://duurucrbp6jvi" path="res://src/level/scripts/hint_trigger.gd" id="22_hint_trigger"]
 [ext_resource type="PackedScene" path="res://src/environment/scenes/gym_floor.tscn" id="23_gym_floor"]
 [ext_resource type="PackedScene" path="res://src/environment/scenes/seed_sack.tscn" id="23_seed_sack"]
@@ -212,11 +233,39 @@ transform = Transform3D(22, 0, 0, 0, 22, 0, 0, 0, 22, 94.497, -0.01, -39.57)
 [node name="SM_Basketball_Goal2" parent="SchoolEnv" index="517" unique_id=1785304999]
 transform = Transform3D(-22, 0, 0, 0, 22, 0, 0, 0, -22, 94.684, -0.01, -5.4)
 
+[node name="SM_Bookshelf_10" parent="SchoolEnv" index="576" unique_id=1754364349]
+transform = Transform3D(-67.08499, 0, 5.8647565e-06, 0, 67.08499, 0, -5.8647565e-06, 0, -67.08499, 83.26062, 0.18196821, -17.16065)
+
+[node name="SM_Book70" parent="SchoolEnv" index="577" unique_id=868974754]
+transform = Transform3D(-1.94, 1.6960018e-07, -1.2215214e-14, -7.413459e-15, -2.5440028e-07, -1.5982766, -1.6960018e-07, -1.94, 2.0958866e-07, 83.60034, 1.1514077, -14.737413)
+
 [node name="SolidProps" type="Node3D" parent="." unique_id=39733513 node_paths=PackedStringArray("environment")]
 script = ExtResource("21_solid_props")
 environment = NodePath("../SchoolEnv")
 name_prefixes = PackedStringArray("SM_Bookshelf", "SM_Broken_Bookshelf", "SM_Table", "SM_School_Desk", "SM_Locker", "SM_Chalkboard", "SM_Rolling_Board", "SM_Drinking_Fountain", "SM_Pot", "SM_Sack", "SM_Paint_Easel")
 left_open = PackedStringArray()
+
+[node name="TrueColors" type="Node" parent="." node_paths=PackedStringArray("search_root")]
+script = ExtResource("40_true_colors")
+search_root = NodePath("..")
+hues = Dictionary[Material, int]({
+ExtResource("41_book_01"): 0,
+ExtResource("41_apple"): 0,
+ExtResource("41_terracotta"): 1,
+ExtResource("41_leather"): 1,
+ExtResource("41_pencil"): 2,
+ExtResource("41_leaves"): 3,
+ExtResource("41_grass"): 3,
+ExtResource("41_blue"): 4,
+ExtResource("41_petals_01"): 4,
+ExtResource("41_petals_02"): 4,
+ExtResource("41_locker_02"): 5,
+ExtResource("41_book_02"): 6
+})
+pictures = Array[Texture2D]([ExtResource("31_poster"), ExtResource("32_poster"), ExtResource("33_poster"), ExtResource("34_poster"), ExtResource("35_poster"), ExtResource("42_scoreboard"), ExtResource("42_evacuation_map"), ExtResource("42_drawing_a"), ExtResource("42_drawing_b"), ExtResource("42_drawing_c"), ExtResource("42_drawing_d"), ExtResource("42_drawing_e")])
+painted = Dictionary[Texture2D, int]({
+ExtResource("42_court"): 2
+})
 
 [node name="PatrolPoints" type="Node3D" parent="." unique_id=1984700109]
 

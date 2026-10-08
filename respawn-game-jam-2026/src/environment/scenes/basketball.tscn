@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://src/environment/scripts/basketball.gd" id="1_basketball"]
 [ext_resource type="PackedScene" path="res://src/environment/SM_Basketball.fbx" id="2_model"]
+[ext_resource type="Material" path="res://src/environment/resources/basketball_leather.tres" id="3_leather"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ball"]
 friction = 0.6
@@ -9,10 +10,6 @@ bounce = 0.6
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ball"]
 radius = 0.12
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_leather"]
-albedo_color = Color(0.82, 0.38, 0.1, 1)
-roughness = 0.9
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_seams"]
 albedo_color = Color(0.06, 0.05, 0.05, 1)
@@ -35,7 +32,7 @@ transform = Transform3D(5.2, 0, 0, 0, 5.2, 0, 0, 0, 5.2, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_seams")
 
 [node name="polySurface63" parent="Model/SM_Basketball" index="1"]
-material_override = SubResource("StandardMaterial3D_leather")
+material_override = ExtResource("3_leather")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_ball")
