@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://c8mb3xbtdhm3y"]
+
+[ext_resource type="PackedScene" uid="uid://be358xvxofkve" path="res://src/environment/Meshes/SM_Pear.fbx" id="1_0ujv2"]
+[ext_resource type="Material" uid="uid://vuwr3a8bqqcv" path="res://src/environment/materials/Pear.tres" id="2_7wgju"]
+[ext_resource type="Material" uid="uid://d1ce6ad4dj3rc" path="res://src/environment/materials/Apple_Stem.tres" id="3_eptq7"]
+[ext_resource type="Material" uid="uid://tko8easd1m7b" path="res://src/environment/materials/Flower/Leaves.tres" id="4_5sns7"]
+
+[node name="SM_Pear" unique_id=1392805032 instance=ExtResource("1_0ujv2")]
+
+[node name="SM_Pear" parent="." index="0" unique_id=304970570]
+material_override = ExtResource("2_7wgju")
+
+[node name="pCube1" parent="SM_Pear" index="0" unique_id=1381339171]
+material_override = ExtResource("3_eptq7")
+
+[node name="pPlane1" parent="SM_Pear" index="1" unique_id=1791683610]
+material_override = ExtResource("4_5sns7")

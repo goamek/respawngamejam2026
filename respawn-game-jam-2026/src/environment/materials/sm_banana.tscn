@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://xusinnaexn2v"]
+
+[ext_resource type="PackedScene" uid="uid://cg17gf53nyqp" path="res://src/environment/Meshes/SM_banana.fbx" id="1_tlxr0"]
+[ext_resource type="Material" uid="uid://bivy6n6uwsi70" path="res://src/environment/materials/Pencil.tres" id="2_kmeku"]
+
+[node name="SM_banana" unique_id=447554598 instance=ExtResource("1_tlxr0")]
+
+[node name="polySurface106" parent="SM_Banana" parent_id_path=PackedInt32Array(1442114653) index="0" unique_id=1461284637]
+material_override = ExtResource("2_kmeku")
