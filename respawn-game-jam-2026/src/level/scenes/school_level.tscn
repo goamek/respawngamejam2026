@@ -203,7 +203,7 @@ has_flashlight_at_start = false
 [node name="Lobby" type="Node3D" parent="." unique_id=189788047]
 
 [node name="FlashlightPickup" parent="Lobby" unique_id=1255171923 instance=ExtResource("5_flashlight_pickup")]
-transform = Transform3D(0.921, 0, -0.389, 0, 1, 0, 0.389, 0, 0.921, 28.76983, 1.04, 24.5)
+transform = Transform3D(0.921, 0, -0.389, 0, 1, 0, 0.389, 0, 0.921, 28.76983, 1.0, 24.5)
 
 [node name="Library" type="Node3D" parent="." unique_id=906929169]
 

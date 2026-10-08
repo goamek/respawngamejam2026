@@ -97,16 +97,6 @@ albedo_texture = ExtResource("33_tobt1")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i8klc"]
 albedo_texture = ExtResource("36_1bbib")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rdv81"]
-albedo_color = Color(0.35, 0.35, 0.38, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_3ce21"]
-material = SubResource("StandardMaterial3D_rdv81")
-size = Vector3(0.9, 1, 2.2)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_h3626"]
-size = Vector3(0.9, 1, 2.2)
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_wjfu1"]
 size = Vector3(0.36, 2.6, 0.4)
 
@@ -8908,14 +8898,8 @@ transparent = false
 shaded = true
 texture = ExtResource("10_kj6j4")
 
-[node name="ReceptionCounter" type="StaticBody3D" parent="." unique_id=431678804]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.773777, 0.5, 24.5)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="ReceptionCounter" unique_id=1520050966]
-mesh = SubResource("BoxMesh_3ce21")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ReceptionCounter" unique_id=284593200]
-shape = SubResource("BoxShape3D_h3626")
+[node name="ReceptionTable" parent="." unique_id=431678804 instance=ExtResource("61_e61hh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.773777, 0, 24.5)
 
 [node name="LibraryBookshelf" parent="." unique_id=932479393 instance=ExtResource("60_i8klc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0, 16.36)
