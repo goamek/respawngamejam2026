@@ -2,131 +2,102 @@
 
 [ext_resource type="Script" path="res://src/environment/scripts/scoreboard.gd" id="1_scoreboard"]
 [ext_resource type="PackedScene" path="res://src/environment/scenes/scoreboard_digit.tscn" id="2_digit"]
+[ext_resource type="Texture2D" path="res://src/environment/Decals/scoreboard.jpg" id="3_face"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_board"]
-shading_mode = 0
-albedo_color = Color(0.02, 0.02, 0.02, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_face"]
+albedo_texture = ExtResource("3_face")
+metallic_specular = 0.0
+roughness = 1.0
 
-[sub_resource type="BoxMesh" id="BoxMesh_board"]
-material = SubResource("StandardMaterial3D_board")
-size = Vector3(3.7, 2.3, 0.1)
+[sub_resource type="QuadMesh" id="QuadMesh_face"]
+material = SubResource("StandardMaterial3D_face")
+size = Vector2(3.9, 1.95)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_frame"]
-albedo_color = Color(0.35, 0.35, 0.38, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_casing"]
+albedo_color = Color(0.12, 0.12, 0.13, 1)
 
-[sub_resource type="BoxMesh" id="BoxMesh_frame"]
-material = SubResource("StandardMaterial3D_frame")
-size = Vector3(3.9, 2.5, 0.08)
+[sub_resource type="BoxMesh" id="BoxMesh_casing"]
+material = SubResource("StandardMaterial3D_casing")
+size = Vector3(3.9, 1.95, 0.09)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_off"]
 albedo_color = Color(0.13, 0.13, 0.14, 1)
 metallic_specular = 0.0
 roughness = 1.0
 
-[sub_resource type="QuadMesh" id="QuadMesh_colon"]
-material = SubResource("StandardMaterial3D_off")
-size = Vector2(0.06, 0.06)
-
 [sub_resource type="SphereMesh" id="SphereMesh_dot"]
-radius = 0.07
-height = 0.14
+radius = 0.055
+height = 0.11
 radial_segments = 16
 rings = 8
 
 [node name="Scoreboard" type="Node3D"]
 script = ExtResource("1_scoreboard")
 
-[node name="Frame" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.04)
-mesh = SubResource("BoxMesh_frame")
-
-[node name="Board" type="MeshInstance3D" parent="."]
+[node name="Casing" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.05)
+mesh = SubResource("BoxMesh_casing")
+
+[node name="Face" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.097)
 cast_shadow = 0
-mesh = SubResource("BoxMesh_board")
-
-[node name="HomeLabel" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.15, 0.9, 0.103)
-pixel_size = 0.0025
-shaded = true
-double_sided = false
-alpha_cut = 1
-modulate = Color(0.75, 0.75, 0.75, 1)
-outline_modulate = Color(0, 0, 0, 0)
-text = "HOME"
-font_size = 64
-outline_size = 0
-
-[node name="GuestLabel" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.15, 0.9, 0.103)
-pixel_size = 0.0025
-shaded = true
-double_sided = false
-alpha_cut = 1
-modulate = Color(0.75, 0.75, 0.75, 1)
-outline_modulate = Color(0, 0, 0, 0)
-text = "GUEST"
-font_size = 64
-outline_size = 0
+mesh = SubResource("QuadMesh_face")
 
 [node name="Digit" parent="." instance=ExtResource("2_digit")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.15, -0.1, 0.1)
-digit_height = 1.2
-bar_thickness = 0.24
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.443, -0.249, 0.1)
+digit_height = 0.6
+bar_thickness = 0.12
 
 [node name="GuestDigit" parent="." instance=ExtResource("2_digit")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.15, -0.1, 0.1)
-digit_height = 1.2
-bar_thickness = 0.24
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.443, -0.249, 0.1)
+digit_height = 0.6
+bar_thickness = 0.12
+is_off = true
+off_material = SubResource("StandardMaterial3D_off")
+
+[node name="QuarterDigit" parent="." instance=ExtResource("2_digit")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.008, -0.493, 0.1)
+digit_height = 0.56
+bar_thickness = 0.085
 is_off = true
 off_material = SubResource("StandardMaterial3D_off")
 
 [node name="Clock" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0.1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.533, 0.1)
 
 [node name="TenMinutes" parent="Clock" instance=ExtResource("2_digit")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.44, 0, 0)
-digit_height = 0.4
-bar_thickness = 0.06
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.662, 0, 0)
+digit_height = 0.56
+bar_thickness = 0.085
 is_off = true
 off_material = SubResource("StandardMaterial3D_off")
 
 [node name="Minutes" parent="Clock" instance=ExtResource("2_digit")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.17, 0, 0)
-digit_height = 0.4
-bar_thickness = 0.06
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.282, 0, 0)
+digit_height = 0.56
+bar_thickness = 0.085
 is_off = true
 off_material = SubResource("StandardMaterial3D_off")
 
 [node name="TenSeconds" parent="Clock" instance=ExtResource("2_digit")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.17, 0, 0)
-digit_height = 0.4
-bar_thickness = 0.06
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.282, 0, 0)
+digit_height = 0.56
+bar_thickness = 0.085
 is_off = true
 off_material = SubResource("StandardMaterial3D_off")
 
 [node name="Seconds" parent="Clock" instance=ExtResource("2_digit")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.44, 0, 0)
-digit_height = 0.4
-bar_thickness = 0.06
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.662, 0, 0)
+digit_height = 0.56
+bar_thickness = 0.085
 is_off = true
 off_material = SubResource("StandardMaterial3D_off")
 
-[node name="ColonTop" type="MeshInstance3D" parent="Clock"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.09, 0.003)
-cast_shadow = 0
-mesh = SubResource("QuadMesh_colon")
-
-[node name="ColonBottom" type="MeshInstance3D" parent="Clock"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.09, 0.003)
-cast_shadow = 0
-mesh = SubResource("QuadMesh_colon")
-
 [node name="Dots" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.15, -0.97, 0.12)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.443, -0.8, 0.11)
 
 [node name="DotLeft" type="MeshInstance3D" parent="Dots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.24, 0, 0)
 cast_shadow = 0
 mesh = SubResource("SphereMesh_dot")
 
@@ -135,6 +106,6 @@ cast_shadow = 0
 mesh = SubResource("SphereMesh_dot")
 
 [node name="DotRight" type="MeshInstance3D" parent="Dots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.24, 0, 0)
 cast_shadow = 0
 mesh = SubResource("SphereMesh_dot")

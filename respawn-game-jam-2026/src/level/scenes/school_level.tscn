@@ -106,6 +106,111 @@ environment = SubResource("Environment_dark")
 
 [node name="SchoolEnv" parent="." unique_id=88071991 instance=ExtResource("1_school_env")]
 
+[node name="SM_Sack_03" parent="SchoolEnv"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 67.85, 0.0029, -55.75)
+
+[node name="SM_Dirt_small3" parent="SchoolEnv"]
+transform = Transform3D(3.395, 0, 0, 0, 3.395, 0, 0, 0, 3.395, 67.85, 0.2728, -55.75)
+
+[node name="SM_Sack_02" parent="SchoolEnv"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 69.1, 0.1187, -55.85)
+
+[node name="SM_Pot_02" parent="SchoolEnv"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 68.05, 0.963, -53.8)
+
+[node name="SM_Sack_04" parent="SchoolEnv"]
+transform = Transform3D(0.15951751, 0, -0.16003601, 0, 0.075245716, 0, 0.16013691, 0, 0.15941699, 68.05, 0.97, -52.8)
+
+[node name="SM_Basketball_Goal" parent="SchoolEnv"]
+transform = Transform3D(22, 0, 0, 0, 22, 0, 0, 0, 22, 94.497, -0.01, -39.57)
+
+[node name="SM_Basketball_Goal2" parent="SchoolEnv"]
+transform = Transform3D(-22, 0, 0, 0, 22, 0, 0, 0, -22, 94.684, -0.01, -5.4)
+
+[node name="Sprite3D" parent="SchoolEnv/SM_Floor_04"]
+visible = false
+
+[node name="Sprite3D3" parent="SchoolEnv"]
+transparent = false
+
+[node name="SM_Locker99" parent="SchoolEnv"]
+visible = false
+
+[node name="SM_Locker95" parent="SchoolEnv"]
+visible = false
+
+[node name="SM_Locker96" parent="SchoolEnv"]
+visible = false
+
+[node name="SM_Locker97" parent="SchoolEnv"]
+visible = false
+
+[node name="SM_Locker93" parent="SchoolEnv"]
+visible = false
+
+[node name="SM_Locker94" parent="SchoolEnv"]
+visible = false
+
+[node name="SM_Paint_Easel2" parent="SchoolEnv"]
+visible = false
+
+[node name="Sprite3D2" parent="SchoolEnv"]
+visible = false
+
+[node name="Sprite3D4" parent="SchoolEnv"]
+visible = false
+
+[node name="Sprite3D5" parent="SchoolEnv"]
+visible = false
+
+[node name="Sprite3D6" parent="SchoolEnv"]
+visible = false
+
+[node name="Sprite3D14" parent="SchoolEnv"]
+visible = false
+
+[node name="Sprite3D17" parent="SchoolEnv"]
+visible = false
+
+[node name="Sprite3D15" parent="SchoolEnv"]
+visible = false
+
+[node name="Sprite3D16" parent="SchoolEnv"]
+visible = false
+
+[node name="Sprite3D18" parent="SchoolEnv"]
+visible = false
+
+[node name="Sprite3D19" parent="SchoolEnv"]
+visible = false
+
+[node name="Sprite3D20" parent="SchoolEnv"]
+visible = false
+
+[node name="Sprite3D21" parent="SchoolEnv"]
+visible = false
+
+[node name="Sprite3D11" parent="SchoolEnv"]
+visible = false
+
+[node name="Sprite3D12" parent="SchoolEnv"]
+visible = false
+
+[node name="Sprite3D13" parent="SchoolEnv"]
+visible = false
+
+[node name="Sprite3D35" parent="SchoolEnv"]
+visible = false
+
+[node name="Sprite3D29" parent="SchoolEnv"]
+visible = false
+
+[node name="Sprite3D30" parent="SchoolEnv"]
+visible = false
+
+[node name="Sprite3D32" parent="SchoolEnv"]
+visible = false
+
 [node name="SolidProps" type="Node3D" parent="." unique_id=39733513 node_paths=PackedStringArray("environment")]
 script = ExtResource("21_solid_props")
 environment = NodePath("../SchoolEnv")
@@ -850,3 +955,5 @@ texture = ExtResource("35_poster")
 [connection signal="mixed" from="ArtStudio/EggplantPalette" to="ArtStudio/VioletCrayon" method="appear"]
 [connection signal="mixed_wrong" from="ArtStudio/EggplantPalette" to="ArtStudio/AlarmSpot" method="ring"]
 [connection signal="used" from="Courtyard/ExitDoor" to="EndingDirector" method="play_escape"]
+
+[editable path="SchoolEnv"]
