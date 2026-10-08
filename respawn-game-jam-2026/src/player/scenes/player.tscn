@@ -16,6 +16,7 @@
 [ext_resource type="AnimationLibrary" path="res://src/player/models/crouch_idle.fbx" id="14_crouch_idle"]
 [ext_resource type="AnimationLibrary" path="res://src/player/models/crouch_walk.fbx" id="15_crouch_walk"]
 [ext_resource type="Script" path="res://src/player/scripts/hand_grip.gd" id="16_hand_grip"]
+[ext_resource type="Script" path="res://src/player/scripts/hand_sway.gd" id="17_hand_sway"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_body"]
 radius = 0.3
@@ -40,8 +41,10 @@ current = true
 
 [node name="CrayonEffect" parent="Head/Camera3D" instance=ExtResource("7_crayon_effect")]
 
-[node name="Hand" type="Marker3D" parent="Head"]
+[node name="Hand" type="Marker3D" parent="Head" node_paths=PackedStringArray("player")]
 transform = Transform3D(0.1626, -0.981, -0.1057, 0.9802, 0.1728, -0.0961, 0.1125, -0.088, 0.9897, -0.22, -0.2, -0.35)
+script = ExtResource("17_hand_sway")
+player = NodePath("../..")
 
 [node name="Flashlight" parent="Head/Hand" instance=ExtResource("2_flashlight")]
 

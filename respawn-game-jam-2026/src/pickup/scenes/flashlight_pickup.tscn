@@ -30,7 +30,7 @@ script = ExtResource("1_pickup")
 shape = SubResource("BoxShape3D_pickup")
 
 [node name="Flashlight" parent="." unique_id=423491788 instance=ExtResource("3_flashlight")]
-unlocked_hues = Array[int]([7])
+unlocked_hues = Array[int]([])
 is_on = false
 
 [node name="Outline" type="MeshInstance3D" parent="." unique_id=500468944]
