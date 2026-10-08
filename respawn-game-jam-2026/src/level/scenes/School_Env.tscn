@@ -66,6 +66,12 @@
 [ext_resource type="PackedScene" path="res://src/environment/scenes/easel.tscn" id="64_k03qj"]
 [ext_resource type="PackedScene" path="res://src/environment/scenes/school_desk.tscn" id="65_xs0ng"]
 [ext_resource type="PackedScene" path="res://src/environment/scenes/cup.tscn" id="66_ibnls"]
+[ext_resource type="Texture2D" path="res://src/environment/Decals/sign_library.jpg" id="70_sign_library"]
+[ext_resource type="Texture2D" path="res://src/environment/Decals/sign_greenhouse.jpg" id="70_sign_greenhouse"]
+[ext_resource type="Texture2D" path="res://src/environment/Decals/sign_gym.jpg" id="70_sign_gym"]
+[ext_resource type="Texture2D" path="res://src/environment/Decals/sign_locker_room.jpg" id="70_sign_locker_room"]
+[ext_resource type="Texture2D" path="res://src/environment/Decals/sign_cafeteria.jpg" id="70_sign_cafeteria"]
+[ext_resource type="Texture2D" path="res://src/environment/Decals/sign_art_studio.jpg" id="70_sign_art_studio"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_d826n"]
 size = Vector3(0.29833984, 0.296875, 0.20361328)
@@ -9002,3 +9008,53 @@ mesh = SubResource("BoxMesh_7n6n1")
 transform = Transform3D(0.03, 0, 0, 0, 3.8402934, 0, 0, 0, 5.120014, 90.83924, 1.9201508, -48.77569)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_7n6n1")
+
+[node name="Signs" type="Node3D" parent="."]
+
+[node name="LibrarySign" type="Sprite3D" parent="Signs"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 8.300, 2.7, 0.040)
+pixel_size = 0.0015
+shaded = true
+double_sided = false
+transparent = false
+texture = ExtResource("70_sign_library")
+
+[node name="GreenhouseSign" type="Sprite3D" parent="Signs"]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 61.350, 2.7, -46.970)
+pixel_size = 0.0015
+shaded = true
+double_sided = false
+transparent = false
+texture = ExtResource("70_sign_greenhouse")
+
+[node name="GymSign" type="Sprite3D" parent="Signs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 101.560, 2.7, -4.800)
+pixel_size = 0.0015
+shaded = true
+double_sided = false
+transparent = false
+texture = ExtResource("70_sign_gym")
+
+[node name="LockerRoomSign" type="Sprite3D" parent="Signs"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 117.240, 2.62, -10.22)
+pixel_size = 0.0015
+shaded = true
+double_sided = false
+transparent = false
+texture = ExtResource("70_sign_locker_room")
+
+[node name="CafeteriaSign" type="Sprite3D" parent="Signs"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 68.570, 2.7, 0.030)
+pixel_size = 0.0015
+shaded = true
+double_sided = false
+transparent = false
+texture = ExtResource("70_sign_cafeteria")
+
+[node name="ArtStudioSign" type="Sprite3D" parent="Signs"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 48.050, 2.7, 0.080)
+pixel_size = 0.0015
+shaded = true
+double_sided = false
+transparent = false
+texture = ExtResource("70_sign_art_studio")
