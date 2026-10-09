@@ -353,12 +353,12 @@ shape = SubResource("BoxShape3D_hiding_spot")
 [node name="Greenhouse" type="Node3D" parent="." unique_id=2071637037]
 
 [node name="GreenCrayon" parent="Greenhouse" unique_id=1217452499 instance=ExtResource("6_crayon")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78.2, 0.5, -47.4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78.25, 0.93, -47.3)
 hue = 3
 is_hidden_at_start = true
 
 [node name="IndigoCrayon" parent="Greenhouse" unique_id=1477007315 instance=ExtResource("6_crayon")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78.55, 0.5, -47.4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78.6, 0.93, -47.3)
 hue = 5
 is_hidden_at_start = true
 
@@ -396,7 +396,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60.2, 0, -46.24)
 script = ExtResource("26_noise_alarm")
 
 [node name="PlantPot" parent="Greenhouse" unique_id=1044507827 instance=ExtResource("24_plant_pot")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 77.6, 0.5, -47.3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 77.6, 0.93, -47.22)
 
 [node name="LockerRoom" type="Node3D" parent="." unique_id=1239835350]
 
