@@ -308,15 +308,57 @@ script = ExtResource("20_hiding_spot")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0.25)
 shape = SubResource("BoxShape3D_hiding_spot")
 
+[node name="HidingSpots" type="Node3D" parent="."]
+
+[node name="ScienceWing" type="Area3D" parent="HidingSpots"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 60, 0, -55.65)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("20_hiding_spot")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HidingSpots/ScienceWing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0.25)
+shape = SubResource("BoxShape3D_hiding_spot")
+
+[node name="LinkHall" type="Area3D" parent="HidingSpots"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 74.81, 0, -22.5)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("20_hiding_spot")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HidingSpots/LinkHall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0.25)
+shape = SubResource("BoxShape3D_hiding_spot")
+
+[node name="PeCorridor" type="Area3D" parent="HidingSpots"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 96.1, 0, -0.63)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("20_hiding_spot")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HidingSpots/PeCorridor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0.25)
+shape = SubResource("BoxShape3D_hiding_spot")
+
+[node name="EastCorridor" type="Area3D" parent="HidingSpots"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 121, 0, -16.11)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("20_hiding_spot")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HidingSpots/EastCorridor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0.25)
+shape = SubResource("BoxShape3D_hiding_spot")
+
 [node name="Greenhouse" type="Node3D" parent="." unique_id=2071637037]
 
 [node name="GreenCrayon" parent="Greenhouse" unique_id=1217452499 instance=ExtResource("6_crayon")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 77.6, 0.95, -47.08)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78.2, 0.5, -47.4)
 hue = 3
 is_hidden_at_start = true
 
 [node name="IndigoCrayon" parent="Greenhouse" unique_id=1477007315 instance=ExtResource("6_crayon")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 77.6, 1.35, -47.38)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78.55, 0.5, -47.4)
 hue = 5
 is_hidden_at_start = true
 
