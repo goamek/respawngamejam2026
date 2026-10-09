@@ -28,6 +28,8 @@ const MUSIC_VOLUMES: Dictionary[int, float] = {
 	GameSession.Ending.CAUGHT: 1.0,
 }
 
+## Line that tells the player how many of the winning endings they have found; filled in with the count and the total.
+const PROGRESS_TEXT: String = "%d/%d endings complete"
 ## Words on the button when it leads on to the credits.
 const CONTINUE_LABEL: String = "Continue"
 
@@ -50,10 +52,11 @@ const CONTINUE_LABEL: String = "Continue"
 @onready var _picture: TextureRect = $Card/Picture
 @onready var _title: Label = $Card/Title
 @onready var _story: Label = $Card/Story
+@onready var _progress: Label = $Card/Progress
 @onready var _menu_button: Button = $Card/MenuButton
 
 
-## Frees the mouse, fills in the card for the ending that was reached, starts its music, highlights the button, and fades the card in.
+## Frees the mouse, fills in the card for the ending that was reached, counts it, starts its music, highlights the button, and fades the card in.
 func _ready() -> void:
 	assert(not main_menu_scene.is_empty(), "EndingScreen needs a main menu scene.")
 	# The player captures the mouse while playing, so it arrives here still hidden.
@@ -63,6 +66,10 @@ func _ready() -> void:
 	_story.text = STORIES[ending]
 	_picture.texture = _picture_for(ending)
 	_picture.visible = _picture.texture != null
+	GameSession.record_ending(ending)
+	# Being caught is not one of the endings to find, so that card says nothing about them.
+	_progress.visible = ending != GameSession.Ending.CAUGHT
+	_progress.text = PROGRESS_TEXT % [GameSession.endings_found(), GameSession.WINNING_ENDING_COUNT]
 	# Usually a no-op: the level starts this music as its ending begins, and it carries on across the scene change.
 	play_music_for(ending, music_fade_time)
 	if _leads_to_credits():

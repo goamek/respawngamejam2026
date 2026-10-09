@@ -63,6 +63,13 @@ text = "Story"
 horizontal_alignment = 1
 autowrap_mode = 3
 
+[node name="Progress" type="Label" parent="Card"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
+theme_override_font_sizes/font_size = 24
+text = "0/2 endings complete"
+horizontal_alignment = 1
+
 [node name="MenuButton" type="Button" parent="Card"]
 layout_mode = 2
 size_flags_horizontal = 4
