@@ -8,7 +8,8 @@
 [ext_resource type="PackedScene" path="res://src/pickup/scenes/crayon.tscn" id="6_crayon"]
 [ext_resource type="Script" uid="uid://cgmjnkj3oiuau" path="res://src/level/scripts/safe_room.gd" id="7_safe_room"]
 [ext_resource type="PackedScene" path="res://src/environment/scenes/note.tscn" id="9_note"]
-[ext_resource type="PackedScene" path="res://src/environment/scenes/wall_calendar.tscn" id="10_wall_calendar"]
+[ext_resource type="Texture2D" path="res://src/environment/Decals/library_calendar.png" id="10_library_calendar"]
+[ext_resource type="Texture2D" path="res://src/environment/Decals/library_checkout.png" id="10_library_checkout"]
 [ext_resource type="PackedScene" path="res://src/environment/scenes/book.tscn" id="12_book"]
 [ext_resource type="PackedScene" path="res://src/environment/scenes/coloring_book.tscn" id="13_coloring_book"]
 [ext_resource type="Script" uid="uid://dfshmprncprm" path="res://src/level/scripts/player_trigger.gd" id="14_player_trigger"]
@@ -61,6 +62,8 @@
 [ext_resource type="Texture2D" uid="uid://dtmme2o42mnyh" path="res://src/environment/Decals/20261006_215446337_iOS.jpg" id="42_drawing_e"]
 [ext_resource type="Texture2D" uid="uid://dx4f0402f44vo" path="res://src/environment/Decals/evacuation_map.png" id="42_evacuation_map"]
 [ext_resource type="Texture2D" path="res://src/environment/Decals/scoreboard.jpg" id="42_scoreboard"]
+[ext_resource type="Script" path="res://src/level/scripts/navigation_gate.gd" id="43_navigation_gate"]
+[ext_resource type="PackedScene" path="res://src/level/scenes/caught_cutscene.tscn" id="44_caught_cutscene"]
 
 [sub_resource type="Environment" id="Environment_dark"]
 background_mode = 1
@@ -131,7 +134,7 @@ ExtResource("41_petals_02"): 4,
 ExtResource("41_locker_02"): 5,
 ExtResource("41_book_02"): 6
 })
-pictures = Array[Texture2D]([ExtResource("31_poster"), ExtResource("32_poster"), ExtResource("33_poster"), ExtResource("34_poster"), ExtResource("35_poster"), ExtResource("42_scoreboard"), ExtResource("42_evacuation_map"), ExtResource("42_drawing_a"), ExtResource("42_drawing_b"), ExtResource("42_drawing_c"), ExtResource("42_drawing_d"), ExtResource("42_drawing_e")])
+pictures = Array[Texture2D]([ExtResource("10_library_calendar"), ExtResource("31_poster"), ExtResource("32_poster"), ExtResource("33_poster"), ExtResource("34_poster"), ExtResource("35_poster"), ExtResource("42_scoreboard"), ExtResource("42_evacuation_map"), ExtResource("42_drawing_a"), ExtResource("42_drawing_b"), ExtResource("42_drawing_c"), ExtResource("42_drawing_d"), ExtResource("42_drawing_e")])
 painted = Dictionary[Texture2D, int]({
 ExtResource("42_court"): 2
 })
@@ -180,6 +183,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74, 0, 6.8)
 [node name="ArtStudio" type="Marker3D" parent="PatrolPoints" unique_id=2037367908]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.5, 0, 11.4)
 
+[node name="Courtyard" type="Marker3D" parent="PatrolPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.5, 0, -12)
+
 [node name="Entity" parent="." unique_id=1803776842 node_paths=PackedStringArray("patrol_points") instance=ExtResource("3_entity")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.2, 0, 8.037567)
 patrol_points = [NodePath("../PatrolPoints/Lobby"), NodePath("../PatrolPoints/MainCorridorWest"), NodePath("../PatrolPoints/MainCorridorCenter"), NodePath("../PatrolPoints/NorthCourtyardHall"), NodePath("../PatrolPoints/ScienceWing"), NodePath("../PatrolPoints/LinkHall"), NodePath("../PatrolPoints/PeCorridor"), NodePath("../PatrolPoints/EastCorridor"), NodePath("../PatrolPoints/Library"), NodePath("../PatrolPoints/Greenhouse"), NodePath("../PatrolPoints/Gymnasium"), NodePath("../PatrolPoints/LockerRoom"), NodePath("../PatrolPoints/Cafeteria"), NodePath("../PatrolPoints/ArtStudio")]
@@ -187,8 +193,9 @@ patrol_points = [NodePath("../PatrolPoints/Lobby"), NodePath("../PatrolPoints/Ma
 [node name="PlayerSpawn" type="Marker3D" parent="." unique_id=958146031]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.2, 0, 27.5)
 
-[node name="CatchHandler" parent="." unique_id=153618860 node_paths=PackedStringArray("spawn_point") instance=ExtResource("4_catch_handler")]
+[node name="CatchHandler" parent="." unique_id=153618860 node_paths=PackedStringArray("spawn_point", "final_cutscene") instance=ExtResource("4_catch_handler")]
 spawn_point = NodePath("../PlayerSpawn")
+final_cutscene = NodePath("../ArtStudio/CaughtCutscene")
 run_end_scene = "res://src/ui/scenes/ending_screen.tscn"
 
 [node name="Player" parent="." unique_id=652413314 instance=ExtResource("2_player")]
@@ -198,7 +205,8 @@ has_flashlight_at_start = false
 [node name="Lobby" type="Node3D" parent="." unique_id=189788047]
 
 [node name="FlashlightPickup" parent="Lobby" unique_id=1255171923 instance=ExtResource("5_flashlight_pickup")]
-transform = Transform3D(0.921, 0, -0.389, 0, 1, 0, 0.389, 0, 0.921, 28.76983, 1.04, 24.5)
+transform = Transform3D(0.921, 0, -0.389, 0, 1, 0, 0.389, 0, 0.921, 28.76983, 1.0, 24.5)
+next_hint = "Find the library"
 
 [node name="Library" type="Node3D" parent="." unique_id=906929169]
 
@@ -207,19 +215,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.52, 1.07, 16.16)
 hue = 2
 is_hidden_at_start = true
 
-[node name="CheckOutSlip" parent="Library" unique_id=1583216957 instance=ExtResource("9_note")]
+[node name="CheckOutSlip" type="Sprite3D" parent="Library" unique_id=1583216957]
 transform = Transform3D(-1, 0, 0, 0, 0, 1, 0, 1, 0, 9, 0.975, 3.2)
-text = "ONE NEVER CAME BACK
+pixel_size = 0.00053
+shaded = true
+transparent = false
+texture = ExtResource("10_library_checkout")
 
-The Lost Kite - Oct 3
-Night Garden - Oct 9
-Mouse and Moon - Oct 14
-My Colors - Oct 21"
-paper_size = Vector2(0.62, 0.46)
-text_height = 0.042
-
-[node name="WallCalendar" parent="Library" unique_id=183894882 instance=ExtResource("10_wall_calendar")]
+[node name="WallCalendar" type="Sprite3D" parent="Library" unique_id=183894882]
 transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 0.03, 1.6, 8.3)
+pixel_size = 0.000886
+shaded = true
+transparent = false
+texture = ExtResource("10_library_calendar")
 
 [node name="EntryLock" type="Area3D" parent="Library" unique_id=133095136]
 script = ExtResource("15_door_lock_trigger")
@@ -327,11 +335,11 @@ transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 67.77, 0.975, -52.58)
 plant_name = "tree"
 
 [node name="BenchNote" parent="Greenhouse" unique_id=1001304601 instance=ExtResource("9_note")]
-transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 67.275, 1.68, -53.3)
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 67.275, 1.715, -53.3)
 text = "Flowers need
 a seed and
 "
-paper_size = Vector2(0.6, 0.42)
+paper_size = Vector2(0.6, 0.49)
 text_height = 0.055
 
 [node name="BenchNoteSun" parent="Greenhouse" unique_id=1095494705 instance=ExtResource("25_hidden_text")]
@@ -392,13 +400,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 92.6, 0.13, -30.4)
 
 [node name="Scoreboard" parent="Gym" unique_id=343229166 instance=ExtResource("27_scoreboard")]
 transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 84.06, 2.3, -15)
-
-[node name="ScoreboardNote" parent="Gym" unique_id=1762272599 instance=ExtResource("9_note")]
-transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 84.06, 0.8, -13.85)
-text = "my locker number,
-don't forget"
-paper_size = Vector2(0.7, 0.3)
-text_height = 0.07
 
 [node name="GymPuzzle" type="Node" parent="." unique_id=1730501336 node_paths=PackedStringArray("scoreboard", "lockers", "crayon", "alarm")]
 script = ExtResource("29_gym_puzzle")
@@ -503,6 +504,9 @@ setting = &"kind"
 
 [node name="ArtStudio" type="Node3D" parent="." unique_id=1937754773]
 
+[node name="CaughtCutscene" parent="ArtStudio" instance=ExtResource("44_caught_cutscene")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 49.6, 1.72, 12.24)
+
 [node name="OrangeCrayon" parent="ArtStudio" unique_id=774712965 instance=ExtResource("6_crayon")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 53.04, 0.927, 2)
 is_hidden_at_start = true
@@ -538,21 +542,31 @@ setting = &"paint"
 [node name="PumpkinPalette" parent="ArtStudio" unique_id=768047682 instance=ExtResource("34_paint_palette")]
 transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 52.95, 0.747, 2)
 
-[node name="PumpkinPainting" parent="ArtStudio" unique_id=1659857425 instance=ExtResource("9_note")]
-transform = Transform3D(0, 0.1959, -0.9806, 0, 0.9806, 0.1959, 1, 0, 0, 53.724, 1.1, 2)
+[node name="PumpkinPainting" type="Label3D" parent="ArtStudio" unique_id=1659857425]
+transform = Transform3D(0, 0.1959, -0.9806, 0, 0.9806, 0.1959, 1, 0, 0, 53.774, 1.355, 2)
+pixel_size = 0.0015
+double_sided = false
+alpha_cut = 1
+modulate = Color(0.05, 0.04, 0.04, 1)
+outline_modulate = Color(0, 0, 0, 0)
 text = "pumpkin"
-paper_size = Vector2(0.6, 0.42)
-text_height = 0.1
+font_size = 64
+outline_size = 0
 
 [node name="EggplantPalette" parent="ArtStudio" unique_id=206926085 instance=ExtResource("34_paint_palette")]
 transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 52.95, 0.747, 4.3)
 paints = Array[int]([0, 4])
 
-[node name="EggplantPainting" parent="ArtStudio" unique_id=1615123426 instance=ExtResource("9_note")]
-transform = Transform3D(0, 0.1959, -0.9806, 0, 0.9806, 0.1959, 1, 0, 0, 53.724, 1.1, 4.3)
+[node name="EggplantPainting" type="Label3D" parent="ArtStudio" unique_id=1615123426]
+transform = Transform3D(0, 0.1959, -0.9806, 0, 0.9806, 0.1959, 1, 0, 0, 53.774, 1.355, 4.3)
+pixel_size = 0.0015
+double_sided = false
+alpha_cut = 1
+modulate = Color(0.05, 0.04, 0.04, 1)
+outline_modulate = Color(0, 0, 0, 0)
 text = "eggplant"
-paper_size = Vector2(0.6, 0.42)
-text_height = 0.1
+font_size = 64
+outline_size = 0
 
 [node name="AlarmSpot" type="Marker3D" parent="ArtStudio" unique_id=1465926319]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.08, 0, -1.2)
@@ -562,6 +576,15 @@ script = ExtResource("26_noise_alarm")
 
 [node name="ExitDoor" parent="Courtyard" unique_id=1851873302 instance=ExtResource("18_exit_door")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.8, 0, -14.5)
+
+[node name="CourtyardGate" type="Node3D" parent="." node_paths=PackedStringArray("environment", "player", "entity", "patrol_point")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.915, 1.5, -14.57)
+script = ExtResource("43_navigation_gate")
+environment = NodePath("../SchoolEnv")
+player = NodePath("../Player")
+size = Vector3(34.69, 5, 23.56)
+entity = NodePath("../Entity")
+patrol_point = NodePath("../PatrolPoints/Courtyard")
 
 [node name="EndingDirector" parent="." unique_id=1222736225 instance=ExtResource("17_ending_director")]
 

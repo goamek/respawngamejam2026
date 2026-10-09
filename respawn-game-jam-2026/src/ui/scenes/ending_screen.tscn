@@ -13,6 +13,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ending_screen")
 main_menu_scene = "res://src/ui/scenes/main_menu.tscn"
+credits_scene = "res://src/ui/scenes/credits_screen.tscn"
 
 [node name="Background" type="ColorRect" parent="."]
 layout_mode = 1

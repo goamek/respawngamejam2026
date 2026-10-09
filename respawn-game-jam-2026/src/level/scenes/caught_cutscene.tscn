@@ -1,0 +1,30 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/level/scripts/caught_cutscene.gd" id="1_caught_cutscene"]
+[ext_resource type="Texture2D" path="res://src/environment/Decals/caught_drawing.jpg" id="2_drawing"]
+
+[node name="CaughtCutscene" type="Node3D"]
+script = ExtResource("1_caught_cutscene")
+
+[node name="Picture" type="Sprite3D" parent="."]
+pixel_size = 0.00025
+shaded = true
+double_sided = false
+transparent = false
+texture = ExtResource("2_drawing")
+
+[node name="Light" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.94, 0.342, 0, -0.342, 0.94, 0, 0.8, 2.2)
+light_energy = 4.0
+light_specular = 0.0
+spot_range = 6.0
+spot_angle = 32.0
+
+[node name="Camera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.7)
+
+[node name="CameraStart" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 2.7)
+
+[node name="CameraEnd" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0.95)

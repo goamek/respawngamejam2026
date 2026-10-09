@@ -7,6 +7,8 @@ extends Control
 @export_file("*.tscn") var game_scene: String = ""
 ## Page that lists the controls.
 @export_file("*.tscn") var controls_scene: String = ""
+## Page that lists who made the game.
+@export_file("*.tscn") var credits_scene: String = ""
 
 @onready var _start_button: Button = $Buttons/StartButton
 @onready var _controls_button: Button = $Buttons/ControlsButton
@@ -14,12 +16,15 @@ extends Control
 @onready var _quit_button: Button = $Buttons/QuitButton
 
 
-## Frees the mouse, wires up the buttons, and highlights the first one.
+## Frees the mouse, starts loading the game scene in the background, wires up the buttons, and highlights the first one.
 func _ready() -> void:
 	assert(not game_scene.is_empty(), "MainMenu needs a game scene.")
 	assert(not controls_scene.is_empty(), "MainMenu needs a controls scene.")
+	assert(not credits_scene.is_empty(), "MainMenu needs a credits scene.")
 	# The player captures the mouse while playing, so it arrives here still hidden after a game over.
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	# Loaded while the player reads the menu, so pressing Start does not have to wait for it.
+	SceneTransition.prepare(game_scene)
 	_start_button.pressed.connect(_on_start_button_pressed)
 	_controls_button.pressed.connect(_on_controls_button_pressed)
 	_credits_button.pressed.connect(_on_credits_button_pressed)
@@ -31,10 +36,12 @@ func _ready() -> void:
 	_start_button.grab_focus()
 
 
-## Begins a fresh run in the game scene.
+## Begins a fresh run in the game scene, behind a fade.
 func _on_start_button_pressed() -> void:
+	if SceneTransition.is_changing:
+		return
 	GameSession.start_new_game()
-	get_tree().change_scene_to_file(game_scene)
+	SceneTransition.change_to(game_scene)
 
 
 ## Shows the controls page.
@@ -42,10 +49,9 @@ func _on_controls_button_pressed() -> void:
 	get_tree().change_scene_to_file(controls_scene)
 
 
-## Will show the credits.
+## Shows the credits page.
 func _on_credits_button_pressed() -> void:
-	# STUB: does nothing until a credits screen exists
-	pass
+	get_tree().change_scene_to_file(credits_scene)
 
 
 ## Closes the game.

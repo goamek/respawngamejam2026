@@ -1,28 +1,17 @@
 [gd_scene format=3 uid="uid://bqpv7xylf0wpo"]
 
 [ext_resource type="Script" uid="uid://yn7x3tyj0yf1" path="res://src/flashlight/scripts/flashlight.gd" id="1_flashlight"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_body"]
-albedo_color = Color(0.08, 0.08, 0.08, 1)
-metallic = 0.6
-roughness = 0.4
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_body"]
-material = SubResource("StandardMaterial3D_body")
-top_radius = 0.028
-bottom_radius = 0.02
-height = 0.16
-radial_segments = 16
-rings = 1
+[ext_resource type="PackedScene" path="res://src/environment/materials/sm_flashlight.tscn" id="2_model"]
 
 [node name="Flashlight" type="Node3D" unique_id=1924096397]
 script = ExtResource("1_flashlight")
 unlocked_hues = Array[int]([])
 
-[node name="Body" type="MeshInstance3D" parent="." unique_id=869445394]
-transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0)
+[node name="Body" parent="." instance=ExtResource("2_model")]
+transform = Transform3D(-0.23, 0, 0, 0, 0.23, 0, 0, 0, -0.23, 0, 0, 0.01)
+
+[node name="SM_Flashlight" parent="Body" index="0"]
 cast_shadow = 0
-mesh = SubResource("CylinderMesh_body")
 
 [node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=218242314]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.09)
@@ -30,3 +19,5 @@ light_energy = 3.5
 shadow_enabled = true
 spot_range = 14.0
 spot_angle = 15.0
+
+[editable path="Body"]

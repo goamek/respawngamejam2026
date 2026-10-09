@@ -18,7 +18,8 @@ func _ready() -> void:
 
 ## Fades out the tracks this level started, since the audio controller outlives the level.
 func _exit_tree() -> void:
-	if not music_track.is_empty():
+	# Something else may have taken over the music by now, such as an ending; that track is left playing.
+	if AudioController.is_playing_music(music_track):
 		AudioController.stop_music(fade_time)
 	if not ambience_track.is_empty():
 		AudioController.stop_ambience(fade_time)

@@ -1,0 +1,192 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/ui/scripts/credits_screen.gd" id="1_credits_screen"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_text_only"]
+
+[node name="CreditsScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_credits_screen")
+main_menu_scene = "res://src/ui/scenes/main_menu.tscn"
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Card" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 28
+
+[node name="Title" type="Label" parent="Card"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 72
+text = "Credits"
+horizontal_alignment = 1
+
+[node name="TeamHeading" type="Label" parent="Card"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
+theme_override_font_sizes/font_size = 26
+text = "Main Team"
+horizontal_alignment = 1
+
+[node name="Team" type="GridContainer" parent="Card"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/h_separation = 60
+theme_override_constants/v_separation = 12
+columns = 2
+
+[node name="Name1" type="Label" parent="Card/Team"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 32
+text = "Garrett Oamek"
+horizontal_alignment = 0
+
+[node name="Role1" type="Label" parent="Card/Team"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_font_sizes/font_size = 32
+text = "Development, Design, Narrative"
+horizontal_alignment = 0
+
+[node name="Name2" type="Label" parent="Card/Team"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 32
+text = "Connor Oamek"
+horizontal_alignment = 0
+
+[node name="Role2" type="Label" parent="Card/Team"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_font_sizes/font_size = 32
+text = "Design, Narrative, Art"
+horizontal_alignment = 0
+
+[node name="Name3" type="Label" parent="Card/Team"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 32
+text = "Whitney Kurdziel"
+horizontal_alignment = 0
+
+[node name="Role3" type="Label" parent="Card/Team"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_font_sizes/font_size = 32
+text = "Design, Narrative, Art"
+horizontal_alignment = 0
+
+[node name="Name4" type="Label" parent="Card/Team"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 32
+text = "Allie Zhou"
+horizontal_alignment = 0
+
+[node name="Role4" type="Label" parent="Card/Team"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_font_sizes/font_size = 32
+text = "Art"
+horizontal_alignment = 0
+
+[node name="Name5" type="Label" parent="Card/Team"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 32
+text = "Emo"
+horizontal_alignment = 0
+
+[node name="Role5" type="Label" parent="Card/Team"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_font_sizes/font_size = 32
+text = "Music/SFX"
+horizontal_alignment = 0
+
+[node name="SourcesHeading" type="Label" parent="Card"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
+theme_override_font_sizes/font_size = 26
+text = "Sourced assets with permission to use"
+horizontal_alignment = 1
+
+[node name="Sources" type="VBoxContainer" parent="Card"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Source1" type="Label" parent="Card/Sources"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_font_sizes/font_size = 28
+text = "ambientCG"
+horizontal_alignment = 1
+
+[node name="Source2" type="Label" parent="Card/Sources"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_font_sizes/font_size = 28
+text = "Mixamo"
+horizontal_alignment = 1
+
+[node name="Source3" type="Label" parent="Card/Sources"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_font_sizes/font_size = 28
+text = "Derelict Corridor Megascans Samples"
+horizontal_alignment = 1
+
+[node name="Source4" type="Label" parent="Card/Sources"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_font_sizes/font_size = 28
+text = "Medieval Burlap Sack Pack"
+horizontal_alignment = 1
+
+[node name="BackButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -150.0
+offset_right = 100.0
+offset_bottom = -90.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 34
+text = "Back"
+flat = true
+theme_override_styles/focus = SubResource("StyleBoxEmpty_text_only")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_text_only")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_text_only")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_text_only")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_text_only")

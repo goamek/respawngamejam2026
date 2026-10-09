@@ -15,6 +15,7 @@ grow_vertical = 2
 script = ExtResource("1_main_menu")
 game_scene = "res://src/level/scenes/school_level.tscn"
 controls_scene = "res://src/ui/scenes/controls_screen.tscn"
+credits_scene = "res://src/ui/scenes/credits_screen.tscn"
 
 [node name="Background" type="ColorRect" parent="." unique_id=1133093884]
 layout_mode = 1
