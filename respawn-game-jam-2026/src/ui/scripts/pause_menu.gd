@@ -1,6 +1,6 @@
 class_name PauseMenu
 extends Control
-## Menu that freezes the game while it is open: a master volume slider, the controls page, and a button back to the title screen.
+## Menu that freezes the game while it is open: volume and brightness sliders, the controls page, and a button back to the title screen.
 ## The pause action opens and closes it. It works with the mouse, the keyboard, and a controller.
 
 ## Color of a control's text while it is not the one selected.
@@ -15,19 +15,25 @@ const FOCUS_COLOR: Color = Color.WHITE
 
 @onready var _volume_label: Label = $Panel/Items/VolumeRow/VolumeLabel
 @onready var _volume_slider: HSlider = $Panel/Items/VolumeRow/VolumeSlider
+@onready var _brightness_label: Label = $Panel/Items/BrightnessRow/BrightnessLabel
+@onready var _brightness_slider: HSlider = $Panel/Items/BrightnessRow/BrightnessSlider
 @onready var _controls_button: Button = $Panel/Items/ControlsButton
 @onready var _quit_button: Button = $Panel/Items/QuitButton
 @onready var _panel: Control = $Panel
 @onready var _controls: ControlsScreen = $Controls
 
 
-## Starts closed, and wires up the slider, the buttons and the controls page.
+## Starts closed, wires up the sliders, the buttons and the controls page, and applies the brightness chosen earlier.
 func _ready() -> void:
 	hide()
 	_volume_slider.value_changed.connect(_on_volume_slider_value_changed)
-	_volume_slider.focus_entered.connect(_on_volume_slider_focus_entered)
-	_volume_slider.focus_exited.connect(_on_volume_slider_focus_exited)
-	_volume_slider.mouse_entered.connect(_volume_slider.grab_focus)
+	_brightness_slider.value_changed.connect(_on_brightness_slider_value_changed)
+	for row: Array in [[_volume_slider, _volume_label], [_brightness_slider, _brightness_label]]:
+		var slider: HSlider = row[0]
+		slider.focus_entered.connect(_on_slider_focus_changed.bind(row[1], FOCUS_COLOR))
+		slider.focus_exited.connect(_on_slider_focus_changed.bind(row[1], IDLE_COLOR))
+		slider.mouse_entered.connect(slider.grab_focus)
+	_apply_brightness()
 	_controls_button.pressed.connect(_on_controls_button_pressed)
 	_controls_button.mouse_entered.connect(_controls_button.grab_focus)
 	_controls.closed.connect(_on_controls_closed)
@@ -51,6 +57,7 @@ func open() -> void:
 	get_tree().paused = true
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	_volume_slider.set_value_no_signal(AudioController.get_volume(AudioController.Bus.MASTER))
+	_brightness_slider.set_value_no_signal(GameSession.brightness)
 	_controls.hide()
 	_panel.show()
 	show()
@@ -69,14 +76,24 @@ func _on_volume_slider_value_changed(value: float) -> void:
 	AudioController.set_volume(AudioController.Bus.MASTER, value)
 
 
-## Brightens the slider's label while the slider is selected.
-func _on_volume_slider_focus_entered() -> void:
-	_volume_label.add_theme_color_override("font_color", FOCUS_COLOR)
+## Remembers the slider's new [param value] as the brightness and applies it at once, so the change shows behind the menu.
+func _on_brightness_slider_value_changed(value: float) -> void:
+	GameSession.brightness = value
+	_apply_brightness()
 
 
-## Dims the slider's label once the slider is no longer selected.
-func _on_volume_slider_focus_exited() -> void:
-	_volume_label.add_theme_color_override("font_color", IDLE_COLOR)
+## Draws the level's 3D picture at the chosen brightness; the menus and the on-screen display are not affected.
+func _apply_brightness() -> void:
+	var environment: Environment = get_viewport().find_world_3d().environment
+	if environment == null:
+		return
+	environment.adjustment_enabled = true
+	environment.adjustment_brightness = GameSession.brightness
+
+
+## Gives [param label] the [param color] that shows whether its slider is the one selected.
+func _on_slider_focus_changed(label: Label, color: Color) -> void:
+	label.add_theme_color_override("font_color", color)
 
 
 ## Swaps the menu for the controls page.
