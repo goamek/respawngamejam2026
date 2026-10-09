@@ -19,6 +19,7 @@ config/icon="res://src/ui/images/what_i_drew_icon.png"
 
 GameSession="*res://src/autoload/game_session.gd"
 AudioController="*res://src/autoload/audio_controller.tscn"
+SceneTransition="*res://src/autoload/scene_transition.tscn"
 
 [display]
 
