@@ -44,7 +44,7 @@ signal ended
 ## How far the entity tips its head while it stares, in degrees; positive leans the top of its head to the left as the player sees it.
 @export_range(-90.0, 90.0) var head_tilt: float = 70.0
 ## Guidance shown on screen during the stare.
-@export var hint: String = "Crouch under a desk to hide"
+@export var hint: String = "Press Ctrl to crouch under a desk and hide (B on a controller)"
 
 var _player: Player
 var _watch_door: Door

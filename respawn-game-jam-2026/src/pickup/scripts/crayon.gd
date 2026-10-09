@@ -14,6 +14,10 @@ const NEEDS_LIGHT_PROMPT: String = "You need a light"
 @export var glow: float = 0.6
 ## Whether the crayon is absent until appear() is called, as the reward for a puzzle.
 @export var is_hidden_at_start: bool = false
+## Guidance shown on screen for a while when the player picks this up; leave empty for none.
+@export var hint: String = ""
+## How long the guidance stays up, in seconds.
+@export var hint_time: float = 7.0
 ## Name in the sound library of the sound played when the player picks this up; leave empty for none.
 @export var pickup_sound: StringName = &"pickup"
 
@@ -66,11 +70,14 @@ func _on_player_flashlight_equipped(_flashlight: Flashlight) -> void:
 	_interactable.prompt = _take_prompt
 
 
-## Unlocks this crayon's hue on [param player]'s flashlight, then removes the crayon.
+## Unlocks this crayon's hue on [param player]'s flashlight, shows its hint if it has one, then removes the crayon.
 func _on_interactable_interacted(player: Player) -> void:
 	if player.flashlight == null:
 		return
 	player.flashlight.unlock_hue(hue)
 	AudioController.play_sound(pickup_sound)
+	if not hint.is_empty():
+		# The player outlives the crayon, so it is the one that takes the hint away again.
+		player.show_hint_for(hint, hint_time)
 	collected.emit(hue)
 	queue_free()

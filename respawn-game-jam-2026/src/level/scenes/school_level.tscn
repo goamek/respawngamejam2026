@@ -214,6 +214,7 @@ next_hint = "Find the library"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.52, 1.07, 16.16)
 hue = 2
 is_hidden_at_start = true
+hint = "Shine a colored beam on things to reveal their true color"
 
 [node name="CheckOutSlip" type="Sprite3D" parent="Library" unique_id=1583216957]
 transform = Transform3D(-1, 0, 0, 0, 0, 1, 0, 1, 0, 9, 0.975, 3.2)
