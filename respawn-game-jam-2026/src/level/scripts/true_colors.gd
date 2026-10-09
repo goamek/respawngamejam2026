@@ -56,6 +56,9 @@ func _swap_sprite(sprite: SpriteBase3D) -> void:
 		plain.albedo_texture = image
 		plain.metallic_specular = 0.0
 		_stand_ins[image] = _make_stand_in(plain, PICTURE_HUE)
+		# See-through parts of the image, such as a torn corner, are cut away; without this their hidden colors would be drawn.
+		# Switched on for every sprite: an image with nothing see-through loses nothing, and a compressed texture cannot be trusted to say which it is.
+		_stand_ins[image].set_shader_parameter(&"is_cut_out", true)
 	sprite.material_override = _stand_ins[image]
 	surface_count += 1
 

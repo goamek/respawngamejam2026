@@ -51,6 +51,10 @@ uniform vec3 uv_scale = vec3(1.0);
 uniform vec3 uv_offset = vec3(0.0);
 // Whether textures are laid on from the three world axes instead of the mesh's own UVs.
 uniform bool is_triplanar = false;
+// Whether the see-through parts of the image are cut away, such as a corner torn off a sheet of paper.
+uniform bool is_cut_out = false;
+// How see-through a pixel must be before it is cut away, from 0 for fully to 1 for not at all.
+uniform float cut_out_threshold : hint_range(0.0, 1.0) = 0.5;
 
 varying vec3 world_position;
 varying vec3 triplanar_position;
@@ -127,7 +131,12 @@ float reveal_at(vec3 position, vec3 color) {
 }
 
 void fragment() {
-	vec3 true_color = albedo.rgb * read_map(albedo_texture, UV, triplanar_position, triplanar_weights).rgb;
+	vec4 texel = read_map(albedo_texture, UV, triplanar_position, triplanar_weights);
+	// Cut away, not blended: the crayon screen effect only sees solid surfaces, so the rest of the sheet must stay solid.
+	if (is_cut_out && texel.a < cut_out_threshold) {
+		discard;
+	}
+	vec3 true_color = albedo.rgb * texel.rgb;
 	vec3 grey = vec3(dot(true_color, BRIGHTNESS_WEIGHTS));
 	float reveal = reveal_at(world_position, true_color);
 
