@@ -9,7 +9,7 @@ signal closed
 ## Scene loaded when the player leaves the page; leave empty when the page is laid over another menu, which it then hands back to.
 @export_file("*.tscn") var main_menu_scene: String = ""
 
-@onready var _back_button: Button = $Card/BackButton
+@onready var _back_button: Button = $BackButton
 
 
 ## Wires up the button; on its own the page shows at once, and over another menu it waits to be opened.

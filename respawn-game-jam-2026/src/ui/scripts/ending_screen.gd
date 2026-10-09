@@ -1,6 +1,6 @@
 class_name EndingScreen
 extends Control
-## Card shown when a run is over: a title, a few lines and music for whichever ending was reached, and a way back to the menu.
+## Card shown when a run is over: a title, a few lines and music for whichever ending was reached, and a way on to the credits or back to the menu.
 ## Works with the mouse, the keyboard, and a controller.
 
 ## Heading shown for each ending.
@@ -28,8 +28,13 @@ const MUSIC_VOLUMES: Dictionary[int, float] = {
 	GameSession.Ending.CAUGHT: 1.0,
 }
 
-## Scene loaded when the player leaves the card.
+## Words on the button when it leads on to the credits.
+const CONTINUE_LABEL: String = "Continue"
+
+## Scene loaded when the player leaves the card after losing.
 @export_file("*.tscn") var main_menu_scene: String = ""
+## Scene loaded when the player leaves the card after winning; leave empty to go to the main menu then too.
+@export_file("*.tscn") var credits_scene: String = ""
 ## Time the card takes to fade in out of the black, in seconds.
 @export var fade_in_time: float = 1.2
 ## Time the ending music takes to fade in if it is not already playing, and to fade out when the card is left, in seconds.
@@ -60,6 +65,8 @@ func _ready() -> void:
 	_picture.visible = _picture.texture != null
 	# Usually a no-op: the level starts this music as its ending begins, and it carries on across the scene change.
 	play_music_for(ending, music_fade_time)
+	if _leads_to_credits():
+		_menu_button.text = CONTINUE_LABEL
 	_menu_button.pressed.connect(_on_menu_button_pressed)
 	_menu_button.mouse_entered.connect(_menu_button.grab_focus)
 	# A controller or keyboard can only press a button that has focus.
@@ -84,8 +91,17 @@ func _picture_for(ending: GameSession.Ending) -> Texture2D:
 			return caught_picture
 
 
-## Fades the ending music out and goes back to the main menu with a fresh run ready.
+## Whether leaving this card shows the credits: only after a winning ending, and only if a credits scene is set.
+func _leads_to_credits() -> bool:
+	return GameSession.ending != GameSession.Ending.CAUGHT and not credits_scene.is_empty()
+
+
+## Readies a fresh run, then goes on to the credits with the music still playing after a win, or fades it out and returns to the main menu.
 func _on_menu_button_pressed() -> void:
-	AudioController.stop_music(music_fade_time)
+	var is_showing_credits: bool = _leads_to_credits()
 	GameSession.start_new_game()
+	if is_showing_credits:
+		get_tree().change_scene_to_file(credits_scene)
+		return
+	AudioController.stop_music(music_fade_time)
 	get_tree().change_scene_to_file(main_menu_scene)
