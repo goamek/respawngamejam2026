@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://v0f3jjybcwug"
 path.s3tc="res://.godot/imported/Cork004_1K-JPG_Color.jpg-03fbf4513fbcd020bcbda060569911b8.s3tc.ctex"
+path.etc2="res://.godot/imported/Cork004_1K-JPG_Color.jpg-03fbf4513fbcd020bcbda060569911b8.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://src/environment/materials/Cork/Cork004_1K-JPG_Color.jpg"
-dest_files=["res://.godot/imported/Cork004_1K-JPG_Color.jpg-03fbf4513fbcd020bcbda060569911b8.s3tc.ctex"]
+dest_files=["res://.godot/imported/Cork004_1K-JPG_Color.jpg-03fbf4513fbcd020bcbda060569911b8.s3tc.ctex", "res://.godot/imported/Cork004_1K-JPG_Color.jpg-03fbf4513fbcd020bcbda060569911b8.etc2.ctex"]
 
 [params]
 

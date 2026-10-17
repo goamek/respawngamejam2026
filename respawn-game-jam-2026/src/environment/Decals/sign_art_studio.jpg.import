@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://r4csx6bacwai"
 path.s3tc="res://.godot/imported/sign_art_studio.jpg-3cbc7d9752875df1bd882e9079359b96.s3tc.ctex"
+path.etc2="res://.godot/imported/sign_art_studio.jpg-3cbc7d9752875df1bd882e9079359b96.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://src/environment/Decals/sign_art_studio.jpg"
-dest_files=["res://.godot/imported/sign_art_studio.jpg-3cbc7d9752875df1bd882e9079359b96.s3tc.ctex"]
+dest_files=["res://.godot/imported/sign_art_studio.jpg-3cbc7d9752875df1bd882e9079359b96.s3tc.ctex", "res://.godot/imported/sign_art_studio.jpg-3cbc7d9752875df1bd882e9079359b96.etc2.ctex"]
 
 [params]
 

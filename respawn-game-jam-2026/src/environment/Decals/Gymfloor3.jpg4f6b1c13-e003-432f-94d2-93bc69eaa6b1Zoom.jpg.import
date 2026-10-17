@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cjnr5wvet2du"
 path.s3tc="res://.godot/imported/Gymfloor3.jpg4f6b1c13-e003-432f-94d2-93bc69eaa6b1Zoom.jpg-354724e540c3d567126e190f05dc4a2e.s3tc.ctex"
+path.etc2="res://.godot/imported/Gymfloor3.jpg4f6b1c13-e003-432f-94d2-93bc69eaa6b1Zoom.jpg-354724e540c3d567126e190f05dc4a2e.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://src/environment/Decals/Gymfloor3.jpg4f6b1c13-e003-432f-94d2-93bc69eaa6b1Zoom.jpg"
-dest_files=["res://.godot/imported/Gymfloor3.jpg4f6b1c13-e003-432f-94d2-93bc69eaa6b1Zoom.jpg-354724e540c3d567126e190f05dc4a2e.s3tc.ctex"]
+dest_files=["res://.godot/imported/Gymfloor3.jpg4f6b1c13-e003-432f-94d2-93bc69eaa6b1Zoom.jpg-354724e540c3d567126e190f05dc4a2e.s3tc.ctex", "res://.godot/imported/Gymfloor3.jpg4f6b1c13-e003-432f-94d2-93bc69eaa6b1Zoom.jpg-354724e540c3d567126e190f05dc4a2e.etc2.ctex"]
 
 [params]
 

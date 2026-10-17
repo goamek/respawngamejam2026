@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://brghbb5qtrxri"
 path.s3tc="res://.godot/imported/PaintedBricks001_1K-JPG_NormalGL.jpg-7852f6721bed6166e8af2f3f71838c62.s3tc.ctex"
+path.etc2="res://.godot/imported/PaintedBricks001_1K-JPG_NormalGL.jpg-7852f6721bed6166e8af2f3f71838c62.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://src/environment/materials/Bricks/PaintedBricks001_1K-JPG_NormalGL.jpg"
-dest_files=["res://.godot/imported/PaintedBricks001_1K-JPG_NormalGL.jpg-7852f6721bed6166e8af2f3f71838c62.s3tc.ctex"]
+dest_files=["res://.godot/imported/PaintedBricks001_1K-JPG_NormalGL.jpg-7852f6721bed6166e8af2f3f71838c62.s3tc.ctex", "res://.godot/imported/PaintedBricks001_1K-JPG_NormalGL.jpg-7852f6721bed6166e8af2f3f71838c62.etc2.ctex"]
 
 [params]
 

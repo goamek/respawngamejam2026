@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bv4n1h0ybe5x1"
 path.s3tc="res://.godot/imported/20261006_215446249_iOS.jpg-20c205c4e430631252bbe9a820130c17.s3tc.ctex"
+path.etc2="res://.godot/imported/20261006_215446249_iOS.jpg-20c205c4e430631252bbe9a820130c17.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://src/environment/Decals/20261006_215446249_iOS.jpg"
-dest_files=["res://.godot/imported/20261006_215446249_iOS.jpg-20c205c4e430631252bbe9a820130c17.s3tc.ctex"]
+dest_files=["res://.godot/imported/20261006_215446249_iOS.jpg-20c205c4e430631252bbe9a820130c17.s3tc.ctex", "res://.godot/imported/20261006_215446249_iOS.jpg-20c205c4e430631252bbe9a820130c17.etc2.ctex"]
 
 [params]
 

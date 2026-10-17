@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://b747m4wdhqq8i"
 path.s3tc="res://.godot/imported/scoreboard.jpg-76427a3842d0a8f1913b583695d9cd85.s3tc.ctex"
+path.etc2="res://.godot/imported/scoreboard.jpg-76427a3842d0a8f1913b583695d9cd85.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://src/environment/Decals/scoreboard.jpg"
-dest_files=["res://.godot/imported/scoreboard.jpg-76427a3842d0a8f1913b583695d9cd85.s3tc.ctex"]
+dest_files=["res://.godot/imported/scoreboard.jpg-76427a3842d0a8f1913b583695d9cd85.s3tc.ctex", "res://.godot/imported/scoreboard.jpg-76427a3842d0a8f1913b583695d9cd85.etc2.ctex"]
 
 [params]
 

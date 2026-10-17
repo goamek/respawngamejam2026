@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://qg2tkqt2m1qe"
 path.s3tc="res://.godot/imported/Metal054A_1K-JPG_Color.jpg-69aff8c5922ec5ee5ffa19843ba38f5f.s3tc.ctex"
+path.etc2="res://.godot/imported/Metal054A_1K-JPG_Color.jpg-69aff8c5922ec5ee5ffa19843ba38f5f.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://src/environment/materials/Metal_Door/Metal054A_1K-JPG_Color.jpg"
-dest_files=["res://.godot/imported/Metal054A_1K-JPG_Color.jpg-69aff8c5922ec5ee5ffa19843ba38f5f.s3tc.ctex"]
+dest_files=["res://.godot/imported/Metal054A_1K-JPG_Color.jpg-69aff8c5922ec5ee5ffa19843ba38f5f.s3tc.ctex", "res://.godot/imported/Metal054A_1K-JPG_Color.jpg-69aff8c5922ec5ee5ffa19843ba38f5f.etc2.ctex"]
 
 [params]
 

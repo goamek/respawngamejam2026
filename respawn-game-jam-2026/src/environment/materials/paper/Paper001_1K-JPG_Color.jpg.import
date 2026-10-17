@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://ewqjvrn8s6in"
 path.s3tc="res://.godot/imported/Paper001_1K-JPG_Color.jpg-9d00eed85306d6b89df6adcfc000859c.s3tc.ctex"
+path.etc2="res://.godot/imported/Paper001_1K-JPG_Color.jpg-9d00eed85306d6b89df6adcfc000859c.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://src/environment/materials/paper/Paper001_1K-JPG_Color.jpg"
-dest_files=["res://.godot/imported/Paper001_1K-JPG_Color.jpg-9d00eed85306d6b89df6adcfc000859c.s3tc.ctex"]
+dest_files=["res://.godot/imported/Paper001_1K-JPG_Color.jpg-9d00eed85306d6b89df6adcfc000859c.s3tc.ctex", "res://.godot/imported/Paper001_1K-JPG_Color.jpg-9d00eed85306d6b89df6adcfc000859c.etc2.ctex"]
 
 [params]
 

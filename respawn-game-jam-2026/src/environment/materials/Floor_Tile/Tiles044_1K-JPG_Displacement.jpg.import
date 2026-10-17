@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://21vif5h17ukc"
 path.s3tc="res://.godot/imported/Tiles044_1K-JPG_Displacement.jpg-db5c0d5ef577009d9539d2db42a93ccf.s3tc.ctex"
+path.etc2="res://.godot/imported/Tiles044_1K-JPG_Displacement.jpg-db5c0d5ef577009d9539d2db42a93ccf.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://src/environment/materials/Floor_Tile/Tiles044_1K-JPG_Displacement.jpg"
-dest_files=["res://.godot/imported/Tiles044_1K-JPG_Displacement.jpg-db5c0d5ef577009d9539d2db42a93ccf.s3tc.ctex"]
+dest_files=["res://.godot/imported/Tiles044_1K-JPG_Displacement.jpg-db5c0d5ef577009d9539d2db42a93ccf.s3tc.ctex", "res://.godot/imported/Tiles044_1K-JPG_Displacement.jpg-db5c0d5ef577009d9539d2db42a93ccf.etc2.ctex"]
 
 [params]
 

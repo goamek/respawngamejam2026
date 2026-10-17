@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://y13aex2wjuvq"
 path.s3tc="res://.godot/imported/sign_greenhouse.jpg-3f0d00072ca88bd73e4e463a7b96b83d.s3tc.ctex"
+path.etc2="res://.godot/imported/sign_greenhouse.jpg-3f0d00072ca88bd73e4e463a7b96b83d.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://src/environment/Decals/sign_greenhouse.jpg"
-dest_files=["res://.godot/imported/sign_greenhouse.jpg-3f0d00072ca88bd73e4e463a7b96b83d.s3tc.ctex"]
+dest_files=["res://.godot/imported/sign_greenhouse.jpg-3f0d00072ca88bd73e4e463a7b96b83d.s3tc.ctex", "res://.godot/imported/sign_greenhouse.jpg-3f0d00072ca88bd73e4e463a7b96b83d.etc2.ctex"]
 
 [params]
 

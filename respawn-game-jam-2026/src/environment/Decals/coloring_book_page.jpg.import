@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bjxaroxof36g3"
 path.s3tc="res://.godot/imported/coloring_book_page.jpg-6903725f6b79cefb17f0c76e72aec106.s3tc.ctex"
+path.etc2="res://.godot/imported/coloring_book_page.jpg-6903725f6b79cefb17f0c76e72aec106.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://src/environment/Decals/coloring_book_page.jpg"
-dest_files=["res://.godot/imported/coloring_book_page.jpg-6903725f6b79cefb17f0c76e72aec106.s3tc.ctex"]
+dest_files=["res://.godot/imported/coloring_book_page.jpg-6903725f6b79cefb17f0c76e72aec106.s3tc.ctex", "res://.godot/imported/coloring_book_page.jpg-6903725f6b79cefb17f0c76e72aec106.etc2.ctex"]
 
 [params]
 

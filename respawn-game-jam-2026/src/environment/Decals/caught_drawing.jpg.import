@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bjw6m1gdppi2g"
 path.s3tc="res://.godot/imported/caught_drawing.jpg-d8d521cf9d4b6aebcf69a7e32ba012ee.s3tc.ctex"
+path.etc2="res://.godot/imported/caught_drawing.jpg-d8d521cf9d4b6aebcf69a7e32ba012ee.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://src/environment/Decals/caught_drawing.jpg"
-dest_files=["res://.godot/imported/caught_drawing.jpg-d8d521cf9d4b6aebcf69a7e32ba012ee.s3tc.ctex"]
+dest_files=["res://.godot/imported/caught_drawing.jpg-d8d521cf9d4b6aebcf69a7e32ba012ee.s3tc.ctex", "res://.godot/imported/caught_drawing.jpg-d8d521cf9d4b6aebcf69a7e32ba012ee.etc2.ctex"]
 
 [params]
 

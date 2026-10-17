@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://prrg7uxw8t1m"
 path.s3tc="res://.godot/imported/GlazedTerracotta001_1K-JPG_Roughness.jpg-d7b340d3f33b28ed817a0ff14a80385a.s3tc.ctex"
+path.etc2="res://.godot/imported/GlazedTerracotta001_1K-JPG_Roughness.jpg-d7b340d3f33b28ed817a0ff14a80385a.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://src/environment/materials/Terracotta/GlazedTerracotta001_1K-JPG_Roughness.jpg"
-dest_files=["res://.godot/imported/GlazedTerracotta001_1K-JPG_Roughness.jpg-d7b340d3f33b28ed817a0ff14a80385a.s3tc.ctex"]
+dest_files=["res://.godot/imported/GlazedTerracotta001_1K-JPG_Roughness.jpg-d7b340d3f33b28ed817a0ff14a80385a.s3tc.ctex", "res://.godot/imported/GlazedTerracotta001_1K-JPG_Roughness.jpg-d7b340d3f33b28ed817a0ff14a80385a.etc2.ctex"]
 
 [params]
 

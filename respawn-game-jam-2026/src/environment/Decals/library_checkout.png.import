@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://ckwwjmmf6rksq"
 path.s3tc="res://.godot/imported/library_checkout.png-4381e5ae96679e5b04c90f5d8d9a1d10.s3tc.ctex"
+path.etc2="res://.godot/imported/library_checkout.png-4381e5ae96679e5b04c90f5d8d9a1d10.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://src/environment/Decals/library_checkout.png"
-dest_files=["res://.godot/imported/library_checkout.png-4381e5ae96679e5b04c90f5d8d9a1d10.s3tc.ctex"]
+dest_files=["res://.godot/imported/library_checkout.png-4381e5ae96679e5b04c90f5d8d9a1d10.s3tc.ctex", "res://.godot/imported/library_checkout.png-4381e5ae96679e5b04c90f5d8d9a1d10.etc2.ctex"]
 
 [params]
 
