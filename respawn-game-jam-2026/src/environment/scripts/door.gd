@@ -44,7 +44,7 @@ const LOCKED_PROMPT: String = "Locked"
 ## Name in the sound library of the sound played as the door starts to swing shut; leave empty for none.
 @export var close_sound: StringName = &"door_close"
 ## Distance from which the entity hears the player open or close the door, in meters.
-@export var noise_range: float = 6.0
+@export var noise_range: float = 12.0
 
 ## Whether the door is open or swinging open.
 var is_open: bool = false
