@@ -1,0 +1,119 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/ui/scripts/objectives_screen.gd" id="1_objectives_screen"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_text_only"]
+
+[node name="ObjectivesScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_objectives_screen")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Card" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(900, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = -70.0
+offset_bottom = -70.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 18
+
+[node name="Title" type="Label" parent="Card"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 72
+text = "Objectives"
+horizontal_alignment = 1
+
+[node name="GoalHeading" type="Label" parent="Card"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
+theme_override_font_sizes/font_size = 26
+text = "Current objective"
+
+[node name="Goal" type="Label" parent="Card"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+autowrap_mode = 3
+
+[node name="ColorsHeading" type="HBoxContainer" parent="Card"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Card/ColorsHeading"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
+theme_override_font_sizes/font_size = 26
+text = "Colors"
+
+[node name="Count" type="Label" parent="Card/ColorsHeading"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
+theme_override_font_sizes/font_size = 26
+
+[node name="Colors" type="GridContainer" parent="Card"]
+layout_mode = 2
+theme_override_constants/h_separation = 40
+theme_override_constants/v_separation = 2
+columns = 4
+
+[node name="HintsHeading" type="Label" parent="Card"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
+theme_override_font_sizes/font_size = 26
+text = "Past hints (newest first)"
+
+[node name="HintScroll" type="ScrollContainer" parent="Card"]
+custom_minimum_size = Vector2(0, 320)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="Hints" type="VBoxContainer" parent="Card/HintScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="BackButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -150.0
+offset_right = 100.0
+offset_bottom = -90.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 34
+text = "Back"
+flat = true
+theme_override_styles/focus = SubResource("StyleBoxEmpty_text_only")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_text_only")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_text_only")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_text_only")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_text_only")

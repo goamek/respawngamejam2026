@@ -45,6 +45,12 @@ signal ended
 @export_range(-90.0, 90.0) var head_tilt: float = 70.0
 ## Guidance shown on screen during the stare.
 @export var hint: String = "Press Shift to crouch under a desk and hide (B on a controller)"
+## Guidance shown once the meeting is over, whichever way it went; leave empty for none.
+@export var after_hint: String = "Feeling lost? Press Esc and choose Objectives (Start on a controller)"
+## Time after the meeting ends before the after hint shows, in seconds.
+@export var after_hint_delay: float = 3.0
+## How long the after hint stays up, in seconds.
+@export var after_hint_time: float = 7.0
 
 var _player: Player
 var _watch_door: Door
@@ -114,10 +120,12 @@ func _attack() -> void:
 	entity_attacked.emit()
 
 
-## Stops watching the player and the door, and removes the hint.
+## Stops watching the player and the door, removes the hint, and queues the after hint.
 func _finish() -> void:
 	set_physics_process(false)
 	_player.clear_hint()
+	if not after_hint.is_empty():
+		_player.show_hint_for(after_hint, after_hint_time, after_hint_delay)
 	if _watch_door != null and _watch_door.opened.is_connected(_on_watch_door_opened):
 		_watch_door.opened.disconnect(_on_watch_door_opened)
 	ended.emit()

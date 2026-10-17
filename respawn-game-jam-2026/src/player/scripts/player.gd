@@ -52,6 +52,8 @@ const MOVING_SPEED: float = 0.5
 
 ## Hint on screen at the moment; empty when there is none.
 var current_hint: String = ""
+## Every hint shown so far in this run, oldest first and each only once; listed on the objectives page.
+var hint_history: Array[String] = []
 ## Whether the player is crouched, by choice or because something is overhead.
 var is_crouching: bool = false
 ## Flashlight in the player's hand, or null while the hand is empty.
@@ -191,8 +193,10 @@ func hide_hud() -> void:
 	_hud.visible = false
 
 
-## Shows [param text] as a hint on screen until it is cleared or replaced.
+## Shows [param text] as a hint on screen until it is cleared or replaced, and notes it in the hint history.
 func show_hint(text: String) -> void:
+	if not text.is_empty() and not hint_history.has(text):
+		hint_history.append(text)
 	current_hint = text
 	hint_changed.emit(text)
 
